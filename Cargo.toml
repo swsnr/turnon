@@ -1,0 +1,14 @@
+[package]
+name = "wakeup"
+description = "Wake up things in the network"
+homepage = "https://github.com/swsnr/wakeup"
+repository = "https://github.com/swsnr/wakeup"
+license = "MPL-2.0"
+authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+gtk = { package = "gtk4", version = "0.9.1", features = ["gnome_46"] }
+adw = { package = "libadwaita", version = "0.7.0", features = ["v1_5"] }
