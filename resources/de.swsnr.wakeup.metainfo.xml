@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component type="desktop-application">
+    <id>de.swsnr.wakeup</id>
+    <metadata_license>CC0-1.0</metadata_license>
+    <name>Wake Up</name>
+    <summary>Wake up devices in the local network</summary>
+    <!-- TODO: icon, see
+    https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-icon -->
+    <description>
+        <p>Conveniently wake up devices in the local network, such as a NAS or a gaming console,
+            using WakeOnLan.</p>
+        <!-- TODO: List features -->
+    </description>
+    <url type="homepage">https://github.com/swsnr/wakeup</url>
+    <url type="bugtracker">https://github.com/swsnr/wakeup/issues</url>
+    <url type="vcs-browser">https://github.com/swsnr/wakeup/issues</url>
+    <launchable type="desktop-id">de.swsnr.Wakeup.desktop</launchable>
+    <!-- TODO: Releases -->
+    <project_license>MPL-2.0</project_license>
+    <developer id="de.swsnr">
+        <name translatable="no">Sebastian Wiesner</name>
+    </developer>
+    <!-- TODO: Screenshots -->
+    <!-- TODO: translation? -->
+    <content_rating type="oars-1.1" />
+    <!-- TODO: Branding and brand colors -->
+</component>

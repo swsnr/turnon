@@ -9,12 +9,31 @@
 
 use adw::prelude::*;
 use gtk::gio;
-use gtk::glib;
+use gtk::gio::SimpleAction;
+use gtk::glib::{self, Variant};
 use widgets::WakeUpApplicationWindow;
 
 mod widgets;
 
 static APP_ID: &str = "de.swsnr.wakeup";
+
+fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param: Option<&Variant>) {
+    adw::AboutDialog::from_appdata(
+        "/de/swsnr/wakeup/de.swsnr.wakeup.metainfo.xml",
+        Some(env!("CARGO_PKG_VERSION")),
+    )
+    .present(app.active_window().as_ref());
+}
+
+/// Handle application startup.
+///
+/// Create application actions.
+fn startup_application(app: &adw::Application) {
+    let actions = [gio::ActionEntryBuilder::new("about")
+        .activate(activate_about_action)
+        .build()];
+    app.add_action_entries(actions);
+}
 
 fn activate_application(app: &adw::Application) {
     match app.active_window() {
@@ -35,6 +54,7 @@ fn main() -> glib::ExitCode {
         .build();
 
     app.connect_activate(activate_application);
+    app.connect_startup(startup_application);
 
     app.run()
 }
