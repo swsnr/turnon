@@ -4,6 +4,13 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 using Gtk 4.0;
 
+/** Documentation for all relevant shortcuts of our app.
+ *
+ * Gtk's main application automatically sets up an action with a shortcut to
+ * show this window if gtk/help-overlay.ui exists.
+ *
+ * See https://docs.gtk.org/gtk4/class.Application.html#automatic-resources
+ */
 Gtk.ShortcutsWindow help_overlay {
     modal: true;
 

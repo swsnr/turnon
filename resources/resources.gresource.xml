@@ -7,7 +7,8 @@
     <gresource prefix="/de/swsnr/wakeup/">
         <file compressed="true" preprocess="xml-stripblanks">de.swsnr.wakeup.metainfo.xml</file>
     </gresource>
-    <!-- Auto-loaded Gtk resources -->
+    <!-- Auto-loaded Gtk resources, see
+    https://docs.gtk.org/gtk4/class.Application.html#automatic-resources -->
     <gresource prefix="/de/swsnr/wakeup/">
         <file compressed="true" preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
     </gresource>
