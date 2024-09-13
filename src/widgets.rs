@@ -1,0 +1,61 @@
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+use gtk::gio;
+use gtk::glib;
+
+glib::wrapper! {
+    pub struct WakeupApplicationWindow(ObjectSubclass<imp::WakeupApplicationWindow>)
+        @extends adw::ApplicationWindow, gtk::ApplicationWindow, gtk::Window, gtk::Widget,
+        @implements gio::ActionGroup, gio::ActionMap,
+            gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget,
+            gtk::Native, gtk::Root, gtk::ShortcutManager;
+}
+
+impl WakeupApplicationWindow {
+    pub fn new(application: &adw::Application) -> Self {
+        glib::Object::builder()
+            .property("application", application)
+            .build()
+    }
+}
+
+mod imp {
+    use adw::subclass::prelude::*;
+    use gtk::glib::subclass::InitializingObject;
+    use gtk::{glib, CompositeTemplate};
+
+    #[derive(CompositeTemplate, Default)]
+    #[template(resource = "/de/swsnr/Wakeup/ui/wakeup_application_window.ui")]
+    pub struct WakeupApplicationWindow {}
+
+    #[glib::object_subclass]
+    impl ObjectSubclass for WakeupApplicationWindow {
+        const NAME: &'static str = "WakeupApplicationWindow";
+
+        type Type = super::WakeupApplicationWindow;
+
+        type ParentType = adw::ApplicationWindow;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+        }
+
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    impl ObjectImpl for WakeupApplicationWindow {}
+
+    impl WidgetImpl for WakeupApplicationWindow {}
+
+    impl WindowImpl for WakeupApplicationWindow {}
+
+    impl ApplicationWindowImpl for WakeupApplicationWindow {}
+
+    impl AdwApplicationWindowImpl for WakeupApplicationWindow {}
+}

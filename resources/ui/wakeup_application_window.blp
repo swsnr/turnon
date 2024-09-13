@@ -1,0 +1,45 @@
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+using Gtk 4.0;
+using Adw 1;
+
+template $WakeupApplicationWindow: Adw.ApplicationWindow {
+    default-width: 800;
+    default-height: 600;
+    title: _('Wakeup');
+
+    content: Adw.ToolbarView {
+        top-bar-style: raised;
+
+        [top]
+        Adw.HeaderBar {
+            [end]
+            MenuButton button_menu {
+                menu-model: menu_app;
+                icon-name: 'open-menu-symbolic';
+                primary: true;
+            }
+        }
+
+        Adw.StatusPage {
+            title: _('Wakeup');
+            description: _('TODO');
+        }
+    };
+}
+
+menu menu_app {
+    section {
+        item {
+            label: _('Keyboard Shortcuts');
+            action: 'app.shortcuts';
+        }
+
+        item {
+            label: _('About Wakeup');
+            action: 'app.about';
+        }
+    }
+}

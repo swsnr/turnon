@@ -8,7 +8,11 @@ authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
 version = "0.1.0"
 edition = "2021"
 publish = false
+build = "build.rs"
 
 [dependencies]
 gtk = { package = "gtk4", version = "0.9.1", features = ["gnome_46"] }
 adw = { package = "libadwaita", version = "0.7.0", features = ["v1_5"] }
+
+[build-dependencies]
+glib-build-tools = "0.20.0"

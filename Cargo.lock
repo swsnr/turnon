@@ -235,6 +235,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "glib-build-tools"
+version = "0.20.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7029c2651d9b5d5a3eea93ec8a1995665c6d3a69ce9bf6042ad9064d134736d8"
+dependencies = [
+ "gio",
+]
+
+[[package]]
 name = "glib-macros"
 version = "0.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -656,6 +665,7 @@ checksum = "852e951cb7832cb45cb1169900d19760cfa39b82bc0ea9c0e5a14ae88411c98b"
 name = "wakeup"
 version = "0.1.0"
 dependencies = [
+ "glib-build-tools",
  "gtk4",
  "libadwaita",
 ]
