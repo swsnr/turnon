@@ -2,7 +2,7 @@
 <gresources>
     <!-- Our own resources -->
     <gresource prefix="/de/swsnr/Wakeup/">
-        <file compressed="true" preprocess="xml-stripblanks">ui/wakeup_application_window.ui</file>
+        <file compressed="true" preprocess="xml-stripblanks">ui/wakeup-application-window.ui</file>
     </gresource>
     <!-- Auto-loaded Gtk resources -->
     <gresource prefix="/de/swsnr/Wakeup/">

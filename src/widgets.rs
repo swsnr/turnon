@@ -29,7 +29,7 @@ mod imp {
     use gtk::{glib, CompositeTemplate};
 
     #[derive(CompositeTemplate, Default)]
-    #[template(resource = "/de/swsnr/Wakeup/ui/wakeup_application_window.ui")]
+    #[template(resource = "/de/swsnr/Wakeup/ui/wakeup-application-window.ui")]
     pub struct WakeupApplicationWindow {}
 
     #[glib::object_subclass]
