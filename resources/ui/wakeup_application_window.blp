@@ -17,7 +17,7 @@ template $WakeupApplicationWindow: Adw.ApplicationWindow {
         Adw.HeaderBar {
             [end]
             MenuButton button_menu {
-                menu-model: menu_app;
+                menu-model: main_menu;
                 icon-name: 'open-menu-symbolic';
                 primary: true;
             }
@@ -30,15 +30,15 @@ template $WakeupApplicationWindow: Adw.ApplicationWindow {
     };
 }
 
-menu menu_app {
+menu main_menu {
     section {
         item {
-            label: _('Keyboard Shortcuts');
-            action: 'app.shortcuts';
+            label: _('_Keyboard Shortcuts');
+            action: 'win.show-help-overlay';
         }
 
         item {
-            label: _('About Wakeup');
+            label: _('_About Wakeup');
             action: 'app.about';
         }
     }

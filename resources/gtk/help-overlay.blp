@@ -1,0 +1,22 @@
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+using Gtk 4.0;
+
+Gtk.ShortcutsWindow help_overlay {
+    modal: true;
+
+    Gtk.ShortcutsSection {
+        section-name: "shortcuts";
+
+        Gtk.ShortcutsGroup {
+            title: C_("shortcuts group", "General");
+
+            Gtk.ShortcutsShortcut {
+                title: C_("shortcut description", "Show shortcuts");
+                action-name: "win.show-help-overlay";
+            }
+        }
+    }
+}

@@ -17,7 +17,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
           <object class="AdwHeaderBar">
             <child type="end">
               <object class="GtkMenuButton" id="button_menu">
-                <property name="menu-model">menu_app</property>
+                <property name="menu-model">main_menu</property>
                 <property name="icon-name">open-menu-symbolic</property>
                 <property name="primary">true</property>
               </object>
@@ -33,14 +33,14 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
       </object>
     </property>
   </template>
-  <menu id="menu_app">
+  <menu id="main_menu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">Keyboard Shortcuts</attribute>
-        <attribute name="action">app.shortcuts</attribute>
+        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
+        <attribute name="action">win.show-help-overlay</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">About Wakeup</attribute>
+        <attribute name="label" translatable="yes">_About Wakeup</attribute>
         <attribute name="action">app.about</attribute>
       </item>
     </section>
