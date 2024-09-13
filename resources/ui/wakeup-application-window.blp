@@ -5,10 +5,10 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $WakeupApplicationWindow: Adw.ApplicationWindow {
+template $WakeUpApplicationWindow: Adw.ApplicationWindow {
     default-width: 800;
     default-height: 600;
-    title: _('Wakeup');
+    title: _('Wake Up');
 
     content: Adw.ToolbarView {
         top-bar-style: raised;
@@ -24,7 +24,7 @@ template $WakeupApplicationWindow: Adw.ApplicationWindow {
         }
 
         Adw.StatusPage {
-            title: _('Wakeup');
+            title: _('Wake Up');
             description: _('TODO');
         }
     };
@@ -38,7 +38,7 @@ menu main_menu {
         }
 
         item {
-            label: _('_About Wakeup');
+            label: _('_About Wake Up');
             action: 'app.about';
         }
     }

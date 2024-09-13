@@ -8,14 +8,14 @@ use gtk::gio;
 use gtk::glib;
 
 glib::wrapper! {
-    pub struct WakeupApplicationWindow(ObjectSubclass<imp::WakeupApplicationWindow>)
+    pub struct WakeUpApplicationWindow(ObjectSubclass<imp::WakeUpApplicationWindow>)
         @extends adw::ApplicationWindow, gtk::ApplicationWindow, gtk::Window, gtk::Widget,
         @implements gio::ActionGroup, gio::ActionMap,
             gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget,
             gtk::Native, gtk::Root, gtk::ShortcutManager;
 }
 
-impl WakeupApplicationWindow {
+impl WakeUpApplicationWindow {
     pub fn new(application: &adw::Application) -> Self {
         glib::Object::builder()
             .property("application", application)
@@ -29,14 +29,14 @@ mod imp {
     use gtk::{glib, CompositeTemplate};
 
     #[derive(CompositeTemplate, Default)]
-    #[template(resource = "/de/swsnr/Wakeup/ui/wakeup-application-window.ui")]
-    pub struct WakeupApplicationWindow {}
+    #[template(resource = "/de/swsnr/wakeup/ui/wakeup-application-window.ui")]
+    pub struct WakeUpApplicationWindow {}
 
     #[glib::object_subclass]
-    impl ObjectSubclass for WakeupApplicationWindow {
-        const NAME: &'static str = "WakeupApplicationWindow";
+    impl ObjectSubclass for WakeUpApplicationWindow {
+        const NAME: &'static str = "WakeUpApplicationWindow";
 
-        type Type = super::WakeupApplicationWindow;
+        type Type = super::WakeUpApplicationWindow;
 
         type ParentType = adw::ApplicationWindow;
 
@@ -49,13 +49,13 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for WakeupApplicationWindow {}
+    impl ObjectImpl for WakeUpApplicationWindow {}
 
-    impl WidgetImpl for WakeupApplicationWindow {}
+    impl WidgetImpl for WakeUpApplicationWindow {}
 
-    impl WindowImpl for WakeupApplicationWindow {}
+    impl WindowImpl for WakeUpApplicationWindow {}
 
-    impl ApplicationWindowImpl for WakeupApplicationWindow {}
+    impl ApplicationWindowImpl for WakeUpApplicationWindow {}
 
-    impl AdwApplicationWindowImpl for WakeupApplicationWindow {}
+    impl AdwApplicationWindowImpl for WakeUpApplicationWindow {}
 }

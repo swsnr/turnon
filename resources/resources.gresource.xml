@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <!-- Our own resources -->
-    <gresource prefix="/de/swsnr/Wakeup/">
+    <gresource prefix="/de/swsnr/wakeup/">
         <file compressed="true" preprocess="xml-stripblanks">ui/wakeup-application-window.ui</file>
     </gresource>
     <!-- Auto-loaded Gtk resources -->
-    <gresource prefix="/de/swsnr/Wakeup/">
+    <gresource prefix="/de/swsnr/wakeup/">
         <file compressed="true" preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
     </gresource>
 </gresources>

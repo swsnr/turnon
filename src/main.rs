@@ -10,15 +10,15 @@
 use adw::prelude::*;
 use gtk::gio;
 use gtk::glib;
-use widgets::WakeupApplicationWindow;
+use widgets::WakeUpApplicationWindow;
 
 mod widgets;
 
-static APP_ID: &str = include_str!("./appid");
+static APP_ID: &str = "de.swsnr.wakeup";
 
 fn build_ui(app: &adw::Application) {
     // TODO: Create mainwindow from window.ui file
-    let window = WakeupApplicationWindow::new(app);
+    let window = WakeUpApplicationWindow::new(app);
     window.present();
 }
 
