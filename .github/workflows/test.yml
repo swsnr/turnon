@@ -25,4 +25,4 @@ jobs:
       - name: cargo deny check
         uses: EmbarkStudios/cargo-deny-action@v2
       - run: cargo fmt --check
-      - run: appstreamcli validate --explain  resources/de.swsnr.Wakeup.metainfo.xml
+      - run: appstreamcli validate --explain resources/de.swsnr.wakeup.metainfo.xml
