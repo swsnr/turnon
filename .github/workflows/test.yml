@@ -1,0 +1,28 @@
+name: Test
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Build & lint
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - run: cargo build --all-features
+      - run: cargo clippy --all-targets
+      - name: cargo deny check
+        uses: EmbarkStudios/cargo-deny-action@v1
+      - run: cargo fmt --check
+      - run: appstreamcli validate --explain  resources/de.swsnr.Wakeup.metainfo.xml
