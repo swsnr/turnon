@@ -29,10 +29,18 @@ fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param:
 ///
 /// Create application actions.
 fn startup_application(app: &adw::Application) {
-    let actions = [gio::ActionEntryBuilder::new("about")
-        .activate(activate_about_action)
-        .build()];
+    let actions = [
+        gio::ActionEntryBuilder::new("quit")
+            .activate(|a: &adw::Application, _, _| a.quit())
+            .build(),
+        gio::ActionEntryBuilder::new("about")
+            .activate(activate_about_action)
+            .build(),
+    ];
     app.add_action_entries(actions);
+
+    app.set_accels_for_action("window.close", &["<Control>w"]);
+    app.set_accels_for_action("app.quit", &["<Control>q"]);
 }
 
 fn activate_application(app: &adw::Application) {
