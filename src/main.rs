@@ -16,10 +16,13 @@ mod widgets;
 
 static APP_ID: &str = "de.swsnr.wakeup";
 
-fn build_ui(app: &adw::Application) {
-    // TODO: Create mainwindow from window.ui file
-    let window = WakeUpApplicationWindow::new(app);
-    window.present();
+fn activate_application(app: &adw::Application) {
+    match app.active_window() {
+        Some(window) => window.present(),
+        None => {
+            WakeUpApplicationWindow::new(app).present();
+        }
+    }
 }
 
 fn main() -> glib::ExitCode {
@@ -31,7 +34,7 @@ fn main() -> glib::ExitCode {
         .application_id(APP_ID.trim())
         .build();
 
-    app.connect_activate(build_ui);
+    app.connect_activate(activate_application);
 
     app.run()
 }
