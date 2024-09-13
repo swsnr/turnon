@@ -42,6 +42,10 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+
+            klass.install_action("win.add_device", None, |_, _, _| {
+                todo!();
+            })
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {

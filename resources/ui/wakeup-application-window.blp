@@ -15,6 +15,13 @@ template $WakeUpApplicationWindow: Adw.ApplicationWindow {
 
         [top]
         Adw.HeaderBar {
+            [start]
+            Gtk.Button {
+                action-name: "win.add_device";
+                icon-name: "list-add-symbolic";
+                tooltip-text: C_("tooltip", "Add a new device");
+            }
+
             [end]
             MenuButton button_menu {
                 menu-model: main_menu;
@@ -24,8 +31,8 @@ template $WakeUpApplicationWindow: Adw.ApplicationWindow {
         }
 
         Adw.StatusPage {
-            title: _('Wake Up');
-            description: _('TODO');
+            title: _('No devices');
+            description: _('Add a new device to wake it up.');
         }
     };
 }
