@@ -21,7 +21,9 @@ jobs:
         with:
           components: rustfmt, clippy
       - run: cargo fmt --check
-      - run: blueprint-compiler format **/*.blp
+      - run: blueprint-compiler format resources/**/*.blp
+        # Make the glob work
+        shell: bash
       - run: cargo build --all-features
       - run: cargo clippy --all-targets
       - name: cargo deny check
