@@ -19,6 +19,12 @@ impl AddDeviceDialog {
     }
 }
 
+impl Default for AddDeviceDialog {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 mod imp {
 
     use adw::subclass::prelude::*;
