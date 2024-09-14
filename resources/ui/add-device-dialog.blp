@@ -6,45 +6,45 @@ using Gtk 4.0;
 using Adw 1;
 
 template $AddDeviceDialog: Adw.Dialog {
-    can-close: true;
-    title: _("Add device");
-    content-width: 450;
+  can-close: true;
+  title: _("Add device");
+  content-width: 450;
 
-    Adw.ToolbarView {
-        [top]
-        Adw.HeaderBar {}
+  Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {}
 
-        Adw.PreferencesPage {
-            Adw.PreferencesGroup {
-                title: _("Device details");
+    Adw.PreferencesPage {
+      Adw.PreferencesGroup {
+        title: _("Device details");
 
-                Adw.EntryRow label {
-                    title: _("Device label");
-                    tooltip-text: _("A label to recognize the device by");
-                }
-
-                Adw.EntryRow mac_address {
-                    title: _("MAC address");
-                    tooltip-text: _("The hardware address for this device");
-                }
-
-                Adw.EntryRow host {
-                    title: _("Host name or IP address");
-                    tooltip-text: _("The hostname or IP address of the device to check whether it has woken up");
-                }
-
-                Gtk.Button {
-                    label: _("Add");
-                    halign: center;
-                    margin-top: 12;
-                    use-underline: true;
-
-                    styles [
-                        "pill",
-                        "suggested-action"
-                    ]
-                }
-            }
+        Adw.EntryRow label {
+          title: _("Device label");
+          tooltip-text: _("A label to recognize the device by");
         }
+
+        Adw.EntryRow mac_address {
+          title: _("MAC address");
+          tooltip-text: _("The hardware address for this device");
+        }
+
+        Adw.EntryRow host {
+          title: _("Host name or IP address");
+          tooltip-text: _("The hostname or IP address of the device to check whether it has woken up");
+        }
+
+        Gtk.Button {
+          label: _("Add");
+          halign: center;
+          margin-top: 12;
+          use-underline: true;
+
+          styles [
+            "pill",
+            "suggested-action"
+          ]
+        }
+      }
     }
+  }
 }

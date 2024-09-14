@@ -12,23 +12,23 @@ using Gtk 4.0;
  * See https://docs.gtk.org/gtk4/class.Application.html#automatic-resources
  */
 Gtk.ShortcutsWindow help_overlay {
-    modal: true;
+  modal: true;
 
-    Gtk.ShortcutsSection {
-        section-name: "shortcuts";
+  Gtk.ShortcutsSection {
+    section-name: "shortcuts";
 
-        Gtk.ShortcutsGroup {
-            title: C_("shortcuts group", "General");
+    Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "General");
 
-            Gtk.ShortcutsShortcut {
-                title: C_("shortcut description", "Show shortcuts");
-                action-name: "win.show-help-overlay";
-            }
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Show shortcuts");
+        action-name: "win.show-help-overlay";
+      }
 
-            Gtk.ShortcutsShortcut {
-                title: C_("shortcut description", "Quit");
-                action-name: "app.quit";
-            }
-        }
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Quit");
+        action-name: "app.quit";
+      }
     }
+  }
 }

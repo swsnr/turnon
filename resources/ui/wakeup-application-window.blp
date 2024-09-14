@@ -6,47 +6,47 @@ using Gtk 4.0;
 using Adw 1;
 
 template $WakeUpApplicationWindow: Adw.ApplicationWindow {
-    default-width: 800;
-    default-height: 600;
-    title: _('Wake Up');
+  default-width: 800;
+  default-height: 600;
+  title: _('Wake Up');
 
-    content: Adw.ToolbarView {
-        top-bar-style: raised;
+  content: Adw.ToolbarView {
+    top-bar-style: raised;
 
-        [top]
-        Adw.HeaderBar {
-            [start]
-            Gtk.Button {
-                action-name: "win.add_device";
-                icon-name: "list-add-symbolic";
-                tooltip-text: C_("tooltip", "Add a new device");
-            }
+    [top]
+    Adw.HeaderBar {
+      [start]
+      Gtk.Button {
+        action-name: "win.add_device";
+        icon-name: "list-add-symbolic";
+        tooltip-text: C_("tooltip", "Add a new device");
+      }
 
-            [end]
-            MenuButton button_menu {
-                menu-model: main_menu;
-                icon-name: 'open-menu-symbolic';
-                primary: true;
-            }
-        }
+      [end]
+      MenuButton button_menu {
+        menu-model: main_menu;
+        icon-name: 'open-menu-symbolic';
+        primary: true;
+      }
+    }
 
-        Adw.StatusPage {
-            title: _('No devices');
-            description: _('Add a new device to wake it up.');
-        }
-    };
+    Adw.StatusPage {
+      title: _('No devices');
+      description: _('Add a new device to wake it up.');
+    }
+  };
 }
 
 menu main_menu {
-    section {
-        item {
-            label: _('_Keyboard Shortcuts');
-            action: 'win.show-help-overlay';
-        }
-
-        item {
-            label: _('_About Wake Up');
-            action: 'app.about';
-        }
+  section {
+    item {
+      label: _('_Keyboard Shortcuts');
+      action: 'win.show-help-overlay';
     }
+
+    item {
+      label: _('_About Wake Up');
+      action: 'app.about';
+    }
+  }
 }
