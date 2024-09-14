@@ -24,12 +24,14 @@ jobs:
       - run: blueprint-compiler format resources/**/*.blp
         # Make the glob work
         shell: bash
+      # Skip blueprint compilation because the gtk4-rs container lacks the
+      # typelib files required for blueprint to resolve imports.
       - run: cargo build --all-features
         env:
-          # Skip blueprint compilation because the gtk4-rs container lacks the
-          # typelib files required for blueprint to resolve imports.
           SKIP_BLUEPRINT: 1
       - run: cargo clippy --all-targets
+        env:
+          SKIP_BLUEPRINT: 1
       - name: cargo deny check
         uses: EmbarkStudios/cargo-deny-action@v2
       - run: appstreamcli validate --explain resources/de.swsnr.wakeup.metainfo.xml
