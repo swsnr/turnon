@@ -24,8 +24,9 @@ fn compile_blueprint() {
 
     assert!(
         output.status.success(),
-        "blueprint-compiler failed with exit status {} and stderr:\n{}",
+        "blueprint-compiler failed with exit status {} and stdout\n{}\n\n and stderr:\n{}",
         output.status,
+        String::from_utf8_lossy(&output.stdout),
         String::from_utf8_lossy(&output.stderr)
     );
 }
