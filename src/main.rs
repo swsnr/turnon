@@ -39,6 +39,7 @@ fn startup_application(app: &adw::Application) {
     ];
     app.add_action_entries(actions);
 
+    app.set_accels_for_action("win.add_device", &["<Control>n"]);
     app.set_accels_for_action("window.close", &["<Control>w"]);
     app.set_accels_for_action("app.quit", &["<Control>q"]);
 }

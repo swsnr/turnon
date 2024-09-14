@@ -5,6 +5,9 @@
         <file compressed="true" preprocess="xml-stripblanks">ui/wakeup-application-window.ui</file>
     </gresource>
     <gresource prefix="/de/swsnr/wakeup/">
+        <file compressed="true" preprocess="xml-stripblanks">ui/add-device-dialog.ui</file>
+    </gresource>
+    <gresource prefix="/de/swsnr/wakeup/">
         <file compressed="true" preprocess="xml-stripblanks">de.swsnr.wakeup.metainfo.xml</file>
     </gresource>
     <!-- Auto-loaded Gtk resources, see

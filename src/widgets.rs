@@ -4,62 +4,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use gtk::gio;
-use gtk::glib;
+mod add_device_dialog;
+mod application_window;
 
-glib::wrapper! {
-    pub struct WakeUpApplicationWindow(ObjectSubclass<imp::WakeUpApplicationWindow>)
-        @extends adw::ApplicationWindow, gtk::ApplicationWindow, gtk::Window, gtk::Widget,
-        @implements gio::ActionGroup, gio::ActionMap,
-            gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget,
-            gtk::Native, gtk::Root, gtk::ShortcutManager;
-}
-
-impl WakeUpApplicationWindow {
-    pub fn new(application: &adw::Application) -> Self {
-        glib::Object::builder()
-            .property("application", application)
-            .build()
-    }
-}
-
-mod imp {
-    use adw::subclass::prelude::*;
-    use gtk::glib::subclass::InitializingObject;
-    use gtk::{glib, CompositeTemplate};
-
-    #[derive(CompositeTemplate, Default)]
-    #[template(resource = "/de/swsnr/wakeup/ui/wakeup-application-window.ui")]
-    pub struct WakeUpApplicationWindow {}
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for WakeUpApplicationWindow {
-        const NAME: &'static str = "WakeUpApplicationWindow";
-
-        type Type = super::WakeUpApplicationWindow;
-
-        type ParentType = adw::ApplicationWindow;
-
-        fn class_init(klass: &mut Self::Class) {
-            klass.bind_template();
-
-            klass.install_action("win.add_device", None, |_, _, _| {
-                todo!();
-            })
-        }
-
-        fn instance_init(obj: &InitializingObject<Self>) {
-            obj.init_template();
-        }
-    }
-
-    impl ObjectImpl for WakeUpApplicationWindow {}
-
-    impl WidgetImpl for WakeUpApplicationWindow {}
-
-    impl WindowImpl for WakeUpApplicationWindow {}
-
-    impl ApplicationWindowImpl for WakeUpApplicationWindow {}
-
-    impl AdwApplicationWindowImpl for WakeUpApplicationWindow {}
-}
+pub use add_device_dialog::AddDeviceDialog;
+pub use application_window::WakeUpApplicationWindow;
