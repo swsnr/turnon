@@ -25,6 +25,10 @@ jobs:
         # Make the glob work
         shell: bash
       - run: cargo build --all-features
+        env:
+          # Skip blueprint compilation because the gtk4-rs container lacks the
+          # typelib files required for blueprint to resolve imports.
+          SKIP_BLUEPRINT: 1
       - run: cargo clippy --all-targets
       - name: cargo deny check
         uses: EmbarkStudios/cargo-deny-action@v2

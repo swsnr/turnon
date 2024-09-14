@@ -32,9 +32,13 @@ fn compile_blueprint() {
 }
 
 fn main() {
-    // Since blueprint generates UI files for glib resources, we must compile
-    // blueprint files before compiling resources!
-    compile_blueprint();
+    if let Some("1") | Some("true") = std::env::var("SKIP_BLUEPRINT").ok().as_deref() {
+        println!("cargo::warning=Skipping blueprint compilation, falling back to committed files.");
+    } else {
+        // Since blueprint generates UI files for glib resources, we must compile
+        // blueprint files before compiling resources!
+        compile_blueprint();
+    }
 
     glib_build_tools::compile_resources(
         &["resources"],
