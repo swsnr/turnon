@@ -53,9 +53,16 @@ template $AddDeviceDialog: Adw.Dialog {
 
         Adw.EntryRow {
           title: _("_MAC address");
-          tooltip-text: _("Te hardware address for this device");
+          tooltip-text: _("The hardware address for this device");
           input-hints: no_emoji | no_spellcheck | uppercase_chars | private;
           use-underline: true;
+          text: bind template.mac_address bidirectional;
+
+          [suffix]
+          $ValidationIndicator {
+            is_valid: bind template.mac_address_valid;
+            feedback: _("This is no valid 48-bit MAC address.");
+          }
         }
 
         Adw.EntryRow {

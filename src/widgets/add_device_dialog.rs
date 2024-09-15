@@ -49,6 +49,10 @@ mod imp {
         #[property(get)]
         pub label_valid: Cell<bool>,
         #[property(get, set)]
+        pub mac_address: RefCell<String>,
+        #[property(get)]
+        pub mac_address_valid: Cell<bool>,
+        #[property(get, set)]
         pub host: RefCell<String>,
         #[property(get, default = "empty")]
         pub host_indicator: RefCell<String>,
@@ -64,6 +68,17 @@ mod imp {
         fn validate_label(&self) {
             self.label_valid.set(self.is_label_valid());
             self.obj().notify_label_valid();
+            self.obj().notify_is_valid();
+        }
+
+        fn is_mac_address_valid(&self) -> bool {
+            let text = self.mac_address.borrow();
+            !text.is_empty() && macaddr::MacAddr::from_str(&text).is_ok()
+        }
+
+        fn validate_mac_address(&self) {
+            self.mac_address_valid.set(self.is_mac_address_valid());
+            self.obj().notify_mac_address_valid();
             self.obj().notify_is_valid();
         }
 
@@ -86,6 +101,7 @@ mod imp {
 
         fn validate_all(&self) {
             self.validate_label();
+            self.validate_mac_address();
             self.validate_host();
         }
 
@@ -104,9 +120,11 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                label: RefCell::new(String::new()),
-                label_valid: Cell::new(false),
-                host: RefCell::new(String::new()),
+                label: Default::default(),
+                label_valid: Default::default(),
+                mac_address: Default::default(),
+                mac_address_valid: Default::default(),
+                host: Default::default(),
                 host_indicator: RefCell::new("empty".to_string()),
                 is_valid: (),
             }
@@ -130,6 +148,9 @@ mod imp {
             self.validate_all();
             self.obj().connect_label_notify(|dialog| {
                 dialog.imp().validate_label();
+            });
+            self.obj().connect_mac_address_notify(|dialog| {
+                dialog.imp().validate_mac_address();
             });
             self.obj().connect_host_notify(|dialog| {
                 dialog.imp().validate_host();

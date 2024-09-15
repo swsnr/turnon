@@ -57,9 +57,16 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                 <child>
                   <object class="AdwEntryRow">
                     <property name="title" translatable="yes">_MAC address</property>
-                    <property name="tooltip-text" translatable="yes">Te hardware address for this device</property>
+                    <property name="tooltip-text" translatable="yes">The hardware address for this device</property>
                     <property name="input-hints">1024|2|16|2048</property>
                     <property name="use-underline">true</property>
+                    <property name="text" bind-source="AddDeviceDialog" bind-property="mac_address" bind-flags="sync-create|bidirectional"/>
+                    <child type="suffix">
+                      <object class="ValidationIndicator">
+                        <property name="is_valid" bind-source="AddDeviceDialog" bind-property="mac_address_valid" bind-flags="sync-create"/>
+                        <property name="feedback" translatable="yes">This is no valid 48-bit MAC address.</property>
+                      </object>
+                    </child>
                   </object>
                 </child>
                 <child>
