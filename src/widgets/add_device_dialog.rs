@@ -27,7 +27,7 @@ impl Default for AddDeviceDialog {
 
 mod imp {
 
-    use std::cell::RefCell;
+    use std::cell::{Cell, RefCell};
     use std::net::IpAddr;
     use std::str::FromStr;
 
@@ -38,14 +38,16 @@ mod imp {
     use gtk::glib::Properties;
     use gtk::CompositeTemplate;
 
+    use crate::widgets::ValidationIndicator;
+
     #[derive(CompositeTemplate, Properties)]
     #[template(resource = "/de/swsnr/wakeup/ui/add-device-dialog.ui")]
     #[properties(wrapper_type = super::AddDeviceDialog)]
     pub struct AddDeviceDialog {
         #[property(get, set)]
         pub label: RefCell<String>,
-        #[property(get, default = "invalid")]
-        pub label_indicator: RefCell<String>,
+        #[property(get)]
+        pub label_valid: Cell<bool>,
         #[property(get, set)]
         pub host: RefCell<String>,
         #[property(get, default = "empty")]
@@ -60,14 +62,8 @@ mod imp {
         }
 
         fn validate_label(&self) {
-            // These refer to the names of the stack pages in the label entry
-            let indicator = if self.is_label_valid() {
-                "valid"
-            } else {
-                "invalid"
-            };
-            self.label_indicator.replace(indicator.to_owned());
-            self.obj().notify_label_indicator();
+            self.label_valid.set(self.is_label_valid());
+            self.obj().notify_label_valid();
             self.obj().notify_is_valid();
         }
 
@@ -94,7 +90,7 @@ mod imp {
         }
 
         fn is_valid(&self) -> bool {
-            return *self.label_indicator.borrow() == "valid";
+            self.label_valid.get()
         }
     }
 
@@ -109,7 +105,7 @@ mod imp {
         fn new() -> Self {
             Self {
                 label: RefCell::new(String::new()),
-                label_indicator: RefCell::new("invalid".to_string()),
+                label_valid: Cell::new(false),
                 host: RefCell::new(String::new()),
                 host_indicator: RefCell::new("empty".to_string()),
                 is_valid: (),
@@ -117,6 +113,8 @@ mod imp {
         }
 
         fn class_init(klass: &mut Self::Class) {
+            ValidationIndicator::ensure_type();
+
             klass.bind_template();
         }
 

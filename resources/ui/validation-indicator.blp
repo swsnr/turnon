@@ -1,0 +1,21 @@
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+// This Source Code Form is subject to the terms of the Mozilla Public
+// License, v. 2.0. If a copy of the MPL was not distributed with this
+// file, You can obtain one at http://mozilla.org/MPL/2.0/.
+using Gtk 4.0;
+using Adw 1;
+
+template $ValidationIndicator: Adw.Bin {
+  Gtk.Stack indicator {
+    visible-child: invalid;
+
+    Gtk.Image invalid {
+      icon-name: "dialog-warning-symbolic";
+      tooltip-text: bind template.feedback;
+    }
+
+    Gtk.Image valid {
+      icon-name: "emblem-ok-symbolic";
+    }
+  }
+}

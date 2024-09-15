@@ -6,6 +6,8 @@
 
 mod add_device_dialog;
 mod application_window;
+mod validation_indicator;
 
 pub use add_device_dialog::AddDeviceDialog;
 pub use application_window::WakeUpApplicationWindow;
+pub use validation_indicator::ValidationIndicator;

@@ -45,25 +45,9 @@ template $AddDeviceDialog: Adw.Dialog {
           text: bind template.label bidirectional;
 
           [suffix]
-          Gtk.Stack {
-            visible-child-name: bind template.label_indicator;
-
-            Gtk.StackPage {
-              name: "invalid";
-
-              child: Gtk.Image {
-                icon-name: "dialog-warning-symbolic";
-                tooltip-text: _("Please provide a label for the device.");
-              };
-            }
-
-            Gtk.StackPage {
-              name: "valid";
-
-              child: Gtk.Image {
-                icon-name: "emblem-ok-symbolic";
-              };
-            }
+          $ValidationIndicator {
+            is_valid: bind template.label_valid;
+            feedback: _("Please provide a label for the device.");
           }
         }
 
