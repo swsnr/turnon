@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-    <!-- Our own resources -->
     <gresource prefix="/de/swsnr/wakeup/">
+        <!-- User interface templates -->
         <file compressed="true" preprocess="xml-stripblanks">ui/wakeup-application-window.ui</file>
-    </gresource>
-    <gresource prefix="/de/swsnr/wakeup/">
         <file compressed="true" preprocess="xml-stripblanks">ui/add-device-dialog.ui</file>
-    </gresource>
-    <gresource prefix="/de/swsnr/wakeup/">
-        <file compressed="true" preprocess="xml-stripblanks">de.swsnr.wakeup.metainfo.xml</file>
-    </gresource>
-    <!-- Auto-loaded Gtk resources, see
-    https://docs.gtk.org/gtk4/class.Application.html#automatic-resources -->
-    <gresource prefix="/de/swsnr/wakeup/">
+        <!-- Auto-loaded Gtk templatse, see
+        https://docs.gtk.org/gtk4/class.Application.html#automatic-resources -->
         <file compressed="true" preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
+        <!-- Other data files -->
+        <file compressed="true" preprocess="xml-stripblanks">de.swsnr.wakeup.metainfo.xml</file>
     </gresource>
 </gresources>

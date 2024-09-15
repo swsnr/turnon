@@ -79,6 +79,47 @@ template $AddDeviceDialog: Adw.Dialog {
           tooltip-text: _("The hostname or IP address of the device to check whether it has woken up");
           input-hints: no_emoji | no_spellcheck;
           use-underline: true;
+          text: bind template.host bidirectional;
+
+          [suffix]
+          Gtk.Stack {
+            visible-child-name: bind template.host_indicator;
+
+            Gtk.StackPage {
+              name: "empty";
+
+              child: Gtk.Box {};
+            }
+
+            Gtk.StackPage {
+              name: "host";
+
+              child: Gtk.Image {
+                icon-name: "computer-symbolic";
+                tooltip-text: _("This looks like a generic name resolved via DNS.");
+              };
+            }
+
+            Gtk.StackPage {
+              name: "ipv4";
+
+              child: Gtk.Label {
+                label: "<b>v4</b>";
+                use-markup: true;
+                tooltip-text: _("This is a valid IPv4 address.");
+              };
+            }
+
+            Gtk.StackPage {
+              name: "ipv6";
+
+              child: Gtk.Label {
+                label: "<b>v6</b>";
+                use-markup: true;
+                tooltip-text: _("This is a valid IPv6 address.");
+              };
+            }
+          }
         }
       }
     }

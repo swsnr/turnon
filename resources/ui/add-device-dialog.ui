@@ -18,7 +18,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
             <property name="show-end-title-buttons">false</property>
             <child>
               <object class="GtkButton">
-                <property name="label" translatable="yes">Close</property>
+                <property name="label" translatable="yes">Cancel</property>
                 <property name="action-name">window.close</property>
               </object>
             </child>
@@ -88,6 +88,55 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     <property name="tooltip-text" translatable="yes">The hostname or IP address of the device to check whether it has woken up</property>
                     <property name="input-hints">1024|2</property>
                     <property name="use-underline">true</property>
+                    <property name="text" bind-source="AddDeviceDialog" bind-property="host" bind-flags="sync-create|bidirectional"/>
+                    <child type="suffix">
+                      <object class="GtkStack">
+                        <property name="visible-child-name" bind-source="AddDeviceDialog" bind-property="host_indicator" bind-flags="sync-create"/>
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">empty</property>
+                            <property name="child">
+                              <object class="GtkBox"></object>
+                            </property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">host</property>
+                            <property name="child">
+                              <object class="GtkImage">
+                                <property name="icon-name">computer-symbolic</property>
+                                <property name="tooltip-text" translatable="yes">This looks like a generic name resolved via DNS.</property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">ipv4</property>
+                            <property name="child">
+                              <object class="GtkLabel">
+                                <property name="label">&lt;b&gt;v4&lt;/b&gt;</property>
+                                <property name="use-markup">true</property>
+                                <property name="tooltip-text" translatable="yes">This is a valid IPv4 address.</property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">ipv6</property>
+                            <property name="child">
+                              <object class="GtkLabel">
+                                <property name="label">&lt;b&gt;v6&lt;/b&gt;</property>
+                                <property name="use-markup">true</property>
+                                <property name="tooltip-text" translatable="yes">This is a valid IPv6 address.</property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>

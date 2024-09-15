@@ -28,6 +28,8 @@ impl Default for AddDeviceDialog {
 mod imp {
 
     use std::cell::RefCell;
+    use std::net::IpAddr;
+    use std::str::FromStr;
 
     use adw::subclass::prelude::*;
     use gtk::glib;
@@ -44,14 +46,17 @@ mod imp {
         pub label: RefCell<String>,
         #[property(get, default = "invalid")]
         pub label_indicator: RefCell<String>,
+        #[property(get, set)]
+        pub host: RefCell<String>,
+        #[property(get, default = "empty")]
+        pub host_indicator: RefCell<String>,
         #[property(get = Self::is_valid, default = false, type = bool)]
         pub is_valid: (),
     }
 
     impl AddDeviceDialog {
         fn is_label_valid(&self) -> bool {
-            let label: String = self.obj().label();
-            !label.is_empty()
+            !self.label.borrow().is_empty()
         }
 
         fn validate_label(&self) {
@@ -64,6 +69,28 @@ mod imp {
             self.label_indicator.replace(indicator.to_owned());
             self.obj().notify_label_indicator();
             self.obj().notify_is_valid();
+        }
+
+        fn validate_host(&self) {
+            let host = self.host.borrow();
+            let indicator = match IpAddr::from_str(&host) {
+                Ok(IpAddr::V4(..)) => "ipv4",
+                Ok(IpAddr::V6(..)) => "ipv6",
+                Err(_) => {
+                    if host.is_empty() {
+                        "empty"
+                    } else {
+                        "host"
+                    }
+                }
+            };
+            self.host_indicator.replace(indicator.to_owned());
+            self.obj().notify_host_indicator();
+        }
+
+        fn validate_all(&self) {
+            self.validate_label();
+            self.validate_host();
         }
 
         fn is_valid(&self) -> bool {
@@ -83,6 +110,8 @@ mod imp {
             Self {
                 label: RefCell::new(String::new()),
                 label_indicator: RefCell::new("invalid".to_string()),
+                host: RefCell::new(String::new()),
+                host_indicator: RefCell::new("empty".to_string()),
                 is_valid: (),
             }
         }
@@ -100,9 +129,12 @@ mod imp {
     impl ObjectImpl for AddDeviceDialog {
         fn constructed(&self) {
             self.parent_constructed();
-            self.validate_label();
+            self.validate_all();
             self.obj().connect_label_notify(|dialog| {
                 dialog.imp().validate_label();
+            });
+            self.obj().connect_host_notify(|dialog| {
+                dialog.imp().validate_host();
             });
         }
     }
