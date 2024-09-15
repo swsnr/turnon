@@ -12,37 +12,73 @@ template $AddDeviceDialog: Adw.Dialog {
 
   Adw.ToolbarView {
     [top]
-    Adw.HeaderBar {}
+    Adw.HeaderBar {
+      show-start-title-buttons: false;
+      show-end-title-buttons: false;
+
+      Gtk.Button {
+        label: _("Cancel");
+        action-name: "window.close";
+      }
+
+      [end]
+      Gtk.Button {
+        label: _("_Add");
+        use-underline: true;
+        receives-default: true;
+        sensitive: bind template.is_valid;
+
+        styles [
+          "suggested-action"
+        ]
+      }
+    }
 
     Adw.PreferencesPage {
       Adw.PreferencesGroup {
         title: _("Device details");
 
-        Adw.EntryRow label {
-          title: _("Device label");
+        Adw.EntryRow label_entry {
+          title: _("Device _label");
           tooltip-text: _("A label to recognize the device by");
-        }
-
-        Adw.EntryRow mac_address {
-          title: _("MAC address");
-          tooltip-text: _("The hardware address for this device");
-        }
-
-        Adw.EntryRow host {
-          title: _("Host name or IP address");
-          tooltip-text: _("The hostname or IP address of the device to check whether it has woken up");
-        }
-
-        Gtk.Button {
-          label: _("Add");
-          halign: center;
-          margin-top: 12;
           use-underline: true;
+          text: bind template.label bidirectional;
 
-          styles [
-            "pill",
-            "suggested-action"
-          ]
+          [suffix]
+          Gtk.Stack {
+            visible-child-name: bind template.label_indicator;
+
+            Gtk.StackPage {
+              name: "invalid";
+
+              child: Gtk.Image {
+                icon-name: "dialog-warning-symbolic";
+                tooltip-text: _("Please provide a label for the device.");
+              };
+            }
+
+            Gtk.StackPage {
+              name: "valid";
+
+              child: Gtk.Image {
+                icon-name: "emblem-ok-symbolic";
+              };
+            }
+          }
+        }
+
+        Adw.EntryRow {
+          title: _("_MAC address");
+          tooltip-text: _("Te hardware address for this device");
+          input-hints: no_emoji | no_spellcheck | uppercase_chars | private;
+          use-underline: true;
+        }
+
+        Adw.EntryRow {
+          title: _("_Host name or IP address");
+          tooltip-text: _("The hostname or IP address of the device to check whether it has woken up");
+          input-hints: no_emoji | no_spellcheck;
+          use-underline: true;
         }
       }
     }

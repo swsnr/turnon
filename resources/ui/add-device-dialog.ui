@@ -13,7 +13,27 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
     <child>
       <object class="AdwToolbarView">
         <child type="top">
-          <object class="AdwHeaderBar"></object>
+          <object class="AdwHeaderBar">
+            <property name="show-start-title-buttons">false</property>
+            <property name="show-end-title-buttons">false</property>
+            <child>
+              <object class="GtkButton">
+                <property name="label" translatable="yes">Close</property>
+                <property name="action-name">window.close</property>
+              </object>
+            </child>
+            <child type="end">
+              <object class="GtkButton">
+                <property name="label" translatable="yes">_Add</property>
+                <property name="use-underline">true</property>
+                <property name="receives-default">true</property>
+                <property name="sensitive" bind-source="AddDeviceDialog" bind-property="is_valid" bind-flags="sync-create"/>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
+              </object>
+            </child>
+          </object>
         </child>
         <child>
           <object class="AdwPreferencesPage">
@@ -21,33 +41,53 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
               <object class="AdwPreferencesGroup">
                 <property name="title" translatable="yes">Device details</property>
                 <child>
-                  <object class="AdwEntryRow" id="label">
-                    <property name="title" translatable="yes">Device label</property>
+                  <object class="AdwEntryRow" id="label_entry">
+                    <property name="title" translatable="yes">Device _label</property>
                     <property name="tooltip-text" translatable="yes">A label to recognize the device by</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="AdwEntryRow" id="mac_address">
-                    <property name="title" translatable="yes">MAC address</property>
-                    <property name="tooltip-text" translatable="yes">The hardware address for this device</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="AdwEntryRow" id="host">
-                    <property name="title" translatable="yes">Host name or IP address</property>
-                    <property name="tooltip-text" translatable="yes">The hostname or IP address of the device to check whether it has woken up</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="GtkButton">
-                    <property name="label" translatable="yes">Add</property>
-                    <property name="halign">3</property>
-                    <property name="margin-top">12</property>
                     <property name="use-underline">true</property>
-                    <style>
-                      <class name="pill"/>
-                      <class name="suggested-action"/>
-                    </style>
+                    <property name="text" bind-source="AddDeviceDialog" bind-property="label" bind-flags="sync-create|bidirectional"/>
+                    <child type="suffix">
+                      <object class="GtkStack">
+                        <property name="visible-child-name" bind-source="AddDeviceDialog" bind-property="label_indicator" bind-flags="sync-create"/>
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">invalid</property>
+                            <property name="child">
+                              <object class="GtkImage">
+                                <property name="icon-name">dialog-warning-symbolic</property>
+                                <property name="tooltip-text" translatable="yes">Please provide a label for the device.</property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkStackPage">
+                            <property name="name">valid</property>
+                            <property name="child">
+                              <object class="GtkImage">
+                                <property name="icon-name">emblem-ok-symbolic</property>
+                              </object>
+                            </property>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwEntryRow">
+                    <property name="title" translatable="yes">_MAC address</property>
+                    <property name="tooltip-text" translatable="yes">Te hardware address for this device</property>
+                    <property name="input-hints">1024|2|16|2048</property>
+                    <property name="use-underline">true</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwEntryRow">
+                    <property name="title" translatable="yes">_Host name or IP address</property>
+                    <property name="tooltip-text" translatable="yes">The hostname or IP address of the device to check whether it has woken up</property>
+                    <property name="input-hints">1024|2</property>
+                    <property name="use-underline">true</property>
                   </object>
                 </child>
               </object>

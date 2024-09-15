@@ -27,14 +27,49 @@ impl Default for AddDeviceDialog {
 
 mod imp {
 
+    use std::cell::RefCell;
+
     use adw::subclass::prelude::*;
     use gtk::glib;
+    use gtk::glib::prelude::*;
     use gtk::glib::subclass::InitializingObject;
+    use gtk::glib::Properties;
     use gtk::CompositeTemplate;
 
-    #[derive(CompositeTemplate, Default)]
+    #[derive(CompositeTemplate, Properties)]
     #[template(resource = "/de/swsnr/wakeup/ui/add-device-dialog.ui")]
-    pub struct AddDeviceDialog {}
+    #[properties(wrapper_type = super::AddDeviceDialog)]
+    pub struct AddDeviceDialog {
+        #[property(get, set)]
+        pub label: RefCell<String>,
+        #[property(get, default = "invalid")]
+        pub label_indicator: RefCell<String>,
+        #[property(get = Self::is_valid, default = false, type = bool)]
+        pub is_valid: (),
+    }
+
+    impl AddDeviceDialog {
+        fn is_label_valid(&self) -> bool {
+            let label: String = self.obj().label();
+            !label.is_empty()
+        }
+
+        fn validate_label(&self) {
+            // These refer to the names of the stack pages in the label entry
+            let indicator = if self.is_label_valid() {
+                "valid"
+            } else {
+                "invalid"
+            };
+            self.label_indicator.replace(indicator.to_owned());
+            self.obj().notify_label_indicator();
+            self.obj().notify_is_valid();
+        }
+
+        fn is_valid(&self) -> bool {
+            return *self.label_indicator.borrow() == "valid";
+        }
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for AddDeviceDialog {
@@ -43,6 +78,14 @@ mod imp {
         type Type = super::AddDeviceDialog;
 
         type ParentType = adw::Dialog;
+
+        fn new() -> Self {
+            Self {
+                label: RefCell::new(String::new()),
+                label_indicator: RefCell::new("invalid".to_string()),
+                is_valid: (),
+            }
+        }
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
@@ -53,7 +96,16 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for AddDeviceDialog {}
+    #[glib::derived_properties]
+    impl ObjectImpl for AddDeviceDialog {
+        fn constructed(&self) {
+            self.parent_constructed();
+            self.validate_label();
+            self.obj().connect_label_notify(|dialog| {
+                dialog.imp().validate_label();
+            });
+        }
+    }
 
     impl WidgetImpl for AddDeviceDialog {}
 
