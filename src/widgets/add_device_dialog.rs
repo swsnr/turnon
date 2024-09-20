@@ -106,7 +106,7 @@ mod imp {
         }
 
         fn is_valid(&self) -> bool {
-            self.label_valid.get()
+            self.label_valid.get() && self.mac_address_valid.get()
         }
     }
 
