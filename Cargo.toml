@@ -11,8 +11,8 @@ publish = false
 build = "build.rs"
 
 [dependencies]
-adw = { package = "libadwaita", version = "0.7.0", features = ["v1_5"] }
-gtk = { package = "gtk4", version = "0.9.1", features = ["gnome_46"] }
+adw = { package = "libadwaita", version = "0.7.0", features = ["v1_6"] }
+gtk = { package = "gtk4", version = "0.9.1", features = ["gnome_47"] }
 macaddr = { version = "1.0.1", default-features = false }
 
 [build-dependencies]
