@@ -26,7 +26,7 @@ template $AddDeviceDialog: Adw.Dialog {
         label: _("_Add");
         use-underline: true;
         receives-default: true;
-        sensitive: bind template.is_valid;
+        action-name: "device.add";
 
         styles [
           "suggested-action"

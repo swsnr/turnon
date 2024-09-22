@@ -49,6 +49,10 @@ mod imp {
 
             klass.install_action("win.add_device", None, |window, _, _| {
                 let dialog = AddDeviceDialog::new();
+                dialog.connect_added(|_| {
+                    // TODO: Create device object and add it to a device model
+                    println!("Adding new device");
+                });
                 dialog.present(Some(window));
             });
         }

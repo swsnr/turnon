@@ -4,7 +4,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use gtk::glib;
+use glib::clone;
+use gtk::{glib, prelude::ObjectExt};
 
 glib::wrapper! {
     pub struct AddDeviceDialog(ObjectSubclass<imp::AddDeviceDialog>)
@@ -16,6 +17,25 @@ impl AddDeviceDialog {
     /// Create a new dialog to add a device.
     pub fn new() -> Self {
         glib::Object::builder().build()
+    }
+
+    pub fn connect_added<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self) + 'static,
+    {
+        self.connect_local(
+            "added",
+            false,
+            clone!(
+                #[weak(rename_to=dialog)]
+                &self,
+                #[upgrade_or_default]
+                move |_| {
+                    callback(&dialog);
+                    None
+                }
+            ),
+        )
     }
 }
 
@@ -30,11 +50,12 @@ mod imp {
     use std::cell::{Cell, RefCell};
     use std::net::IpAddr;
     use std::str::FromStr;
+    use std::sync::LazyLock;
 
+    use adw::prelude::*;
     use adw::subclass::prelude::*;
     use gtk::glib;
-    use gtk::glib::prelude::*;
-    use gtk::glib::subclass::InitializingObject;
+    use gtk::glib::subclass::{InitializingObject, Signal};
     use gtk::glib::Properties;
     use gtk::CompositeTemplate;
 
@@ -134,6 +155,13 @@ mod imp {
             ValidationIndicator::ensure_type();
 
             klass.bind_template();
+
+            klass.install_action("device.add", None, |dialog, _, _| {
+                if dialog.is_valid() {
+                    dialog.emit_by_name::<()>("added", &[]);
+                    dialog.close();
+                }
+            });
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -143,9 +171,16 @@ mod imp {
 
     #[glib::derived_properties]
     impl ObjectImpl for AddDeviceDialog {
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: LazyLock<Vec<Signal>> =
+                LazyLock::new(|| vec![Signal::builder("added").action().build()]);
+            SIGNALS.as_ref()
+        }
+
         fn constructed(&self) {
             self.parent_constructed();
             self.validate_all();
+            self.obj().action_set_enabled("device.add", false);
             self.obj().connect_label_notify(|dialog| {
                 dialog.imp().validate_label();
             });
@@ -154,6 +189,9 @@ mod imp {
             });
             self.obj().connect_host_notify(|dialog| {
                 dialog.imp().validate_host();
+            });
+            self.obj().connect_is_valid_notify(|dialog| {
+                dialog.action_set_enabled("device.add", dialog.is_valid());
             });
         }
     }
