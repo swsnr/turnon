@@ -7,6 +7,8 @@
 use glib::clone;
 use gtk::{glib, prelude::ObjectExt};
 
+use crate::model::Device;
+
 glib::wrapper! {
     pub struct AddDeviceDialog(ObjectSubclass<imp::AddDeviceDialog>)
         @extends adw::Dialog, gtk::Widget,
@@ -21,7 +23,7 @@ impl AddDeviceDialog {
 
     pub fn connect_added<F>(&self, callback: F) -> glib::SignalHandlerId
     where
-        F: Fn(&Self) + 'static,
+        F: Fn(&Self, &Device) + 'static,
     {
         self.connect_local(
             "added",
@@ -30,8 +32,9 @@ impl AddDeviceDialog {
                 #[weak(rename_to=dialog)]
                 &self,
                 #[upgrade_or_default]
-                move |_| {
-                    callback(&dialog);
+                move |args| {
+                    let device = &args[1].get().expect("No device passed as signal argument?");
+                    callback(&dialog, device);
                     None
                 }
             ),
@@ -58,7 +61,9 @@ mod imp {
     use gtk::glib::subclass::{InitializingObject, Signal};
     use gtk::glib::Properties;
     use gtk::CompositeTemplate;
+    use macaddr::MacAddr6;
 
+    use crate::model::Device;
     use crate::widgets::ValidationIndicator;
 
     #[derive(CompositeTemplate, Properties)]
@@ -153,12 +158,20 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             ValidationIndicator::ensure_type();
+            Device::ensure_type();
 
             klass.bind_template();
 
             klass.install_action("device.add", None, |dialog, _, _| {
                 if dialog.is_valid() {
-                    dialog.emit_by_name::<()>("added", &[]);
+                    // At this point we know that the MAC address is valid, hence we can unwrap
+                    let mac_address = MacAddr6::from_str(&dialog.mac_address()).unwrap();
+                    let device = Device::new_with_generated_id(
+                        dialog.label().clone(),
+                        mac_address,
+                        dialog.host().clone(),
+                    );
+                    dialog.emit_by_name::<()>("added", &[&device]);
                     dialog.close();
                 }
             });
@@ -172,8 +185,12 @@ mod imp {
     #[glib::derived_properties]
     impl ObjectImpl for AddDeviceDialog {
         fn signals() -> &'static [Signal] {
-            static SIGNALS: LazyLock<Vec<Signal>> =
-                LazyLock::new(|| vec![Signal::builder("added").action().build()]);
+            static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
+                vec![Signal::builder("added")
+                    .action()
+                    .param_types([Device::static_type()])
+                    .build()]
+            });
             SIGNALS.as_ref()
         }
 

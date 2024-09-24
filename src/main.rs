@@ -13,6 +13,7 @@ use gtk::gio::SimpleAction;
 use gtk::glib::{self, Variant};
 use widgets::WakeUpApplicationWindow;
 
+mod model;
 mod widgets;
 
 static APP_ID: &str = "de.swsnr.wakeup";

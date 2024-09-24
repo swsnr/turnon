@@ -14,6 +14,7 @@ build = "build.rs"
 adw = { package = "libadwaita", version = "0.7.0", features = ["v1_6"] }
 gtk = { package = "gtk4", version = "0.9.1", features = ["gnome_47"] }
 macaddr = { version = "1.0.1", default-features = false }
+uuid = { version = "1.10.0", default-features = false, features = ["v4"] }
 
 [build-dependencies]
 glib-build-tools = "0.20.0"
