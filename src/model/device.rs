@@ -14,10 +14,8 @@ glib::wrapper! {
 }
 
 impl Device {
-    pub fn new_with_generated_id(label: String, mac_address: MacAddr6, host: String) -> Self {
-        let id = uuid::Uuid::new_v4().to_string();
+    pub fn new(label: String, mac_address: MacAddr6, host: String) -> Self {
         glib::Object::builder()
-            .property("id", id)
             .property("label", label)
             .property("mac_address", glib::Bytes::from(mac_address.as_bytes()))
             .property("host", host)
@@ -35,7 +33,6 @@ impl Device {
 impl From<StoredDevice> for Device {
     fn from(value: StoredDevice) -> Self {
         glib::Object::builder()
-            .property("id", value.id)
             .property("label", value.label)
             .property(
                 "mac_address",
@@ -49,7 +46,6 @@ impl From<StoredDevice> for Device {
 impl From<&Device> for StoredDevice {
     fn from(device: &Device) -> Self {
         StoredDevice {
-            id: device.id(),
             label: device.label(),
             host: device.host(),
             mac_address: device.mac_addr6(),
@@ -67,11 +63,6 @@ mod imp {
     #[derive(Debug, glib::Properties)]
     #[properties(wrapper_type = super::Device)]
     pub struct Device {
-        /// A unique ID for this device.
-        ///
-        /// This ID is mostly used for storage.
-        #[property(get, set, construct_only)]
-        pub id: RefCell<String>,
         /// The human-readable label for this device, for display in the UI.
         #[property(get, set)]
         pub label: RefCell<String>,
@@ -91,7 +82,6 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                id: Default::default(),
                 label: Default::default(),
                 mac_address: RefCell::new(glib::Bytes::from_static(&[0; 6])),
                 host: Default::default(),

@@ -166,11 +166,8 @@ mod imp {
                 if dialog.is_valid() {
                     // At this point we know that the MAC address is valid, hence we can unwrap
                     let mac_address = MacAddr6::from_str(&dialog.mac_address()).unwrap();
-                    let device = Device::new_with_generated_id(
-                        dialog.label().clone(),
-                        mac_address,
-                        dialog.host().clone(),
-                    );
+                    let device =
+                        Device::new(dialog.label().clone(), mac_address, dialog.host().clone());
                     dialog.emit_by_name::<()>("added", &[&device]);
                     dialog.close();
                 }

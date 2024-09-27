@@ -16,7 +16,6 @@ use serde::{Deserialize, Serialize};
 /// A device
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StoredDevice {
-    pub id: String,
     pub label: String,
     #[serde(with = "mac_addr6_as_string")]
     pub mac_address: MacAddr6,
