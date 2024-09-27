@@ -6,8 +6,8 @@ using Gtk 4.0;
 using Adw 1;
 
 template $WakeUpApplicationWindow: Adw.ApplicationWindow {
-  default-width: 800;
-  default-height: 600;
+  default-width: 480;
+  default-height: 480;
   title: _('Wake Up');
 
   content: Adw.ToolbarView {
@@ -35,6 +35,14 @@ template $WakeUpApplicationWindow: Adw.ApplicationWindow {
         selection-mode: none;
         vexpand: true;
         hexpand: true;
+        margin-start: 6;
+        margin-end: 6;
+        margin-top: 6;
+        margin-bottom: 6;
+
+        styles [
+          "boxed-list-separate"
+        ]
 
         [placeholder]
         Adw.StatusPage {

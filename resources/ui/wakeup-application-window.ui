@@ -7,8 +7,8 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
 <interface>
   <requires lib="gtk" version="4.0"/>
   <template class="WakeUpApplicationWindow" parent="AdwApplicationWindow">
-    <property name="default-width">800</property>
-    <property name="default-height">600</property>
+    <property name="default-width">480</property>
+    <property name="default-height">480</property>
     <property name="title" translatable="yes">Wake Up</property>
     <property name="content">
       <object class="AdwToolbarView">
@@ -38,6 +38,13 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                 <property name="selection-mode">0</property>
                 <property name="vexpand">true</property>
                 <property name="hexpand">true</property>
+                <property name="margin-start">6</property>
+                <property name="margin-end">6</property>
+                <property name="margin-top">6</property>
+                <property name="margin-bottom">6</property>
+                <style>
+                  <class name="boxed-list-separate"/>
+                </style>
                 <child type="placeholder">
                   <object class="AdwStatusPage">
                     <property name="title" translatable="yes">No devices</property>

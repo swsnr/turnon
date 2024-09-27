@@ -88,8 +88,29 @@ mod imp {
                 .get()
                 .bind_model(Some(&self.devices.borrow().clone()), |item| {
                     let device = item.clone().downcast::<Device>().unwrap();
-                    log::debug!("Creating label for device {:?}", device.imp());
-                    gtk::Label::new(Some(&device.label())).upcast()
+
+                    // TODO: Move into a separate template widget
+                    let row = adw::ActionRow::new();
+                    row.set_activatable(true);
+                    row.add_css_class("activatable");
+                    device
+                        .bind_property("label", &row, "title")
+                        .sync_create()
+                        .build();
+                    device
+                        .bind_property("host", &row, "subtitle")
+                        .sync_create()
+                        .build();
+
+                    row.connect_activated(glib::clone!(
+                        #[weak]
+                        device,
+                        move |_| {
+                            log::warn!("Was activated: {}", device.label());
+                        }
+                    ));
+
+                    row.upcast()
                 });
         }
     }
