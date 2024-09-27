@@ -29,10 +29,9 @@ fn write_devices_async(storage: Rc<DevicesStorage>, model: &Devices) -> glib::Jo
         #[strong]
         storage,
         async move {
-            println!("Saving devices to storage");
+            log::info!("Saving devices to storage");
             if let Err(err) = storage.save(stored_data).await {
-                // TODO: Log error properly!
-                eprintln!("Failed to save devices: {:?}", err);
+                log::error!("Failed to save devices: {:?}", err);
             }
         }
     ))
@@ -50,6 +49,7 @@ fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param:
 ///
 /// Create application actions.
 fn startup_application(app: &adw::Application, storage: Rc<DevicesStorage>, model: &Devices) {
+    log::debug!("Application starting");
     gtk::Window::set_default_icon_name(APP_ID);
 
     let actions = [
@@ -66,6 +66,7 @@ fn startup_application(app: &adw::Application, storage: Rc<DevicesStorage>, mode
     app.set_accels_for_action("window.close", &["<Control>w"]);
     app.set_accels_for_action("app.quit", &["<Control>q"]);
 
+    log::info!("Loading devices asynchronously");
     glib::spawn_future_local(glib::clone!(
         #[strong]
         model,
@@ -74,10 +75,10 @@ fn startup_application(app: &adw::Application, storage: Rc<DevicesStorage>, mode
                 Ok(stored_devices) => {
                     let devices = stored_devices.into_iter().map(Device::from).collect();
                     model.reset_devices(devices);
+                    log::info!("All devices loaded from storage");
                 }
                 Err(err) => {
-                    // TODO: Log error properly
-                    eprintln!("Failed to load devices: {:?}", err);
+                    log::warn!("Failed to load devices: {:?}", err);
                 }
             }
 
@@ -87,6 +88,7 @@ fn startup_application(app: &adw::Application, storage: Rc<DevicesStorage>, mode
                 #[strong]
                 storage,
                 move |model, pos, n_added, _| {
+                    log::debug!("Device list changed, saving devices");
                     write_devices_async(storage.clone(), model);
                     // Persist devices whenever one device changes
                     for n in pos..n_added {
@@ -98,6 +100,7 @@ fn startup_application(app: &adw::Application, storage: Rc<DevicesStorage>, mode
                                 #[weak]
                                 model,
                                 move |_, _| {
+                                    log::debug!("One device was changed, saving devices");
                                     write_devices_async(storage.clone(), &model);
                                 }
                             ),
@@ -119,7 +122,12 @@ fn activate_application(app: &adw::Application, model: &Devices) {
 }
 
 fn main() -> glib::ExitCode {
-    // Setup logging?  Use log crate and have it log to glibs logging?
+    static GLIB_LOGGER: glib::GlibLogger = glib::GlibLogger::new(
+        glib::GlibLoggerFormat::Structured,
+        glib::GlibLoggerDomain::CrateTarget,
+    );
+    log::set_logger(&GLIB_LOGGER).unwrap();
+    log::set_max_level(log::LevelFilter::Debug);
 
     gio::resources_register_include!("wakeup.gresource").unwrap();
     glib::set_application_name("WakeUp");
@@ -128,6 +136,7 @@ fn main() -> glib::ExitCode {
         .application_id(APP_ID.trim())
         .build();
 
+    log::debug!("Initializing storage and model");
     let data_dir = glib::user_data_dir().join(APP_ID);
     let storage = Rc::new(DevicesStorage::new(data_dir.join("devices.json")));
     let model = Devices::default();

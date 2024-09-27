@@ -66,6 +66,7 @@ mod imp {
                     #[weak]
                     window,
                     move |_, device| {
+                        log::debug!("Adding new device: {:?}", device.imp());
                         window.devices().add_device(device);
                     }
                 ));
@@ -87,7 +88,7 @@ mod imp {
                 .get()
                 .bind_model(Some(&self.devices.borrow().clone()), |item| {
                     let device = item.clone().downcast::<Device>().unwrap();
-                    println!("Creating label for device {:?}", device.imp());
+                    log::debug!("Creating label for device {:?}", device.imp());
                     gtk::Label::new(Some(&device.label())).upcast()
                 });
         }
