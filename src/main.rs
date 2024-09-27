@@ -50,6 +50,8 @@ fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param:
 ///
 /// Create application actions.
 fn startup_application(app: &adw::Application, storage: Rc<DevicesStorage>, model: &Devices) {
+    gtk::Window::set_default_icon_name(APP_ID);
+
     let actions = [
         gio::ActionEntryBuilder::new("quit")
             .activate(|a: &adw::Application, _, _| a.quit())
@@ -121,7 +123,6 @@ fn main() -> glib::ExitCode {
 
     gio::resources_register_include!("wakeup.gresource").unwrap();
     glib::set_application_name("WakeUp");
-    gtk::Window::set_default_icon_name(APP_ID);
 
     let app = adw::Application::builder()
         .application_id(APP_ID.trim())
