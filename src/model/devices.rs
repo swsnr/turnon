@@ -9,6 +9,8 @@ use gtk::glib;
 use gtk::prelude::ListModelExt;
 use gtk::subclass::prelude::ObjectSubclassIsExt;
 
+use crate::storage::StoredDevice;
+
 use super::Device;
 
 glib::wrapper! {
@@ -16,20 +18,50 @@ glib::wrapper! {
 }
 
 impl Devices {
+    /// Add a new `device` to the list of devices.
+    ///
+    /// Signal that the end of the items list changed.
     pub fn add_device(&self, device: &Device) {
         let position = {
             let mut data = self.imp().0.borrow_mut();
             data.push(device.clone());
             data.len() - 1
         };
-        println!("Added new device {:?} at {position}", device.imp());
         self.items_changed(position.try_into().unwrap(), 0, 1);
+    }
+
+    /// Clear the list and ad all given devices.
+    pub fn reset_devices(&self, devices: Vec<Device>) {
+        let amount_deleted = {
+            let mut data = self.imp().0.borrow_mut();
+            let len = data.len();
+            data.clear();
+            len
+        };
+        self.items_changed(0, amount_deleted.try_into().unwrap(), 0);
+        let amount_added = {
+            let mut data = self.imp().0.borrow_mut();
+            data.extend_from_slice(&devices);
+            devices.len()
+        };
+        self.items_changed(0, 0, amount_added.try_into().unwrap())
     }
 }
 
 impl Default for Devices {
     fn default() -> Self {
         glib::Object::new()
+    }
+}
+
+impl From<&Devices> for Vec<StoredDevice> {
+    fn from(val: &Devices) -> Self {
+        val.imp()
+            .0
+            .borrow()
+            .iter()
+            .map(StoredDevice::from)
+            .collect()
     }
 }
 

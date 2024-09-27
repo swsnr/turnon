@@ -7,6 +7,8 @@
 use gtk::glib;
 use macaddr::MacAddr6;
 
+use crate::storage::StoredDevice;
+
 glib::wrapper! {
     pub struct Device(ObjectSubclass<imp::Device>);
 }
@@ -20,6 +22,38 @@ impl Device {
             .property("mac_address", glib::Bytes::from(mac_address.as_bytes()))
             .property("host", host)
             .build()
+    }
+
+    pub fn mac_addr6(&self) -> MacAddr6 {
+        // We unwrap, because we try very hard to make sure that mac_address
+        // contains 6 bytes.
+        let data: [u8; 6] = (*self.mac_address()).try_into().unwrap();
+        MacAddr6::from(data)
+    }
+}
+
+impl From<StoredDevice> for Device {
+    fn from(value: StoredDevice) -> Self {
+        glib::Object::builder()
+            .property("id", value.id)
+            .property("label", value.label)
+            .property(
+                "mac_address",
+                glib::Bytes::from(value.mac_address.as_bytes()),
+            )
+            .property("host", value.host)
+            .build()
+    }
+}
+
+impl From<&Device> for StoredDevice {
+    fn from(device: &Device) -> Self {
+        StoredDevice {
+            id: device.id(),
+            label: device.label(),
+            host: device.host(),
+            mac_address: device.mac_addr6(),
+        }
     }
 }
 

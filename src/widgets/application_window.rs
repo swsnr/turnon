@@ -83,7 +83,6 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
 
-            println!("Binding model!");
             self.devices_list
                 .get()
                 .bind_model(Some(&self.devices.borrow().clone()), |item| {

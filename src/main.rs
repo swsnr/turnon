@@ -7,17 +7,36 @@
 #![deny(warnings, clippy::all)]
 #![forbid(unsafe_code)]
 
+use std::rc::Rc;
+
 use adw::prelude::*;
 use gtk::gio;
 use gtk::gio::SimpleAction;
 use gtk::glib::{self, Variant};
-use model::Devices;
+use model::{Device, Devices};
+use storage::{DevicesStorage, StoredDevice};
 use widgets::WakeUpApplicationWindow;
 
 mod model;
+mod storage;
 mod widgets;
 
 static APP_ID: &str = "de.swsnr.wakeup";
+
+fn write_devices_async(storage: Rc<DevicesStorage>, model: &Devices) -> glib::JoinHandle<()> {
+    let stored_data: Vec<StoredDevice> = model.into();
+    glib::spawn_future_local(glib::clone!(
+        #[strong]
+        storage,
+        async move {
+            println!("Saving devices to storage");
+            if let Err(err) = storage.save(stored_data).await {
+                // TODO: Log error properly!
+                eprintln!("Failed to save devices: {:?}", err);
+            }
+        }
+    ))
+}
 
 fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param: Option<&Variant>) {
     adw::AboutDialog::from_appdata(
@@ -30,7 +49,7 @@ fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param:
 /// Handle application startup.
 ///
 /// Create application actions.
-fn startup_application(app: &adw::Application, _model: &Devices) {
+fn startup_application(app: &adw::Application, storage: Rc<DevicesStorage>, model: &Devices) {
     let actions = [
         gio::ActionEntryBuilder::new("quit")
             .activate(|a: &adw::Application, _, _| a.quit())
@@ -45,7 +64,47 @@ fn startup_application(app: &adw::Application, _model: &Devices) {
     app.set_accels_for_action("window.close", &["<Control>w"]);
     app.set_accels_for_action("app.quit", &["<Control>q"]);
 
-    // TODO: Load model here
+    glib::spawn_future_local(glib::clone!(
+        #[strong]
+        model,
+        async move {
+            match storage.load().await {
+                Ok(stored_devices) => {
+                    let devices = stored_devices.into_iter().map(Device::from).collect();
+                    model.reset_devices(devices);
+                }
+                Err(err) => {
+                    // TODO: Log error properly
+                    eprintln!("Failed to load devices: {:?}", err);
+                }
+            }
+
+            // After we loaded the model, persist it automatically whenever it
+            // changes.
+            model.connect_items_changed(glib::clone!(
+                #[strong]
+                storage,
+                move |model, pos, n_added, _| {
+                    write_devices_async(storage.clone(), model);
+                    // Persist devices whenever one device changes
+                    for n in pos..n_added {
+                        model.item(n).unwrap().connect_notify_local(
+                            None,
+                            glib::clone!(
+                                #[strong]
+                                storage,
+                                #[weak]
+                                model,
+                                move |_, _| {
+                                    write_devices_async(storage.clone(), &model);
+                                }
+                            ),
+                        );
+                    }
+                }
+            ));
+        }
+    ));
 }
 
 fn activate_application(app: &adw::Application, model: &Devices) {
@@ -68,6 +127,8 @@ fn main() -> glib::ExitCode {
         .application_id(APP_ID.trim())
         .build();
 
+    let data_dir = glib::user_data_dir().join(APP_ID);
+    let storage = Rc::new(DevicesStorage::new(data_dir.join("devices.json")));
     let model = Devices::default();
 
     app.connect_activate(glib::clone!(
@@ -78,7 +139,7 @@ fn main() -> glib::ExitCode {
     app.connect_startup(glib::clone!(
         #[strong]
         model,
-        move |app| startup_application(app, &model)
+        move |app| startup_application(app, storage.clone(), &model)
     ));
 
     app.run()
