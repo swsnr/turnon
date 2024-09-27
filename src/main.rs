@@ -61,6 +61,8 @@ fn main() -> glib::ExitCode {
     // Setup logging?  Use log crate and have it log to glibs logging?
 
     gio::resources_register_include!("wakeup.gresource").unwrap();
+    glib::set_application_name("WakeUp");
+    gtk::Window::set_default_icon_name(APP_ID);
 
     let app = adw::Application::builder()
         .application_id(APP_ID.trim())
