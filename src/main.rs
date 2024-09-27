@@ -11,6 +11,7 @@ use adw::prelude::*;
 use gtk::gio;
 use gtk::gio::SimpleAction;
 use gtk::glib::{self, Variant};
+use model::Devices;
 use widgets::WakeUpApplicationWindow;
 
 mod model;
@@ -29,7 +30,7 @@ fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param:
 /// Handle application startup.
 ///
 /// Create application actions.
-fn startup_application(app: &adw::Application) {
+fn startup_application(app: &adw::Application, _model: &Devices) {
     let actions = [
         gio::ActionEntryBuilder::new("quit")
             .activate(|a: &adw::Application, _, _| a.quit())
@@ -43,13 +44,15 @@ fn startup_application(app: &adw::Application) {
     app.set_accels_for_action("win.add_device", &["<Control>n"]);
     app.set_accels_for_action("window.close", &["<Control>w"]);
     app.set_accels_for_action("app.quit", &["<Control>q"]);
+
+    // TODO: Load model here
 }
 
-fn activate_application(app: &adw::Application) {
+fn activate_application(app: &adw::Application, model: &Devices) {
     match app.active_window() {
         Some(window) => window.present(),
         None => {
-            WakeUpApplicationWindow::new(app).present();
+            WakeUpApplicationWindow::new(app, model).present();
         }
     }
 }
@@ -63,8 +66,18 @@ fn main() -> glib::ExitCode {
         .application_id(APP_ID.trim())
         .build();
 
-    app.connect_activate(activate_application);
-    app.connect_startup(startup_application);
+    let model = Devices::default();
+
+    app.connect_activate(glib::clone!(
+        #[strong]
+        model,
+        move |app| activate_application(app, &model)
+    ));
+    app.connect_startup(glib::clone!(
+        #[strong]
+        model,
+        move |app| startup_application(app, &model)
+    ));
 
     app.run()
 }

@@ -7,6 +7,8 @@
 use gtk::gio;
 use gtk::glib;
 
+use crate::model::Devices;
+
 glib::wrapper! {
     pub struct WakeUpApplicationWindow(ObjectSubclass<imp::WakeUpApplicationWindow>)
         @extends adw::ApplicationWindow, gtk::ApplicationWindow, gtk::Window, gtk::Widget,
@@ -17,24 +19,35 @@ glib::wrapper! {
 
 impl WakeUpApplicationWindow {
     /// Create a new application window for the given `application`.
-    pub fn new(application: &adw::Application) -> Self {
+    pub fn new(application: &adw::Application, devices: &Devices) -> Self {
         glib::Object::builder()
             .property("application", application)
+            .property("devices", devices)
             .build()
     }
 }
 
 mod imp {
+    use std::cell::RefCell;
+
     use adw::prelude::*;
     use adw::subclass::prelude::*;
     use gtk::glib::subclass::InitializingObject;
+    use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
 
+    use crate::model::{Device, Devices};
     use crate::widgets::AddDeviceDialog;
 
-    #[derive(CompositeTemplate, Default)]
+    #[derive(CompositeTemplate, Default, Properties)]
+    #[properties(wrapper_type = super::WakeUpApplicationWindow)]
     #[template(resource = "/de/swsnr/wakeup/ui/wakeup-application-window.ui")]
-    pub struct WakeUpApplicationWindow {}
+    pub struct WakeUpApplicationWindow {
+        #[property(get, set, construct_only)]
+        devices: RefCell<Devices>,
+        #[template_child]
+        devices_list: TemplateChild<gtk::ListBox>,
+    }
 
     #[glib::object_subclass]
     impl ObjectSubclass for WakeUpApplicationWindow {
@@ -49,10 +62,13 @@ mod imp {
 
             klass.install_action("win.add_device", None, |window, _, _| {
                 let dialog = AddDeviceDialog::new();
-                dialog.connect_added(|_, device| {
-                    // TODO: Add device to overall application model
-                    println!("Adding new device: {:?}", device.imp());
-                });
+                dialog.connect_added(glib::clone!(
+                    #[weak]
+                    window,
+                    move |_, device| {
+                        window.devices().add_device(device);
+                    }
+                ));
                 dialog.present(Some(window));
             });
         }
@@ -62,7 +78,21 @@ mod imp {
         }
     }
 
-    impl ObjectImpl for WakeUpApplicationWindow {}
+    #[glib::derived_properties]
+    impl ObjectImpl for WakeUpApplicationWindow {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            println!("Binding model!");
+            self.devices_list
+                .get()
+                .bind_model(Some(&self.devices.borrow().clone()), |item| {
+                    let device = item.clone().downcast::<Device>().unwrap();
+                    println!("Creating label for device {:?}", device.imp());
+                    gtk::Label::new(Some(&device.label())).upcast()
+                });
+        }
+    }
 
     impl WidgetImpl for WakeUpApplicationWindow {}
 

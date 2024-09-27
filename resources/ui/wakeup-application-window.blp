@@ -30,9 +30,20 @@ template $WakeUpApplicationWindow: Adw.ApplicationWindow {
       }
     }
 
-    Adw.StatusPage {
-      title: _('No devices');
-      description: _('Add a new device to wake it up.');
+    Gtk.ScrolledWindow {
+      Gtk.ListBox devices_list {
+        selection-mode: none;
+        vexpand: true;
+        hexpand: true;
+
+        [placeholder]
+        Adw.StatusPage {
+          // TODO: Show the application logo and a button to add a device
+          title: _('No devices');
+          description: _('Add a new device to wake it up.');
+          vexpand: true;
+        }
+      }
     }
   };
 }
