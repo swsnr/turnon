@@ -7,14 +7,12 @@
 #![deny(warnings, clippy::all)]
 #![forbid(unsafe_code)]
 
-use std::rc::Rc;
-
 use adw::prelude::*;
 use gtk::gio;
 use gtk::gio::SimpleAction;
 use gtk::glib::{self, Variant};
 use model::{Device, Devices};
-use storage::{DevicesStorage, StoredDevice};
+use storage::{StorageClient, StorageService};
 use widgets::WakeUpApplicationWindow;
 
 mod model;
@@ -22,20 +20,6 @@ mod storage;
 mod widgets;
 
 static APP_ID: &str = "de.swsnr.wakeup";
-
-fn write_devices_async(storage: Rc<DevicesStorage>, model: &Devices) -> glib::JoinHandle<()> {
-    let stored_data: Vec<StoredDevice> = model.into();
-    glib::spawn_future_local(glib::clone!(
-        #[strong]
-        storage,
-        async move {
-            log::info!("Saving devices to storage");
-            if let Err(err) = storage.save(stored_data).await {
-                log::error!("Failed to save devices: {:?}", err);
-            }
-        }
-    ))
-}
 
 fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param: Option<&Variant>) {
     adw::AboutDialog::from_appdata(
@@ -45,10 +29,33 @@ fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param:
     .present(app.active_window().as_ref());
 }
 
+fn save_automatically(model: &Devices, storage: StorageClient) {
+    model.connect_items_changed(move |model, pos, n_added, _| {
+        log::debug!("Device list changed, saving devices");
+        storage.request_save_devices(model.into());
+        // Persist devices whenever one device changes
+        for n in pos..n_added {
+            model.item(n).unwrap().connect_notify_local(
+                None,
+                glib::clone!(
+                    #[strong]
+                    storage,
+                    #[weak]
+                    model,
+                    move |_, _| {
+                        log::debug!("One device was changed, saving devices");
+                        storage.request_save_devices((&model).into());
+                    }
+                ),
+            );
+        }
+    });
+}
+
 /// Handle application startup.
 ///
 /// Create application actions.
-fn startup_application(app: &adw::Application, storage: Rc<DevicesStorage>, model: &Devices) {
+fn startup_application(app: &adw::Application, model: &Devices) {
     log::debug!("Application starting");
     gtk::Window::set_default_icon_name(APP_ID);
 
@@ -66,56 +73,35 @@ fn startup_application(app: &adw::Application, storage: Rc<DevicesStorage>, mode
     app.set_accels_for_action("window.close", &["<Control>w"]);
     app.set_accels_for_action("app.quit", &["<Control>q"]);
 
-    log::info!("Loading devices asynchronously");
-    glib::spawn_future_local(glib::clone!(
-        #[strong]
-        model,
-        async move {
-            match storage.load().await {
-                Ok(stored_devices) => {
-                    let devices = stored_devices.into_iter().map(Device::from).collect();
-                    model.reset_devices(devices);
-                    log::info!("All devices loaded from storage");
-                }
-                Err(err) => {
-                    log::warn!("Failed to load devices: {:?}", err);
-                }
-            }
+    log::debug!("Initializing storage");
+    let data_dir = glib::user_data_dir().join(APP_ID);
+    let storage = StorageService::new(data_dir.join("devices.json"));
 
-            // After we loaded the model, persist it automatically whenever it
-            // changes.
-            model.connect_items_changed(glib::clone!(
-                #[strong]
-                storage,
-                move |model, pos, n_added, _| {
-                    log::debug!("Device list changed, saving devices");
-                    write_devices_async(storage.clone(), model);
-                    // Persist devices whenever one device changes
-                    for n in pos..n_added {
-                        model.item(n).unwrap().connect_notify_local(
-                            None,
-                            glib::clone!(
-                                #[strong]
-                                storage,
-                                #[weak]
-                                model,
-                                move |_, _| {
-                                    log::debug!("One device was changed, saving devices");
-                                    write_devices_async(storage.clone(), &model);
-                                }
-                            ),
-                        );
-                    }
-                }
-            ));
+    log::info!("Loading devices synchronously");
+    let devices = match storage.load_sync() {
+        Err(error) => {
+            log::error!(
+                "Failed to load devices from {}: {}",
+                storage.target().display(),
+                error
+            );
+            Vec::new()
         }
-    ));
+        Ok(devices) => devices.into_iter().map(Device::from).collect(),
+    };
+    model.reset_devices(devices);
+    save_automatically(model, storage.client());
+    glib::spawn_future_local(storage.spawn());
 }
 
 fn activate_application(app: &adw::Application, model: &Devices) {
     match app.active_window() {
-        Some(window) => window.present(),
+        Some(window) => {
+            log::debug!("Representing existing application window");
+            window.present()
+        }
         None => {
+            log::debug!("Creating new application window");
             WakeUpApplicationWindow::new(app, model).present();
         }
     }
@@ -136,9 +122,6 @@ fn main() -> glib::ExitCode {
         .application_id(APP_ID.trim())
         .build();
 
-    log::debug!("Initializing storage and model");
-    let data_dir = glib::user_data_dir().join(APP_ID);
-    let storage = Rc::new(DevicesStorage::new(data_dir.join("devices.json")));
     let model = Devices::default();
 
     app.connect_activate(glib::clone!(
@@ -149,7 +132,7 @@ fn main() -> glib::ExitCode {
     app.connect_startup(glib::clone!(
         #[strong]
         model,
-        move |app| startup_application(app, storage.clone(), &model)
+        move |app| startup_application(app, &model)
     ));
 
     app.run()

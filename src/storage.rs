@@ -7,9 +7,9 @@
 use std::fs::File;
 use std::io::{ErrorKind, Result};
 use std::panic::resume_unwind;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
-use gtk::glib;
+use async_channel::{Receiver, Sender};
 use macaddr::MacAddr6;
 use serde::{Deserialize, Serialize};
 
@@ -43,19 +43,14 @@ mod mac_addr6_as_string {
     }
 }
 
-pub struct DevicesStorage {
-    io_pool: glib::ThreadPool,
-    location: PathBuf,
-}
-
-fn read_devices(target: PathBuf) -> Result<Vec<StoredDevice>> {
+fn read_devices(target: &Path) -> Result<Vec<StoredDevice>> {
     File::open(target).and_then(|source| {
         serde_json::from_reader(source)
             .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))
     })
 }
 
-fn write_devices(target: PathBuf, devices: Vec<StoredDevice>) -> Result<()> {
+fn write_devices(target: &Path, devices: Vec<StoredDevice>) -> Result<()> {
     std::fs::create_dir_all(target.parent().expect("Target path not absolute?")).ok();
     File::create(target).and_then(|sink| {
         serde_json::to_writer_pretty(sink, &devices)
@@ -63,38 +58,109 @@ fn write_devices(target: PathBuf, devices: Vec<StoredDevice>) -> Result<()> {
     })
 }
 
-impl DevicesStorage {
-    pub fn new(location: PathBuf) -> Self {
-        Self {
-            io_pool: glib::ThreadPool::shared(None).unwrap(),
-            location,
+async fn handle_save_requests(data_file: PathBuf, rx: Receiver<Vec<StoredDevice>>) {
+    let pool = glib::ThreadPool::shared(Some(1)).unwrap();
+    loop {
+        match rx.recv().await {
+            Ok(devices) => {
+                let target = data_file.clone();
+                // Off-load serialization and writing to the thread pool. We
+                // then wait for the result of saving the file before proecssing
+                // the next storage request, to avoid writing to the same file
+                // in parallel.
+                let result = pool
+                    .push_future(move || write_devices(&target, devices))
+                    .unwrap()
+                    .await;
+                match result {
+                    Err(payload) => {
+                        resume_unwind(payload);
+                    }
+                    Ok(Err(error)) => {
+                        log::error!(
+                            "Failed to save devices to {}: {}",
+                            data_file.display(),
+                            error
+                        );
+                    }
+                    Ok(Ok(_)) => {
+                        log::info!("Saved devices to {}", data_file.display());
+                    }
+                }
+            }
+            Err(_) => {
+                log::warn!("Channel closed");
+                break;
+            }
+        }
+    }
+}
+
+/// A service which can save devices.
+///
+/// This service processes requests to save a serialized list of devices to a
+/// file.
+///
+/// It allows many concurrent save requests, but always discards all but the
+/// latest save requests, to avoid redundant writes to the file.
+#[derive(Debug)]
+pub struct StorageService {
+    target: PathBuf,
+    tx: Sender<Vec<StoredDevice>>,
+    rx: Receiver<Vec<StoredDevice>>,
+}
+
+impl StorageService {
+    /// Create a new storage service for the given `target` file.
+    pub fn new(target: PathBuf) -> Self {
+        // Create a bounded channel which can only hold a single request at a time.
+        // Then we can use force_send to overwrite earlier storage requests to avoid
+        // redundant writes.
+        let (tx, rx) = async_channel::bounded::<Vec<StoredDevice>>(1);
+        Self { target, tx, rx }
+    }
+
+    pub fn target(&self) -> &Path {
+        &self.target
+    }
+
+    /// Get a client for this service.
+    pub fn client(&self) -> StorageClient {
+        StorageClient {
+            tx: self.tx.clone(),
         }
     }
 
-    /// Load devices from this storage.
-    pub async fn load(&self) -> Result<Vec<StoredDevice>> {
-        let target = self.location.clone();
-        let result = self
-            .io_pool
-            .push_future(move || read_devices(target))
-            .expect("Failed to load on thread pool")
-            .await;
-        match result {
-            Ok(devices) => devices,
-            Err(panicked) => resume_unwind(panicked),
-        }
+    /// Load devices synchronously from storage.
+    pub fn load_sync(&self) -> Result<Vec<StoredDevice>> {
+        read_devices(&self.target)
     }
 
-    pub async fn save(&self, devices: Vec<StoredDevice>) -> Result<()> {
-        let target = self.location.clone();
-        let result = self
-            .io_pool
-            .push_future(move || write_devices(target, devices))
-            .expect("Failed to save on thread pool")
-            .await;
-        if let Err(panicked) = result {
-            resume_unwind(panicked)
-        }
-        Ok(())
+    /// Spawn the service.
+    ///
+    /// Consumes the service to ensure that only a single service instance is
+    /// running.
+    ///
+    /// After spawning no further clients can be created from the service.  You
+    /// must create a client first, and then clone that client.
+    pub async fn spawn(self) {
+        handle_save_requests(self.target, self.rx).await
+    }
+}
+
+/// A storage client which can request saving devices from a storage service.
+///
+/// The client is cheap to clone.
+#[derive(Debug, Clone)]
+pub struct StorageClient {
+    tx: Sender<Vec<StoredDevice>>,
+}
+
+impl StorageClient {
+    /// Request that the service save the given `devices`.
+    pub fn request_save_devices(&self, devices: Vec<StoredDevice>) {
+        // Forcibly overwrite earlier storage requests, to ensure we only store
+        // the most recent version of data.
+        self.tx.force_send(devices).unwrap();
     }
 }
