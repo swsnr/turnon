@@ -88,7 +88,12 @@ mod imp {
             self.devices_list
                 .get()
                 .bind_model(Some(&self.devices.borrow().clone()), |item| {
-                    DeviceRow::new(&item.clone().downcast::<Device>().unwrap()).upcast()
+                    let row = DeviceRow::new(&item.clone().downcast::<Device>().unwrap());
+                    row.connect_activated(|row| {
+                        log::warn!("Activated row for device {}", row.device().label());
+                        // TODO: Wakeup device
+                    });
+                    row.upcast()
                 });
         }
     }
