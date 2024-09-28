@@ -6,76 +6,76 @@ using Gtk 4.0;
 using Adw 1;
 
 template $DeviceRow: Adw.ActionRow {
-    title: bind (template.device as <$Device>).label;
-    subtitle: bind $device_mac_address(template.device) as <string>;
-    activatable: true;
+  title: bind (template.device as <$Device>).label;
+  subtitle: bind $device_mac_address(template.device) as <string>;
+  activatable: true;
 
-    [prefix]
-    Gtk.Stack {
-        visible-child-name: bind $device_state_name(template.is_device_online) as <string>;
+  [prefix]
+  Gtk.Stack {
+    visible-child-name: bind $device_state_name(template.is_device_online) as <string>;
 
-        Gtk.StackPage {
-            name: "offline";
+    Gtk.StackPage {
+      name: "offline";
 
-            child: Gtk.Image {
-                icon-name: "sonar-symbolic";
+      child: Gtk.Image {
+        icon-name: "sonar-symbolic";
 
-                styles [
-                    "error"
-                ]
-            };
-        }
-
-        Gtk.StackPage {
-            name: "online";
-
-            child: Gtk.Image {
-                icon-name: "sonar-symbolic";
-
-                styles [
-                    "success"
-                ]
-            };
-        }
+        styles [
+          "error"
+        ]
+      };
     }
 
-    [suffix]
+    Gtk.StackPage {
+      name: "online";
+
+      child: Gtk.Image {
+        icon-name: "sonar-symbolic";
+
+        styles [
+          "success"
+        ]
+      };
+    }
+  }
+
+  [suffix]
+  Gtk.Box {
+    orientation: horizontal;
+    spacing: 3;
+
+    Label {
+      label: bind (template.device as <$Device>).host;
+
+      styles [
+        "dim-label"
+      ]
+    }
+
     Gtk.Box {
-        orientation: horizontal;
-        spacing: 3;
+      orientation: horizontal;
 
-        Label {
-            label: bind (template.device as <$Device>).host;
+      Gtk.Button {
+        icon-name: "document-edit-symbolic";
+        // TODO: implement
+        sensitive: false;
+        tooltip-text: _("Editing of devices is not yet implemented");
 
-            styles [
-                "dim-label"
-            ]
-        }
+        styles [
+          "flat"
+        ]
+      }
 
-        Gtk.Box {
-            orientation: horizontal;
+      Gtk.Button {
+        icon-name: "user-trash-symbolic";
+        // TODO: implement
+        sensitive: false;
+        tooltip-text: _("Deleting of devices is not yet implemented");
 
-            Gtk.Button {
-                icon-name: "document-edit-symbolic";
-                // TODO: implement
-                sensitive: false;
-                tooltip-text: _("Editing of devices is not yet implemented");
-
-                styles [
-                    "flat"
-                ]
-            }
-
-            Gtk.Button {
-                icon-name: "user-trash-symbolic";
-                // TODO: implement
-                sensitive: false;
-                tooltip-text: _("Deleting of devices is not yet implemented");
-
-                styles [
-                    "flat"
-                ]
-            }
-        }
+        styles [
+          "flat"
+        ]
+      }
     }
+  }
 }
