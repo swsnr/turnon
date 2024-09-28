@@ -7,6 +7,46 @@ using Adw 1;
 
 template $DeviceRow: Adw.ActionRow {
     title: bind (template.device as <$Device>).label;
-    subtitle: bind (template.device as <$Device>).host;
+    subtitle: bind $device_mac_address(template.device) as <string>;
     activatable: true;
+
+    [suffix]
+    Gtk.Box {
+        orientation: horizontal;
+        spacing: 3;
+
+        Label {
+            label: bind (template.device as <$Device>).host;
+
+            styles [
+                "dim-label"
+            ]
+        }
+
+        Gtk.Box {
+            orientation: horizontal;
+
+            Gtk.Button {
+                icon-name: "document-edit-symbolic";
+                // TODO: implement
+                sensitive: false;
+                tooltip-text: _("Editing of devices is not yet implemented");
+
+                styles [
+                    "flat"
+                ]
+            }
+
+            Gtk.Button {
+                icon-name: "user-trash-symbolic";
+                // TODO: implement
+                sensitive: false;
+                tooltip-text: _("Deleting of devices is not yet implemented");
+
+                styles [
+                    "flat"
+                ]
+            }
+        }
+    }
 }

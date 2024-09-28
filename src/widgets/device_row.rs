@@ -33,7 +33,7 @@ mod imp {
     use adw::subclass::prelude::*;
     use glib::subclass::InitializingObject;
     use glib::Properties;
-    use gtk::CompositeTemplate;
+    use gtk::{template_callbacks, CompositeTemplate};
 
     use crate::model::Device;
 
@@ -43,6 +43,14 @@ mod imp {
     pub struct DeviceRow {
         #[property(get, set)]
         device: RefCell<Device>,
+    }
+
+    #[template_callbacks]
+    impl DeviceRow {
+        #[template_callback]
+        pub fn device_mac_address(_row: &super::DeviceRow, device: &Device) -> String {
+            device.mac_addr6().to_string()
+        }
     }
 
     #[glib::object_subclass]
@@ -55,6 +63,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+            klass.bind_template_callbacks();
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
