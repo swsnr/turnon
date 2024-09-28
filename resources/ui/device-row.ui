@@ -22,6 +22,43 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
       </closure>
     </binding>
     <property name="activatable">true</property>
+    <child type="prefix">
+      <object class="GtkStack">
+        <binding name="visible-child-name">
+          <closure function="device_state_name" type="gchararray">
+            <lookup name="is_device_online" type="DeviceRow">
+              <constant>DeviceRow</constant>
+            </lookup>
+          </closure>
+        </binding>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">offline</property>
+            <property name="child">
+              <object class="GtkImage">
+                <property name="icon-name">sonar-symbolic</property>
+                <style>
+                  <class name="error"/>
+                </style>
+              </object>
+            </property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkStackPage">
+            <property name="name">online</property>
+            <property name="child">
+              <object class="GtkImage">
+                <property name="icon-name">sonar-symbolic</property>
+                <style>
+                  <class name="success"/>
+                </style>
+              </object>
+            </property>
+          </object>
+        </child>
+      </object>
+    </child>
     <child type="suffix">
       <object class="GtkBox">
         <property name="orientation">0</property>

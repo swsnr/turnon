@@ -10,6 +10,35 @@ template $DeviceRow: Adw.ActionRow {
     subtitle: bind $device_mac_address(template.device) as <string>;
     activatable: true;
 
+    [prefix]
+    Gtk.Stack {
+        visible-child-name: bind $device_state_name(template.is_device_online) as <string>;
+
+        Gtk.StackPage {
+            name: "offline";
+
+            child: Gtk.Image {
+                icon-name: "sonar-symbolic";
+
+                styles [
+                    "error"
+                ]
+            };
+        }
+
+        Gtk.StackPage {
+            name: "online";
+
+            child: Gtk.Image {
+                icon-name: "sonar-symbolic";
+
+                styles [
+                    "success"
+                ]
+            };
+        }
+    }
+
     [suffix]
     Gtk.Box {
         orientation: horizontal;

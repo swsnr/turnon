@@ -16,7 +16,10 @@ glib::wrapper! {
 
 impl DeviceRow {
     pub fn new(device: &Device) -> Self {
-        glib::Object::builder().property("device", device).build()
+        glib::Object::builder()
+            .property("device", device)
+            .property("is_device_online", false)
+            .build()
     }
 }
 
@@ -27,7 +30,7 @@ impl Default for DeviceRow {
 }
 
 mod imp {
-    use std::cell::RefCell;
+    use std::cell::{Cell, RefCell};
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
@@ -43,6 +46,8 @@ mod imp {
     pub struct DeviceRow {
         #[property(get, set)]
         device: RefCell<Device>,
+        #[property(get, set)]
+        is_device_online: Cell<bool>,
     }
 
     #[template_callbacks]
@@ -50,6 +55,15 @@ mod imp {
         #[template_callback]
         pub fn device_mac_address(_row: &super::DeviceRow, device: &Device) -> String {
             device.mac_addr6().to_string()
+        }
+
+        #[template_callback]
+        pub fn device_state_name(_row: &super::DeviceRow, is_device_online: bool) -> &'static str {
+            if is_device_online {
+                "online"
+            } else {
+                "offline"
+            }
         }
     }
 
