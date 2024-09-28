@@ -1,14 +1,12 @@
 // Copyright Sebastian Wiesner <sebastian@swsnr.de>
-
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
+using Gtk 4.0;
+using Adw 1;
 
-mod add_device_dialog;
-mod application_window;
-mod device_row;
-mod validation_indicator;
-
-pub use add_device_dialog::AddDeviceDialog;
-pub use application_window::WakeUpApplicationWindow;
-pub use validation_indicator::ValidationIndicator;
+template $DeviceRow: Adw.ActionRow {
+    title: bind (template.device as <$Device>).label;
+    subtitle: bind (template.device as <$Device>).host;
+    activatable: true;
+}

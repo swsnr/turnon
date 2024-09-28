@@ -37,6 +37,7 @@ mod imp {
     use gtk::{glib, CompositeTemplate};
 
     use crate::model::{Device, Devices};
+    use crate::widgets::device_row::DeviceRow;
     use crate::widgets::AddDeviceDialog;
 
     #[derive(CompositeTemplate, Default, Properties)]
@@ -87,30 +88,7 @@ mod imp {
             self.devices_list
                 .get()
                 .bind_model(Some(&self.devices.borrow().clone()), |item| {
-                    let device = item.clone().downcast::<Device>().unwrap();
-
-                    // TODO: Move into a separate template widget
-                    let row = adw::ActionRow::new();
-                    row.set_activatable(true);
-                    row.add_css_class("activatable");
-                    device
-                        .bind_property("label", &row, "title")
-                        .sync_create()
-                        .build();
-                    device
-                        .bind_property("host", &row, "subtitle")
-                        .sync_create()
-                        .build();
-
-                    row.connect_activated(glib::clone!(
-                        #[weak]
-                        device,
-                        move |_| {
-                            log::warn!("Was activated: {}", device.label());
-                        }
-                    ));
-
-                    row.upcast()
+                    DeviceRow::new(&item.clone().downcast::<Device>().unwrap()).upcast()
                 });
         }
     }

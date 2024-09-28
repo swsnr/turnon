@@ -30,6 +30,12 @@ impl Device {
     }
 }
 
+impl Default for Device {
+    fn default() -> Self {
+        glib::Object::builder().build()
+    }
+}
+
 impl From<StoredDevice> for Device {
     fn from(value: StoredDevice) -> Self {
         glib::Object::builder()
