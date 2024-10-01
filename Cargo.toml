@@ -23,3 +23,7 @@ log = "0.4.22"
 [build-dependencies]
 glib-build-tools = "0.20.0"
 glob = "0.3.1"
+
+[dev-dependencies]
+socket2 = "0.5.7"
+etherparse = "0.16.0"
