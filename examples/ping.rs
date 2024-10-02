@@ -44,7 +44,7 @@ fn send_icmp_echo(address: &gio::InetSocketAddress, socket: &gio::Socket) {
         Ok(bytes_written) => {
             assert!(bytes_written == packet.len())
         }
-        Err(err_) => {
+        Err(_err) => {
             out.write_all(b"!").unwrap();
             out.flush().unwrap();
         }
