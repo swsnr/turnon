@@ -13,7 +13,9 @@ use async_channel::{Receiver, Sender};
 use macaddr::MacAddr6;
 use serde::{Deserialize, Serialize};
 
-/// A device
+/// A stored device.
+///
+/// Like [`model::Device`], but for serialization.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct StoredDevice {
     pub label: String,
@@ -120,13 +122,14 @@ impl StorageService {
         Self { target, tx, rx }
     }
 
+    /// Get the target path for storage.
     pub fn target(&self) -> &Path {
         &self.target
     }
 
     /// Get a client for this service.
-    pub fn client(&self) -> StorageClient {
-        StorageClient {
+    pub fn client(&self) -> StorageServiceClient {
+        StorageServiceClient {
             tx: self.tx.clone(),
         }
     }
@@ -152,11 +155,11 @@ impl StorageService {
 ///
 /// The client is cheap to clone.
 #[derive(Debug, Clone)]
-pub struct StorageClient {
+pub struct StorageServiceClient {
     tx: Sender<Vec<StoredDevice>>,
 }
 
-impl StorageClient {
+impl StorageServiceClient {
     /// Request that the service save the given `devices`.
     pub fn request_save_devices(&self, devices: Vec<StoredDevice>) {
         // Forcibly overwrite earlier storage requests, to ensure we only store

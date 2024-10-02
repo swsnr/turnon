@@ -12,11 +12,11 @@ use gtk::gio;
 use gtk::gio::SimpleAction;
 use gtk::glib::{self, Variant};
 use model::{Device, Devices};
-use storage::{StorageClient, StorageService};
+use services::{StorageService, StorageServiceClient};
 use widgets::WakeUpApplicationWindow;
 
 mod model;
-mod storage;
+mod services;
 mod widgets;
 
 static APP_ID: &str = "de.swsnr.wakeup";
@@ -29,7 +29,7 @@ fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param:
     .present(app.active_window().as_ref());
 }
 
-fn save_automatically(model: &Devices, storage: StorageClient) {
+fn save_automatically(model: &Devices, storage: StorageServiceClient) {
     model.connect_items_changed(move |model, pos, n_added, _| {
         log::debug!("Device list changed, saving devices");
         storage.request_save_devices(model.into());
