@@ -37,6 +37,7 @@ mod imp {
     use gtk::{glib, CompositeTemplate};
 
     use crate::model::{Device, Devices};
+    use crate::services::PingScheduler;
     use crate::widgets::device_row::DeviceRow;
     use crate::widgets::AddDeviceDialog;
 
@@ -48,6 +49,7 @@ mod imp {
         devices: RefCell<Devices>,
         #[template_child]
         devices_list: TemplateChild<gtk::ListBox>,
+        ping_scheduler: PingScheduler,
     }
 
     #[glib::object_subclass]
@@ -95,6 +97,12 @@ mod imp {
                     });
                     row.upcast()
                 });
+
+            self.ping_scheduler.connect_ping(|_| {
+                println!("ping!");
+            });
+            // TODO: Stop pinging when the window is no longer visible on screen
+            self.ping_scheduler.start();
         }
     }
 
