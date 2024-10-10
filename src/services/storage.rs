@@ -67,7 +67,7 @@ async fn handle_save_requests(data_file: PathBuf, rx: Receiver<Vec<StoredDevice>
             Ok(devices) => {
                 let target = data_file.clone();
                 // Off-load serialization and writing to the thread pool. We
-                // then wait for the result of saving the file before proecssing
+                // then wait for the result of saving the file before processing
                 // the next storage request, to avoid writing to the same file
                 // in parallel.
                 let result = pool
