@@ -5,7 +5,6 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 #![deny(warnings, clippy::all)]
-#![forbid(unsafe_code)]
 
 use adw::prelude::*;
 use gtk::gio;
@@ -17,6 +16,7 @@ use widgets::WakeUpApplicationWindow;
 
 mod log;
 mod model;
+mod ping;
 mod services;
 mod widgets;
 

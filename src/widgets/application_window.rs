@@ -29,16 +29,18 @@ impl WakeUpApplicationWindow {
 
 mod imp {
     use std::cell::RefCell;
+    use std::time::Duration;
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
+    use futures_util::{StreamExt, TryStreamExt};
     use gtk::glib::subclass::InitializingObject;
     use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
 
     use crate::log::G_LOG_DOMAIN;
     use crate::model::{Device, Devices};
-    use crate::services::PingScheduler;
+    use crate::ping;
     use crate::widgets::device_row::DeviceRow;
     use crate::widgets::AddDeviceDialog;
 
@@ -50,7 +52,6 @@ mod imp {
         devices: RefCell<Devices>,
         #[template_child]
         devices_list: TemplateChild<gtk::ListBox>,
-        ping_scheduler: PingScheduler,
     }
 
     #[glib::object_subclass]
@@ -91,19 +92,29 @@ mod imp {
             self.devices_list
                 .get()
                 .bind_model(Some(&self.devices.borrow().clone()), |item| {
-                    let row = DeviceRow::new(&item.clone().downcast::<Device>().unwrap());
+                    let device = &item.clone().downcast::<Device>().unwrap();
+                    let row = DeviceRow::new(device);
+                    // TODO: Restart monitoring if the target of a device changed!
+                    glib::spawn_future_local(
+                        ping::monitor(device.host().into(), Duration::from_secs(5))
+                            .map(Ok)
+                            .try_for_each(glib::clone!(
+                                #[weak]
+                                row,
+                                #[upgrade_or]
+                                futures_util::future::err(()),
+                                move |is_online| {
+                                    row.set_is_device_online(is_online);
+                                    futures_util::future::ok(())
+                                }
+                            )),
+                    );
                     row.connect_activated(|row| {
                         glib::warn!("Activated row for device {}", row.device().label());
                         // TODO: Wakeup device
                     });
                     row.upcast()
                 });
-
-            self.ping_scheduler.connect_ping(|_| {
-                println!("ping!");
-            });
-            // TODO: Stop pinging when the window is no longer visible on screen
-            self.ping_scheduler.start();
         }
     }
 

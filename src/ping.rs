@@ -4,13 +4,15 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+//! A dead simple and somewhat stupid ping implementation.
+
 use std::error::Error;
 use std::net::{IpAddr, SocketAddr};
 use std::os::unix::io::IntoRawFd;
-use std::{io::Write, time::Duration};
+use std::time::Duration;
 
 use etherparse::{IcmpEchoHeader, Icmpv4Slice, Icmpv4Type, Icmpv6Slice, Icmpv6Type};
-use futures_util::{select_biased, FutureExt, StreamExt};
+use futures_util::{select_biased, stream, FutureExt, Stream, StreamExt};
 use glib::IOCondition;
 use gtk::gio::{self, Cancellable};
 use gtk::prelude::{CancellableExt, ResolverExt, SocketExt, SocketExtManual};
@@ -23,15 +25,25 @@ fn create_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket, Box<
     Ok(unsafe { gio::Socket::from_fd(socket.into_raw_fd()) }?)
 }
 
+/// The target to ping.
 #[derive(Debug, Clone)]
-enum Source {
+pub enum Target {
+    /// Ping a DNS name which we need to resolve first.
     Dns(String),
+    /// Ping a resolved IP address.
     Addr(IpAddr),
 }
 
-async fn ping(source: Source, cancellable: &Cancellable) -> Result<bool, Box<dyn Error>> {
-    let ip_address = match source {
-        Source::Dns(name) => {
+impl From<String> for Target {
+    fn from(host: String) -> Self {
+        host.parse().map_or_else(|_| Self::Dns(host), Self::Addr)
+    }
+}
+
+/// Send a single ping to `target`.
+async fn ping(target: Target, cancellable: &Cancellable) -> Result<bool, Box<dyn Error>> {
+    let ip_address = match target {
+        Target::Dns(name) => {
             let addresses = gio::Resolver::default()
                 .lookup_by_name_future(&name)
                 .await?;
@@ -39,7 +51,7 @@ async fn ping(source: Source, cancellable: &Cancellable) -> Result<bool, Box<dyn
                 std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found")
             })?
         }
-        Source::Addr(ip_addr) => ip_addr,
+        Target::Addr(ip_addr) => ip_addr,
     };
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
@@ -95,50 +107,25 @@ async fn ping(source: Source, cancellable: &Cancellable) -> Result<bool, Box<dyn
     }
 }
 
-fn main() {
-    let host = std::env::args().nth(1).unwrap();
-    let source = host
-        .parse::<IpAddr>()
-        .map_or_else(|_| Source::Dns(host), Source::Addr);
-    dbg!(&source);
-
-    let main_loop = glib::MainLoop::new(None, false);
-
-    let ping = futures_util::stream::iter(vec![()])
-        .chain(glib::interval_stream_seconds(5))
-        .inspect(|_| {
-            let mut out = std::io::stdout().lock();
-            out.write_all(b"o").unwrap();
-            out.flush().unwrap();
-        })
-        .for_each(move |_| {
-            let source = source.clone();
-            async move {
-                let mut out = std::io::stdout().lock();
+/// Monitor a target at the given `interval`.
+///
+/// Return a stream providing whether the target is online.
+pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
+    futures_util::stream::iter(vec![()])
+        .chain(glib::interval_stream(interval))
+        .flat_map(move |_| {
+            let target = target.clone();
+            stream::once(async move {
                 let cancellable = Cancellable::new();
                 select_biased! {
-                    response = ping(source, &cancellable).fuse() => {
-                        match response {
-                            Ok(is_online) => {
-                                let c = if is_online { "X" } else { "_" };
-                                out.write_all(c.as_bytes()).unwrap();
-                            }
-                            Err(_) => {
-                                out.write_all(b"!").unwrap();
-                            }
-                        }
+                    response = ping(target, &cancellable).fuse() => {
+                        response.unwrap_or(false)
                     }
                     _ = glib::timeout_future_seconds(5).fuse() => {
                         cancellable.cancel();
-                        out.write_all(b"X").unwrap();
-
+                        false
                     }
                 }
-                out.flush().unwrap();
-            }
-        });
-
-    glib::spawn_future_local(ping);
-
-    main_loop.run();
+            })
+        })
 }
