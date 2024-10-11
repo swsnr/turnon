@@ -15,9 +15,12 @@ use model::{Device, Devices};
 use services::{StorageService, StorageServiceClient};
 use widgets::WakeUpApplicationWindow;
 
+mod log;
 mod model;
 mod services;
 mod widgets;
+
+use log::G_LOG_DOMAIN;
 
 static APP_ID: &str = "de.swsnr.wakeup";
 
@@ -31,7 +34,7 @@ fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param:
 
 fn save_automatically(model: &Devices, storage: StorageServiceClient) {
     model.connect_items_changed(move |model, pos, n_added, _| {
-        log::debug!("Device list changed, saving devices");
+        glib::debug!("Device list changed, saving devices");
         storage.request_save_devices(model.into());
         // Persist devices whenever one device changes
         for n in pos..n_added {
@@ -43,7 +46,7 @@ fn save_automatically(model: &Devices, storage: StorageServiceClient) {
                     #[weak]
                     model,
                     move |_, _| {
-                        log::debug!("One device was changed, saving devices");
+                        glib::debug!("One device was changed, saving devices");
                         storage.request_save_devices((&model).into());
                     }
                 ),
@@ -56,7 +59,7 @@ fn save_automatically(model: &Devices, storage: StorageServiceClient) {
 ///
 /// Create application actions.
 fn startup_application(app: &adw::Application, model: &Devices) {
-    log::debug!("Application starting");
+    glib::debug!("Application starting");
     gtk::Window::set_default_icon_name(APP_ID);
 
     let actions = [
@@ -73,14 +76,14 @@ fn startup_application(app: &adw::Application, model: &Devices) {
     app.set_accels_for_action("window.close", &["<Control>w"]);
     app.set_accels_for_action("app.quit", &["<Control>q"]);
 
-    log::debug!("Initializing storage");
+    glib::debug!("Initializing storage");
     let data_dir = glib::user_data_dir().join(APP_ID);
     let storage = StorageService::new(data_dir.join("devices.json"));
 
-    log::info!("Loading devices synchronously");
+    glib::info!("Loading devices synchronously");
     let devices = match storage.load_sync() {
         Err(error) => {
-            log::error!(
+            glib::error!(
                 "Failed to load devices from {}: {}",
                 storage.target().display(),
                 error
@@ -97,11 +100,11 @@ fn startup_application(app: &adw::Application, model: &Devices) {
 fn activate_application(app: &adw::Application, model: &Devices) {
     match app.active_window() {
         Some(window) => {
-            log::debug!("Representing existing application window");
+            glib::debug!("Representing existing application window");
             window.present()
         }
         None => {
-            log::debug!("Creating new application window");
+            glib::debug!("Creating new application window");
             WakeUpApplicationWindow::new(app, model).present();
         }
     }
