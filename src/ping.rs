@@ -143,7 +143,6 @@ pub async fn resolve_host(host: &str) -> Result<Vec<IpAddr>, Box<dyn Error>> {
     if addresses.is_empty() {
         Err(std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found").into())
     } else {
-        // TODO: This .into() seems to mangle IPv6 addresses?
         Ok(addresses.into_iter().map(to_rust).collect())
     }
 }
