@@ -6,17 +6,22 @@
 
 //! A dead simple and somewhat stupid ping implementation.
 
+use std::cell::RefCell;
 use std::error::Error;
+use std::fmt::Display;
 use std::net::{IpAddr, SocketAddr};
 use std::os::fd::{AsRawFd, OwnedFd};
+use std::rc::Rc;
 use std::time::Duration;
 
 use etherparse::{IcmpEchoHeader, Icmpv4Slice, Icmpv4Type, Icmpv6Slice, Icmpv6Type};
-use futures_util::{select_biased, stream, FutureExt, Stream, StreamExt};
+use futures_util::{select_biased, FutureExt, Stream, StreamExt};
 use glib::IOCondition;
 use gtk::gio::{self, Cancellable};
 use gtk::prelude::{CancellableExt, ResolverExt, SocketExt, SocketExtManual};
 use socket2::*;
+
+use crate::log::G_LOG_DOMAIN;
 
 fn create_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket, Box<dyn Error>> {
     let socket = socket2::Socket::new_raw(domain, Type::DGRAM, Some(protocol))?;
@@ -50,19 +55,18 @@ impl From<String> for Target {
     }
 }
 
-/// Send a single ping to `target`.
-async fn ping(target: Target, cancellable: &Cancellable) -> Result<bool, Box<dyn Error>> {
-    let ip_address = match target {
-        Target::Dns(name) => {
-            let addresses = gio::Resolver::default()
-                .lookup_by_name_future(&name)
-                .await?;
-            addresses.first().map(|a| a.clone().into()).ok_or_else(|| {
-                std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found")
-            })?
+impl Display for Target {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Target::Dns(host) => host.fmt(f),
+            Target::Addr(ip_addr) => ip_addr.fmt(f),
         }
-        Target::Addr(ip_addr) => ip_addr,
-    };
+    }
+}
+
+/// Send a single ping to `ip_address`.
+async fn ping(ip_address: IpAddr, cancellable: &Cancellable) -> Result<bool, Box<dyn Error>> {
+    glib::trace!("Sending ICMP echo request to {ip_address}");
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
         IpAddr::V6(_) => (Domain::IPV6, Protocol::ICMPV6),
@@ -117,25 +121,80 @@ async fn ping(target: Target, cancellable: &Cancellable) -> Result<bool, Box<dyn
     }
 }
 
+/// Resolve a `host` to an IP address.
+pub async fn resolve_host(host: &str) -> Result<IpAddr, Box<dyn Error>> {
+    // TODO: lookup_by_name_future does not take a cancellable?
+    let addresses = gio::Resolver::default().lookup_by_name_future(host).await?;
+    let first_address = addresses
+        .first()
+        .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found"))?;
+    Ok(first_address.clone().into())
+}
+
 /// Monitor a target at the given `interval`.
 ///
 /// Return a stream providing whether the target is online.
 pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
+    let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Default::default();
     futures_util::stream::iter(vec![()])
         .chain(glib::interval_stream(interval))
-        .flat_map(move |_| {
+        .scan(cached_ip_address, move |state, _| {
             let target = target.clone();
-            stream::once(async move {
-                let cancellable = Cancellable::new();
-                select_biased! {
-                    response = ping(target, &cancellable).fuse() => {
-                        response.unwrap_or(false)
+            let state = state.clone();
+            async move {
+                // Resolve the target to an IP address
+                let address = match state.take() {
+                    Some(address) => {
+                        glib::trace!("Using cached IP address {address}");
+                        Ok(address)
                     }
-                    _ = glib::timeout_future_seconds(5).fuse() => {
-                        cancellable.cancel();
-                        false
+                    None => match target {
+                        Target::Dns(ref host) => {
+                            glib::trace!("Resolving {host} to IP address");
+                            resolve_host(host).await.inspect(|ip_addr| {
+                                glib::trace!("Resolved {host} to {ip_addr}");
+                            })
+                        }
+                        Target::Addr(ip_addr) => Ok(ip_addr),
+                    },
+                };
+                match address {
+                    Ok(ip_address) => {
+                        let cancellable = Cancellable::new();
+                        let is_online = select_biased! {
+                            response = ping(ip_address, &cancellable).fuse() => {
+                                match response {
+                                    Ok(true) => {
+                                        glib::trace!("{ip_address} replied");
+                                        true
+                                    },
+                                    Ok(false) => {
+                                        glib::trace!("{ip_address} did not reply");
+                                        false
+                                    },
+                                    Err(error) => {
+                                        glib::trace!("Failed to ping {ip_address}: {error}");
+                                        false
+                                    },
+                                }
+                            }
+                            _ = glib::timeout_future(interval).fuse() => {
+                                glib::trace!("{ip_address} did not respond within {interval:#?}");
+                                cancellable.cancel();
+                                false
+                            }
+                        };
+                        if is_online {
+                            // The target system replied so let's remember its IP address for the next ping
+                            state.replace(Some(ip_address));
+                        }
+                        Some(is_online)
+                    }
+                    Err(error) => {
+                        glib::trace!("Failed to resolve {target} to an IP address: {error}");
+                        Some(false)
                     }
                 }
-            })
+            }
         })
 }
