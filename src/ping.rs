@@ -8,7 +8,7 @@
 
 use std::error::Error;
 use std::net::{IpAddr, SocketAddr};
-use std::os::unix::io::IntoRawFd;
+use std::os::fd::{AsRawFd, OwnedFd};
 use std::time::Duration;
 
 use etherparse::{IcmpEchoHeader, Icmpv4Slice, Icmpv4Type, Icmpv6Slice, Icmpv6Type};
@@ -22,7 +22,17 @@ fn create_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket, Box<
     let socket = socket2::Socket::new_raw(domain, Type::DGRAM, Some(protocol))?;
     socket.set_nonblocking(true)?;
     socket.set_read_timeout(Some(Duration::from_secs(10)))?;
-    Ok(unsafe { gio::Socket::from_fd(socket.into_raw_fd()) }?)
+    let fd = OwnedFd::from(socket);
+    // SAFETY: from_fd has unfortunate ownership semantics: It claims the fd on
+    // success, but on error the caller retains ownership of the fd.  Hence, we
+    // do _not_ move out of `fd` here, but instead pass the raw fd.  In case of
+    // error Rust will then just drop our owned fd as usual.  In case of success
+    // the fd now belongs to the GIO socket, so we explicitly forget the
+    // borrowed fd.
+    let gio_socket = unsafe { gio::Socket::from_fd(fd.as_raw_fd()) }?;
+    // Do not drop our fd because it is now owned by gio_socket
+    std::mem::forget(fd);
+    Ok(gio_socket)
 }
 
 /// The target to ping.
