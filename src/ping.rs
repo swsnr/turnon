@@ -17,8 +17,9 @@ use std::time::Duration;
 use etherparse::{IcmpEchoHeader, Icmpv4Slice, Icmpv4Type, Icmpv6Slice, Icmpv6Type};
 use futures_util::{select_biased, FutureExt, Stream, StreamExt};
 use glib::IOCondition;
-use gtk::gio::{self, Cancellable};
-use gtk::prelude::{CancellableExt, ResolverExt, SocketExt, SocketExtManual};
+use gtk::gio;
+use gtk::gio::prelude::{ResolverExt, SocketExt, SocketExtManual};
+use gtk::gio::Cancellable;
 use socket2::*;
 
 use crate::log::G_LOG_DOMAIN;
@@ -65,7 +66,7 @@ impl Display for Target {
 }
 
 /// Send a single ping to `ip_address`.
-async fn ping(ip_address: IpAddr, cancellable: &Cancellable) -> Result<bool, Box<dyn Error>> {
+async fn ping(ip_address: IpAddr) -> Result<bool, Box<dyn Error>> {
     glib::trace!("Sending ICMP echo request to {ip_address}");
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
@@ -73,7 +74,7 @@ async fn ping(ip_address: IpAddr, cancellable: &Cancellable) -> Result<bool, Box
     };
     let socket = create_socket(domain, protocol)?;
     let condition = socket
-        .create_source_future(IOCondition::OUT, Some(cancellable), glib::Priority::DEFAULT)
+        .create_source_future(IOCondition::OUT, Cancellable::NONE, glib::Priority::DEFAULT)
         .await;
     if condition != glib::IOCondition::OUT {
         socket.close().ok();
@@ -81,7 +82,7 @@ async fn ping(ip_address: IpAddr, cancellable: &Cancellable) -> Result<bool, Box
     }
 
     let condition =
-        socket.create_source_future(IOCondition::IN, Some(cancellable), glib::Priority::DEFAULT);
+        socket.create_source_future(IOCondition::IN, Cancellable::NONE, glib::Priority::DEFAULT);
     let socket_address: gio::InetSocketAddress = SocketAddr::new(ip_address, 0).into();
     let header = IcmpEchoHeader { id: 42, seq: 23 };
     let payload = b"wakeup-ping wakeup-ping wakeup-ping wakeup-ping";
@@ -99,7 +100,7 @@ async fn ping(ip_address: IpAddr, cancellable: &Cancellable) -> Result<bool, Box
         }
     };
     packet.extend_from_slice(payload);
-    let bytes_written = socket.send_to(Some(&socket_address), &packet, Some(cancellable))?;
+    let bytes_written = socket.send_to(Some(&socket_address), &packet, Cancellable::NONE)?;
     assert!(bytes_written == packet.len());
     if condition.await != glib::IOCondition::IN {
         socket.close().ok();
@@ -107,7 +108,7 @@ async fn ping(ip_address: IpAddr, cancellable: &Cancellable) -> Result<bool, Box
     }
 
     let mut buffer = [0; 128];
-    let (bytes_received, _) = socket.receive_from(&mut buffer, Some(cancellable))?;
+    let (bytes_received, _) = socket.receive_from(&mut buffer, Cancellable::NONE)?;
     socket.close().ok();
     match ip_address {
         IpAddr::V4(_) => {
@@ -123,8 +124,9 @@ async fn ping(ip_address: IpAddr, cancellable: &Cancellable) -> Result<bool, Box
 
 /// Resolve a `host` to an IP address.
 pub async fn resolve_host(host: &str) -> Result<IpAddr, Box<dyn Error>> {
-    // TODO: lookup_by_name_future does not take a cancellable?
     let addresses = gio::Resolver::default().lookup_by_name_future(host).await?;
+    // TODO: Filter fe80 IpV6 addresses as these are typically not resolvable without explicit link designation, which
+    // would make pinging a lot more complex as we'd have to account for the appropriate network interface.
     let first_address = addresses
         .first()
         .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found"))?;
@@ -160,9 +162,8 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                 };
                 match address {
                     Ok(ip_address) => {
-                        let cancellable = Cancellable::new();
                         let is_online = select_biased! {
-                            response = ping(ip_address, &cancellable).fuse() => {
+                            response = ping(ip_address).fuse() => {
                                 match response {
                                     Ok(true) => {
                                         glib::trace!("{ip_address} replied");
@@ -180,7 +181,6 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                             }
                             _ = glib::timeout_future(interval).fuse() => {
                                 glib::trace!("{ip_address} did not respond within {interval:#?}");
-                                cancellable.cancel();
                                 false
                             }
                         };
