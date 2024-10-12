@@ -112,7 +112,8 @@ fn activate_application(app: &adw::Application, model: &Devices) {
 
 fn main() -> glib::ExitCode {
     static GLIB_LOGGER: glib::GlibLogger = glib::GlibLogger::new(
-        glib::GlibLoggerFormat::Structured,
+        // TODO: Use structured logging on release
+        glib::GlibLoggerFormat::Plain,
         glib::GlibLoggerDomain::CrateTarget,
     );
     log::set_logger(&GLIB_LOGGER).unwrap();
