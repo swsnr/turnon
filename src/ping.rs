@@ -18,9 +18,11 @@ use etherparse::{IcmpEchoHeader, Icmpv4Slice, Icmpv4Type, Icmpv6Slice, Icmpv6Typ
 use futures_util::stream::FuturesUnordered;
 use futures_util::{future, select_biased, FutureExt, Stream, StreamExt};
 use glib::IOCondition;
+use gtk::gio;
 use gtk::gio::prelude::{ResolverExt, SocketExt, SocketExtManual};
-use gtk::gio::Cancellable;
-use gtk::gio::{self, ResolverNameLookupFlags};
+use gtk::gio::InetAddressBytes;
+use gtk::gio::{Cancellable, InetAddress};
+use gtk::prelude::{InetAddressExt, InetAddressExtManual};
 use socket2::*;
 
 use crate::log::G_LOG_DOMAIN;
@@ -63,6 +65,18 @@ impl Display for Target {
             Target::Dns(host) => host.fmt(f),
             Target::Addr(ip_addr) => ip_addr.fmt(f),
         }
+    }
+}
+
+/// Convert a GIO inet address to Rust.
+///
+/// We deliberately do not use the From impl from gtk-rs-core, because it's
+/// broken, see <https://github.com/gtk-rs/gtk-rs-core/issues/1535>.
+fn to_rust(address: InetAddress) -> IpAddr {
+    match address.to_bytes() {
+        Some(InetAddressBytes::V4(bytes)) => IpAddr::from(*bytes),
+        Some(InetAddressBytes::V6(bytes)) => IpAddr::from(*bytes),
+        None => panic!("Unsupported address family: {:?}", address.family()),
     }
 }
 
@@ -125,14 +139,12 @@ async fn ping(ip_address: IpAddr) -> Result<bool, Box<dyn Error>> {
 
 /// Resolve a `host` to one or more IP addresses.
 pub async fn resolve_host(host: &str) -> Result<Vec<IpAddr>, Box<dyn Error>> {
-    let addresses = gio::Resolver::default()
-        .lookup_by_name_with_flags_future(host, ResolverNameLookupFlags::IPV6_ONLY)
-        .await?;
+    let addresses = gio::Resolver::default().lookup_by_name_future(host).await?;
     if addresses.is_empty() {
         Err(std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found").into())
     } else {
         // TODO: This .into() seems to mangle IPv6 addresses?
-        Ok(addresses.into_iter().map(Into::into).collect())
+        Ok(addresses.into_iter().map(to_rust).collect())
     }
 }
 
@@ -205,4 +217,29 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                 }
             }
         })
+}
+
+#[cfg(test)]
+mod tests {
+    use std::net::IpAddr;
+
+    use gtk::gio;
+
+    use crate::ping::to_rust;
+
+    #[test]
+    fn test_ipv6_to_rust() {
+        let rust_addr = "2606:50c0:8000::153".parse::<IpAddr>().unwrap();
+        assert!(rust_addr.is_ipv6());
+        let gio_addr = gio::InetAddress::from(rust_addr);
+        assert_eq!(rust_addr, to_rust(gio_addr));
+    }
+
+    #[test]
+    fn test_ipv4_to_rust() {
+        let rust_addr = "185.199.108.153".parse::<IpAddr>().unwrap();
+        assert!(rust_addr.is_ipv4());
+        let gio_addr = gio::InetAddress::from(rust_addr);
+        assert_eq!(rust_addr, to_rust(gio_addr));
+    }
 }
