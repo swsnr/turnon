@@ -116,7 +116,7 @@ fn main() -> glib::ExitCode {
         glib::GlibLoggerDomain::CrateTarget,
     );
     log::set_logger(&GLIB_LOGGER).unwrap();
-    log::set_max_level(log::LevelFilter::Debug);
+    log::set_max_level(log::LevelFilter::Trace);
 
     gio::resources_register_include!("wakeup.gresource").unwrap();
     glib::set_application_name("WakeUp");
