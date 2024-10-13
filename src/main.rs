@@ -15,6 +15,7 @@ use model::{Device, Devices};
 use services::{StorageService, StorageServiceClient};
 use widgets::WakeUpApplicationWindow;
 
+mod i18n;
 mod model;
 mod net;
 mod services;

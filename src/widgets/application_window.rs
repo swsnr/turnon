@@ -31,15 +31,16 @@ mod imp {
     use std::cell::RefCell;
     use std::time::Duration;
 
-    use adw::prelude::*;
     use adw::subclass::prelude::*;
+    use adw::{prelude::*, ToastOverlay};
     use futures_util::{StreamExt, TryStreamExt};
     use gtk::glib::subclass::InitializingObject;
     use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
 
+    use crate::i18n::gettext;
     use crate::model::{Device, Devices};
-    use crate::net;
+    use crate::net::{self, wol};
     use crate::widgets::device_row::DeviceRow;
     use crate::widgets::AddDeviceDialog;
 
@@ -51,6 +52,8 @@ mod imp {
         devices: RefCell<Devices>,
         #[template_child]
         devices_list: TemplateChild<gtk::ListBox>,
+        #[template_child]
+        feedback: TemplateChild<ToastOverlay>,
     }
 
     #[glib::object_subclass]
@@ -83,36 +86,72 @@ mod imp {
         }
     }
 
+    impl WakeUpApplicationWindow {
+        fn create_device_row(&self, object: &glib::Object) -> gtk::Widget {
+            let window = self.obj().clone();
+            let device = &object.clone().downcast::<Device>().unwrap();
+            let row = DeviceRow::new(device);
+            // TODO: Restart monitoring if the target of a device changed!
+            glib::spawn_future_local(
+                net::monitor(device.host().into(), Duration::from_secs(5))
+                    .map(Ok)
+                    .try_for_each(glib::clone!(
+                        #[weak]
+                        row,
+                        #[upgrade_or]
+                        futures_util::future::err(()),
+                        move |is_online| {
+                            row.set_is_device_online(is_online);
+                            futures_util::future::ok(())
+                        }
+                    )),
+            );
+            row.connect_activated(move |row| {
+                let device = row.device();
+                let mac_address = device.mac_addr6();
+                log::info!(
+                    "Sending magic packet for mac address {mac_address} of device {}",
+                    device.label()
+                );
+                glib::spawn_future_local(glib::clone!(
+                    #[weak]
+                    window,
+                    async move {
+                        match wol(mac_address).await {
+                            Ok(_) => {
+                                log::info!(
+                                    "Sent magic packet to {mac_address} of device {}",
+                                    device.label()
+                                );
+                                let toast = adw::Toast::new(
+                                    &gettext("Send magic packet to device %s")
+                                        .replace("%s", &device.label()),
+                                );
+                                window.imp().feedback.add_toast(toast);
+                            }
+                            Err(error) => {
+                                log::warn!("Failed to send magic packet to {mac_address}: {error}");
+                                // TODO show error toast?
+                            }
+                        }
+                    }
+                ));
+            });
+            row.upcast()
+        }
+    }
+
     #[glib::derived_properties]
     impl ObjectImpl for WakeUpApplicationWindow {
         fn constructed(&self) {
             self.parent_constructed();
 
+            let window = self.obj().clone();
+
             self.devices_list
                 .get()
-                .bind_model(Some(&self.devices.borrow().clone()), |item| {
-                    let device = &item.clone().downcast::<Device>().unwrap();
-                    let row = DeviceRow::new(device);
-                    // TODO: Restart monitoring if the target of a device changed!
-                    glib::spawn_future_local(
-                        net::monitor(device.host().into(), Duration::from_secs(5))
-                            .map(Ok)
-                            .try_for_each(glib::clone!(
-                                #[weak]
-                                row,
-                                #[upgrade_or]
-                                futures_util::future::err(()),
-                                move |is_online| {
-                                    row.set_is_device_online(is_online);
-                                    futures_util::future::ok(())
-                                }
-                            )),
-                    );
-                    row.connect_activated(|row| {
-                        log::warn!("Activated row for device {}", row.device().label());
-                        // TODO: Wakeup device
-                    });
-                    row.upcast()
+                .bind_model(Some(&self.devices.borrow().clone()), move |o| {
+                    window.imp().create_device_row(o)
                 });
         }
     }

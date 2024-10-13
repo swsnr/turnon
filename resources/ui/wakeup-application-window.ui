@@ -32,24 +32,28 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
           </object>
         </child>
         <child>
-          <object class="GtkScrolledWindow">
+          <object class="AdwToastOverlay" id="feedback">
             <child>
-              <object class="GtkListBox" id="devices_list">
-                <property name="selection-mode">0</property>
-                <property name="vexpand">true</property>
-                <property name="hexpand">true</property>
-                <property name="margin-start">6</property>
-                <property name="margin-end">6</property>
-                <property name="margin-top">6</property>
-                <property name="margin-bottom">6</property>
-                <style>
-                  <class name="boxed-list-separate"/>
-                </style>
-                <child type="placeholder">
-                  <object class="AdwStatusPage">
-                    <property name="title" translatable="yes">No devices</property>
-                    <property name="description" translatable="yes">Add a new device to wake it up.</property>
+              <object class="GtkScrolledWindow">
+                <child>
+                  <object class="GtkListBox" id="devices_list">
+                    <property name="selection-mode">0</property>
                     <property name="vexpand">true</property>
+                    <property name="hexpand">true</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <style>
+                      <class name="boxed-list-separate"/>
+                    </style>
+                    <child type="placeholder">
+                      <object class="AdwStatusPage">
+                        <property name="title" translatable="yes">No devices</property>
+                        <property name="description" translatable="yes">Add a new device to wake it up.</property>
+                        <property name="vexpand">true</property>
+                      </object>
+                    </child>
                   </object>
                 </child>
               </object>
