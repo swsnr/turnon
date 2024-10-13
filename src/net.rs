@@ -4,7 +4,9 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-//! A dead simple and somewhat stupid ping implementation.
+//! Networking for Wakeup.
+//!
+//! Contains a dead simple and somewhat inefficient ping implementation.
 
 use std::cell::RefCell;
 use std::error::Error;
@@ -222,7 +224,7 @@ mod tests {
 
     use gtk::gio;
 
-    use crate::ping::to_rust;
+    use crate::net::to_rust;
 
     #[test]
     fn test_ipv6_to_rust() {

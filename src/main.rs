@@ -16,7 +16,7 @@ use services::{StorageService, StorageServiceClient};
 use widgets::WakeUpApplicationWindow;
 
 mod model;
-mod ping;
+mod net;
 mod services;
 mod widgets;
 

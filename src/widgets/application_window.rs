@@ -39,7 +39,7 @@ mod imp {
     use gtk::{glib, CompositeTemplate};
 
     use crate::model::{Device, Devices};
-    use crate::ping;
+    use crate::net;
     use crate::widgets::device_row::DeviceRow;
     use crate::widgets::AddDeviceDialog;
 
@@ -95,7 +95,7 @@ mod imp {
                     let row = DeviceRow::new(device);
                     // TODO: Restart monitoring if the target of a device changed!
                     glib::spawn_future_local(
-                        ping::monitor(device.host().into(), Duration::from_secs(5))
+                        net::monitor(device.host().into(), Duration::from_secs(5))
                             .map(Ok)
                             .try_for_each(glib::clone!(
                                 #[weak]
