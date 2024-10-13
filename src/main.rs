@@ -9,18 +9,16 @@
 use adw::prelude::*;
 use gtk::gio;
 use gtk::gio::SimpleAction;
-use gtk::glib::{self, Variant};
+use gtk::glib;
+use gtk::glib::Variant;
 use model::{Device, Devices};
 use services::{StorageService, StorageServiceClient};
 use widgets::WakeUpApplicationWindow;
 
-mod log;
 mod model;
 mod ping;
 mod services;
 mod widgets;
-
-use log::G_LOG_DOMAIN;
 
 static APP_ID: &str = "de.swsnr.wakeup";
 
@@ -34,7 +32,7 @@ fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param:
 
 fn save_automatically(model: &Devices, storage: StorageServiceClient) {
     model.connect_items_changed(move |model, pos, n_added, _| {
-        glib::debug!("Device list changed, saving devices");
+        log::debug!("Device list changed, saving devices");
         storage.request_save_devices(model.into());
         // Persist devices whenever one device changes
         for n in pos..n_added {
@@ -46,7 +44,7 @@ fn save_automatically(model: &Devices, storage: StorageServiceClient) {
                     #[weak]
                     model,
                     move |_, _| {
-                        glib::debug!("One device was changed, saving devices");
+                        log::debug!("One device was changed, saving devices");
                         storage.request_save_devices((&model).into());
                     }
                 ),
@@ -59,7 +57,7 @@ fn save_automatically(model: &Devices, storage: StorageServiceClient) {
 ///
 /// Create application actions.
 fn startup_application(app: &adw::Application, model: &Devices) {
-    glib::debug!("Application starting");
+    log::debug!("Application starting");
     gtk::Window::set_default_icon_name(APP_ID);
 
     let actions = [
@@ -76,14 +74,14 @@ fn startup_application(app: &adw::Application, model: &Devices) {
     app.set_accels_for_action("window.close", &["<Control>w"]);
     app.set_accels_for_action("app.quit", &["<Control>q"]);
 
-    glib::debug!("Initializing storage");
+    log::debug!("Initializing storage");
     let data_dir = glib::user_data_dir().join(APP_ID);
     let storage = StorageService::new(data_dir.join("devices.json"));
 
-    glib::info!("Loading devices synchronously");
+    log::info!("Loading devices synchronously");
     let devices = match storage.load_sync() {
         Err(error) => {
-            glib::error!(
+            log::error!(
                 "Failed to load devices from {}: {}",
                 storage.target().display(),
                 error
@@ -100,24 +98,44 @@ fn startup_application(app: &adw::Application, model: &Devices) {
 fn activate_application(app: &adw::Application, model: &Devices) {
     match app.active_window() {
         Some(window) => {
-            glib::debug!("Representing existing application window");
+            log::debug!("Representing existing application window");
             window.present()
         }
         None => {
-            glib::debug!("Creating new application window");
+            log::debug!("Creating new application window");
             WakeUpApplicationWindow::new(app, model).present();
         }
     }
 }
 
+/// Set up logging.
+///
+/// If the process is connected to journald log structured events directly to journald.
+///
+/// Otherwise log to console.
+///
+/// `$WAKEUP_LOG` and `$WAKEUP_LOG_STYLE` configure log level and log style (for console logging)
+fn setup_logging() {
+    let env_var = "WAKEUP_LOG";
+    if systemd_journal_logger::connected_to_journal() {
+        let logger = systemd_journal_logger::JournalLog::new()
+            .unwrap()
+            .with_extra_fields([("VERSION", env!("CARGO_PKG_VERSION"))]);
+        let filter = env_filter::Builder::from_env(env_var).build();
+        let max_level = filter.filter();
+        log::set_boxed_logger(Box::new(env_filter::FilteredLog::new(logger, filter))).unwrap();
+        log::set_max_level(max_level);
+    } else {
+        let env = env_logger::Env::new()
+            .filter(env_var)
+            .write_style("WAKEUP_LOG_STYLE");
+        env_logger::init_from_env(env);
+    }
+    glib::log_set_default_handler(glib::rust_log_handler);
+}
+
 fn main() -> glib::ExitCode {
-    static GLIB_LOGGER: glib::GlibLogger = glib::GlibLogger::new(
-        // TODO: Use structured logging on release
-        glib::GlibLoggerFormat::Plain,
-        glib::GlibLoggerDomain::CrateTarget,
-    );
-    log::set_logger(&GLIB_LOGGER).unwrap();
-    log::set_max_level(log::LevelFilter::Trace);
+    setup_logging();
 
     gio::resources_register_include!("wakeup.gresource").unwrap();
     glib::set_application_name("WakeUp");

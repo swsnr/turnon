@@ -25,8 +25,6 @@ use gtk::gio::{Cancellable, InetAddress};
 use gtk::prelude::{InetAddressExt, InetAddressExtManual};
 use socket2::*;
 
-use crate::log::G_LOG_DOMAIN;
-
 fn create_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket, Box<dyn Error>> {
     let socket = socket2::Socket::new_raw(domain, Type::DGRAM, Some(protocol))?;
     socket.set_nonblocking(true)?;
@@ -82,7 +80,7 @@ fn to_rust(address: InetAddress) -> IpAddr {
 
 /// Send a single ping to `ip_address`.
 async fn ping(ip_address: IpAddr) -> Result<bool, Box<dyn Error>> {
-    glib::trace!("Sending ICMP echo request to {ip_address}");
+    log::trace!("Sending ICMP echo request to {ip_address}");
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
         IpAddr::V6(_) => (Domain::IPV6, Protocol::ICMPV6),
@@ -161,12 +159,12 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                 // Resolve the target to an IP address
                 let addresses = match state.take() {
                     Some(address) => {
-                        glib::trace!("Using cached IP address {address}");
+                        log::trace!("Using cached IP address {address}");
                         Ok(vec![address])
                     }
                     None => match target {
                         Target::Dns(ref host) => {
-                            glib::trace!("Resolving {host} to IP address");
+                            log::trace!("Resolving {host} to IP address");
                             resolve_host(host).await
                         }
                         Target::Addr(ip_addr) => Ok(vec![ip_addr]),
@@ -180,15 +178,15 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                             .collect::<FuturesUnordered<_>>()
                             .filter_map(|(ip_address, result)| match result {
                                 Ok(true) => {
-                                    glib::trace!("{ip_address} replied");
+                                    log::trace!("{ip_address} replied");
                                     future::ready(Some(ip_address))
                                 }
                                 Ok(false) => {
-                                    glib::trace!("{ip_address} did not reply");
+                                    log::trace!("{ip_address} did not reply");
                                     future::ready(None)
                                 }
                                 Err(error) => {
-                                    glib::trace!("Failed to ping {ip_address}: {error}");
+                                    log::trace!("Failed to ping {ip_address}: {error}");
                                     future::ready(None)
                                 }
                             });
@@ -210,7 +208,7 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                         }
                     }
                     Err(error) => {
-                        glib::trace!("Failed to resolve {target} to an IP address: {error}");
+                        log::trace!("Failed to resolve {target} to an IP address: {error}");
                         Some(false)
                     }
                 }

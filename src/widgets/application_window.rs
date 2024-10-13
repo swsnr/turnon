@@ -38,7 +38,6 @@ mod imp {
     use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
 
-    use crate::log::G_LOG_DOMAIN;
     use crate::model::{Device, Devices};
     use crate::ping;
     use crate::widgets::device_row::DeviceRow;
@@ -71,7 +70,7 @@ mod imp {
                     #[weak]
                     window,
                     move |_, device| {
-                        glib::debug!("Adding new device: {:?}", device.imp());
+                        log::debug!("Adding new device: {:?}", device.imp());
                         window.devices().add_device(device);
                     }
                 ));
@@ -110,7 +109,7 @@ mod imp {
                             )),
                     );
                     row.connect_activated(|row| {
-                        glib::warn!("Activated row for device {}", row.device().label());
+                        log::warn!("Activated row for device {}", row.device().label());
                         // TODO: Wakeup device
                     });
                     row.upcast()

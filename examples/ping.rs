@@ -11,8 +11,8 @@ use std::{io::Write, time::Duration};
 
 use etherparse::{IcmpEchoHeader, Icmpv4Slice, Icmpv4Type, Icmpv6Slice, Icmpv6Type};
 use futures_util::{select_biased, FutureExt, StreamExt};
-use glib::IOCondition;
 use gtk::gio::{self, Cancellable};
+use gtk::glib::IOCondition;
 use gtk::prelude::{CancellableExt, ResolverExt, SocketExt, SocketExtManual};
 use socket2::*;
 
