@@ -11,15 +11,16 @@
 use std::cell::RefCell;
 use std::error::Error;
 use std::fmt::Display;
+use std::io::ErrorKind;
 use std::net::{IpAddr, SocketAddr};
 use std::os::fd::{AsRawFd, OwnedFd};
 use std::rc::Rc;
 use std::time::Duration;
 
 use etherparse::{IcmpEchoHeader, Icmpv4Slice, Icmpv4Type, Icmpv6Slice, Icmpv6Type};
+use futures_util::stream;
 use futures_util::stream::FuturesUnordered;
-use futures_util::{future, select_biased, FutureExt, Stream, StreamExt};
-use futures_util::{stream, TryStreamExt};
+use futures_util::{future, select_biased, FutureExt, Stream, StreamExt, TryFutureExt};
 use glib::IOCondition;
 use gtk::gio;
 use gtk::gio::prelude::{ResolverExt, SocketExt, SocketExtManual};
@@ -81,8 +82,19 @@ fn to_rust(address: InetAddress) -> IpAddr {
     }
 }
 
+/// A reply to a single ping.
+#[derive(Debug)]
+pub enum PingReply {
+    /// A correct ICMP echo reply.
+    EchoReply,
+    /// Another response for an ICMP v4 echo request.
+    OtherV4(Icmpv4Type),
+    /// Another response for an ICMP v6 echo request.
+    OtherV6(Icmpv6Type),
+}
+
 /// Send a single ping to `ip_address`.
-async fn ping(ip_address: IpAddr) -> Result<bool, Box<dyn Error>> {
+async fn ping(ip_address: IpAddr) -> Result<PingReply, Box<dyn Error>> {
     log::trace!("Sending ICMP echo request to {ip_address}");
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
@@ -94,7 +106,11 @@ async fn ping(ip_address: IpAddr) -> Result<bool, Box<dyn Error>> {
         .await;
     if condition != glib::IOCondition::OUT {
         socket.close().ok();
-        return Ok(false);
+        return Err(std::io::Error::new(
+            ErrorKind::BrokenPipe,
+            format!("Socket for {ip_address} not ready to write"),
+        )
+        .into());
     }
 
     let condition =
@@ -120,21 +136,25 @@ async fn ping(ip_address: IpAddr) -> Result<bool, Box<dyn Error>> {
     assert!(bytes_written == packet.len());
     if condition.await != glib::IOCondition::IN {
         socket.close().ok();
-        return Ok(false);
+        return Err(std::io::Error::new(
+            ErrorKind::BrokenPipe,
+            format!("Socket for {ip_address} not ready to read"),
+        )
+        .into());
     }
 
     let mut buffer = [0; 128];
     let (bytes_received, _) = socket.receive_from(&mut buffer, Cancellable::NONE)?;
     socket.close().ok();
     match ip_address {
-        IpAddr::V4(_) => {
-            let response = Icmpv4Slice::from_slice(&buffer[..bytes_received])?;
-            Ok(matches!(response.icmp_type(), Icmpv4Type::EchoReply(_)))
-        }
-        IpAddr::V6(_) => {
-            let response = Icmpv6Slice::from_slice(&buffer[..bytes_received])?;
-            Ok(matches!(response.icmp_type(), Icmpv6Type::EchoReply(_)))
-        }
+        IpAddr::V4(_) => match Icmpv4Slice::from_slice(&buffer[..bytes_received])?.icmp_type() {
+            Icmpv4Type::EchoReply(_) => Ok(PingReply::EchoReply),
+            other => Ok(PingReply::OtherV4(other)),
+        },
+        IpAddr::V6(_) => match Icmpv6Slice::from_slice(&buffer[..bytes_received])?.icmp_type() {
+            Icmpv6Type::EchoReply(_) => Ok(PingReply::EchoReply),
+            other => Ok(PingReply::OtherV6(other)),
+        },
     }
 }
 
@@ -161,60 +181,72 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
             let target = target.clone();
             let state = state.clone();
             async move {
-                // Resolve the target to an IP address
+                // Take any cached IP address out of the state, leaving an empty state.
+                // If we get a reply from the IP address we'll cache it again after pinging it.
                 let addresses = match state.take() {
+                    Some(address) => {
+                        log::trace!("Using cached IP address {address}");
+                        future::ready(vec![address]).right_future()
+                    }
+                    // We don't have a cached IP address, so let's look at the target.
                     None => match target {
-                        Target::Addr(address) => {
-                            future::ready(Ok::<Vec<IpAddr>, Box<dyn Error>>(vec![address]))
-                                .right_future()
-                        }
+                        Target::Addr(address) => future::ready(vec![address]).right_future(),
                         Target::Dns(ref host) => {
+                            // The target is a DNS name so let's resolve it into a list of IP addresses.
                             log::trace!("Resolving {host} to IP address");
                             gio::Resolver::default()
                                 .lookup_by_name_future(host)
                                 .map(to_rust_addresses)
+                                .inspect_err(|error| {
+                                    log::trace!(
+                                        "Failed to resolve {target} to an IP address: {error}"
+                                    );
+                                })
+                                .map(|addresses| addresses.unwrap_or_default())
                                 .left_future()
                         }
                     },
-                    Some(address) => {
-                        log::trace!("Using cached IP address {address}");
-                        future::ready(Ok(vec![address])).right_future()
-                    }
                 };
-                let mut is_online = stream::once(addresses)
-                    .inspect_err(|error| {
-                        log::trace!("Failed to resolve {target} to an IP address: {error}");
-                    })
-                    .map_ok(|addresses| {
+                let mut reachable_addresses = stream::once(addresses)
+                    .flat_map(|addresses| {
                         addresses
                             .into_iter()
                             .map(|addr| ping(addr).map(move |result| (addr, result)))
                             .collect::<FuturesUnordered<_>>()
-                            .filter_map(|(ip_address, result)| match result {
-                                Ok(true) => {
-                                    log::trace!("{ip_address} replied");
-                                    let result: Result<IpAddr, Box<dyn Error>> = Ok(ip_address);
-                                    future::ready(Some(result))
-                                }
-                                Ok(false) => {
-                                    log::trace!("{ip_address} did not reply");
-                                    future::ready(None)
-                                }
-                                Err(error) => {
-                                    log::trace!("Failed to ping {ip_address}: {error}");
-                                    future::ready(None)
-                                }
-                            })
                     })
-                    .try_flatten()
-                    .inspect_ok(|address| {
-                        state.replace(Some(*address));
-                    })
-                    .map(|result| result.map_or(false, |_| true));
+                    // Filter out all address which we can't ping or which don't reply
+                    .filter_map(|(ip_address, result)| match result {
+                        Ok(PingReply::EchoReply) => {
+                            log::trace!("{ip_address} replied to ping");
+                            future::ready(Some(ip_address))
+                        }
+                        Ok(PingReply::OtherV4(other)) => {
+                            log::trace!("{ip_address} did not reply: {other:?}");
+                            future::ready(None)
+                        }
+                        Ok(PingReply::OtherV6(other)) => {
+                            log::trace!("{ip_address} did not reply: {other:?}");
+                            future::ready(None)
+                        }
+                        Err(error) => {
+                            log::trace!("Failed to ping {ip_address}: {error}");
+                            future::ready(None)
+                        }
+                    });
 
+                // Select the first reachable address within a timeout. We always
+                // return Some here to make scan continue at the next interval.
                 select_biased! {
-                    is_online = is_online.select_next_some() => Some(is_online),
-                    _ = glib::timeout_future(interval).fuse() => Some(false)
+                    reachable_address = reachable_addresses.next() => match reachable_address {
+                        // The stream was empty, meaning we failed to ping any address
+                        None => Some(false),
+                        Some(address) => {
+                            // Cache the first reachable address we get for the next ping.
+                            state.replace(Some(address));
+                            Some(true)
+                        },
+                    },
+                    _ = glib::timeout_future(interval).fuse() => Some(false),
                 }
             }
         })
