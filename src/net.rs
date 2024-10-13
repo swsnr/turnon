@@ -19,6 +19,7 @@ use std::time::Duration;
 use etherparse::{IcmpEchoHeader, Icmpv4Slice, Icmpv4Type, Icmpv6Slice, Icmpv6Type};
 use futures_util::stream::FuturesUnordered;
 use futures_util::{future, select_biased, FutureExt, Stream, StreamExt};
+use futures_util::{stream, TryStreamExt};
 use glib::IOCondition;
 use gtk::gio;
 use gtk::gio::prelude::{ResolverExt, SocketExt, SocketExtManual};
@@ -137,13 +138,15 @@ async fn ping(ip_address: IpAddr) -> Result<bool, Box<dyn Error>> {
     }
 }
 
-/// Resolve a `host` to one or more IP addresses.
-pub async fn resolve_host(host: &str) -> Result<Vec<IpAddr>, Box<dyn Error>> {
-    let addresses = gio::Resolver::default().lookup_by_name_future(host).await?;
-    if addresses.is_empty() {
-        Err(std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found").into())
-    } else {
-        Ok(addresses.into_iter().map(to_rust).collect())
+fn to_rust_addresses(
+    result: Result<Vec<InetAddress>, glib::Error>,
+) -> Result<Vec<IpAddr>, Box<dyn Error>> {
+    match result {
+        Ok(addresses) if addresses.is_empty() => {
+            Err(std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found").into())
+        }
+        Ok(addresses) => Ok(addresses.into_iter().map(to_rust).collect()),
+        Err(error) => Err(error.into()),
     }
 }
 
@@ -160,28 +163,38 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
             async move {
                 // Resolve the target to an IP address
                 let addresses = match state.take() {
-                    Some(address) => {
-                        log::trace!("Using cached IP address {address}");
-                        Ok(vec![address])
-                    }
                     None => match target {
+                        Target::Addr(address) => {
+                            future::ready(Ok::<Vec<IpAddr>, Box<dyn Error>>(vec![address]))
+                                .right_future()
+                        }
                         Target::Dns(ref host) => {
                             log::trace!("Resolving {host} to IP address");
-                            resolve_host(host).await
+                            gio::Resolver::default()
+                                .lookup_by_name_future(host)
+                                .map(to_rust_addresses)
+                                .left_future()
                         }
-                        Target::Addr(ip_addr) => Ok(vec![ip_addr]),
                     },
+                    Some(address) => {
+                        log::trace!("Using cached IP address {address}");
+                        future::ready(Ok(vec![address])).right_future()
+                    }
                 };
-                match addresses {
-                    Ok(addresses) => {
-                        let mut replying_addresses = addresses
+                let mut is_online = stream::once(addresses)
+                    .inspect_err(|error| {
+                        log::trace!("Failed to resolve {target} to an IP address: {error}");
+                    })
+                    .map_ok(|addresses| {
+                        addresses
                             .into_iter()
                             .map(|addr| ping(addr).map(move |result| (addr, result)))
                             .collect::<FuturesUnordered<_>>()
                             .filter_map(|(ip_address, result)| match result {
                                 Ok(true) => {
                                     log::trace!("{ip_address} replied");
-                                    future::ready(Some(ip_address))
+                                    let result: Result<IpAddr, Box<dyn Error>> = Ok(ip_address);
+                                    future::ready(Some(result))
                                 }
                                 Ok(false) => {
                                     log::trace!("{ip_address} did not reply");
@@ -191,28 +204,17 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                                     log::trace!("Failed to ping {ip_address}: {error}");
                                     future::ready(None)
                                 }
-                            });
-                        let online_address = select_biased! {
-                            address = replying_addresses.select_next_some() => {
-                                Some(address)
-                            }
-                            // TODO: Move timeout upwards, to include name resolution!
-                            _ = glib::timeout_future(interval).fuse() => {
-                                None
-                            }
-                        };
-                        match online_address {
-                            Some(address) => {
-                                state.replace(Some(address));
-                                Some(true)
-                            }
-                            None => Some(false),
-                        }
-                    }
-                    Err(error) => {
-                        log::trace!("Failed to resolve {target} to an IP address: {error}");
-                        Some(false)
-                    }
+                            })
+                    })
+                    .try_flatten()
+                    .inspect_ok(|address| {
+                        state.replace(Some(*address));
+                    })
+                    .map(|result| result.map_or(false, |_| true));
+
+                select_biased! {
+                    is_online = is_online.select_next_some() => Some(is_online),
+                    _ = glib::timeout_future(interval).fuse() => Some(false)
                 }
             }
         })
