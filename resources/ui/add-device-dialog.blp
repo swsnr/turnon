@@ -12,32 +12,10 @@ template $AddDeviceDialog: Adw.Dialog {
 
   Adw.ToolbarView {
     [top]
-    Adw.HeaderBar {
-      show-start-title-buttons: false;
-      show-end-title-buttons: false;
-
-      Gtk.Button {
-        label: _("Cancel");
-        action-name: "window.close";
-      }
-
-      [end]
-      Gtk.Button {
-        label: _("_Add");
-        use-underline: true;
-        receives-default: true;
-        action-name: "device.add";
-
-        styles [
-          "suggested-action"
-        ]
-      }
-    }
+    Adw.HeaderBar {}
 
     Adw.PreferencesPage {
       Adw.PreferencesGroup {
-        title: _("Device details");
-
         Adw.EntryRow label_entry {
           title: _("Device _label");
           tooltip-text: _("A label to recognize the device by");
@@ -111,6 +89,19 @@ template $AddDeviceDialog: Adw.Dialog {
               };
             }
           }
+        }
+
+        Gtk.Button {
+          label: _("_Add");
+          use-underline: true;
+          action-name: "device.add";
+          halign: center;
+          margin-top: 12;
+
+          styles [
+            "pill",
+            "suggested-action"
+          ]
         }
       }
     }
