@@ -10,9 +10,7 @@
         <!-- TODO: List features -->
     </description>
     <categories>
-        <category>Network</category>
         <category>Utility</category>
-        <category>Monitor</category>
     </categories>
     <keywords>
         <keyword translate="no">WakeOnLan</keyword>
