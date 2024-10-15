@@ -51,7 +51,19 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                       <object class="AdwStatusPage">
                         <property name="title" translatable="yes">No devices</property>
                         <property name="description" translatable="yes">Add a new device to turn it on.</property>
+                        <property name="icon-name">de.swsnr.turnon</property>
                         <property name="vexpand">true</property>
+                        <property name="child">
+                          <object class="GtkButton">
+                            <property name="label" translatable="yes">Add new device</property>
+                            <property name="action-name">win.add_device</property>
+                            <property name="halign">3</property>
+                            <style>
+                              <class name="pill"/>
+                              <class name="suggested-action"/>
+                            </style>
+                          </object>
+                        </property>
                       </object>
                     </child>
                   </object>

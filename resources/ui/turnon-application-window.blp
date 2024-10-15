@@ -47,10 +47,21 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
 
           [placeholder]
           Adw.StatusPage {
-            // TODO: Show the application logo and a button to add a device
             title: _('No devices');
             description: _('Add a new device to turn it on.');
+            icon-name: "de.swsnr.turnon";
             vexpand: true;
+
+            child: Gtk.Button {
+              label: _("Add new device");
+              action-name: "win.add_device";
+              halign: center;
+
+              styles [
+                "pill",
+                "suggested-action"
+              ]
+            };
           }
         }
       }
