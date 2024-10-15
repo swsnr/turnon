@@ -141,9 +141,7 @@ fn main() -> glib::ExitCode {
     gio::resources_register_include!("turnon.gresource").unwrap();
     glib::set_application_name("TurnOn");
 
-    let app = adw::Application::builder()
-        .application_id(APP_ID.trim())
-        .build();
+    let app = adw::Application::builder().application_id(APP_ID).build();
 
     let model = Devices::default();
 
