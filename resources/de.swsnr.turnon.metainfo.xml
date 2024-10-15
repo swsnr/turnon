@@ -29,5 +29,8 @@
     <!-- TODO: Screenshots -->
     <!-- TODO: translation? -->
     <content_rating type="oars-1.1" />
-    <!-- TODO: Branding and brand colors -->
+    <branding>
+        <color type="primary" scheme_preference="light">#e01b24</color>
+        <color type="primary" scheme_preference="dark">#a51d2d</color>
+    </branding>
 </component>
