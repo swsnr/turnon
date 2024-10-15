@@ -9,6 +9,14 @@
             using WakeOnLan.</p>
         <!-- TODO: List features -->
     </description>
+    <categories>
+        <category>Network</category>
+        <category>Utility</category>
+        <category>Monitor</category>
+    </categories>
+    <keywords>
+        <keyword translate="no">WakeOnLan</keyword>
+    </keywords>
     <url type="homepage">https://github.com/swsnr/turnon</url>
     <url type="bugtracker">https://github.com/swsnr/turnon/issues</url>
     <url type="vcs-browser">https://github.com/swsnr/turnon/issues</url>
