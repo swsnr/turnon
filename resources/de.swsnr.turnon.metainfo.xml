@@ -4,8 +4,6 @@
     <metadata_license>CC0-1.0</metadata_license>
     <name>Turn On</name>
     <summary>Turn on devices in your local network</summary>
-    <!-- TODO: icon, see
-    https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-icon -->
     <description>
         <p>Conveniently turn on devices in the local network, such as a NAS or a gaming console,
             using WakeOnLan.</p>
