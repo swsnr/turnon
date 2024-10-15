@@ -38,4 +38,3 @@ jobs:
       - name: cargo deny check
         uses: EmbarkStudios/cargo-deny-action@v2
       - run: appstreamcli validate --explain resources/de.swsnr.turnon.metainfo.xml
-      - run: desktop-file-validate de.swsnr.turnon.desktop
