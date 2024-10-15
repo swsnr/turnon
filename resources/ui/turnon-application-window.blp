@@ -5,10 +5,10 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $WakeUpApplicationWindow: Adw.ApplicationWindow {
+template $TurnOnApplicationWindow: Adw.ApplicationWindow {
   default-width: 480;
   default-height: 480;
-  title: _('Wake Up');
+  title: _('Turn On');
 
   content: Adw.ToolbarView {
     top-bar-style: raised;
@@ -49,7 +49,7 @@ template $WakeUpApplicationWindow: Adw.ApplicationWindow {
           Adw.StatusPage {
             // TODO: Show the application logo and a button to add a device
             title: _('No devices');
-            description: _('Add a new device to wake it up.');
+            description: _('Add a new device to turn it on.');
             vexpand: true;
           }
         }
@@ -66,7 +66,7 @@ menu main_menu {
     }
 
     item {
-      label: _('_About Wake Up');
+      label: _('_About Turn On');
       action: 'app.about';
     }
   }

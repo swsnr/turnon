@@ -10,5 +10,5 @@ mod device_row;
 mod validation_indicator;
 
 pub use add_device_dialog::AddDeviceDialog;
-pub use application_window::WakeUpApplicationWindow;
+pub use application_window::TurnOnApplicationWindow;
 pub use validation_indicator::ValidationIndicator;

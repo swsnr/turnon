@@ -6,10 +6,10 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
 -->
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="WakeUpApplicationWindow" parent="AdwApplicationWindow">
+  <template class="TurnOnApplicationWindow" parent="AdwApplicationWindow">
     <property name="default-width">480</property>
     <property name="default-height">480</property>
-    <property name="title" translatable="yes">Wake Up</property>
+    <property name="title" translatable="yes">Turn On</property>
     <property name="content">
       <object class="AdwToolbarView">
         <property name="top-bar-style">1</property>
@@ -50,7 +50,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     <child type="placeholder">
                       <object class="AdwStatusPage">
                         <property name="title" translatable="yes">No devices</property>
-                        <property name="description" translatable="yes">Add a new device to wake it up.</property>
+                        <property name="description" translatable="yes">Add a new device to turn it on.</property>
                         <property name="vexpand">true</property>
                       </object>
                     </child>
@@ -70,7 +70,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
         <attribute name="action">win.show-help-overlay</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">_About Wake Up</attribute>
+        <attribute name="label" translatable="yes">_About Turn On</attribute>
         <attribute name="action">app.about</attribute>
       </item>
     </section>

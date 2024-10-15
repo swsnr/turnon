@@ -37,4 +37,4 @@ jobs:
           SKIP_BLUEPRINT: 1
       - name: cargo deny check
         uses: EmbarkStudios/cargo-deny-action@v2
-      - run: appstreamcli validate --explain resources/de.swsnr.wakeup.metainfo.xml
+      - run: appstreamcli validate --explain resources/de.swsnr.turnon.metainfo.xml

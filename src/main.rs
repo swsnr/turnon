@@ -13,7 +13,7 @@ use gtk::glib;
 use gtk::glib::Variant;
 use model::{Device, Devices};
 use services::{StorageService, StorageServiceClient};
-use widgets::WakeUpApplicationWindow;
+use widgets::TurnOnApplicationWindow;
 
 mod i18n;
 mod model;
@@ -21,11 +21,11 @@ mod net;
 mod services;
 mod widgets;
 
-static APP_ID: &str = "de.swsnr.wakeup";
+static APP_ID: &str = "de.swsnr.turnon";
 
 fn activate_about_action(app: &adw::Application, _action: &SimpleAction, _param: Option<&Variant>) {
     adw::AboutDialog::from_appdata(
-        "/de/swsnr/wakeup/de.swsnr.wakeup.metainfo.xml",
+        "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
         Some(env!("CARGO_PKG_VERSION")),
     )
     .present(app.active_window().as_ref());
@@ -104,7 +104,7 @@ fn activate_application(app: &adw::Application, model: &Devices) {
         }
         None => {
             log::debug!("Creating new application window");
-            WakeUpApplicationWindow::new(app, model).present();
+            TurnOnApplicationWindow::new(app, model).present();
         }
     }
 }
@@ -115,9 +115,9 @@ fn activate_application(app: &adw::Application, model: &Devices) {
 ///
 /// Otherwise log to console.
 ///
-/// `$WAKEUP_LOG` and `$WAKEUP_LOG_STYLE` configure log level and log style (for console logging)
+/// `$TURNON_LOG` and `$TURNON_LOG_STYLE` configure log level and log style (for console logging)
 fn setup_logging() {
-    let env_var = "WAKEUP_LOG";
+    let env_var = "TURNON_LOG";
     if systemd_journal_logger::connected_to_journal() {
         let logger = systemd_journal_logger::JournalLog::new()
             .unwrap()
@@ -129,7 +129,7 @@ fn setup_logging() {
     } else {
         let env = env_logger::Env::new()
             .filter(env_var)
-            .write_style("WAKEUP_LOG_STYLE");
+            .write_style("TURNON_LOG_STYLE");
         env_logger::init_from_env(env);
     }
     glib::log_set_default_handler(glib::rust_log_handler);
@@ -138,8 +138,8 @@ fn setup_logging() {
 fn main() -> glib::ExitCode {
     setup_logging();
 
-    gio::resources_register_include!("wakeup.gresource").unwrap();
-    glib::set_application_name("WakeUp");
+    gio::resources_register_include!("turnon.gresource").unwrap();
+    glib::set_application_name("TurnOn");
 
     let app = adw::Application::builder()
         .application_id(APP_ID.trim())

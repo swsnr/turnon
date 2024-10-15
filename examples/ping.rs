@@ -58,7 +58,7 @@ async fn ping(source: Source, cancellable: &Cancellable) -> Result<bool, Box<dyn
         socket.create_source_future(IOCondition::IN, Some(cancellable), glib::Priority::DEFAULT);
     let socket_address: gio::InetSocketAddress = SocketAddr::new(ip_address, 0).into();
     let header = IcmpEchoHeader { id: 42, seq: 23 };
-    let payload = b"wakeup-ping wakeup-ping wakeup-ping wakeup-ping";
+    let payload = b"turnon-ping turnon-ping turnon-ping turnon-ping";
     let mut packet = match ip_address {
         IpAddr::V4(_) => {
             let echo = etherparse::Icmpv4Type::EchoRequest(header);

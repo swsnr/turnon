@@ -10,14 +10,14 @@ use gtk::glib;
 use crate::model::Devices;
 
 glib::wrapper! {
-    pub struct WakeUpApplicationWindow(ObjectSubclass<imp::WakeUpApplicationWindow>)
+    pub struct TurnOnApplicationWindow(ObjectSubclass<imp::TurnOnApplicationWindow>)
         @extends adw::ApplicationWindow, gtk::ApplicationWindow, gtk::Window, gtk::Widget,
         @implements gio::ActionGroup, gio::ActionMap,
             gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget,
             gtk::Native, gtk::Root, gtk::ShortcutManager;
 }
 
-impl WakeUpApplicationWindow {
+impl TurnOnApplicationWindow {
     /// Create a new application window for the given `application`.
     pub fn new(application: &adw::Application, devices: &Devices) -> Self {
         glib::Object::builder()
@@ -45,9 +45,9 @@ mod imp {
     use crate::widgets::AddDeviceDialog;
 
     #[derive(CompositeTemplate, Default, Properties)]
-    #[properties(wrapper_type = super::WakeUpApplicationWindow)]
-    #[template(resource = "/de/swsnr/wakeup/ui/wakeup-application-window.ui")]
-    pub struct WakeUpApplicationWindow {
+    #[properties(wrapper_type = super::TurnOnApplicationWindow)]
+    #[template(resource = "/de/swsnr/turnon/ui/turnon-application-window.ui")]
+    pub struct TurnOnApplicationWindow {
         #[property(get, set, construct_only)]
         devices: RefCell<Devices>,
         #[template_child]
@@ -57,10 +57,10 @@ mod imp {
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for WakeUpApplicationWindow {
-        const NAME: &'static str = "WakeUpApplicationWindow";
+    impl ObjectSubclass for TurnOnApplicationWindow {
+        const NAME: &'static str = "TurnOnApplicationWindow";
 
-        type Type = super::WakeUpApplicationWindow;
+        type Type = super::TurnOnApplicationWindow;
 
         type ParentType = adw::ApplicationWindow;
 
@@ -86,7 +86,7 @@ mod imp {
         }
     }
 
-    impl WakeUpApplicationWindow {
+    impl TurnOnApplicationWindow {
         fn create_device_row(&self, object: &glib::Object) -> gtk::Widget {
             let window = self.obj().clone();
             let device = &object.clone().downcast::<Device>().unwrap();
@@ -123,15 +123,25 @@ mod imp {
                                     "Sent magic packet to {mac_address} of device {}",
                                     device.label()
                                 );
-                                let toast = adw::Toast::new(
-                                    &gettext("Send magic packet to device %s")
-                                        .replace("%s", &device.label()),
-                                );
+                                let toast = adw::Toast::builder()
+                                    .title(
+                                        gettext("Sent magic packet to device %s")
+                                            .replace("%s", &device.label()),
+                                    )
+                                    .timeout(3)
+                                    .build();
                                 window.imp().feedback.add_toast(toast);
                             }
                             Err(error) => {
                                 log::warn!("Failed to send magic packet to {mac_address}: {error}");
-                                // TODO show error toast?
+                                let toast = adw::Toast::builder()
+                                    .title(
+                                        gettext("Failed to send magic packet to device %s")
+                                            .replace("%s", &device.label()),
+                                    )
+                                    .timeout(10)
+                                    .build();
+                                window.imp().feedback.add_toast(toast);
                             }
                         }
                     }
@@ -142,7 +152,7 @@ mod imp {
     }
 
     #[glib::derived_properties]
-    impl ObjectImpl for WakeUpApplicationWindow {
+    impl ObjectImpl for TurnOnApplicationWindow {
         fn constructed(&self) {
             self.parent_constructed();
 
@@ -156,11 +166,11 @@ mod imp {
         }
     }
 
-    impl WidgetImpl for WakeUpApplicationWindow {}
+    impl WidgetImpl for TurnOnApplicationWindow {}
 
-    impl WindowImpl for WakeUpApplicationWindow {}
+    impl WindowImpl for TurnOnApplicationWindow {}
 
-    impl ApplicationWindowImpl for WakeUpApplicationWindow {}
+    impl ApplicationWindowImpl for TurnOnApplicationWindow {}
 
-    impl AdwApplicationWindowImpl for WakeUpApplicationWindow {}
+    impl AdwApplicationWindowImpl for TurnOnApplicationWindow {}
 }

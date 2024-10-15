@@ -4,7 +4,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-//! Networking for Wakeup.
+//! Networking for TurnOn.
 //!
 //! Contains a dead simple and somewhat inefficient ping implementation.
 
@@ -118,7 +118,7 @@ async fn ping(ip_address: IpAddr) -> Result<PingReply, Box<dyn Error>> {
         socket.create_source_future(IOCondition::IN, Cancellable::NONE, glib::Priority::DEFAULT);
     let socket_address: gio::InetSocketAddress = SocketAddr::new(ip_address, 0).into();
     let header = IcmpEchoHeader { id: 42, seq: 23 };
-    let payload = b"wakeup-ping wakeup-ping wakeup-ping wakeup-ping";
+    let payload = b"turnon-ping turnon-ping turnon-ping turnon-ping";
     let mut packet = match ip_address {
         IpAddr::V4(_) => {
             let echo = etherparse::Icmpv4Type::EchoRequest(header);

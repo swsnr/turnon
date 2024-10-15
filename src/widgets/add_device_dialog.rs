@@ -67,7 +67,7 @@ mod imp {
     use crate::widgets::ValidationIndicator;
 
     #[derive(CompositeTemplate, Properties)]
-    #[template(resource = "/de/swsnr/wakeup/ui/add-device-dialog.ui")]
+    #[template(resource = "/de/swsnr/turnon/ui/add-device-dialog.ui")]
     #[properties(wrapper_type = super::AddDeviceDialog)]
     pub struct AddDeviceDialog {
         #[property(get, set)]

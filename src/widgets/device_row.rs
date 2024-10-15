@@ -42,7 +42,7 @@ mod imp {
 
     #[derive(CompositeTemplate, Default, Properties)]
     #[properties(wrapper_type = super::DeviceRow)]
-    #[template(resource = "/de/swsnr/wakeup/ui/device-row.ui")]
+    #[template(resource = "/de/swsnr/turnon/ui/device-row.ui")]
     pub struct DeviceRow {
         #[property(get, set)]
         device: RefCell<Device>,

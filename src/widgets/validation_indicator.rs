@@ -36,7 +36,7 @@ mod imp {
     use gtk::CompositeTemplate;
 
     #[derive(CompositeTemplate, Default, Properties)]
-    #[template(resource = "/de/swsnr/wakeup/ui/validation-indicator.ui")]
+    #[template(resource = "/de/swsnr/turnon/ui/validation-indicator.ui")]
     #[properties(wrapper_type = super::ValidationIndicator)]
     pub struct ValidationIndicator {
         #[property(get, set)]
