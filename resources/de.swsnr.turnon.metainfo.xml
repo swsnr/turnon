@@ -5,9 +5,14 @@
     <name>Turn On</name>
     <summary>Turn on devices in your local network</summary>
     <description>
-        <p>Conveniently turn on devices in the local network, such as a NAS or a gaming console,
+        <p>Conveniently turn on devices in your local network, such as a NAS or a gaming console,
             using WakeOnLan.</p>
-        <!-- TODO: List features -->
+        <p>Features:</p>
+        <ul>
+            <li>Add devices to turn on.</li>
+            <li>Turn on devices with magic WakeOnLan packets.</li>
+            <li>Monitor device status.</li>
+        </ul>
     </description>
     <categories>
         <category>Utility</category>
