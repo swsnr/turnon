@@ -40,6 +40,7 @@
                     <li>Languages other than English are not supported</li>
                 </ul>
             </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/v0.1.0</url>
         </release>
     </releases>
     <project_license>MPL-2.0</project_license>
