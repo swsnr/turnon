@@ -3,3 +3,5 @@
 /.vscode/
 
 /.flatpak-builder/
+/builddir/
+/repo/
