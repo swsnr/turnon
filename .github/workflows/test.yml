@@ -10,6 +10,15 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
+  metadata:
+    name: Lint application metadata
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub/flatpak-builder-lint:latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: flatpak-builder-lint manifest resources/de.swsnr.turnon.metainfo.xml
+
   build:
     name: Build & lint
     runs-on: ubuntu-latest
