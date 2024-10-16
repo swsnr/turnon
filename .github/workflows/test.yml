@@ -17,7 +17,7 @@ jobs:
       image: ghcr.io/flathub/flatpak-builder-lint:latest
     steps:
       - uses: actions/checkout@v4
-      - run: flatpak-builder-lint manifest resources/de.swsnr.turnon.metainfo.xml
+      - run: flatpak-builder-lint appstream resources/de.swsnr.turnon.metainfo.xml
 
   build:
     name: Build & lint
