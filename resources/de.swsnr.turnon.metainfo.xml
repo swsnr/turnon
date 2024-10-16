@@ -25,6 +25,12 @@
     <url type="vcs-browser">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
+        <release version="0.2.0" date="2024-10-16">
+            <description>
+                <p>Refined app icon.</p>
+            </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/v0.2.0</url>
+        </release>
         <release version="0.1.0" date="2024-10-16">
             <description>
                 <p>This is the initial release.  The application supports the following features in this release</p>
