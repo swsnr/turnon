@@ -29,7 +29,20 @@
     <developer id="de.swsnr">
         <name translatable="no">Sebastian Wiesner</name>
     </developer>
-    <!-- TODO: Screenshots -->
+    <screenshots>
+        <screenshot type="default">
+            <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/list-of-devices.png</image>
+            <caption>Two devices, one of them on, and the other off</caption>
+        </screenshot>
+        <screenshot>
+            <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/add-device.png</image>
+            <caption>Add a new device with a name, the MAC address, and an IP address to check the status with</caption>
+        </screenshot>
+        <screenshot>
+            <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/start-page.png</image>
+            <caption>The empty greeting page with the application icon and a button to add a new device</caption>
+        </screenshot>
+    </screenshots>
     <!-- TODO: translation? -->
     <content_rating type="oars-1.1" />
     <branding>
