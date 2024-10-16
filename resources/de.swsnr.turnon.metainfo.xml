@@ -24,7 +24,24 @@
     <url type="bugtracker">https://github.com/swsnr/turnon/issues</url>
     <url type="vcs-browser">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
-    <!-- TODO: Releases -->
+    <releases>
+        <release version="0.1.0" date="2024-10-16">
+            <description>
+                <p>This is the initial release.  The application supports the following features in this release</p>
+                <ul>
+                    <li>Add new devices</li>
+                    <li>Monitor whether devices are turned on</li>
+                    <li>Turn on devices with WakeOnLan</li>
+                </ul>
+                <p>This release is missing the following features:</p>
+                <ul>
+                    <li>Devices can not be edited or removed</li>
+                    <li>The order of devices cannot be changed</li>
+                    <li>Languages other than English are not supported</li>
+                </ul>
+            </description>
+        </release>
+    </releases>
     <project_license>MPL-2.0</project_license>
     <developer id="de.swsnr">
         <name translatable="no">Sebastian Wiesner</name>
