@@ -113,12 +113,22 @@ mod imp {
                     "Sending magic packet for mac address {mac_address} of device {}",
                     device.label()
                 );
+                let toast_sending = adw::Toast::builder()
+                    .title(
+                        gettext("Sening magic packet to device %s").replace("%s", &device.label()),
+                    )
+                    .timeout(3)
+                    .build();
+                window.imp().feedback.add_toast(toast_sending.clone());
                 glib::spawn_future_local(glib::clone!(
                     #[weak]
                     window,
+                    #[weak_allow_none]
+                    toast_sending,
                     async move {
                         match wol(mac_address).await {
                             Ok(_) => {
+                                toast_sending.inspect(|t| t.dismiss());
                                 log::info!(
                                     "Sent magic packet to {mac_address} of device {}",
                                     device.label()
