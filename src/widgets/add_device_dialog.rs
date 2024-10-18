@@ -123,6 +123,11 @@ mod imp {
             };
             self.host_indicator.replace(indicator.to_owned());
             self.obj().notify_host_indicator();
+            self.obj().notify_is_valid();
+        }
+
+        fn host_valid(&self) -> bool {
+            *self.host_indicator.borrow() != "empty"
         }
 
         fn validate_all(&self) {
@@ -132,7 +137,7 @@ mod imp {
         }
 
         fn is_valid(&self) -> bool {
-            self.label_valid.get() && self.mac_address_valid.get()
+            self.label_valid.get() && self.mac_address_valid.get() && self.host_valid()
         }
     }
 

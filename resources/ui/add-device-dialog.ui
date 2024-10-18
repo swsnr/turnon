@@ -62,7 +62,10 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                           <object class="GtkStackPage">
                             <property name="name">empty</property>
                             <property name="child">
-                              <object class="GtkBox"></object>
+                              <object class="GtkImage">
+                                <property name="icon-name">dialog-warning-symbolic</property>
+                                <property name="tooltip-text" translatable="yes">Please specify a target host to check availability</property>
+                              </object>
                             </property>
                           </object>
                         </child>

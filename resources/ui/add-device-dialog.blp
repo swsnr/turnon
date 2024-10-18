@@ -57,7 +57,10 @@ template $AddDeviceDialog: Adw.Dialog {
             Gtk.StackPage {
               name: "empty";
 
-              child: Gtk.Box {};
+              child: Gtk.Image {
+                icon-name: "dialog-warning-symbolic";
+                tooltip-text: _("Please specify a target host to check availability");
+              };
             }
 
             Gtk.StackPage {
