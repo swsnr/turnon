@@ -29,11 +29,12 @@ impl TurnOnApplicationWindow {
 
 mod imp {
     use std::cell::RefCell;
+    use std::error::Error;
     use std::time::Duration;
 
     use adw::subclass::prelude::*;
     use adw::{prelude::*, ToastOverlay};
-    use futures_util::{StreamExt, TryStreamExt};
+    use futures_util::{select_biased, FutureExt, StreamExt, TryStreamExt};
     use gtk::glib::subclass::InitializingObject;
     use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
@@ -107,7 +108,19 @@ mod imp {
                 #[weak_allow_none]
                 toast_sending,
                 async move {
-                    match wol(mac_address).await {
+                    let wol_timeout = Duration::from_secs(5);
+                    let result: Result<(), Box<dyn Error>> = select_biased! {
+                        result = wol(mac_address).fuse() => result,
+                        _ = glib::timeout_future(wol_timeout).fuse() => {
+                            Err(
+                                std::io::Error::new(
+                                    std::io::ErrorKind::TimedOut,
+                                    format!("Failed to send magic packet within {wol_timeout:#?}")
+                                ).into()
+                            )
+                        }
+                    };
+                    match result {
                         Ok(_) => {
                             toast_sending.inspect(|t| t.dismiss());
                             log::info!(
