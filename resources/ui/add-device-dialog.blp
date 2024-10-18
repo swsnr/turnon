@@ -9,6 +9,7 @@ template $AddDeviceDialog: Adw.Dialog {
   can-close: true;
   title: _("Add device");
   content-width: 450;
+  default-widget: add;
 
   Adw.ToolbarView {
     [top]
@@ -49,6 +50,7 @@ template $AddDeviceDialog: Adw.Dialog {
           input-hints: no_emoji | no_spellcheck;
           use-underline: true;
           text: bind template.host bidirectional;
+          activates-default: true;
 
           [suffix]
           Gtk.Stack {
@@ -94,7 +96,7 @@ template $AddDeviceDialog: Adw.Dialog {
           }
         }
 
-        Gtk.Button {
+        Gtk.Button add {
           label: _("_Add");
           use-underline: true;
           action-name: "device.add";

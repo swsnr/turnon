@@ -10,6 +10,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
     <property name="can-close">true</property>
     <property name="title" translatable="yes">Add device</property>
     <property name="content-width">450</property>
+    <property name="default-widget">add</property>
     <child>
       <object class="AdwToolbarView">
         <child type="top">
@@ -55,6 +56,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     <property name="input-hints">1024|2</property>
                     <property name="use-underline">true</property>
                     <property name="text" bind-source="AddDeviceDialog" bind-property="host" bind-flags="sync-create|bidirectional"/>
+                    <property name="activates-default">true</property>
                     <child type="suffix">
                       <object class="GtkStack">
                         <property name="visible-child-name" bind-source="AddDeviceDialog" bind-property="host_indicator" bind-flags="sync-create"/>
@@ -109,7 +111,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                   </object>
                 </child>
                 <child>
-                  <object class="GtkButton">
+                  <object class="GtkButton" id="add">
                     <property name="label" translatable="yes">_Add</property>
                     <property name="use-underline">true</property>
                     <property name="action-name">device.add</property>

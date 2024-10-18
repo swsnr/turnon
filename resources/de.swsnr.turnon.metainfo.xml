@@ -31,6 +31,7 @@
                 <ul>
                     <li>Show a toast notification immediately after turning on a device.</li>
                     <li>Do not permit to add devices without specifying the host.</li>
+                    <li>Pressing enter in the host entry now adds the device and closes the dialog.</li>
                 </ul>
             </description>
         </release>
