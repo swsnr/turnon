@@ -4,6 +4,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use glib::object::IsA;
 use gtk::gio;
 use gtk::glib;
 
@@ -19,7 +20,7 @@ glib::wrapper! {
 
 impl TurnOnApplicationWindow {
     /// Create a new application window for the given `application`.
-    pub fn new(application: &adw::Application, devices: &Devices) -> Self {
+    pub fn new(application: &impl IsA<gtk::Application>, devices: &Devices) -> Self {
         glib::Object::builder()
             .property("application", application)
             .property("devices", devices)
