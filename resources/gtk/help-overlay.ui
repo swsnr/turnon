@@ -16,6 +16,12 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
             <property name="title" translatable="yes" context="shortcuts group">General</property>
             <child>
               <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Add a new device</property>
+                <property name="action-name">win.add_device</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut description">Show shortcuts</property>
                 <property name="action-name">win.show-help-overlay</property>
               </object>
