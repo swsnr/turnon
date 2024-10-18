@@ -87,8 +87,60 @@ mod imp {
     }
 
     impl TurnOnApplicationWindow {
-        fn create_device_row(&self, object: &glib::Object) -> gtk::Widget {
+        fn turn_on_device(&self, device: Device) {
             let window = self.obj().clone();
+            let mac_address = device.mac_addr6();
+            log::info!(
+                "Sending magic packet for mac address {mac_address} of device {}",
+                device.label()
+            );
+            // Notify the user that we're about to send the magic packet to the target device
+            let toast_sending = adw::Toast::builder()
+                .title(gettext("Sending magic packet to device %s").replace("%s", &device.label()))
+                .timeout(3)
+                .build();
+            window.imp().feedback.add_toast(toast_sending.clone());
+
+            glib::spawn_future_local(glib::clone!(
+                #[weak]
+                window,
+                #[weak_allow_none]
+                toast_sending,
+                async move {
+                    match wol(mac_address).await {
+                        Ok(_) => {
+                            toast_sending.inspect(|t| t.dismiss());
+                            log::info!(
+                                "Sent magic packet to {mac_address} of device {}",
+                                device.label()
+                            );
+                            let toast = adw::Toast::builder()
+                                .title(
+                                    gettext("Sent magic packet to device %s")
+                                        .replace("%s", &device.label()),
+                                )
+                                .timeout(3)
+                                .build();
+                            window.imp().feedback.add_toast(toast);
+                        }
+                        Err(error) => {
+                            toast_sending.inspect(|t| t.dismiss());
+                            log::warn!("Failed to send magic packet to {mac_address}: {error}");
+                            let toast = adw::Toast::builder()
+                                .title(
+                                    gettext("Failed to send magic packet to device %s")
+                                        .replace("%s", &device.label()),
+                                )
+                                .timeout(10)
+                                .build();
+                            window.imp().feedback.add_toast(toast);
+                        }
+                    }
+                }
+            ));
+        }
+
+        fn create_device_row(&self, object: &glib::Object) -> gtk::Widget {
             let device = &object.clone().downcast::<Device>().unwrap();
             let row = DeviceRow::new(device);
             // TODO: Restart monitoring if the target of a device changed!
@@ -106,57 +158,8 @@ mod imp {
                         }
                     )),
             );
-            row.connect_activated(move |row| {
-                let device = row.device();
-                let mac_address = device.mac_addr6();
-                log::info!(
-                    "Sending magic packet for mac address {mac_address} of device {}",
-                    device.label()
-                );
-                let toast_sending = adw::Toast::builder()
-                    .title(
-                        gettext("Sening magic packet to device %s").replace("%s", &device.label()),
-                    )
-                    .timeout(3)
-                    .build();
-                window.imp().feedback.add_toast(toast_sending.clone());
-                glib::spawn_future_local(glib::clone!(
-                    #[weak]
-                    window,
-                    #[weak_allow_none]
-                    toast_sending,
-                    async move {
-                        match wol(mac_address).await {
-                            Ok(_) => {
-                                toast_sending.inspect(|t| t.dismiss());
-                                log::info!(
-                                    "Sent magic packet to {mac_address} of device {}",
-                                    device.label()
-                                );
-                                let toast = adw::Toast::builder()
-                                    .title(
-                                        gettext("Sent magic packet to device %s")
-                                            .replace("%s", &device.label()),
-                                    )
-                                    .timeout(3)
-                                    .build();
-                                window.imp().feedback.add_toast(toast);
-                            }
-                            Err(error) => {
-                                log::warn!("Failed to send magic packet to {mac_address}: {error}");
-                                let toast = adw::Toast::builder()
-                                    .title(
-                                        gettext("Failed to send magic packet to device %s")
-                                            .replace("%s", &device.label()),
-                                    )
-                                    .timeout(10)
-                                    .build();
-                                window.imp().feedback.add_toast(toast);
-                            }
-                        }
-                    }
-                ));
-            });
+            let window = self.obj().clone();
+            row.connect_activated(move |row| window.imp().turn_on_device(row.device()));
             row.upcast()
         }
     }
