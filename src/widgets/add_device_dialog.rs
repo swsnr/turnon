@@ -57,10 +57,10 @@ mod imp {
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
-    use gtk::glib;
     use gtk::glib::subclass::{InitializingObject, Signal};
     use gtk::glib::Properties;
     use gtk::CompositeTemplate;
+    use gtk::{glib, template_callbacks};
     use macaddr::MacAddr6;
 
     use crate::model::Device;
@@ -86,6 +86,7 @@ mod imp {
         pub is_valid: (),
     }
 
+    #[template_callbacks]
     impl AddDeviceDialog {
         fn is_label_valid(&self) -> bool {
             !self.label.borrow().is_empty()
@@ -139,6 +140,11 @@ mod imp {
         fn is_valid(&self) -> bool {
             self.label_valid.get() && self.mac_address_valid.get() && self.host_valid()
         }
+
+        #[template_callback]
+        fn move_to_next_entry(entry: adw::EntryRow) {
+            entry.emit_move_focus(gtk::DirectionType::TabForward);
+        }
     }
 
     #[glib::object_subclass]
@@ -166,6 +172,7 @@ mod imp {
             Device::ensure_type();
 
             klass.bind_template();
+            klass.bind_template_callbacks();
 
             klass.install_action("device.add", None, |dialog, _, _| {
                 if dialog.is_valid() {
