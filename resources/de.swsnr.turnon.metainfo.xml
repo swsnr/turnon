@@ -27,7 +27,6 @@
     <releases>
         <release version="next" date="9999-01-01">
             <description>
-                <p></p>
                 <p>Delete devices from the list of devices, show early feedback when turning on a device, and make the dialog to add devices easier to use with the keyboard (pressing Enter now navigates to the next entry and eventually adds the device).</p>
             </description>
         </release>
