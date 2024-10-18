@@ -25,6 +25,15 @@
     <url type="vcs-browser">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
+        <release version="next" date="9999-01-01">
+            <description>
+                <p>Improve feedback for turning on devices and make the dialog to add devices easier to use:</p>
+                <ul>
+                    <li>Show a toast notification immediately after turning on a device.</li>
+                    <li>Do not permit to add devices without specifying the host.</li>
+                </ul>
+            </description>
+        </release>
         <release version="0.2.0" date="2024-10-16">
             <description>
                 <p>Refined app icon.</p>
