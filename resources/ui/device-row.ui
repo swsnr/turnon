@@ -78,26 +78,72 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
           </object>
         </child>
         <child>
-          <object class="GtkBox">
-            <property name="orientation">0</property>
+          <object class="GtkStack">
+            <property name="visible-child-name" bind-source="DeviceRow" bind-property="suffix_mode" bind-flags="sync-create"/>
+            <property name="margin-start">12</property>
+            <property name="hhomogeneous">false</property>
+            <property name="transition-type">6</property>
             <child>
-              <object class="GtkButton">
-                <property name="icon-name">document-edit-symbolic</property>
-                <property name="sensitive">false</property>
-                <property name="tooltip-text" translatable="yes">Editing of devices is not yet implemented</property>
-                <style>
-                  <class name="flat"/>
-                </style>
+              <object class="GtkStackPage">
+                <property name="name">buttons</property>
+                <property name="child">
+                  <object class="GtkBox">
+                    <property name="orientation">0</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="icon-name">document-edit-symbolic</property>
+                        <property name="sensitive">false</property>
+                        <property name="tooltip-text" translatable="yes">Editing of devices is not yet implemented</property>
+                        <property name="valign">3</property>
+                        <style>
+                          <class name="flat"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="icon-name">user-trash-symbolic</property>
+                        <property name="tooltip-text" translatable="yes">Delete this device?</property>
+                        <property name="action-name">row.ask_delete</property>
+                        <property name="margin-start">6</property>
+                        <property name="valign">3</property>
+                        <style>
+                          <class name="flat"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </property>
               </object>
             </child>
             <child>
-              <object class="GtkButton">
-                <property name="icon-name">user-trash-symbolic</property>
-                <property name="sensitive">false</property>
-                <property name="tooltip-text" translatable="yes">Deleting of devices is not yet implemented</property>
-                <style>
-                  <class name="flat"/>
-                </style>
+              <object class="GtkStackPage">
+                <property name="name">confirm-delete</property>
+                <property name="child">
+                  <object class="GtkBox">
+                    <child>
+                      <object class="GtkButton">
+                        <property name="label" translatable="yes">Delete</property>
+                        <property name="valign">3</property>
+                        <property name="action-name">row.delete</property>
+                        <style>
+                          <class name="destructive-action"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="label" translatable="yes">Cancel</property>
+                        <property name="valign">3</property>
+                        <property name="margin-start">6</property>
+                        <property name="action-name">row.cancel-delete</property>
+                        <style>
+                          <class name="flat"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </property>
               </object>
             </child>
           </object>

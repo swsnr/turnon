@@ -172,8 +172,19 @@ mod imp {
                         }
                     )),
             );
-            let window = self.obj().clone();
-            row.connect_activated(move |row| window.imp().turn_on_device(row.device()));
+            row.connect_activated(glib::clone!(
+                #[strong(rename_to=window)]
+                self.obj(),
+                move |row| window.imp().turn_on_device(row.device())
+            ));
+            row.connect_deleted(glib::clone!(
+                #[strong(rename_to=window)]
+                self.obj(),
+                move |_, device| {
+                    log::info!("Deleting device {}", device.label());
+                    window.devices().delete_device(device);
+                }
+            ));
             row.upcast()
         }
     }

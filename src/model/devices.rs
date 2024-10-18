@@ -30,6 +30,23 @@ impl Devices {
         self.items_changed(position.try_into().unwrap(), 0, 1);
     }
 
+    fn find_device(&self, device: &Device) -> Option<usize> {
+        self.imp().0.borrow().iter().position(|d| d == device)
+    }
+
+    /// Delete the given `device`.
+    ///
+    /// Then signal that the list changed at the position of the device.
+    pub fn delete_device(&self, device: &Device) {
+        if let Some(position) = self.find_device(device) {
+            let mut data = self.imp().0.borrow_mut();
+            data.remove(position);
+            // Drop our mutable borrow before emitting the signal to allow other code to access the device list.
+            drop(data);
+            self.items_changed(position as u32, 1, 0);
+        }
+    }
+
     /// Clear the list and ad all given devices.
     pub fn reset_devices(&self, devices: Vec<Device>) {
         let amount_deleted = {

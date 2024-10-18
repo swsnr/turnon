@@ -52,29 +52,69 @@ template $DeviceRow: Adw.ActionRow {
       ]
     }
 
-    Gtk.Box {
-      orientation: horizontal;
+    Gtk.Stack {
+      visible-child-name: bind template.suffix_mode;
+      margin-start: 12;
+      hhomogeneous: false;
+      transition-type: slide_left_right;
 
-      Gtk.Button {
-        icon-name: "document-edit-symbolic";
-        // TODO: implement
-        sensitive: false;
-        tooltip-text: _("Editing of devices is not yet implemented");
+      Gtk.StackPage {
+        name: "buttons";
 
-        styles [
-          "flat"
-        ]
+        child: Gtk.Box {
+          orientation: horizontal;
+
+          Gtk.Button {
+            icon-name: "document-edit-symbolic";
+            // TODO: implement
+            sensitive: false;
+            tooltip-text: _("Editing of devices is not yet implemented");
+            valign: center;
+
+            styles [
+              "flat"
+            ]
+          }
+
+          Gtk.Button {
+            icon-name: "user-trash-symbolic";
+            tooltip-text: _("Delete this device?");
+            action-name: "row.ask_delete";
+            margin-start: 6;
+            valign: center;
+
+            styles [
+              "flat"
+            ]
+          }
+        };
       }
 
-      Gtk.Button {
-        icon-name: "user-trash-symbolic";
-        // TODO: implement
-        sensitive: false;
-        tooltip-text: _("Deleting of devices is not yet implemented");
+      Gtk.StackPage {
+        name: "confirm-delete";
 
-        styles [
-          "flat"
-        ]
+        child: Gtk.Box {
+          Gtk.Button {
+            label: _("Delete");
+            valign: center;
+            action-name: "row.delete";
+
+            styles [
+              "destructive-action",
+            ]
+          }
+
+          Gtk.Button {
+            label: _("Cancel");
+            valign: center;
+            margin-start: 6;
+            action-name: "row.cancel-delete";
+
+            styles [
+              "flat"
+            ]
+          }
+        };
       }
     }
   }

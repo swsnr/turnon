@@ -4,6 +4,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use glib::object::ObjectExt;
 use gtk::glib;
 
 use crate::model::Device;
@@ -21,6 +22,26 @@ impl DeviceRow {
             .property("is_device_online", false)
             .build()
     }
+
+    pub fn connect_deleted<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &Device) + 'static,
+    {
+        self.connect_local(
+            "deleted",
+            false,
+            glib::clone!(
+                #[weak(rename_to=row)]
+                &self,
+                #[upgrade_or_default]
+                move |args| {
+                    let device = &args[1].get().expect("No device passed as signal argument?");
+                    callback(&row, device);
+                    None
+                }
+            ),
+        )
+    }
 }
 
 impl Default for DeviceRow {
@@ -31,16 +52,17 @@ impl Default for DeviceRow {
 
 mod imp {
     use std::cell::{Cell, RefCell};
+    use std::sync::LazyLock;
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
-    use glib::subclass::InitializingObject;
+    use glib::subclass::{InitializingObject, Signal};
     use glib::Properties;
     use gtk::{template_callbacks, CompositeTemplate};
 
     use crate::model::Device;
 
-    #[derive(CompositeTemplate, Default, Properties)]
+    #[derive(CompositeTemplate, Properties)]
     #[properties(wrapper_type = super::DeviceRow)]
     #[template(resource = "/de/swsnr/turnon/ui/device-row.ui")]
     pub struct DeviceRow {
@@ -48,6 +70,8 @@ mod imp {
         device: RefCell<Device>,
         #[property(get, set)]
         is_device_online: Cell<bool>,
+        #[property(get)]
+        suffix_mode: RefCell<String>,
     }
 
     #[template_callbacks]
@@ -65,6 +89,11 @@ mod imp {
                 "offline"
             }
         }
+
+        pub fn set_suffix_mode(&self, mode: &str) {
+            self.suffix_mode.replace(mode.to_owned());
+            self.obj().notify_suffix_mode();
+        }
     }
 
     #[glib::object_subclass]
@@ -78,15 +107,47 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
             klass.bind_template_callbacks();
+
+            klass.install_action("row.ask_delete", None, |obj, _, _| {
+                obj.imp().set_suffix_mode("confirm-delete");
+            });
+            klass.install_action("row.cancel-delete", None, |obj, _, _| {
+                obj.imp().set_suffix_mode("buttons");
+            });
+            klass.install_action("row.delete", None, |obj, _, _| {
+                obj.emit_by_name::<()>("deleted", &[&obj.device()])
+            });
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
             obj.init_template();
         }
+
+        fn new() -> Self {
+            Self {
+                device: Default::default(),
+                is_device_online: Default::default(),
+                suffix_mode: RefCell::new("buttons".into()),
+            }
+        }
     }
 
     #[glib::derived_properties]
-    impl ObjectImpl for DeviceRow {}
+    impl ObjectImpl for DeviceRow {
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
+                vec![Signal::builder("deleted")
+                    .action()
+                    .param_types([Device::static_type()])
+                    .build()]
+            });
+            SIGNALS.as_ref()
+        }
+
+        fn constructed(&self) {
+            self.parent_constructed();
+        }
+    }
 
     impl WidgetImpl for DeviceRow {}
 
