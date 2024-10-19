@@ -31,11 +31,12 @@ impl TurnOnApplicationWindow {
 mod imp {
     use std::cell::RefCell;
     use std::error::Error;
+    use std::rc::Rc;
     use std::time::Duration;
 
     use adw::subclass::prelude::*;
     use adw::{prelude::*, ToastOverlay};
-    use futures_util::{select_biased, FutureExt, StreamExt, TryStreamExt};
+    use futures_util::{select_biased, stream, FutureExt, StreamExt, TryStreamExt};
     use gtk::glib::subclass::InitializingObject;
     use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
@@ -154,24 +155,37 @@ mod imp {
             ));
         }
 
+        fn monitor_device(row: &DeviceRow) -> stream::AbortHandle {
+            let device = row.device();
+            let (monitor, abort_monitoring) = stream::abortable(
+                net::monitor(device.host().into(), Duration::from_secs(5)).map(Ok),
+            );
+            glib::spawn_future_local(monitor.try_for_each(glib::clone!(
+                #[weak]
+                row,
+                #[upgrade_or]
+                futures_util::future::err(()),
+                move |is_online| {
+                    row.set_is_device_online(is_online);
+                    futures_util::future::ok(())
+                }
+            )));
+            abort_monitoring
+        }
+
         fn create_device_row(&self, object: &glib::Object) -> gtk::Widget {
             let device = &object.clone().downcast::<Device>().unwrap();
             let row = DeviceRow::new(device);
-            // TODO: Restart monitoring if the target of a device changed!
-            glib::spawn_future_local(
-                net::monitor(device.host().into(), Duration::from_secs(5))
-                    .map(Ok)
-                    .try_for_each(glib::clone!(
-                        #[weak]
-                        row,
-                        #[upgrade_or]
-                        futures_util::future::err(()),
-                        move |is_online| {
-                            row.set_is_device_online(is_online);
-                            futures_util::future::ok(())
-                        }
-                    )),
-            );
+            let ongoing_monitor = Rc::new(RefCell::new(Self::monitor_device(&row)));
+            // If the host changed monitor the new host.
+            device.connect_host_notify(glib::clone!(
+                #[weak]
+                row,
+                move |_| {
+                    let previous_monitor = ongoing_monitor.replace(Self::monitor_device(&row));
+                    previous_monitor.abort();
+                },
+            ));
             row.connect_activated(glib::clone!(
                 #[strong(rename_to=window)]
                 self.obj(),
