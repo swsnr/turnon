@@ -5,11 +5,11 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $AddDeviceDialog: Adw.Dialog {
+template $EditDeviceDialog: Adw.Dialog {
   can-close: true;
-  title: _("Add device");
+  title: _("Edit device");
   content-width: 450;
-  default-widget: add;
+  default-widget: save;
 
   Adw.ToolbarView {
     [top]
@@ -98,10 +98,10 @@ template $AddDeviceDialog: Adw.Dialog {
           }
         }
 
-        Gtk.Button add {
-          label: _("_Add");
+        Gtk.Button save {
+          label: _("_Save");
           use-underline: true;
-          action-name: "device.add";
+          action-name: "device.save";
           halign: center;
           margin-top: 12;
 

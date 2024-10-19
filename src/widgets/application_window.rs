@@ -44,7 +44,7 @@ mod imp {
     use crate::model::{Device, Devices};
     use crate::net::{self, wol};
     use crate::widgets::device_row::DeviceRow;
-    use crate::widgets::AddDeviceDialog;
+    use crate::widgets::EditDeviceDialog;
 
     #[derive(CompositeTemplate, Default, Properties)]
     #[properties(wrapper_type = super::TurnOnApplicationWindow)]
@@ -70,8 +70,8 @@ mod imp {
             klass.bind_template();
 
             klass.install_action("win.add_device", None, |window, _, _| {
-                let dialog = AddDeviceDialog::new();
-                dialog.connect_added(glib::clone!(
+                let dialog = EditDeviceDialog::new();
+                dialog.connect_saved(glib::clone!(
                     #[weak]
                     window,
                     move |_, device| {

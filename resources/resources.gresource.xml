@@ -2,7 +2,7 @@
 <gresources>
     <gresource prefix="/de/swsnr/turnon/">
         <!-- User interface templates -->
-        <file compressed="true" preprocess="xml-stripblanks">ui/add-device-dialog.ui</file>
+        <file compressed="true" preprocess="xml-stripblanks">ui/edit-device-dialog.ui</file>
         <file compressed="true" preprocess="xml-stripblanks">ui/device-row.ui</file>
         <file compressed="true" preprocess="xml-stripblanks">ui/validation-indicator.ui</file>
         <file compressed="true" preprocess="xml-stripblanks">ui/turnon-application-window.ui</file>

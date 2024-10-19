@@ -10,23 +10,23 @@ use gtk::{glib, prelude::ObjectExt};
 use crate::model::Device;
 
 glib::wrapper! {
-    pub struct AddDeviceDialog(ObjectSubclass<imp::AddDeviceDialog>)
+    pub struct EditDeviceDialog(ObjectSubclass<imp::EditDeviceDialog>)
         @extends adw::Dialog, gtk::Widget,
         @implements gtk::Accessible, gtk::Buildable, gtk::ConstraintTarget;
 }
 
-impl AddDeviceDialog {
-    /// Create a new dialog to add a device.
+impl EditDeviceDialog {
+    /// Create a new dialog to edit a device.
     pub fn new() -> Self {
         glib::Object::builder().build()
     }
 
-    pub fn connect_added<F>(&self, callback: F) -> glib::SignalHandlerId
+    pub fn connect_saved<F>(&self, callback: F) -> glib::SignalHandlerId
     where
         F: Fn(&Self, &Device) + 'static,
     {
         self.connect_local(
-            "added",
+            "saved",
             false,
             clone!(
                 #[weak(rename_to=dialog)]
@@ -42,7 +42,7 @@ impl AddDeviceDialog {
     }
 }
 
-impl Default for AddDeviceDialog {
+impl Default for EditDeviceDialog {
     fn default() -> Self {
         Self::new()
     }
@@ -67,9 +67,9 @@ mod imp {
     use crate::widgets::ValidationIndicator;
 
     #[derive(CompositeTemplate, Properties)]
-    #[template(resource = "/de/swsnr/turnon/ui/add-device-dialog.ui")]
-    #[properties(wrapper_type = super::AddDeviceDialog)]
-    pub struct AddDeviceDialog {
+    #[template(resource = "/de/swsnr/turnon/ui/edit-device-dialog.ui")]
+    #[properties(wrapper_type = super::EditDeviceDialog)]
+    pub struct EditDeviceDialog {
         #[property(get, set)]
         pub label: RefCell<String>,
         #[property(get)]
@@ -87,7 +87,7 @@ mod imp {
     }
 
     #[template_callbacks]
-    impl AddDeviceDialog {
+    impl EditDeviceDialog {
         fn is_label_valid(&self) -> bool {
             !self.label.borrow().is_empty()
         }
@@ -148,10 +148,10 @@ mod imp {
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for AddDeviceDialog {
-        const NAME: &'static str = "AddDeviceDialog";
+    impl ObjectSubclass for EditDeviceDialog {
+        const NAME: &'static str = "EditDeviceDialog";
 
-        type Type = super::AddDeviceDialog;
+        type Type = super::EditDeviceDialog;
 
         type ParentType = adw::Dialog;
 
@@ -174,13 +174,13 @@ mod imp {
             klass.bind_template();
             klass.bind_template_callbacks();
 
-            klass.install_action("device.add", None, |dialog, _, _| {
+            klass.install_action("device.save", None, |dialog, _, _| {
                 if dialog.is_valid() {
                     // At this point we know that the MAC address is valid, hence we can unwrap
                     let mac_address = MacAddr6::from_str(&dialog.mac_address()).unwrap();
                     let device =
                         Device::new(dialog.label().clone(), mac_address, dialog.host().clone());
-                    dialog.emit_by_name::<()>("added", &[&device]);
+                    dialog.emit_by_name::<()>("saved", &[&device]);
                     dialog.close();
                 }
             });
@@ -192,10 +192,10 @@ mod imp {
     }
 
     #[glib::derived_properties]
-    impl ObjectImpl for AddDeviceDialog {
+    impl ObjectImpl for EditDeviceDialog {
         fn signals() -> &'static [Signal] {
             static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
-                vec![Signal::builder("added")
+                vec![Signal::builder("saved")
                     .action()
                     .param_types([Device::static_type()])
                     .build()]
@@ -206,7 +206,7 @@ mod imp {
         fn constructed(&self) {
             self.parent_constructed();
             self.validate_all();
-            self.obj().action_set_enabled("device.add", false);
+            self.obj().action_set_enabled("device.save", false);
             self.obj().connect_label_notify(|dialog| {
                 dialog.imp().validate_label();
             });
@@ -217,12 +217,12 @@ mod imp {
                 dialog.imp().validate_host();
             });
             self.obj().connect_is_valid_notify(|dialog| {
-                dialog.action_set_enabled("device.add", dialog.is_valid());
+                dialog.action_set_enabled("device.save", dialog.is_valid());
             });
         }
     }
 
-    impl WidgetImpl for AddDeviceDialog {}
+    impl WidgetImpl for EditDeviceDialog {}
 
-    impl AdwDialogImpl for AddDeviceDialog {}
+    impl AdwDialogImpl for EditDeviceDialog {}
 }
