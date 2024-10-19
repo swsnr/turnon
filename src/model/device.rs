@@ -28,6 +28,10 @@ impl Device {
         let data: [u8; 6] = (*self.mac_address()).try_into().unwrap();
         MacAddr6::from(data)
     }
+
+    pub fn set_mac_addr6(&self, mac_address: MacAddr6) {
+        self.set_mac_address(glib::Bytes::from(mac_address.as_bytes()));
+    }
 }
 
 impl Default for Device {

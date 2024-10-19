@@ -92,8 +92,8 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     <child>
                       <object class="GtkButton">
                         <property name="icon-name">document-edit-symbolic</property>
-                        <property name="sensitive">false</property>
                         <property name="tooltip-text" translatable="yes">Editing of devices is not yet implemented</property>
+                        <property name="action-name">row.edit</property>
                         <property name="valign">3</property>
                         <style>
                           <class name="flat"/>

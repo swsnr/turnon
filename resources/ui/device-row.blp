@@ -66,9 +66,8 @@ template $DeviceRow: Adw.ActionRow {
 
           Gtk.Button {
             icon-name: "document-edit-symbolic";
-            // TODO: implement
-            sensitive: false;
             tooltip-text: _("Editing of devices is not yet implemented");
+            action-name: "row.edit";
             valign: center;
 
             styles [

@@ -16,9 +16,16 @@ glib::wrapper! {
 }
 
 impl EditDeviceDialog {
-    /// Create a new dialog to edit a device.
+    /// Create a new dialog to edit a new device.
     pub fn new() -> Self {
         glib::Object::builder().build()
+    }
+
+    /// Create a new dialog the edit an existing device.
+    pub fn edit(device: Device) -> Self {
+        glib::Object::builder()
+            .property("device", Some(device))
+            .build()
     }
 
     pub fn connect_saved<F>(&self, callback: F) -> glib::SignalHandlerId
@@ -70,6 +77,8 @@ mod imp {
     #[template(resource = "/de/swsnr/turnon/ui/edit-device-dialog.ui")]
     #[properties(wrapper_type = super::EditDeviceDialog)]
     pub struct EditDeviceDialog {
+        #[property(get, set, construct_only)]
+        pub device: RefCell<Option<Device>>,
         #[property(get, set)]
         pub label: RefCell<String>,
         #[property(get)]
@@ -157,6 +166,7 @@ mod imp {
 
         fn new() -> Self {
             Self {
+                device: Default::default(),
                 label: Default::default(),
                 label_valid: Default::default(),
                 mac_address: Default::default(),
@@ -178,8 +188,19 @@ mod imp {
                 if dialog.is_valid() {
                     // At this point we know that the MAC address is valid, hence we can unwrap
                     let mac_address = MacAddr6::from_str(&dialog.mac_address()).unwrap();
-                    let device =
-                        Device::new(dialog.label().clone(), mac_address, dialog.host().clone());
+                    let device = match dialog.device() {
+                        Some(device) => {
+                            // The dialog edits an existing device, so update its fields.
+                            device.set_label(dialog.label());
+                            device.set_mac_addr6(mac_address);
+                            device.set_host(dialog.host());
+                            device
+                        }
+                        None => {
+                            // Create a new device if the dialog does not own a device.
+                            Device::new(dialog.label().clone(), mac_address, dialog.host().clone())
+                        }
+                    };
                     dialog.emit_by_name::<()>("saved", &[&device]);
                     dialog.close();
                 }
@@ -205,6 +226,13 @@ mod imp {
 
         fn constructed(&self) {
             self.parent_constructed();
+            if let Some(device) = self.obj().device() {
+                // Initialize properties from device
+                self.obj().set_label(device.label());
+                self.obj().set_mac_address(device.mac_addr6().to_string());
+                self.obj().set_host(device.host());
+            }
+            // After initialization, update validation status.
             self.validate_all();
             self.obj().action_set_enabled("device.save", false);
             self.obj().connect_label_notify(|dialog| {

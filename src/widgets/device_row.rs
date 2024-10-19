@@ -61,6 +61,7 @@ mod imp {
     use gtk::{template_callbacks, CompositeTemplate};
 
     use crate::model::Device;
+    use crate::widgets::EditDeviceDialog;
 
     #[derive(CompositeTemplate, Properties)]
     #[properties(wrapper_type = super::DeviceRow)]
@@ -116,6 +117,10 @@ mod imp {
             });
             klass.install_action("row.delete", None, |obj, _, _| {
                 obj.emit_by_name::<()>("deleted", &[&obj.device()])
+            });
+            klass.install_action("row.edit", None, |obj, _, _| {
+                let dialog = EditDeviceDialog::edit(obj.device());
+                dialog.present(Some(obj));
             });
         }
 
