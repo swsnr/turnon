@@ -13,7 +13,6 @@ use gtk::glib;
 
 mod app;
 mod config;
-mod i18n;
 mod model;
 mod net;
 mod services;
@@ -50,6 +49,17 @@ fn setup_logging() {
 
 fn main() -> glib::ExitCode {
     setup_logging();
+
+    use gettextrs::*;
+    let locale_dir = config::locale_directory();
+    log::info!(
+        "Initializing gettext with locale directory {}",
+        locale_dir.display()
+    );
+    bindtextdomain(config::APP_ID, locale_dir).unwrap();
+    textdomain(config::APP_ID).unwrap();
+    bind_textdomain_codeset(config::APP_ID, "UTF-8").unwrap();
+    setlocale(LocaleCategory::LcAll, "");
 
     gio::resources_register_include!("turnon.gresource").unwrap();
     glib::set_application_name("Turn On");

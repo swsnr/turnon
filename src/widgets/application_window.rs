@@ -37,11 +37,11 @@ mod imp {
     use adw::subclass::prelude::*;
     use adw::{prelude::*, ToastOverlay};
     use futures_util::{select_biased, stream, FutureExt, StreamExt, TryStreamExt};
+    use gettextrs::pgettext;
     use gtk::glib::subclass::InitializingObject;
     use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
 
-    use crate::i18n::gettext;
     use crate::model::{Device, Devices};
     use crate::net::{self, wol};
     use crate::widgets::device_row::DeviceRow;
@@ -99,7 +99,13 @@ mod imp {
             );
             // Notify the user that we're about to send the magic packet to the target device
             let toast_sending = adw::Toast::builder()
-                .title(gettext("Sending magic packet to device %s").replace("%s", &device.label()))
+                .title(
+                    pgettext(
+                        "application-window.feedback.toast",
+                        "Sending magic packet to device %s",
+                    )
+                    .replace("%s", &device.label()),
+                )
                 .timeout(3)
                 .build();
             window.imp().feedback.add_toast(toast_sending.clone());
@@ -131,8 +137,11 @@ mod imp {
                             );
                             let toast = adw::Toast::builder()
                                 .title(
-                                    gettext("Sent magic packet to device %s")
-                                        .replace("%s", &device.label()),
+                                    pgettext(
+                                        "application-window.feedback.toast",
+                                        "Sent magic packet to device %s",
+                                    )
+                                    .replace("%s", &device.label()),
                                 )
                                 .timeout(3)
                                 .build();
@@ -143,8 +152,11 @@ mod imp {
                             log::warn!("Failed to send magic packet to {mac_address}: {error}");
                             let toast = adw::Toast::builder()
                                 .title(
-                                    gettext("Failed to send magic packet to device %s")
-                                        .replace("%s", &device.label()),
+                                    pgettext(
+                                        "application-window.feedback.toast",
+                                        "Failed to send magic packet to device %s",
+                                    )
+                                    .replace("%s", &device.label()),
                                 )
                                 .timeout(10)
                                 .build();
