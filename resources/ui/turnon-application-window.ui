@@ -19,7 +19,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
               <object class="GtkButton">
                 <property name="action-name">win.add_device</property>
                 <property name="icon-name">list-add-symbolic</property>
-                <property name="tooltip-text" translatable="yes" context="tooltip">Add a new device</property>
+                <property name="tooltip-text" translatable="yes" context="application-window.action.win.add_device.tooltip">Add a new device</property>
               </object>
             </child>
             <child type="end">
@@ -49,13 +49,13 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     </style>
                     <child type="placeholder">
                       <object class="AdwStatusPage">
-                        <property name="title" translatable="yes">No devices</property>
-                        <property name="description" translatable="yes">Add a new device to turn it on.</property>
+                        <property name="title" translatable="yes" context="application-window.status-page.title">No devices</property>
+                        <property name="description" translatable="yes" context="application-window.status-page.description">Add a new device to turn it on.</property>
                         <property name="icon-name">de.swsnr.turnon</property>
                         <property name="vexpand">true</property>
                         <property name="child">
                           <object class="GtkButton">
-                            <property name="label" translatable="yes">Add new device</property>
+                            <property name="label" translatable="yes" context="application-window.status-page.button.label">Add new device</property>
                             <property name="action-name">win.add_device</property>
                             <property name="halign">3</property>
                             <style>
@@ -78,11 +78,11 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
   <menu id="main_menu">
     <section>
       <item>
-        <attribute name="label" translatable="yes">_Keyboard Shortcuts</attribute>
+        <attribute name="label" translatable="yes" context="application-window.menu.label">_Keyboard Shortcuts</attribute>
         <attribute name="action">win.show-help-overlay</attribute>
       </item>
       <item>
-        <attribute name="label" translatable="yes">_About Turn On</attribute>
+        <attribute name="label" translatable="yes" context="application-window.menu.label">_About Turn On</attribute>
         <attribute name="action">app.about</attribute>
       </item>
     </section>

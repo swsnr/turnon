@@ -92,7 +92,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     <child>
                       <object class="GtkButton">
                         <property name="icon-name">document-edit-symbolic</property>
-                        <property name="tooltip-text" translatable="yes">Editing of devices is not yet implemented</property>
+                        <property name="tooltip-text" translatable="yes" context="device-row.action.row.edit.tooltip">Edit this device</property>
                         <property name="action-name">row.edit</property>
                         <property name="valign">3</property>
                         <style>
@@ -103,7 +103,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     <child>
                       <object class="GtkButton">
                         <property name="icon-name">user-trash-symbolic</property>
-                        <property name="tooltip-text" translatable="yes">Delete this device?</property>
+                        <property name="tooltip-text" translatable="yes" context="device-row.action.row.ask-delete.tooltip">Delete this device?</property>
                         <property name="action-name">row.ask_delete</property>
                         <property name="margin-start">6</property>
                         <property name="valign">3</property>
@@ -123,7 +123,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                   <object class="GtkBox">
                     <child>
                       <object class="GtkButton">
-                        <property name="label" translatable="yes">Delete</property>
+                        <property name="label" translatable="yes" context="device-row.action.row.delete">Delete</property>
                         <property name="valign">3</property>
                         <property name="action-name">row.delete</property>
                         <style>
@@ -133,7 +133,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     </child>
                     <child>
                       <object class="GtkButton">
-                        <property name="label" translatable="yes">Cancel</property>
+                        <property name="label" translatable="yes" context="canceldevice-row.action.row.cancel-delete">Cancel</property>
                         <property name="valign">3</property>
                         <property name="margin-start">6</property>
                         <property name="action-name">row.cancel-delete</property>

@@ -66,7 +66,7 @@ template $DeviceRow: Adw.ActionRow {
 
           Gtk.Button {
             icon-name: "document-edit-symbolic";
-            tooltip-text: _("Edit this device");
+            tooltip-text: C_("device-row.action.row.edit.tooltip", "Edit this device");
             action-name: "row.edit";
             valign: center;
 
@@ -77,7 +77,7 @@ template $DeviceRow: Adw.ActionRow {
 
           Gtk.Button {
             icon-name: "user-trash-symbolic";
-            tooltip-text: _("Delete this device?");
+            tooltip-text: C_("device-row.action.row.ask-delete.tooltip", "Delete this device?");
             action-name: "row.ask_delete";
             margin-start: 6;
             valign: center;
@@ -94,7 +94,7 @@ template $DeviceRow: Adw.ActionRow {
 
         child: Gtk.Box {
           Gtk.Button {
-            label: _("Delete");
+            label: C_("device-row.action.row.delete", "Delete");
             valign: center;
             action-name: "row.delete";
 
@@ -104,7 +104,7 @@ template $DeviceRow: Adw.ActionRow {
           }
 
           Gtk.Button {
-            label: _("Cancel");
+            label: C_("canceldevice-row.action.row.cancel-delete", "Cancel");
             valign: center;
             margin-start: 6;
             action-name: "row.cancel-delete";

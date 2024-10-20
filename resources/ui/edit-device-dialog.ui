@@ -22,23 +22,23 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
               <object class="AdwPreferencesGroup">
                 <child>
                   <object class="AdwEntryRow">
-                    <property name="title" translatable="yes">Device _label</property>
-                    <property name="tooltip-text" translatable="yes">A label to recognize the device by</property>
+                    <property name="title" translatable="yes" context="edit-device-dialog.entry.label.title">Device _label</property>
+                    <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.label.tooltip">A label to recognize the device by</property>
                     <property name="use-underline">true</property>
                     <property name="text" bind-source="EditDeviceDialog" bind-property="label" bind-flags="sync-create|bidirectional"/>
                     <signal name="entry-activated" handler="move_to_next_entry"/>
                     <child type="suffix">
                       <object class="ValidationIndicator">
                         <property name="is_valid" bind-source="EditDeviceDialog" bind-property="label_valid" bind-flags="sync-create"/>
-                        <property name="feedback" translatable="yes">Please provide a label for the device.</property>
+                        <property name="feedback" translatable="yes" context="edit-device-dialog.entry.label.feedback">Please provide a label for the device.</property>
                       </object>
                     </child>
                   </object>
                 </child>
                 <child>
                   <object class="AdwEntryRow" id="mac_entry">
-                    <property name="title" translatable="yes">_MAC address</property>
-                    <property name="tooltip-text" translatable="yes">The hardware address for this device</property>
+                    <property name="title" translatable="yes" context="edit-device-dialog.entry.mac_address.title">_MAC address</property>
+                    <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.mac_address.tooltip">The hardware address for this device</property>
                     <property name="input-hints">1024|2|16|2048</property>
                     <property name="use-underline">true</property>
                     <property name="text" bind-source="EditDeviceDialog" bind-property="mac_address" bind-flags="sync-create|bidirectional"/>
@@ -46,15 +46,15 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     <child type="suffix">
                       <object class="ValidationIndicator">
                         <property name="is_valid" bind-source="EditDeviceDialog" bind-property="mac_address_valid" bind-flags="sync-create"/>
-                        <property name="feedback" translatable="yes">This is no valid 48-bit MAC address.</property>
+                        <property name="feedback" translatable="yes" context="edit-device-dialog.entry.mac_address.feedback">This is no valid 48-bit MAC address.</property>
                       </object>
                     </child>
                   </object>
                 </child>
                 <child>
                   <object class="AdwEntryRow">
-                    <property name="title" translatable="yes">_Host name or IP address</property>
-                    <property name="tooltip-text" translatable="yes">The hostname or IP address of the device to check whether it has woken up</property>
+                    <property name="title" translatable="yes" context="edit-device-dialog.entry.host.title">_Host name or IP address</property>
+                    <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.tooltip">The hostname or IP address of the device to check whether it has woken up</property>
                     <property name="input-hints">1024|2</property>
                     <property name="use-underline">true</property>
                     <property name="text" bind-source="EditDeviceDialog" bind-property="host" bind-flags="sync-create|bidirectional"/>
@@ -68,7 +68,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                             <property name="child">
                               <object class="GtkImage">
                                 <property name="icon-name">dialog-warning-symbolic</property>
-                                <property name="tooltip-text" translatable="yes">Please specify a target host to check availability</property>
+                                <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.feedback">Please specify a target host to check availability</property>
                               </object>
                             </property>
                           </object>
@@ -79,7 +79,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                             <property name="child">
                               <object class="GtkImage">
                                 <property name="icon-name">computer-symbolic</property>
-                                <property name="tooltip-text" translatable="yes">This looks like a generic name resolved via DNS.</property>
+                                <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.feedback">This looks like a generic name resolved via DNS.</property>
                               </object>
                             </property>
                           </object>
@@ -91,7 +91,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                               <object class="GtkLabel">
                                 <property name="label">&lt;b&gt;v4&lt;/b&gt;</property>
                                 <property name="use-markup">true</property>
-                                <property name="tooltip-text" translatable="yes">This is a valid IPv4 address.</property>
+                                <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.feedback">This is a valid IPv4 address.</property>
                               </object>
                             </property>
                           </object>
@@ -103,7 +103,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                               <object class="GtkLabel">
                                 <property name="label">&lt;b&gt;v6&lt;/b&gt;</property>
                                 <property name="use-markup">true</property>
-                                <property name="tooltip-text" translatable="yes">This is a valid IPv6 address.</property>
+                                <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.feedback">This is a valid IPv6 address.</property>
                               </object>
                             </property>
                           </object>

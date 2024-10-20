@@ -19,7 +19,7 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
       Gtk.Button {
         action-name: "win.add_device";
         icon-name: "list-add-symbolic";
-        tooltip-text: C_("tooltip", "Add a new device");
+        tooltip-text: C_("application-window.action.win.add_device.tooltip", "Add a new device");
       }
 
       [end]
@@ -47,13 +47,13 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
 
           [placeholder]
           Adw.StatusPage {
-            title: _('No devices');
-            description: _('Add a new device to turn it on.');
+            title: C_("application-window.status-page.title", "No devices");
+            description: C_("application-window.status-page.description", "Add a new device to turn it on.");
             icon-name: "de.swsnr.turnon";
             vexpand: true;
 
             child: Gtk.Button {
-              label: _("Add new device");
+              label: C_("application-window.status-page.button.label", "Add new device");
               action-name: "win.add_device";
               halign: center;
 
@@ -72,13 +72,13 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
 menu main_menu {
   section {
     item {
-      label: _('_Keyboard Shortcuts');
-      action: 'win.show-help-overlay';
+      label: C_("application-window.menu.label", "_Keyboard Shortcuts");
+      action: "win.show-help-overlay";
     }
 
     item {
-      label: _('_About Turn On');
-      action: 'app.about';
+      label: C_("application-window.menu.label", "_About Turn On");
+      action: "app.about";
     }
   }
 }

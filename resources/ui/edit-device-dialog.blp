@@ -18,8 +18,8 @@ template $EditDeviceDialog: Adw.Dialog {
     Adw.PreferencesPage {
       Adw.PreferencesGroup {
         Adw.EntryRow {
-          title: _("Device _label");
-          tooltip-text: _("A label to recognize the device by");
+          title: C_("edit-device-dialog.entry.label.title", "Device _label");
+          tooltip-text: C_("edit-device-dialog.entry.label.tooltip", "A label to recognize the device by");
           use-underline: true;
           text: bind template.label bidirectional;
           entry-activated => $move_to_next_entry();
@@ -27,13 +27,13 @@ template $EditDeviceDialog: Adw.Dialog {
           [suffix]
           $ValidationIndicator {
             is_valid: bind template.label_valid;
-            feedback: _("Please provide a label for the device.");
+            feedback: C_("edit-device-dialog.entry.label.feedback", "Please provide a label for the device.");
           }
         }
 
         Adw.EntryRow mac_entry {
-          title: _("_MAC address");
-          tooltip-text: _("The hardware address for this device");
+          title: C_("edit-device-dialog.entry.mac_address.title", "_MAC address");
+          tooltip-text: C_("edit-device-dialog.entry.mac_address.tooltip", "The hardware address for this device");
           input-hints: no_emoji | no_spellcheck | uppercase_chars | private;
           use-underline: true;
           text: bind template.mac_address bidirectional;
@@ -42,13 +42,13 @@ template $EditDeviceDialog: Adw.Dialog {
           [suffix]
           $ValidationIndicator {
             is_valid: bind template.mac_address_valid;
-            feedback: _("This is no valid 48-bit MAC address.");
+            feedback: C_("edit-device-dialog.entry.mac_address.feedback", "This is no valid 48-bit MAC address.");
           }
         }
 
         Adw.EntryRow {
-          title: _("_Host name or IP address");
-          tooltip-text: _("The hostname or IP address of the device to check whether it has woken up");
+          title: C_("edit-device-dialog.entry.host.title", "_Host name or IP address");
+          tooltip-text: C_("edit-device-dialog.entry.host.tooltip", "The hostname or IP address of the device to check whether it has woken up");
           input-hints: no_emoji | no_spellcheck;
           use-underline: true;
           text: bind template.host bidirectional;
@@ -63,7 +63,7 @@ template $EditDeviceDialog: Adw.Dialog {
 
               child: Gtk.Image {
                 icon-name: "dialog-warning-symbolic";
-                tooltip-text: _("Please specify a target host to check availability");
+                tooltip-text: C_("edit-device-dialog.entry.host.feedback", "Please specify a target host to check availability");
               };
             }
 
@@ -72,7 +72,7 @@ template $EditDeviceDialog: Adw.Dialog {
 
               child: Gtk.Image {
                 icon-name: "computer-symbolic";
-                tooltip-text: _("This looks like a generic name resolved via DNS.");
+                tooltip-text: C_("edit-device-dialog.entry.host.feedback", "This looks like a generic name resolved via DNS.");
               };
             }
 
@@ -82,7 +82,7 @@ template $EditDeviceDialog: Adw.Dialog {
               child: Gtk.Label {
                 label: "<b>v4</b>";
                 use-markup: true;
-                tooltip-text: _("This is a valid IPv4 address.");
+                tooltip-text: C_("edit-device-dialog.entry.host.feedback", "This is a valid IPv4 address.");
               };
             }
 
@@ -92,7 +92,7 @@ template $EditDeviceDialog: Adw.Dialog {
               child: Gtk.Label {
                 label: "<b>v6</b>";
                 use-markup: true;
-                tooltip-text: _("This is a valid IPv6 address.");
+                tooltip-text: C_("edit-device-dialog.entry.host.feedback", "This is a valid IPv6 address.");
               };
             }
           }
