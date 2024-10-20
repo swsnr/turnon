@@ -25,7 +25,7 @@
     <url type="vcs-browser">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
-        <release version="next" date="9999-01-01">
+        <release version="0.4.0" date="2024-10-20">
             <description>
                 <p>Shorten summary in metadata.</p>
             </description>
