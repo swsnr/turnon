@@ -32,7 +32,10 @@ impl TurnOnApplication {
 
 impl Default for TurnOnApplication {
     fn default() -> Self {
-        Object::builder().property("application-id", APP_ID).build()
+        Object::builder()
+            .property("application-id", APP_ID)
+            .property("resource-base-path", "/de/swsnr/turnon")
+            .build()
     }
 }
 
