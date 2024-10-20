@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Turn On
-Comment=Turn on devices in your local network
+Comment=Turn on devices in your network
 Exec=de.swsnr.turnon
 Type=Application
 Icon=de.swsnr.turnon

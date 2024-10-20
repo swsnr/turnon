@@ -1,6 +1,6 @@
 [package]
 name = "turnon"
-description = "Turn on devices in your local network"
+description = "Turn on devices in your network"
 homepage = "https://github.com/swsnr/turnon"
 repository = "https://github.com/swsnr/turnon"
 license = "MPL-2.0"

@@ -3,9 +3,9 @@
     <id>de.swsnr.turnon</id>
     <metadata_license>CC0-1.0</metadata_license>
     <name>Turn On</name>
-    <summary>Turn on devices in your local network</summary>
+    <summary>Turn on devices in your network</summary>
     <description>
-        <p>Conveniently turn on devices in your local network, such as a NAS or a gaming console,
+        <p>Conveniently turn on devices in your network, such as a NAS or a gaming console,
             using WakeOnLan.</p>
         <p>Features:</p>
         <ul>

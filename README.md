@@ -1,6 +1,6 @@
 # Turn On
 
-Turn on devices in your local network on GNOME:
+Turn on devices in your network on GNOME:
 
 ![The empty greeting page with the application icon and a button to add a new device](./screenshots/start-page.png)
 
