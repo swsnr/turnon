@@ -8,7 +8,7 @@ use adw::prelude::*;
 use glib::{Object, Variant};
 use gtk::gio::SimpleAction;
 
-static APP_ID: &str = "de.swsnr.turnon";
+use crate::config::APP_ID;
 
 glib::wrapper! {
     pub struct TurnOnApplication(ObjectSubclass<imp::TurnOnApplication>)

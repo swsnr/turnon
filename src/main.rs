@@ -12,6 +12,7 @@ use gtk::gio;
 use gtk::glib;
 
 mod app;
+mod config;
 mod i18n;
 mod model;
 mod net;
