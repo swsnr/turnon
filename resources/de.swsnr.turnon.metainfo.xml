@@ -23,6 +23,8 @@
     <url type="homepage">https://github.com/swsnr/turnon</url>
     <url type="bugtracker">https://github.com/swsnr/turnon/issues</url>
     <url type="vcs-browser">https://github.com/swsnr/turnon</url>
+    <url type="contact">https://swsnr.de/</url>
+    <url type="contribute">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
         <release version="0.4.0" date="2024-10-20">
@@ -89,4 +91,13 @@
         <color type="primary" scheme_preference="light">#e01b24</color>
         <color type="primary" scheme_preference="dark">#a51d2d</color>
     </branding>
+    <requires>
+        <display_length compare="ge">360</display_length>
+        <internet>always</internet>
+    </requires>
+    <supports>
+        <control>keyboard</control>
+        <control>pointing</control>
+        <control>touch</control>
+    </supports>
 </component>
