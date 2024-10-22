@@ -29,6 +29,8 @@ modules:
       - install -Dm0644 -t .cargo/ cargo/config
       # Build optimized binary
       - cargo build --frozen --release --verbose
+      # Install locales
+      - make LOCALEDIR=/app/share/locale/ install-locale
       # Install binary, app icon, desktop file, and appstream metadata
       - install -Dm0755 target/release/turnon /app/bin/de.swsnr.turnon
       - install -Dm0644 -t /app/share/icons/hicolor/scalable/apps/ resources/icons/scalable/apps/de.swsnr.turnon.svg
