@@ -93,8 +93,23 @@ fn msgfmt() {
         println!("cargo:rerun-if-changed={}", po_file.display());
     }
 
-    msgfmt_desktop();
-    msgfmt_metainfo();
+    let msgfmt_exists = std::process::Command::new("msgfmt")
+        .arg("--version")
+        .output()
+        .is_ok_and(|output| output.status.success());
+
+    if msgfmt_exists {
+        msgfmt_desktop();
+        msgfmt_metainfo();
+    } else {
+        println!("cargo::warning=msgfmt not found; using untranslated desktop and metainfo file.");
+        for file in [
+            "resources/de.swsnr.turnon.metainfo.xml",
+            "de.swsnr.turnon.desktop",
+        ] {
+            std::fs::copy(format!("{file}.in"), file).unwrap();
+        }
+    }
 }
 
 fn main() {
