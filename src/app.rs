@@ -58,7 +58,7 @@ mod imp {
     impl TurnOnApplication {
         fn save_automatically(&self, storage: StorageServiceClient) {
             self.model
-                .connect_items_changed(move |model, pos, n_added, _| {
+                .connect_items_changed(move |model, pos, _, n_added| {
                     log::debug!("Device list changed, saving devices");
                     storage.request_save_devices(model.into());
                     // Persist devices whenever one device changes
