@@ -262,7 +262,7 @@ fn write_magic_packet<W: Write>(sink: &mut W, mac_address: MacAddr6) -> std::io:
     Ok(())
 }
 
-/// Send a WakeOnLan packet to the given `mac_address`.
+/// Send a magic Wake On LAN packet to the given `mac_address`.
 ///
 /// Sends the WoL package as UDP package to port 9 on the IPv4 broadcast address.
 pub async fn wol(mac_address: MacAddr6) -> Result<(), Box<dyn Error>> {

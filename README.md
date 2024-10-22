@@ -6,7 +6,7 @@ Turn on devices in your network on GNOME:
 
 ![Two devices, one of them on, and the other off](./screenshots/list-of-devices.png)
 
-A small GNOME utility application to send WakeOnLan magic packets to devices in a network.
+A small GNOME utility application to send Wake On LAN (WoL) magic packets to devices in a network.
 
 ## Installation
 
