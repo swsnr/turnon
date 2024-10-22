@@ -31,6 +31,72 @@ fn compile_blueprint() {
     );
 }
 
+fn msgfmt_desktop() {
+    let desktop_file = "de.swsnr.turnon.desktop.in";
+    println!("cargo:rerun-if-changed={}", desktop_file);
+
+    let output = std::process::Command::new("msgfmt")
+        .args([
+            "--desktop",
+            "--template",
+            desktop_file,
+            "-d",
+            "po",
+            "--output",
+            "de.swsnr.turnon.desktop",
+        ])
+        .output()
+        .unwrap();
+
+    assert!(
+        output.status.success(),
+        "msgfmt failed with exit status {} and stdout\n{}\n\n and stderr:\n{}",
+        output.status,
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    );
+}
+
+fn msgfmt_metainfo() {
+    let metainfo_file = "resources/de.swsnr.turnon.metainfo.xml.in";
+    println!("cargo:rerun-if-changed={}", metainfo_file);
+
+    let output = std::process::Command::new("msgfmt")
+        .args([
+            "--xml",
+            "--template",
+            metainfo_file,
+            "-d",
+            "po",
+            "--output",
+            "resources/de.swsnr.turnon.metainfo.xml",
+        ])
+        .output()
+        .unwrap();
+
+    assert!(
+        output.status.success(),
+        "msgfmt failed with exit status {} and stdout\n{}\n\n and stderr:\n{}",
+        output.status,
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    );
+}
+
+fn msgfmt() {
+    let po_files: Vec<PathBuf> = glob::glob("po/*.po")
+        .unwrap()
+        .collect::<Result<_, _>>()
+        .unwrap();
+
+    for po_file in &po_files {
+        println!("cargo:rerun-if-changed={}", po_file.display());
+    }
+
+    msgfmt_desktop();
+    msgfmt_metainfo();
+}
+
 fn main() {
     if let Some("1") | Some("true") = std::env::var("SKIP_BLUEPRINT").ok().as_deref() {
         println!("cargo::warning=Skipping blueprint compilation, falling back to committed files.");
@@ -39,6 +105,8 @@ fn main() {
         // blueprint files before compiling resources!
         compile_blueprint();
     }
+
+    msgfmt();
 
     glib_build_tools::compile_resources(
         &["resources"],
