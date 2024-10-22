@@ -15,6 +15,13 @@ pot:
 		--add-comments --keyword=_ --keyword=C_:1c,2 \
 		--sort-by-file --from-code=UTF-8 --output=po/$(APPID).pot
 
+.PHONY: messages
+messages: pot $(CATALOGS)
+
+po/*.po: po/$(APPID).pot
+	msgmerge --update --backup=none --sort-by-file --previous \
+		--lang=$(notdir $(basename $@)) $@ $<
+
 po/%.mo: po/%.po
 	msgfmt --output-file $@ --check $<
 
