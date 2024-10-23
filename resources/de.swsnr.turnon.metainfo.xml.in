@@ -22,8 +22,9 @@
     </keywords>
     <url type="homepage">https://github.com/swsnr/turnon</url>
     <url type="bugtracker">https://github.com/swsnr/turnon/issues</url>
-    <url type="vcs-browser">https://github.com/swsnr/turnon</url>
+    <url type="translate">https://github.com/swsnr/turnon/tree/main/po</url>
     <url type="contact">https://swsnr.de/</url>
+    <url type="vcs-browser">https://github.com/swsnr/turnon</url>
     <url type="contribute">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
