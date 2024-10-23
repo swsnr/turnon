@@ -92,7 +92,7 @@
             <caption>The empty greeting page with the application icon and a button to add a new device</caption>
         </screenshot>
     </screenshots>
-    <!-- TODO: translation? -->
+    <translation type="gettext">de.swsnr.turnon</translation>
     <content_rating type="oars-1.1" />
     <branding>
         <color type="primary" scheme_preference="light">#e01b24</color>
