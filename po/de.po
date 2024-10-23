@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-22 22:18+0200\n"
-"PO-Revision-Date: 2024-10-22 22:19+0200\n"
+"PO-Revision-Date: 2024-10-23 07:08+0200\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:10
 msgid "Features:"
-msgstr "Features:"
+msgstr "Funktionalität:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:12
 msgid "Add devices to turn on."
@@ -88,7 +88,7 @@ msgid ""
 "This is the initial release. The application supports the following features "
 "in this release"
 msgstr ""
-"Die erste Veröffentlichung.  In dieser Version unterstützt die Anwendung "
+"Die erste Veröffentlichung. In dieser Version unterstützt die Anwendung "
 "folgende Features:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:62
@@ -105,7 +105,7 @@ msgstr "Geräte mittels Wake-On-LAN einschalten"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:66
 msgid "This release is missing the following features:"
-msgstr "In dieser Version fehlen folgende Features:"
+msgstr "In dieser Version fehlt folgende Funktionalität:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:68
 msgid "Devices can not be edited or removed"
