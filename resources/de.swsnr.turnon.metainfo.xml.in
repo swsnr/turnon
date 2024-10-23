@@ -58,7 +58,7 @@
         </release>
         <release version="0.1.0" date="2024-10-16">
             <description>
-                <p>This is the initial release.  The application supports the following features in this release</p>
+                <p>This is the initial release.  The application supports the following features in this release:</p>
                 <ul>
                     <li>Add new devices</li>
                     <li>Monitor whether devices are turned on</li>

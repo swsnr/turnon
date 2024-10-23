@@ -1,6 +1,5 @@
 ./build.rs
 ./de.swsnr.turnon.desktop.in
-./examples/ping.rs
 ./resources/de.swsnr.turnon.metainfo.xml.in
 ./resources/gtk/help-overlay.blp
 ./resources/ui/device-row.blp
