@@ -92,6 +92,7 @@ fn msgfmt() {
     for po_file in &po_files {
         println!("cargo:rerun-if-changed={}", po_file.display());
     }
+    println!("cargo:rerun-if-changed=po/LINGUAS");
 
     let msgfmt_exists = std::process::Command::new("msgfmt")
         .arg("--version")
