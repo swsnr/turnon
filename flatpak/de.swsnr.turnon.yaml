@@ -26,7 +26,7 @@ modules:
       - cargo-sources.json
     build-commands:
       # Point cargo to vendored sources downloaded by flatpak builder
-      - install -Dm0644 -t .cargo/ cargo/config
+      - install -Dm0644 cargo/config .cargo/config.toml
       # Build optimized binary
       - cargo build --frozen --release --verbose
       # Install locales
