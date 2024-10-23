@@ -40,13 +40,13 @@ sign-tag = true
 sign-commit = true
 
 [[package.metadata.release.pre-release-replacements]]
-file = "resources/de.swsnr.turnon.metainfo.xml"
+file = "resources/de.swsnr.turnon.metainfo.xml.in"
 search = "version=\"next\""
 replace = "version=\"{{version}}\""
 exactly = 1
 
 [[package.metadata.release.pre-release-replacements]]
-file = "resources/de.swsnr.turnon.metainfo.xml"
+file = "resources/de.swsnr.turnon.metainfo.xml.in"
 search = "date=\"9999-01-01\""
 replace = "date=\"{{date}}\""
 exactly = 1
