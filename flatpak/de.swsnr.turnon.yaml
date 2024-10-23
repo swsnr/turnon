@@ -21,8 +21,8 @@ modules:
     buildsystem: simple
     sources:
       - type: archive
-        url: https://github.com/swsnr/turnon/archive/refs/tags/v0.4.0.tar.gz
-        sha512: "bfac2d7998fdbfa9b1b94456610d19fde29ee06cfc2ce861c64c387dc2ca4f8b85894cee4d78a9e48a992d75148cea520d5288c03c6747726353928d1da1e406"
+        url: https://github.com/swsnr/turnon/archive/355e7e670fa4370c05112b2061e1cf66e5be9dbd.tar.gz
+        sha512: "9b171c9a546650b20ce99efa0d761e1b55accd29a449430c6f99488c53ae69d5c3f5195abf9e496b616f344407f25c44ea2eaeb862fa4e02d021b1b24f1e5bed"
       - cargo-sources.json
     build-commands:
       # Point cargo to vendored sources downloaded by flatpak builder
