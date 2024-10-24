@@ -7,7 +7,7 @@
 use adw::prelude::*;
 use adw::subclass::prelude::*;
 use glib::Object;
-use gtk::gio::ActionEntry;
+use gtk::gio::{ActionEntry, ApplicationFlags};
 
 use crate::{config::APP_ID, widgets::EditDeviceDialog};
 
@@ -57,6 +57,7 @@ impl Default for TurnOnApplication {
         Object::builder()
             .property("application-id", APP_ID)
             .property("resource-base-path", "/de/swsnr/turnon")
+            .property("flags", ApplicationFlags::HANDLES_COMMAND_LINE)
             .build()
     }
 }
@@ -64,6 +65,8 @@ impl Default for TurnOnApplication {
 mod imp {
     use adw::prelude::*;
     use adw::subclass::prelude::*;
+    use gettextrs::pgettext;
+    use glib::{OptionArg, OptionFlags};
 
     use crate::{
         model::{Device, Devices},
@@ -115,7 +118,21 @@ mod imp {
         type ParentType = adw::Application;
     }
 
-    impl ObjectImpl for TurnOnApplication {}
+    impl ObjectImpl for TurnOnApplication {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            let app = self.obj();
+            app.add_main_option(
+                "add-device",
+                0.into(),
+                OptionFlags::NONE,
+                OptionArg::None,
+                &pgettext("option.add-device.description", "Add a new device"),
+                None,
+            );
+        }
+    }
 
     impl ApplicationImpl for TurnOnApplication {
         fn startup(&self) {
@@ -148,6 +165,7 @@ mod imp {
         }
 
         fn activate(&self) {
+            log::debug!("Activating application");
             self.parent_activate();
             let app: &super::TurnOnApplication = &self.obj();
             match app.active_window() {
@@ -160,6 +178,22 @@ mod imp {
                     TurnOnApplicationWindow::new(app, &self.model).present();
                 }
             }
+        }
+
+        fn command_line(&self, command_line: &gtk::gio::ApplicationCommandLine) -> glib::ExitCode {
+            log::debug!(
+                "Handling command line. Remote? {}",
+                command_line.is_remote()
+            );
+            self.obj().activate();
+            let options = command_line.options_dict();
+            if let Ok(Some(true)) = options.lookup("add-device") {
+                log::debug!(
+                    "Activating app.add-device action in response to command line argument"
+                );
+                self.obj().activate_action("add-device", None);
+            }
+            glib::ExitCode::SUCCESS
         }
     }
 
