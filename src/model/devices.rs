@@ -9,7 +9,7 @@ use gtk::glib;
 use gtk::prelude::ListModelExt;
 use gtk::subclass::prelude::ObjectSubclassIsExt;
 
-use crate::services::StoredDevice;
+use crate::storage::StoredDevice;
 
 use super::Device;
 

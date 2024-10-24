@@ -7,7 +7,7 @@
 use gtk::glib;
 use macaddr::MacAddr6;
 
-use crate::services::StoredDevice;
+use crate::storage::StoredDevice;
 
 glib::wrapper! {
     pub struct Device(ObjectSubclass<imp::Device>);

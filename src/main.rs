@@ -15,7 +15,7 @@ mod app;
 mod config;
 mod model;
 mod net;
-mod services;
+mod storage;
 mod widgets;
 
 /// Set up logging.

@@ -68,11 +68,9 @@ mod imp {
     use gettextrs::pgettext;
     use glib::{OptionArg, OptionFlags};
 
-    use crate::{
-        model::{Device, Devices},
-        services::{StorageService, StorageServiceClient},
-        widgets::TurnOnApplicationWindow,
-    };
+    use crate::model::{Device, Devices};
+    use crate::storage::{StorageService, StorageServiceClient};
+    use crate::widgets::TurnOnApplicationWindow;
 
     #[derive(Default)]
     pub struct TurnOnApplication {
