@@ -1,0 +1,3 @@
+[D-BUS Service]
+Name=de.swsnr.turnon
+Exec=de.swsnr.turnon --gapplication-service

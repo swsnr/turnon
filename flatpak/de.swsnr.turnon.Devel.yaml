@@ -37,3 +37,4 @@ modules:
       - install -Dm0644 -t /app/share/icons/hicolor/scalable/apps/ resources/icons/scalable/apps/de.swsnr.turnon.Devel.svg
       - install -Dm0644 de.swsnr.turnon.desktop /app/share/applications/de.swsnr.turnon.Devel.desktop
       - install -Dm0644 resources/de.swsnr.turnon.metainfo.xml  /app/share/metainfo/de.swsnr.turnon.Devel.metainfo.xml
+      - install -Dm0644 dbus-1/de.swsnr.turnon.service /app/share/dbus-1/services/de.swsnr.turnon.Devel.service

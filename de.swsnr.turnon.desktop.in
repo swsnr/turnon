@@ -7,3 +7,4 @@ Icon=de.swsnr.turnon
 Categories=GNOME;GTK;Utility;
 Keywords=Gnome;GTK;WakeOnLan;
 StartupNotify=true
+DBusActivatable=true

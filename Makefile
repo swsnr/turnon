@@ -65,4 +65,5 @@ devel:
 	sed -i '/de.swsnr.turnon.Devel/! s/de.swsnr.turnon/de.swsnr.turnon.Devel/g' \
 		src/config.rs \
 		resources/de.swsnr.turnon.metainfo.xml.in \
+		dbus-1/de.swsnr.turnon.service \
 		de.swsnr.turnon.desktop.in
