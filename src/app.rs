@@ -9,7 +9,9 @@ use adw::subclass::prelude::*;
 use glib::Object;
 use gtk::gio::{ActionEntry, ApplicationFlags};
 
-use crate::{config::APP_ID, widgets::EditDeviceDialog};
+use crate::config::APP_ID;
+use crate::model::Devices;
+use crate::widgets::EditDeviceDialog;
 
 glib::wrapper! {
     pub struct TurnOnApplication(ObjectSubclass<imp::TurnOnApplication>)
@@ -18,6 +20,10 @@ glib::wrapper! {
 }
 
 impl TurnOnApplication {
+    pub fn model(&self) -> &Devices {
+        self.imp().model()
+    }
+
     fn setup_actions(&self) {
         let actions = [
             ActionEntry::builder("add-device")
@@ -63,18 +69,23 @@ impl Default for TurnOnApplication {
 }
 
 mod imp {
+    use std::cell::RefCell;
+
     use adw::prelude::*;
     use adw::subclass::prelude::*;
     use gettextrs::pgettext;
     use glib::{OptionArg, OptionFlags};
+    use gtk::gio::RegistrationId;
 
     use crate::model::{Device, Devices};
+    use crate::searchprovider::register_app_search_provider;
     use crate::storage::{StorageService, StorageServiceClient};
     use crate::widgets::TurnOnApplicationWindow;
 
     #[derive(Default)]
     pub struct TurnOnApplication {
         model: Devices,
+        registered_search_provider: RefCell<Option<RegistrationId>>,
     }
 
     impl TurnOnApplication {
@@ -144,6 +155,16 @@ mod imp {
     }
 
     impl ApplicationImpl for TurnOnApplication {
+        /// Start the application.
+        ///
+        /// Set the default icon name for all Gtk windows, and setup all actions
+        /// of the application.
+        ///
+        /// Load all persisted devices into the application model, and arrange
+        /// for the model to be persisted automatically if the device model
+        /// changes.
+        ///
+        /// Register a search provider for the application.
         fn startup(&self) {
             self.parent_startup();
             let app = self.obj();
@@ -171,8 +192,17 @@ mod imp {
             self.model.reset_devices(devices);
             self.save_automatically(storage.client());
             glib::spawn_future_local(storage.spawn());
+
+            log::info!("Registering search provider");
+            self.registered_search_provider
+                .replace(register_app_search_provider(app.clone()));
         }
 
+        /// Activate the application.
+        ///
+        /// Presents the current active window of the application, or creates a
+        /// new application window and presents it, if the application doesn't
+        /// have an active window currently.
         fn activate(&self) {
             log::debug!("Activating application");
             self.parent_activate();
@@ -205,7 +235,7 @@ mod imp {
                 glib::ExitCode::SUCCESS
             } else if let Ok(Some(label)) = options.lookup::<String>("turn-on-device") {
                 log::debug!("Turning on device in response to command line argument");
-                match self.model.find_device_by_label(&label) {
+                match self.model.into_iter().find(|d| d.label() == label) {
                     Some(device) => {
                         glib::spawn_future_local(glib::clone!(
                             #[strong]
@@ -256,6 +286,18 @@ mod imp {
             } else {
                 self.obj().activate();
                 glib::ExitCode::SUCCESS
+            }
+        }
+
+        /// Shutdown the application.
+        ///
+        /// Deregister the search provider interface.
+        fn shutdown(&self) {
+            self.parent_shutdown();
+            if let Some(registration_id) = self.registered_search_provider.replace(None) {
+                if let Some(connection) = self.obj().dbus_connection() {
+                    connection.unregister_object(registration_id).ok();
+                }
             }
         }
     }
