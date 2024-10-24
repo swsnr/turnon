@@ -33,11 +33,13 @@
                 <p>Turn On no longer crashes when removing the last device.</p>
                 <p>Add German translation, and update application metadata.</p>
             </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/v1.0.0</url>
         </release>
         <release version="0.4.0" date="2024-10-20">
             <description>
                 <p>Shorten summary in metadata.</p>
             </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/v0.4.0</url>
         </release>
         <release version="0.3.0" date="2024-10-19">
             <description>
@@ -49,6 +51,7 @@
                     eventually adds the device).
                 </p>
             </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/v0.3.0</url>
         </release>
         <release version="0.2.0" date="2024-10-16">
             <description>
