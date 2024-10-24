@@ -5,10 +5,11 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 use adw::prelude::*;
+use adw::subclass::prelude::*;
 use glib::Object;
 use gtk::gio::ActionEntry;
 
-use crate::config::APP_ID;
+use crate::{config::APP_ID, widgets::EditDeviceDialog};
 
 glib::wrapper! {
     pub struct TurnOnApplication(ObjectSubclass<imp::TurnOnApplication>)
@@ -19,6 +20,17 @@ glib::wrapper! {
 impl TurnOnApplication {
     fn setup_actions(&self) {
         let actions = [
+            ActionEntry::builder("add-device")
+                .activate(|app: &TurnOnApplication, _, _| {
+                    let dialog = EditDeviceDialog::new();
+                    let devices = app.imp().model().clone();
+                    dialog.connect_saved(move |_, device| {
+                        log::debug!("Adding new device: {:?}", device.imp());
+                        devices.add_device(device);
+                    });
+                    dialog.present(app.active_window().as_ref());
+                })
+                .build(),
             ActionEntry::builder("quit")
                 .activate(|app: &TurnOnApplication, _, _| app.quit())
                 .build(),
@@ -65,6 +77,10 @@ mod imp {
     }
 
     impl TurnOnApplication {
+        pub fn model(&self) -> &Devices {
+            &self.model
+        }
+
         fn save_automatically(&self, storage: StorageServiceClient) {
             self.model
                 .connect_items_changed(move |model, pos, _, n_added| {
