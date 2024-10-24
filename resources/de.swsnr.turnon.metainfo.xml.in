@@ -28,6 +28,12 @@
     <url type="contribute">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
+        <release version="next" date="9999-01-01">
+            <description>
+                <p>The Turn On launcher now offers to add a new device in the context menu.</p>
+            </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/next</url>
+        </release>
         <release version="1.0.0" date="2024-10-23">
             <description>
                 <p>Turn On no longer crashes when removing the last device.</p>
