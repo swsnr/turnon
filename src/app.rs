@@ -5,8 +5,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 use adw::prelude::*;
-use glib::{Object, Variant};
-use gtk::gio::SimpleAction;
+use glib::Object;
+use gtk::gio::ActionEntry;
 
 use crate::config::APP_ID;
 
@@ -17,16 +17,26 @@ glib::wrapper! {
 }
 
 impl TurnOnApplication {
-    fn activate_about_action(&self, _action: &SimpleAction, _param: Option<&Variant>) {
-        adw::AboutDialog::from_appdata(
-            "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
-            Some(env!("CARGO_PKG_VERSION")),
-        )
-        .present(self.active_window().as_ref());
-    }
+    fn setup_actions(&self) {
+        let actions = [
+            ActionEntry::builder("quit")
+                .activate(|app: &TurnOnApplication, _, _| app.quit())
+                .build(),
+            ActionEntry::builder("about")
+                .activate(|app: &TurnOnApplication, _, _| {
+                    adw::AboutDialog::from_appdata(
+                        "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
+                        Some(env!("CARGO_PKG_VERSION")),
+                    )
+                    .present(app.active_window().as_ref());
+                })
+                .build(),
+        ];
+        self.add_action_entries(actions);
 
-    fn activate_quit(&self, _action: &SimpleAction, _param: Option<&Variant>) {
-        self.quit();
+        self.set_accels_for_action("win.add_device", &["<Control>n"]);
+        self.set_accels_for_action("window.close", &["<Control>w"]);
+        self.set_accels_for_action("app.quit", &["<Control>q"]);
     }
 }
 
@@ -42,7 +52,6 @@ impl Default for TurnOnApplication {
 mod imp {
     use adw::prelude::*;
     use adw::subclass::prelude::*;
-    use gtk::gio;
 
     use crate::{
         model::{Device, Devices},
@@ -99,19 +108,7 @@ mod imp {
             log::debug!("Application starting");
             gtk::Window::set_default_icon_name(super::APP_ID);
 
-            let actions = [
-                gio::ActionEntryBuilder::new("quit")
-                    .activate(super::TurnOnApplication::activate_quit)
-                    .build(),
-                gio::ActionEntryBuilder::new("about")
-                    .activate(super::TurnOnApplication::activate_about_action)
-                    .build(),
-            ];
-            app.add_action_entries(actions);
-
-            app.set_accels_for_action("win.add_device", &["<Control>n"]);
-            app.set_accels_for_action("window.close", &["<Control>w"]);
-            app.set_accels_for_action("app.quit", &["<Control>q"]);
+            app.setup_actions();
 
             log::debug!("Initializing storage");
             let data_dir = glib::user_data_dir().join(super::APP_ID);
