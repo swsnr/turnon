@@ -33,7 +33,7 @@ impl TurnOnApplicationWindow {
     }
 
     fn setup_actions(&self) {
-        let add_device = ActionEntry::builder("add_device")
+        let add_device = ActionEntry::builder("add-device")
             .activate(|window: &TurnOnApplicationWindow, _, _| {
                 let dialog = EditDeviceDialog::new();
                 dialog.connect_saved(glib::clone!(

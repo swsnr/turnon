@@ -46,7 +46,7 @@ impl TurnOnApplication {
         ];
         self.add_action_entries(actions);
 
-        self.set_accels_for_action("win.add_device", &["<Control>n"]);
+        self.set_accels_for_action("win.add-device", &["<Control>n"]);
         self.set_accels_for_action("window.close", &["<Control>w"]);
         self.set_accels_for_action("app.quit", &["<Control>q"]);
     }

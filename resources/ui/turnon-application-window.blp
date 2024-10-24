@@ -17,9 +17,9 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
     Adw.HeaderBar {
       [start]
       Gtk.Button {
-        action-name: "win.add_device";
+        action-name: "win.add-device";
         icon-name: "list-add-symbolic";
-        tooltip-text: C_("application-window.action.win.add_device.tooltip", "Add a new device");
+        tooltip-text: C_("application-window.action.win.add-device.tooltip", "Add a new device");
       }
 
       [end]
@@ -54,7 +54,7 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
 
             child: Gtk.Button {
               label: C_("application-window.status-page.button.label", "Add new device");
-              action-name: "win.add_device";
+              action-name: "win.add-device";
               halign: center;
 
               styles [

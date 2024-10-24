@@ -17,7 +17,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut description">Add a new device</property>
-                <property name="action-name">win.add_device</property>
+                <property name="action-name">win.add-device</property>
               </object>
             </child>
             <child>
