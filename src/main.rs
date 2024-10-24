@@ -52,7 +52,7 @@ fn main() -> glib::ExitCode {
 
     use gettextrs::*;
     let locale_dir = config::locale_directory();
-    log::info!(
+    log::debug!(
         "Initializing gettext with locale directory {}",
         locale_dir.display()
     );
