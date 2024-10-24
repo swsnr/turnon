@@ -15,6 +15,7 @@ mod app;
 mod config;
 mod model;
 mod net;
+mod searchprovider;
 mod storage;
 mod widgets;
 

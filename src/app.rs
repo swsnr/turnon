@@ -6,10 +6,12 @@
 
 use adw::prelude::*;
 use adw::subclass::prelude::*;
-use glib::Object;
-use gtk::gio::{ActionEntry, ApplicationFlags};
+use glib::{Object, Variant};
+use gtk::gio::{ActionEntry, ApplicationFlags, DBusMethodInvocation};
 
-use crate::{config::APP_ID, widgets::EditDeviceDialog};
+use crate::{
+    config::APP_ID, searchprovider::SEARCH_PROVIDER_2_IFACE_NAME, widgets::EditDeviceDialog,
+};
 
 glib::wrapper! {
     pub struct TurnOnApplication(ObjectSubclass<imp::TurnOnApplication>)
@@ -50,6 +52,22 @@ impl TurnOnApplication {
         self.set_accels_for_action("window.close", &["<Control>w"]);
         self.set_accels_for_action("app.quit", &["<Control>q"]);
     }
+
+    fn handle_search_provider(
+        &self,
+        sender: &str,
+        object_path: &str,
+        interface_name: &str,
+        method_name: &str,
+        _parameters: Variant,
+        invocation: DBusMethodInvocation,
+    ) {
+        log::debug!(
+            "Sender {sender} called method {method_name} of {interface_name} on object {object_path}"
+        );
+        assert!(interface_name == SEARCH_PROVIDER_2_IFACE_NAME);
+        invocation.return_error(gtk::gio::IOErrorEnum::NotSupported, "Call not supported");
+    }
 }
 
 impl Default for TurnOnApplication {
@@ -63,18 +81,23 @@ impl Default for TurnOnApplication {
 }
 
 mod imp {
+    use std::cell::RefCell;
+
     use adw::prelude::*;
     use adw::subclass::prelude::*;
     use gettextrs::pgettext;
     use glib::{OptionArg, OptionFlags};
+    use gtk::gio::RegistrationId;
 
     use crate::model::{Device, Devices};
+    use crate::searchprovider::search_provider_2_interface;
     use crate::storage::{StorageService, StorageServiceClient};
     use crate::widgets::TurnOnApplicationWindow;
 
     #[derive(Default)]
     pub struct TurnOnApplication {
         model: Devices,
+        registered_search_provider: RefCell<Option<RegistrationId>>,
     }
 
     impl TurnOnApplication {
@@ -144,6 +167,16 @@ mod imp {
     }
 
     impl ApplicationImpl for TurnOnApplication {
+        /// Start the application.
+        ///
+        /// Set the default icon name for all Gtk windows, and setup all actions
+        /// of the application.
+        ///
+        /// Load all persisted devices into the application model, and arrange
+        /// for the model to be persisted automatically if the device model
+        /// changes.
+        ///
+        /// Register a search provider for the application.
         fn startup(&self) {
             self.parent_startup();
             let app = self.obj();
@@ -171,8 +204,44 @@ mod imp {
             self.model.reset_devices(devices);
             self.save_automatically(storage.client());
             glib::spawn_future_local(storage.spawn());
+
+            log::info!("Registering search provider");
+            if let Some(connection) = app.dbus_connection() {
+                let interface_info = search_provider_2_interface();
+                let registration_id = connection
+                    .register_object("/de/swsnr/turnon", &interface_info)
+                    .method_call(glib::clone!(
+                        #[strong]
+                        app,
+                        move |_connection,
+                              sender,
+                              object_path,
+                              interface_name,
+                              method_name,
+                              parameters,
+                              invocation| {
+                            app.handle_search_provider(
+                                sender,
+                                object_path,
+                                interface_name,
+                                method_name,
+                                parameters,
+                                invocation,
+                            );
+                        }
+                    ))
+                    .build()
+                    .unwrap();
+                self.registered_search_provider
+                    .replace(Some(registration_id));
+            }
         }
 
+        /// Activate the application.
+        ///
+        /// Presents the current active window of the application, or creates a
+        /// new application window and presents it, if the application doesn't
+        /// have an active window currently.
         fn activate(&self) {
             log::debug!("Activating application");
             self.parent_activate();
@@ -256,6 +325,18 @@ mod imp {
             } else {
                 self.obj().activate();
                 glib::ExitCode::SUCCESS
+            }
+        }
+
+        /// Shutdown the application.
+        ///
+        /// Deregister the search provider interface.
+        fn shutdown(&self) {
+            self.parent_shutdown();
+            if let Some(registration_id) = self.registered_search_provider.replace(None) {
+                if let Some(connection) = self.obj().dbus_connection() {
+                    connection.unregister_object(registration_id).ok();
+                }
             }
         }
     }
