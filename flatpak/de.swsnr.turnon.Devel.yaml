@@ -1,0 +1,39 @@
+id: de.swsnr.turnon.Devel
+runtime: org.gnome.Platform
+runtime-version: "47"
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+command: de.swsnr.turnon.Devel
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin
+  env:
+    # Tell build.rs not to regenerate the UI files from blueprint sources
+    SKIP_BLUEPRINT: "1"
+modules:
+  - name: turnon
+    buildsystem: simple
+    sources:
+      - cargo-sources.json
+      - type: dir
+        path: ".."
+    build-commands:
+      # Point cargo to vendored sources downloaded by flatpak builder
+      - install -Dm0644 cargo/config .cargo/config.toml
+      # Patch for devel version
+      - make devel
+      # Build optimized binary
+      - cargo build --frozen --release --verbose
+      # Install locales
+      - make LOCALEDIR=/app/share/locale/ APPID=de.swsnr.turnon.Devel install-locale
+      # Install binary, app icon, desktop file, and appstream metadata
+      - install -Dm0755 target/release/turnon /app/bin/de.swsnr.turnon.Devel
+      - install -Dm0644 -t /app/share/icons/hicolor/scalable/apps/ resources/icons/scalable/apps/de.swsnr.turnon.Devel.svg
+      - install -Dm0644 de.swsnr.turnon.desktop /app/share/applications/de.swsnr.turnon.Devel.desktop
+      - install -Dm0644 resources/de.swsnr.turnon.metainfo.xml  /app/share/metainfo/de.swsnr.turnon.Devel.metainfo.xml
