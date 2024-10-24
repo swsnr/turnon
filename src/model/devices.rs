@@ -30,6 +30,17 @@ impl Devices {
         self.items_changed(position.try_into().unwrap(), 0, 1);
     }
 
+    /// Find a device by its `label`.
+    pub fn find_device_by_label(&self, label: &str) -> Option<Device> {
+        self.imp()
+            .0
+            .borrow()
+            .iter()
+            .find(|d| d.label() == label)
+            .cloned()
+    }
+
+    /// Find the index of the given `device` in the list of devices.
     fn find_device(&self, device: &Device) -> Option<usize> {
         self.imp().0.borrow().iter().position(|d| d == device)
     }

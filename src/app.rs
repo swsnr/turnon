@@ -129,6 +129,17 @@ mod imp {
                 &pgettext("option.add-device.description", "Add a new device"),
                 None,
             );
+            app.add_main_option(
+                "turn-on-device",
+                0.into(),
+                OptionFlags::NONE,
+                OptionArg::String,
+                &pgettext(
+                    "option.turn-on-device.description",
+                    "Turn on a device by its label",
+                ),
+                Some(&pgettext("option.turn-on-device.arg.description", "LABEL")),
+            )
         }
     }
 
@@ -183,15 +194,69 @@ mod imp {
                 "Handling command line. Remote? {}",
                 command_line.is_remote()
             );
-            self.obj().activate();
             let options = command_line.options_dict();
             if let Ok(Some(true)) = options.lookup("add-device") {
                 log::debug!(
                     "Activating app.add-device action in response to command line argument"
                 );
+                // Activate application to show main window first
+                self.obj().activate();
                 self.obj().activate_action("add-device", None);
+                glib::ExitCode::SUCCESS
+            } else if let Ok(Some(label)) = options.lookup::<String>("turn-on-device") {
+                log::debug!("Turning on device in response to command line argument");
+                match self.model.find_device_by_label(&label) {
+                    Some(device) => {
+                        glib::spawn_future_local(glib::clone!(
+                            #[strong]
+                            command_line,
+                            async move {
+                                match device.wol().await {
+                                    Ok(_) => {
+                                        command_line
+                                            .set_exit_status(glib::ExitCode::SUCCESS.value());
+                                        command_line.print_literal(
+                                            &pgettext(
+                                                "option.turn-on-device.message",
+                                                "Sent magic packet to mac address %1 of device %2\n",
+                                            )
+                                            .replace("%1", &device.mac_addr6().to_string())
+                                            .replace("%2", &label),
+                                        );
+                                    }
+                                    Err(error) => {
+                                        command_line.printerr_literal(
+                                            &pgettext(
+                                                "option.turn-on-device.error",
+                                                "Failed to turn on device %1: %2\n",
+                                            )
+                                            .replace("%1", &label)
+                                            .replace("%2", &error.to_string()),
+                                        );
+                                        command_line
+                                            .set_exit_status(glib::ExitCode::FAILURE.value());
+                                    }
+                                }
+                                command_line.done();
+                            }
+                        ));
+                        glib::ExitCode::SUCCESS
+                    }
+                    None => {
+                        command_line.printerr_literal(
+                            &pgettext(
+                                "option.turn-on-device.error",
+                                "No device found for label %s\n",
+                            )
+                            .replace("%s", &label),
+                        );
+                        glib::ExitCode::FAILURE
+                    }
+                }
+            } else {
+                self.obj().activate();
+                glib::ExitCode::SUCCESS
             }
-            glib::ExitCode::SUCCESS
         }
     }
 

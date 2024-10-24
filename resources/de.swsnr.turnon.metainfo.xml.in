@@ -31,6 +31,7 @@
         <release version="next" date="9999-01-01">
             <description>
                 <p>The Turn On launcher now offers to add a new device in the context menu.</p>
+                <p>Turn On itself now offers a basic command line interface; in particular the --turn-on-device option now turns on a device by its label.</p>
             </description>
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>

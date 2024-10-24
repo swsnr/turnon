@@ -4,9 +4,13 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use std::{error::Error, time::Duration};
+
+use futures_util::{select_biased, FutureExt};
 use gtk::glib;
 use macaddr::MacAddr6;
 
+use crate::net::wol;
 use crate::storage::StoredDevice;
 
 glib::wrapper! {
@@ -31,6 +35,40 @@ impl Device {
 
     pub fn set_mac_addr6(&self, mac_address: MacAddr6) {
         self.set_mac_address(glib::Bytes::from(mac_address.as_bytes()));
+    }
+
+    /// Send the magic packet to this device.
+    pub async fn wol(&self) -> Result<(), Box<dyn Error>> {
+        let mac_address = self.mac_addr6();
+        log::info!(
+            "Sending magic packet for mac address {mac_address} of device {}",
+            self.label()
+        );
+        let wol_timeout = Duration::from_secs(5);
+        let result = select_biased! {
+            result = wol(mac_address).fuse() => result,
+            _ = glib::timeout_future(wol_timeout).fuse() => {
+                Err(
+                    std::io::Error::new(
+                        std::io::ErrorKind::TimedOut,
+                        format!("Failed to send magic packet within {wol_timeout:#?}")
+                    ).into()
+                )
+            }
+        };
+        result
+            .inspect(|_| {
+                log::info!(
+                    "Sent magic packet to {mac_address} of device {}",
+                    self.label()
+                );
+            })
+            .inspect_err(|error| {
+                log::warn!(
+                    "Failed to send magic packet to {mac_address} of device{}: {error}",
+                    self.label()
+                );
+            })
     }
 }
 
