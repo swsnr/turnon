@@ -8,3 +8,8 @@ Categories=GNOME;GTK;Utility;
 Keywords=Gnome;GTK;WakeOnLan;
 StartupNotify=true
 DBusActivatable=true
+Actions=add-device;
+
+[Desktop Action add-device]
+Name=Add new device
+Exec=de.swsnr.turnon --add-device
