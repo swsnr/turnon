@@ -4,11 +4,16 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use adw::prelude::*;
+use adw::subclass::prelude::*;
 use glib::object::IsA;
 use gtk::gio;
+use gtk::gio::ActionEntry;
 use gtk::glib;
 
 use crate::model::Devices;
+
+use super::EditDeviceDialog;
 
 glib::wrapper! {
     pub struct TurnOnApplicationWindow(ObjectSubclass<imp::TurnOnApplicationWindow>)
@@ -25,6 +30,25 @@ impl TurnOnApplicationWindow {
             .property("application", application)
             .property("devices", devices)
             .build()
+    }
+
+    fn setup_actions(&self) {
+        let add_device = ActionEntry::builder("add_device")
+            .activate(|window: &TurnOnApplicationWindow, _, _| {
+                let dialog = EditDeviceDialog::new();
+                dialog.connect_saved(glib::clone!(
+                    #[weak]
+                    window,
+                    move |_, device| {
+                        log::debug!("Adding new device: {:?}", device.imp());
+                        window.devices().add_device(device);
+                    }
+                ));
+                dialog.present(Some(window));
+            })
+            .build();
+
+        self.add_action_entries([add_device]);
     }
 }
 
@@ -45,7 +69,6 @@ mod imp {
     use crate::model::{Device, Devices};
     use crate::net::{self, wol};
     use crate::widgets::device_row::DeviceRow;
-    use crate::widgets::EditDeviceDialog;
 
     #[derive(CompositeTemplate, Default, Properties)]
     #[properties(wrapper_type = super::TurnOnApplicationWindow)]
@@ -69,19 +92,6 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
-
-            klass.install_action("win.add_device", None, |window, _, _| {
-                let dialog = EditDeviceDialog::new();
-                dialog.connect_saved(glib::clone!(
-                    #[weak]
-                    window,
-                    move |_, device| {
-                        log::debug!("Adding new device: {:?}", device.imp());
-                        window.devices().add_device(device);
-                    }
-                ));
-                dialog.present(Some(window));
-            });
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -227,6 +237,8 @@ mod imp {
                 .bind_model(Some(&self.devices.borrow().clone()), move |o| {
                     window.imp().create_device_row(o)
                 });
+
+            self.obj().setup_actions();
         }
     }
 
