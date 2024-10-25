@@ -4,9 +4,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use std::{error::Error, time::Duration};
+use std::time::Duration;
 
 use futures_util::{select_biased, FutureExt};
+use gtk::gio::IOErrorEnum;
 use gtk::glib;
 use macaddr::MacAddr6;
 
@@ -38,7 +39,7 @@ impl Device {
     }
 
     /// Send the magic packet to this device.
-    pub async fn wol(&self) -> Result<(), Box<dyn Error>> {
+    pub async fn wol(&self) -> Result<(), glib::Error> {
         let mac_address = self.mac_addr6();
         log::info!(
             "Sending magic packet for mac address {mac_address} of device {}",
@@ -48,12 +49,8 @@ impl Device {
         let result = select_biased! {
             result = wol(mac_address).fuse() => result,
             _ = glib::timeout_future(wol_timeout).fuse() => {
-                Err(
-                    std::io::Error::new(
-                        std::io::ErrorKind::TimedOut,
-                        format!("Failed to send magic packet within {wol_timeout:#?}")
-                    ).into()
-                )
+                let message = &format!("Failed to send magic packet within {wol_timeout:#?}");
+                Err(glib::Error::new(IOErrorEnum::TimedOut, message))
             }
         };
         result

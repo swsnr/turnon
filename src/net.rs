@@ -22,9 +22,9 @@ use futures_util::stream;
 use futures_util::stream::FuturesUnordered;
 use futures_util::{future, select_biased, FutureExt, Stream, StreamExt, TryFutureExt};
 use glib::IOCondition;
-use gtk::gio;
 use gtk::gio::prelude::{ResolverExt, SocketExt, SocketExtManual};
 use gtk::gio::InetAddressBytes;
+use gtk::gio::{self, IOErrorEnum};
 use gtk::gio::{Cancellable, InetAddress};
 use gtk::prelude::{InetAddressExt, InetAddressExtManual};
 use macaddr::MacAddr6;
@@ -265,7 +265,7 @@ fn write_magic_packet<W: Write>(sink: &mut W, mac_address: MacAddr6) -> std::io:
 /// Send a magic Wake On LAN packet to the given `mac_address`.
 ///
 /// Sends the WoL package as UDP package to port 9 on the IPv4 broadcast address.
-pub async fn wol(mac_address: MacAddr6) -> Result<(), Box<dyn Error>> {
+pub async fn wol(mac_address: MacAddr6) -> Result<(), glib::Error> {
     let socket = gio::Socket::new(
         gio::SocketFamily::Ipv4,
         gio::SocketType::Datagram,
@@ -278,11 +278,10 @@ pub async fn wol(mac_address: MacAddr6) -> Result<(), Box<dyn Error>> {
         .await;
     if condition != glib::IOCondition::OUT {
         socket.close().ok();
-        return Err(std::io::Error::new(
-            ErrorKind::BrokenPipe,
-            format!("Socket for waking {mac_address} not ready to write"),
-        )
-        .into());
+        return Err(glib::Error::new(
+            IOErrorEnum::BrokenPipe,
+            &format!("Socket for waking {mac_address} not ready to write"),
+        ));
     }
     let mut payload = [0; 102];
     write_magic_packet(&mut payload.as_mut_slice(), mac_address).unwrap();
