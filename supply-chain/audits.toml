@@ -1,7 +1,10 @@
 
 # cargo-vet audits file
 
-[audits]
+[[audits.macaddr]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+version = "1.0.1"
 
 [[trusted.aho-corasick]]
 criteria = "safe-to-run"
