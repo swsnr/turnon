@@ -4,6 +4,9 @@
 [cargo-vet]
 version = "0.10"
 
+[imports.google]
+url = "https://raw.githubusercontent.com/google/supply-chain/main/audits.toml"
+
 [imports.mozilla]
 url = "https://raw.githubusercontent.com/mozilla/supply-chain/main/audits.toml"
 
@@ -21,10 +24,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.autocfg]]
 version = "1.3.0"
-criteria = "safe-to-deploy"
-
-[[exemptions.bitflags]]
-version = "2.6.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.block]]
@@ -61,10 +60,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.env_logger]]
 version = "0.11.5"
-criteria = "safe-to-deploy"
-
-[[exemptions.equivalent]]
-version = "1.0.1"
 criteria = "safe-to-deploy"
 
 [[exemptions.errno]]
@@ -163,10 +158,6 @@ criteria = "safe-to-deploy"
 version = "0.20.2"
 criteria = "safe-to-deploy"
 
-[[exemptions.glob]]
-version = "0.3.1"
-criteria = "safe-to-deploy"
-
 [[exemptions.gobject-sys]]
 version = "0.20.1"
 criteria = "safe-to-deploy"
@@ -211,14 +202,6 @@ criteria = "safe-to-deploy"
 version = "2.5.0"
 criteria = "safe-to-deploy"
 
-[[exemptions.itoa]]
-version = "1.0.11"
-criteria = "safe-to-deploy"
-
-[[exemptions.lazy_static]]
-version = "1.5.0"
-criteria = "safe-to-deploy"
-
 [[exemptions.libadwaita]]
 version = "0.7.0"
 criteria = "safe-to-deploy"
@@ -237,10 +220,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.locale_config]]
 version = "0.3.0"
-criteria = "safe-to-deploy"
-
-[[exemptions.log]]
-version = "0.4.22"
 criteria = "safe-to-deploy"
 
 [[exemptions.macaddr]]
@@ -279,10 +258,6 @@ criteria = "safe-to-deploy"
 version = "2.2.1"
 criteria = "safe-to-deploy"
 
-[[exemptions.pin-project-lite]]
-version = "0.2.14"
-criteria = "safe-to-deploy"
-
 [[exemptions.pin-utils]]
 version = "0.1.0"
 criteria = "safe-to-deploy"
@@ -293,14 +268,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.proc-macro-crate]]
 version = "3.2.0"
-criteria = "safe-to-deploy"
-
-[[exemptions.proc-macro2]]
-version = "1.0.86"
-criteria = "safe-to-deploy"
-
-[[exemptions.quote]]
-version = "1.0.37"
 criteria = "safe-to-deploy"
 
 [[exemptions.regex]]
@@ -329,14 +296,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.semver]]
 version = "1.0.23"
-criteria = "safe-to-deploy"
-
-[[exemptions.serde]]
-version = "1.0.210"
-criteria = "safe-to-deploy"
-
-[[exemptions.serde_derive]]
-version = "1.0.210"
 criteria = "safe-to-deploy"
 
 [[exemptions.serde_json]]
@@ -393,10 +352,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.toml_edit]]
 version = "0.22.20"
-criteria = "safe-to-deploy"
-
-[[exemptions.unicode-ident]]
-version = "1.0.13"
 criteria = "safe-to-deploy"
 
 [[exemptions.value-bag]]
