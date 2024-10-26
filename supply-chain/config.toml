@@ -59,18 +59,6 @@ criteria = "safe-to-run"
 version = "0.3.6"
 criteria = "safe-to-run"
 
-[[exemptions.futures-channel]]
-version = "0.3.30"
-criteria = "safe-to-run"
-
-[[exemptions.futures-executor]]
-version = "0.3.30"
-criteria = "safe-to-run"
-
-[[exemptions.futures-io]]
-version = "0.3.30"
-criteria = "safe-to-run"
-
 [[exemptions.gettext-rs]]
 version = "0.7.2"
 criteria = "safe-to-run"
