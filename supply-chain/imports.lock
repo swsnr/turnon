@@ -1,6 +1,8 @@
 
 # cargo-vet imports lock
 
+[audits.embark-studios.audits]
+
 [[audits.google.audits.bitflags]]
 who = "Lukasz Anforowicz <lukasza@chromium.org>"
 criteria = "safe-to-deploy"
