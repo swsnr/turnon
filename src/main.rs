@@ -13,8 +13,10 @@ use gtk::glib;
 
 mod app;
 mod config;
+mod dbus;
 mod model;
 mod net;
+mod searchprovider;
 mod storage;
 mod widgets;
 

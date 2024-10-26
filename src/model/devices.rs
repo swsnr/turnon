@@ -18,6 +18,10 @@ glib::wrapper! {
 }
 
 impl Devices {
+    pub fn get(&self, n: usize) -> Option<Device> {
+        self.imp().0.borrow().get(n).cloned()
+    }
+
     /// Add a new `device` to the list of devices.
     ///
     /// Signal that the end of the items list changed.
@@ -30,18 +34,8 @@ impl Devices {
         self.items_changed(position.try_into().unwrap(), 0, 1);
     }
 
-    /// Find a device by its `label`.
-    pub fn find_device_by_label(&self, label: &str) -> Option<Device> {
-        self.imp()
-            .0
-            .borrow()
-            .iter()
-            .find(|d| d.label() == label)
-            .cloned()
-    }
-
     /// Find the index of the given `device` in the list of devices.
-    fn find_device(&self, device: &Device) -> Option<usize> {
+    fn position(&self, device: &Device) -> Option<usize> {
         self.imp().0.borrow().iter().position(|d| d == device)
     }
 
@@ -49,7 +43,7 @@ impl Devices {
     ///
     /// Then signal that the list changed at the position of the device.
     pub fn delete_device(&self, device: &Device) {
-        if let Some(position) = self.find_device(device) {
+        if let Some(position) = self.position(device) {
             let mut data = self.imp().0.borrow_mut();
             data.remove(position);
             // Drop our mutable borrow before emitting the signal to allow other code to access the device list.
@@ -79,6 +73,16 @@ impl Devices {
 impl Default for Devices {
     fn default() -> Self {
         glib::Object::new()
+    }
+}
+
+impl IntoIterator for &Devices {
+    type Item = Device;
+
+    type IntoIter = std::vec::IntoIter<Self::Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.imp().0.borrow().clone().into_iter()
     }
 }
 

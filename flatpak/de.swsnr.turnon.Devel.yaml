@@ -32,9 +32,10 @@ modules:
       - cargo build --frozen --release --verbose
       # Install locales
       - make LOCALEDIR=/app/share/locale/ APPID=de.swsnr.turnon.Devel install-locale
-      # Install binary, app icon, desktop file, and appstream metadata
+      # Install binary, app icon, desktop file, appstream metadata, DBus service, and search provider
       - install -Dm0755 target/release/turnon /app/bin/de.swsnr.turnon.Devel
       - install -Dm0644 -t /app/share/icons/hicolor/scalable/apps/ resources/icons/scalable/apps/de.swsnr.turnon.Devel.svg
       - install -Dm0644 de.swsnr.turnon.desktop /app/share/applications/de.swsnr.turnon.Devel.desktop
       - install -Dm0644 resources/de.swsnr.turnon.metainfo.xml  /app/share/metainfo/de.swsnr.turnon.Devel.metainfo.xml
       - install -Dm0644 dbus-1/de.swsnr.turnon.service /app/share/dbus-1/services/de.swsnr.turnon.Devel.service
+      - install -Dm0644 de.swsnr.turnon.search-provider.ini /app/share/gnome-shell/search-providers/de.swsnr.turnon.Devel.search-provider.ini
