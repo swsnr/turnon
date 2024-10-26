@@ -1,10 +1,26 @@
 
 # cargo-vet audits file
 
+[[audits.crossbeam-utils]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.8.15 -> 0.8.14"
+
+[[audits.gettext-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+version = "0.22.5"
+notes = "build.rs looks okay; embedded gettext is an original upstream release file."
+
 [[audits.macaddr]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 version = "1.0.1"
+
+[[audits.memoffset]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.9.0 -> 0.9.1"
 
 [[trusted.aho-corasick]]
 criteria = "safe-to-run"

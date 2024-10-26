@@ -39,10 +39,6 @@ criteria = "safe-to-run"
 version = "2.5.0"
 criteria = "safe-to-run"
 
-[[exemptions.crossbeam-utils]]
-version = "0.8.20"
-criteria = "safe-to-run"
-
 [[exemptions.etherparse]]
 version = "0.16.0"
 criteria = "safe-to-run"
@@ -63,16 +59,8 @@ criteria = "safe-to-run"
 version = "0.7.2"
 criteria = "safe-to-run"
 
-[[exemptions.gettext-sys]]
-version = "0.22.5"
-criteria = "safe-to-run"
-
 [[exemptions.locale_config]]
 version = "0.3.0"
-criteria = "safe-to-run"
-
-[[exemptions.memoffset]]
-version = "0.9.1"
 criteria = "safe-to-run"
 
 [[exemptions.objc]]
