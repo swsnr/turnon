@@ -82,11 +82,17 @@ criteria = "safe-to-run"
 version = "7.0.2"
 criteria = "safe-to-run"
 
+[[exemptions.systemd-journal-logger]]
+version = "2.1.1"
+criteria = "safe-to-run"
+suggest = false
+notes = "Do not self-certify my own crate"
+
 [[exemptions.temp-dir]]
 version = "0.1.14"
 criteria = "safe-to-run"
-notes = "Comes in via gettext-sys, perhaps we can get rid of it, see https://github.com/gettext-rs/gettext-rs/pull/130"
 suggest = false
+notes = "Comes in via gettext-sys, perhaps we can get rid of it, see https://github.com/gettext-rs/gettext-rs/pull/130"
 
 [[exemptions.value-bag]]
 version = "1.9.0"

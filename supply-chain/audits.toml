@@ -377,12 +377,6 @@ start = "2019-05-06"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
-[[trusted.systemd-journal-logger]]
-criteria = "safe-to-run"
-user-id = 4372 # Sebastian Wiesner (swsnr)
-start = "2021-05-28"
-end = "2025-10-26"
-
 [[trusted.target-lexicon]]
 criteria = "safe-to-run"
 user-id = 696 # Nick Fitzgerald (fitzgen)
