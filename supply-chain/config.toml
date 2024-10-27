@@ -28,7 +28,9 @@ criteria = "safe-to-run"
 
 [[exemptions.block]]
 version = "0.1.6"
-criteria = "safe-to-run"
+criteria = "safe-to-deploy"
+suggest = false
+notes = "Only used by objc-foundation which in turn is only used on macOS by gettext-rs and thus does not apply to Turn On"
 
 [[exemptions.cc]]
 version = "1.1.31"
