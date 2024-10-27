@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-23 07:25+0200\n"
+"POT-Creation-Date: 2024-10-27 17:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,10 @@ msgstr ""
 
 #: de.swsnr.turnon.desktop.in:9
 msgid "Gnome;GTK;WakeOnLan;"
+msgstr ""
+
+#: de.swsnr.turnon.desktop.in:15
+msgid "Add new device"
 msgstr ""
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:8
@@ -52,18 +56,35 @@ msgid "Monitor device status."
 msgstr ""
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:33
-msgid "Turn On no longer crashes when removing the last device."
+msgid ""
+"Turn On now integrates into GNOME search and offers to turn on devices "
+"directly from the search."
 msgstr ""
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:34
+msgid ""
+"The Turn On launcher now offers to add a new device in the context menu."
+msgstr ""
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:35
+msgid ""
+"Turn On itself now provides a basic command line interface; in particular "
+"the --turn-on-device option now turns on a device by its label."
+msgstr ""
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:41
+msgid "Turn On no longer crashes when removing the last device."
+msgstr ""
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:42
 msgid "Add German translation, and update application metadata."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:39
+#: resources/de.swsnr.turnon.metainfo.xml.in:48
 msgid "Shorten summary in metadata."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:44
+#: resources/de.swsnr.turnon.metainfo.xml.in:54
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -71,59 +92,59 @@ msgid ""
 "entry and eventually adds the device)."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:55
+#: resources/de.swsnr.turnon.metainfo.xml.in:66
 msgid "Refined app icon."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:61
+#: resources/de.swsnr.turnon.metainfo.xml.in:72
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:63
+#: resources/de.swsnr.turnon.metainfo.xml.in:74
 msgid "Add new devices"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:64
+#: resources/de.swsnr.turnon.metainfo.xml.in:75
 msgid "Monitor whether devices are turned on"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:65
+#: resources/de.swsnr.turnon.metainfo.xml.in:76
 msgid "Turn on devices with Wake On LAN"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:67
+#: resources/de.swsnr.turnon.metainfo.xml.in:78
 msgid "This release is missing the following features:"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:69
+#: resources/de.swsnr.turnon.metainfo.xml.in:80
 msgid "Devices can not be edited or removed"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:70
+#: resources/de.swsnr.turnon.metainfo.xml.in:81
 msgid "The order of devices cannot be changed"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:71
+#: resources/de.swsnr.turnon.metainfo.xml.in:82
 msgid "Languages other than English are not supported"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:79
+#: resources/de.swsnr.turnon.metainfo.xml.in:90
 msgid "Sebastian Wiesner"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:84
+#: resources/de.swsnr.turnon.metainfo.xml.in:95
 msgid "Two devices, one of them on, and the other off"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:88
+#: resources/de.swsnr.turnon.metainfo.xml.in:99
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:92
+#: resources/de.swsnr.turnon.metainfo.xml.in:103
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
@@ -239,7 +260,7 @@ msgid "_Save"
 msgstr ""
 
 #: resources/ui/turnon-application-window.blp:22
-msgctxt "application-window.action.win.add_device.tooltip"
+msgctxt "application-window.action.win.add-device.tooltip"
 msgid "Add a new device"
 msgstr ""
 
@@ -268,19 +289,70 @@ msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr ""
 
-#: src/widgets/application_window.rs:105
+#: src/app.rs:140
+msgctxt "option.add-device.description"
+msgid "Add a new device"
+msgstr ""
+
+#: src/app.rs:150
+msgctxt "option.turn-on-device.description"
+msgid "Turn on a device by its label"
+msgstr ""
+
+#: src/app.rs:152
+msgctxt "option.turn-on-device.arg.description"
+msgid "LABEL"
+msgstr ""
+
+#: src/app.rs:251
+msgctxt "option.turn-on-device.message"
+msgid "Sent magic packet to mac address %1 of device %2\n"
+msgstr ""
+
+#: src/app.rs:261
+msgctxt "option.turn-on-device.error"
+msgid "Failed to turn on device %1: %2\n"
+msgstr ""
+
+#: src/app.rs:279
+#, c-format
+msgctxt "option.turn-on-device.error"
+msgid "No device found for label %s\n"
+msgstr ""
+
+#: src/searchprovider.rs:70
+msgctxt "search-provider.notification.title"
+msgid "Failed to send magic packet"
+msgstr ""
+
+#: src/searchprovider.rs:75
+msgctxt "search-provider.notification.body"
+msgid "Failed to send magic packet to mac address %1 of device %2."
+msgstr ""
+
+#: src/searchprovider.rs:86
+msgctxt "search-provider.notification.title"
+msgid "Sent magic packet"
+msgstr ""
+
+#: src/searchprovider.rs:91
+msgctxt "search-provider.notification.body"
+msgid "Sent magic packet to mac address %1 of device %2."
+msgstr ""
+
+#: src/widgets/application_window.rs:109
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
 msgstr ""
 
-#: src/widgets/application_window.rs:142
+#: src/widgets/application_window.rs:131
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr ""
 
-#: src/widgets/application_window.rs:157
+#: src/widgets/application_window.rs:145
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"

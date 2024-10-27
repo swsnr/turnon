@@ -8,13 +8,15 @@
 ./resources/ui/validation-indicator.blp
 ./src/app.rs
 ./src/config.rs
+./src/dbus.rs
+./src/dbus/searchprovider2.rs
 ./src/main.rs
 ./src/model/device.rs
 ./src/model/devices.rs
 ./src/model.rs
 ./src/net.rs
-./src/services.rs
-./src/services/storage.rs
+./src/searchprovider.rs
+./src/storage.rs
 ./src/widgets/application_window.rs
 ./src/widgets/device_row.rs
 ./src/widgets/edit_device_dialog.rs
