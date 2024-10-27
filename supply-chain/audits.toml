@@ -11,6 +11,12 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.8.15 -> 0.8.14"
 
+[[audits.field-offset]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+version = "0.3.6"
+notes = "Very simple crate which doesn't interact with the underlying system at all."
+
 [[audits.gettext-rs]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"

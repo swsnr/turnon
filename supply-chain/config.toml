@@ -48,10 +48,6 @@ criteria = "safe-to-run"
 version = "0.5.2"
 criteria = "safe-to-run"
 
-[[exemptions.field-offset]]
-version = "0.3.6"
-criteria = "safe-to-run"
-
 [[exemptions.objc]]
 version = "0.2.7"
 criteria = "safe-to-run"
