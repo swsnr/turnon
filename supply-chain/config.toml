@@ -85,6 +85,8 @@ criteria = "safe-to-run"
 [[exemptions.temp-dir]]
 version = "0.1.14"
 criteria = "safe-to-run"
+notes = "Comes in via gettext-sys, perhaps we can get rid of it, see https://github.com/gettext-rs/gettext-rs/pull/130"
+suggest = false
 
 [[exemptions.value-bag]]
 version = "1.9.0"
