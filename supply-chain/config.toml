@@ -54,10 +54,6 @@ criteria = "safe-to-run"
 version = "0.7.2"
 criteria = "safe-to-run"
 
-[[exemptions.locale_config]]
-version = "0.3.0"
-criteria = "safe-to-run"
-
 [[exemptions.objc]]
 version = "0.2.7"
 criteria = "safe-to-run"

@@ -17,6 +17,12 @@ criteria = "safe-to-run"
 version = "0.22.5"
 notes = "build.rs looks okay; embedded gettext is an original upstream release file."
 
+[[audits.locale_config]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+version = "0.3.0"
+notes = "Only uses platform APIs to obtain locale information; no unsafe on unix."
+
 [[audits.macaddr]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
