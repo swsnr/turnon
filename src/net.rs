@@ -9,9 +9,8 @@
 //! Contains a dead simple and somewhat inefficient ping implementation.
 
 use std::cell::RefCell;
-use std::error::Error;
 use std::fmt::Display;
-use std::io::{ErrorKind, Write};
+use std::io::Write;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 use std::os::fd::{AsRawFd, OwnedFd};
 use std::rc::Rc;
@@ -29,10 +28,20 @@ use gtk::prelude::{InetAddressExt, InetAddressExtManual};
 use macaddr::MacAddr6;
 use socket2::*;
 
-fn create_dgram_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket, Box<dyn Error>> {
-    let socket = socket2::Socket::new_raw(domain, Type::DGRAM, Some(protocol))?;
-    socket.set_nonblocking(true)?;
-    socket.set_read_timeout(Some(Duration::from_secs(10)))?;
+fn to_glib_error(error: std::io::Error) -> glib::Error {
+    let io_error = error
+        .raw_os_error()
+        .map_or(IOErrorEnum::Failed, gio::io_error_from_errno);
+    glib::Error::new(io_error, &error.to_string())
+}
+
+fn create_dgram_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket, glib::Error> {
+    let socket =
+        socket2::Socket::new_raw(domain, Type::DGRAM, Some(protocol)).map_err(to_glib_error)?;
+    socket.set_nonblocking(true).map_err(to_glib_error)?;
+    socket
+        .set_read_timeout(Some(Duration::from_secs(10)))
+        .map_err(to_glib_error)?;
     let fd = OwnedFd::from(socket);
     // SAFETY: from_fd has unfortunate ownership semantics: It claims the fd on
     // success, but on error the caller retains ownership of the fd.  Hence, we
@@ -86,7 +95,7 @@ fn to_rust(address: InetAddress) -> IpAddr {
 ///
 /// Return an error if pinging `ip_address` failed, or if we received a non-reply
 /// response.
-async fn ping(ip_address: IpAddr) -> Result<(), Box<dyn Error>> {
+async fn ping(ip_address: IpAddr) -> Result<(), glib::Error> {
     log::trace!("Sending ICMP echo request to {ip_address}");
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
@@ -98,11 +107,10 @@ async fn ping(ip_address: IpAddr) -> Result<(), Box<dyn Error>> {
         .await;
     if condition != glib::IOCondition::OUT {
         socket.close().ok();
-        return Err(std::io::Error::new(
-            ErrorKind::BrokenPipe,
-            format!("Socket for {ip_address} not ready to write"),
-        )
-        .into());
+        return Err(glib::Error::new(
+            IOErrorEnum::BrokenPipe,
+            &format!("Socket for {ip_address} not ready to write"),
+        ));
     }
 
     let condition =
@@ -132,19 +140,17 @@ async fn ping(ip_address: IpAddr) -> Result<(), Box<dyn Error>> {
     ];
     let bytes_written = socket.send_to(Some(&socket_address), echo_request, Cancellable::NONE)?;
     if bytes_written != echo_request.len() {
-        return Err(std::io::Error::new(
-            ErrorKind::BrokenPipe,
-            format!("Failed to write full ICMP echo request to {ip_address} to socket"),
-        )
-        .into());
+        return Err(glib::Error::new(
+            IOErrorEnum::BrokenPipe,
+            &format!("Failed to write full ICMP echo request to {ip_address} to socket"),
+        ));
     }
     if condition.await != glib::IOCondition::IN {
         socket.close().ok();
-        return Err(std::io::Error::new(
-            ErrorKind::BrokenPipe,
-            format!("Socket for {ip_address} not ready to read"),
-        )
-        .into());
+        return Err(glib::Error::new(
+            IOErrorEnum::BrokenPipe,
+            &format!("Socket for {ip_address} not ready to read"),
+        ));
     }
 
     // We expect a response of the same size as the echo request: The response
@@ -155,35 +161,36 @@ async fn ping(ip_address: IpAddr) -> Result<(), Box<dyn Error>> {
     let (bytes_received, _) = socket.receive_from(&mut response, Cancellable::NONE)?;
     socket.close().ok();
     if bytes_received != response.len() {
-        return Err(std::io::Error::new(
-            ErrorKind::BrokenPipe,
-            format!("Failed to read full ICMP echo reply from {ip_address} from socket"),
-        )
-        .into());
+        return Err(glib::Error::new(
+            IOErrorEnum::BrokenPipe,
+            &format!("Failed to read full ICMP echo reply from {ip_address} from socket"),
+        ));
     }
 
     // Check that we received an echo reply.
     match ip_address {
         IpAddr::V4(_) if response[0] == 0 => Ok(()),
         IpAddr::V6(_) if response[0] == 129 => Ok(()),
-        _ => Err(std::io::Error::new(
-            ErrorKind::InvalidData,
-            format!("Received unexpected response of type {}", response[0]),
-        )
-        .into()),
+        _ => Err(glib::Error::new(
+            IOErrorEnum::InvalidData,
+            &format!("Received unexpected response of type {}", response[0]),
+        )),
     }
 }
 
 fn to_rust_addresses(
     result: Result<Vec<InetAddress>, glib::Error>,
-) -> Result<Vec<IpAddr>, Box<dyn Error>> {
-    match result {
-        Ok(addresses) if addresses.is_empty() => {
-            Err(std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found").into())
+) -> Result<Vec<IpAddr>, glib::Error> {
+    result.and_then(|addresses| {
+        if addresses.is_empty() {
+            Err(glib::Error::new(
+                IOErrorEnum::NotFound,
+                "No addresses found",
+            ))
+        } else {
+            Ok(addresses.into_iter().map(to_rust).collect())
         }
-        Ok(addresses) => Ok(addresses.into_iter().map(to_rust).collect()),
-        Err(error) => Err(error.into()),
-    }
+    })
 }
 
 /// Monitor a `target` at the given `interval`.
