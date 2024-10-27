@@ -95,7 +95,7 @@ fn to_rust(address: InetAddress) -> IpAddr {
 ///
 /// Return an error if pinging `ip_address` failed, or if we received a non-reply
 /// response.
-async fn ping(ip_address: IpAddr) -> Result<(), glib::Error> {
+async fn ping(ip_address: IpAddr, sequence_number: u16) -> Result<(), glib::Error> {
     log::trace!("Sending ICMP echo request to {ip_address}");
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
@@ -127,7 +127,7 @@ async fn ping(ip_address: IpAddr) -> Result<(), glib::Error> {
     // Documentation around unprivileged ICMP is somewhat sparse in Linux land, but
     // it seems that the kernel handles the checksum and the identifier for us,
     // so we can statically assemble the packet.
-    let echo_request = [
+    let mut echo_request = [
         r#type, // Type
         0,      // code,
         0, 0, // Checksum
@@ -138,6 +138,7 @@ async fn ping(ip_address: IpAddr) -> Result<(), glib::Error> {
         b't', b'u', b'r', b'n', b'o', b'n', b'-', b'p', b'i', b'n', b'g', b'\n', // line 3
         b't', b'u', b'r', b'n', b'o', b'n', b'-', b'p', b'i', b'n', b'g', b'\n', // line 4
     ];
+    echo_request[6..8].copy_from_slice(&sequence_number.to_be_bytes());
     let bytes_written = socket.send_to(Some(&socket_address), echo_request, Cancellable::NONE)?;
     if bytes_written != echo_request.len() {
         return Err(glib::Error::new(
@@ -168,13 +169,26 @@ async fn ping(ip_address: IpAddr) -> Result<(), glib::Error> {
     }
 
     // Check that we received an echo reply.
-    match ip_address {
-        IpAddr::V4(_) if response[0] == 0 => Ok(()),
-        IpAddr::V6(_) if response[0] == 129 => Ok(()),
-        _ => Err(glib::Error::new(
+    let response_type = match ip_address {
+        IpAddr::V4(_) => 0,
+        IpAddr::V6(_) => 129,
+    };
+    if response[0] == response_type {
+        // We will not panic here, because `response` is guaranteed to be larger than 8 (see above!)
+        let received_sequence_number = u16::from_be_bytes(response[6..8].try_into().unwrap());
+        if sequence_number == received_sequence_number {
+            Ok(())
+        } else {
+            Err(glib::Error::new(
+                IOErrorEnum::InvalidData,
+                &format!("Received out of order sequence number {received_sequence_number}, expected {sequence_number}"),
+            ))
+        }
+    } else {
+        Err(glib::Error::new(
             IOErrorEnum::InvalidData,
             &format!("Received unexpected response of type {}", response[0]),
-        )),
+        ))
     }
 }
 
@@ -201,7 +215,9 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = Result<
     let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Default::default();
     futures_util::stream::iter(vec![()])
         .chain(glib::interval_stream(interval))
-        .scan(cached_ip_address, move |state, _| {
+        .enumerate()
+        .map(|(seqnr, _)| (seqnr % (u16::MAX as usize)) as u16)
+        .scan(cached_ip_address, move |state, seqnr| {
             let target = target.clone();
             let state = state.clone();
             async move {
@@ -235,7 +251,7 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = Result<
                     .flat_map(|addresses| {
                         addresses
                             .into_iter()
-                            .map(|addr| ping(addr).map(move |result| (addr, result)))
+                            .map(|addr| ping(addr, seqnr).map(move |result| (addr, result)))
                             .collect::<FuturesUnordered<_>>()
                     })
                     // Filter out all address which we can't ping or which don't reply
