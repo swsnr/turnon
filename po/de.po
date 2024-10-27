@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-27 17:36+0100\n"
-"PO-Revision-Date: 2024-10-23 20:41+0200\n"
+"PO-Revision-Date: 2024-10-27 18:05+0100\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -31,9 +31,6 @@ msgid "Gnome;GTK;WakeOnLan;"
 msgstr "Gnome;GTK;WakeOnLan;"
 
 #: de.swsnr.turnon.desktop.in:15
-#, fuzzy
-#| msgctxt "application-window.status-page.button.label"
-#| msgid "Add new device"
 msgid "Add new device"
 msgstr "Neues Gerät hinzufügen"
 
@@ -66,17 +63,24 @@ msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr ""
+"Anschalten ist jetzt in die GNOME-Suche integriert und kann Geräte direkt "
+"aus der Suche heraus anschalten."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:34
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr ""
+"Geräte können jetzt über das Kontext-Menü des Anwendungssymbols von "
+"Anschalten hinzugefügt werden."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:35
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
 msgstr ""
+"Anschalten bietet nun eine rudimentäre Kommandozeilen-Schnittstelle an; "
+"insbesondere kann mit der Option --turn-on-device ein Gerät direkt über "
+"dessen Bezeichnung angeschaltet werden."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:41
 msgid "Turn On no longer crashes when removing the last device."
@@ -278,9 +282,6 @@ msgid "_Save"
 msgstr "_Speichern"
 
 #: resources/ui/turnon-application-window.blp:22
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "application-window.action.win.add-device.tooltip"
 msgid "Add a new device"
 msgstr "Neues Gerät hinzufügen"
@@ -311,78 +312,57 @@ msgid "_About Turn On"
 msgstr "Info zu Anschalten"
 
 #: src/app.rs:140
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "Neues Gerät hinzufügen"
 
 #: src/app.rs:150
-#, fuzzy
-#| msgid "Turn on devices with Wake On LAN"
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
-msgstr "Geräte mittels Wake-On-LAN einschalten"
+msgstr "Gerät anhand dessen Bezeichnung anschalten"
 
 #: src/app.rs:152
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
-msgstr ""
+msgstr "BEZEICHNUNG"
 
 #: src/app.rs:251
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sent magic packet to device %s"
 msgctxt "option.turn-on-device.message"
 msgid "Sent magic packet to mac address %1 of device %2\n"
-msgstr "Magisches Paket wurde an Gerät %s gesendet"
+msgstr "Magisches Paket wurde an die MAC-Adresse %1 des Geräts %2 gesendet\n"
 
 #: src/app.rs:261
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Failed to send magic packet to device %s"
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
-msgstr "Magisches Paket konnte nicht an Gerät %s gesendet werden"
+msgstr "Gerät %1 konnte nicht angeschaltet werden: %2\n"
 
 #: src/app.rs:279
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
-msgstr ""
+msgstr "Kein Gerät mit der Bezeichnung %s gefunden\n"
 
 #: src/searchprovider.rs:70
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Failed to send magic packet to device %s"
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
-msgstr "Magisches Paket konnte nicht an Gerät %s gesendet werden"
+msgstr "Magisches Paket konnte nicht gesendet werden"
 
 #: src/searchprovider.rs:75
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Failed to send magic packet to device %s"
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
-msgstr "Magisches Paket konnte nicht an Gerät %s gesendet werden"
+msgstr ""
+"Magisches Paket konnte nicht an die MAC-Adresse %1 des Geräts %2 gesendet "
+"werden."
 
 #: src/searchprovider.rs:86
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sent magic packet to device %s"
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
-msgstr "Magisches Paket wurde an Gerät %s gesendet"
+msgstr "Magisches Paket wurde gesendet"
 
 #: src/searchprovider.rs:91
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sent magic packet to device %s"
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
-msgstr "Magisches Paket wurde an Gerät %s gesendet"
+msgstr "Magisches Paket wurde an die MAC-Adresse %1 des Geräts %2 gesendet."
 
 #: src/widgets/application_window.rs:109
 #, c-format
@@ -401,7 +381,3 @@ msgstr "Magisches Paket wurde an Gerät %s gesendet"
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
 msgstr "Magisches Paket konnte nicht an Gerät %s gesendet werden"
-
-#~ msgctxt "application-window.action.win.add_device.tooltip"
-#~ msgid "Add a new device"
-#~ msgstr "Neues Gerät hinzufügen"
