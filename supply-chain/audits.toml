@@ -1,0 +1,463 @@
+
+# cargo-vet audits file
+
+[[audits.crossbeam-utils]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.8.15 -> 0.8.14"
+
+[[audits.gettext-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+version = "0.22.5"
+notes = "build.rs looks okay; embedded gettext is an original upstream release file."
+
+[[audits.macaddr]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+version = "1.0.1"
+
+[[audits.memoffset]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.9.0 -> 0.9.1"
+
+[[trusted.aho-corasick]]
+criteria = "safe-to-run"
+user-id = 189 # Andrew Gallant (BurntSushi)
+start = "2019-03-28"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.autocfg]]
+criteria = "safe-to-run"
+user-id = 539 # Josh Stone (cuviper)
+start = "2019-05-22"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.cairo-rs]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-07-08"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.cairo-sys-rs]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-10-16"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.cc]]
+criteria = "safe-to-run"
+user-id = 2915 # Amanieu d'Antras (Amanieu)
+start = "2024-02-20"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.env_filter]]
+criteria = "safe-to-run"
+user-id = 6743 # Ed Page (epage)
+start = "2024-01-19"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.env_logger]]
+criteria = "safe-to-run"
+user-id = 6743 # Ed Page (epage)
+start = "2022-11-24"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.errno]]
+criteria = "safe-to-run"
+user-id = 6825 # Dan Gohman (sunfishcode)
+start = "2023-08-29"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.gdk-pixbuf]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2022-01-15"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gdk-pixbuf-sys]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2022-01-15"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gdk4]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2022-01-15"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gdk4]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gdk4-sys]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-04-04"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gdk4-sys]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gio]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2020-08-28"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gio-sys]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2020-09-16"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.glib]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2020-02-14"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.glib-build-tools]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2022-05-07"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.glib-macros]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-07-08"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.glib-sys]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2020-09-16"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gobject-sys]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2022-01-15"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.graphene-rs]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-04-04"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.graphene-sys]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-04-04"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gsk4]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2022-01-15"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gsk4]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gsk4-sys]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-04-04"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gsk4-sys]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gtk]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-08-24"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gtk4]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2022-01-15"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gtk4-macros]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-04-04"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gtk4-sys]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2021-04-04"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.gtk4-sys]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.hashbrown]]
+criteria = "safe-to-run"
+user-id = 2915 # Amanieu d'Antras (Amanieu)
+start = "2019-04-02"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.indexmap]]
+criteria = "safe-to-run"
+user-id = 539 # Josh Stone (cuviper)
+start = "2020-01-15"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.libadwaita]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-06-23"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.libadwaita-sys]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-06-23"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.libc]]
+criteria = "safe-to-run"
+user-id = 51017 # Yuki Okushi (JohnTitor)
+start = "2020-03-17"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.linux-raw-sys]]
+criteria = "safe-to-run"
+user-id = 6825 # Dan Gohman (sunfishcode)
+start = "2021-06-12"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.memchr]]
+criteria = "safe-to-run"
+user-id = 189 # Andrew Gallant (BurntSushi)
+start = "2019-07-07"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.pango]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2020-08-11"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.pango-sys]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2022-01-15"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.pkg-config]]
+criteria = "safe-to-run"
+user-id = 3623 # Sebastian Dröge (sdroege)
+start = "2019-07-25"
+end = "2025-10-26"
+notes = "Known Gnome developer"
+
+[[trusted.regex]]
+criteria = "safe-to-run"
+user-id = 189 # Andrew Gallant (BurntSushi)
+start = "2019-02-27"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.regex-automata]]
+criteria = "safe-to-run"
+user-id = 189 # Andrew Gallant (BurntSushi)
+start = "2019-02-25"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.regex-syntax]]
+criteria = "safe-to-run"
+user-id = 189 # Andrew Gallant (BurntSushi)
+start = "2019-03-30"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.rustix]]
+criteria = "safe-to-run"
+user-id = 6825 # Dan Gohman (sunfishcode)
+start = "2021-10-29"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.ryu]]
+criteria = "safe-to-run"
+user-id = 3618 # David Tolnay (dtolnay)
+start = "2019-05-02"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.slab]]
+criteria = "safe-to-run"
+user-id = 6741 # Alice Ryhl (Darksonn)
+start = "2021-10-13"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.smallvec]]
+criteria = "safe-to-run"
+user-id = 2017 # Matt Brubeck (mbrubeck)
+start = "2019-10-28"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.socket2]]
+criteria = "safe-to-run"
+user-id = 1
+start = "2019-05-06"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.systemd-journal-logger]]
+criteria = "safe-to-run"
+user-id = 4372 # Sebastian Wiesner (swsnr)
+start = "2021-05-28"
+end = "2025-10-26"
+
+[[trusted.target-lexicon]]
+criteria = "safe-to-run"
+user-id = 696 # Nick Fitzgerald (fitzgen)
+start = "2024-07-30"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.target-lexicon]]
+criteria = "safe-to-run"
+user-id = 6825 # Dan Gohman (sunfishcode)
+start = "2019-03-06"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows-sys]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2021-11-15"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows-targets]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2022-09-09"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows_aarch64_gnullvm]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2022-09-01"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows_aarch64_msvc]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2021-11-05"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows_i686_gnu]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2021-10-28"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows_i686_gnullvm]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2024-04-02"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows_i686_msvc]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2021-10-27"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows_x86_64_gnu]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2021-10-28"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows_x86_64_gnullvm]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2022-09-01"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
+
+[[trusted.windows_x86_64_msvc]]
+criteria = "safe-to-run"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2021-10-27"
+end = "2025-10-26"
+notes = "Trusted by mozilla"
