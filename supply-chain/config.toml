@@ -52,10 +52,6 @@ criteria = "safe-to-run"
 version = "0.3.6"
 criteria = "safe-to-run"
 
-[[exemptions.gettext-rs]]
-version = "0.7.2"
-criteria = "safe-to-run"
-
 [[exemptions.objc]]
 version = "0.2.7"
 criteria = "safe-to-run"
