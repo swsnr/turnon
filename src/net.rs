@@ -195,8 +195,9 @@ fn to_rust_addresses(
 
 /// Monitor a `target` at the given `interval`.
 ///
-/// Return a stream providing whether the target is online.
-pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
+/// Return a stream which yields `Ok` if the target could be resolved and reply to echo requests,
+/// or `Err` if a ping failed.
+pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = Result<(), glib::Error>> {
     let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Default::default();
     futures_util::stream::iter(vec![()])
         .chain(glib::interval_stream(interval))
@@ -254,14 +255,19 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                 select_biased! {
                     reachable_address = reachable_addresses.next() => match reachable_address {
                         // The stream was empty, meaning we failed to ping any address
-                        None => Some(false),
+                        None => Some(Err(glib::Error::new(
+                            IOErrorEnum::NotFound,
+                            &format!("Target {target} had no reachable addresses")
+                        ))),
                         Some(address) => {
                             // Cache the first reachable address we get for the next ping.
                             state.replace(Some(address));
-                            Some(true)
+                            Some(Ok(()))
                         },
                     },
-                    _ = glib::timeout_future(interval).fuse() => Some(false),
+                    _ = glib::timeout_future(interval).fuse() => Some(Err(
+                        glib::Error::new(IOErrorEnum::TimedOut, &format!("No response received from {target} after {}s", interval.as_secs()))
+                    )),
                 }
             }
         })
