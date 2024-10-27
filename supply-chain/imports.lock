@@ -294,13 +294,6 @@ user-id = 2017
 user-login = "mbrubeck"
 user-name = "Matt Brubeck"
 
-[[publisher.systemd-journal-logger]]
-version = "2.1.1"
-when = "2023-11-15"
-user-id = 4372
-user-login = "swsnr"
-user-name = "Sebastian Wiesner"
-
 [[publisher.target-lexicon]]
 version = "0.12.16"
 when = "2024-07-30"
