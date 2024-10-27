@@ -21,8 +21,8 @@ modules:
     buildsystem: simple
     sources:
       - type: archive
-        url: https://github.com/swsnr/turnon/archive/refs/tags/v1.0.0.tar.gz
-        sha512: "225a960dc1d66c7e07353fe4cb9b0bfbbeac418efe7d7b83aa439b8256f765ade8b72da3be9160156e6482df5b587272bbd7feca8fdc0683c38b31c8dc25d736"
+        url: https://github.com/swsnr/turnon/archive/refs/tags/v1.1.0.tar.gz
+        sha512: "5dee12d344cd6a2b21252da439cbdc0e72e1996a4767d528cb1340c7c2e8bec5b9dc92adaa8f68481e8be33fbb43981802c2a982a2e9da89b44063ce5a08364c"
       - cargo-sources.json
     build-commands:
       # Point cargo to vendored sources downloaded by flatpak builder
@@ -36,3 +36,5 @@ modules:
       - install -Dm0644 -t /app/share/icons/hicolor/scalable/apps/ resources/icons/scalable/apps/de.swsnr.turnon.svg
       - install -Dm0644 -t /app/share/applications/ de.swsnr.turnon.desktop
       - install -Dm0644 -t /app/share/metainfo/ resources/de.swsnr.turnon.metainfo.xml
+      - install -Dm0644 -t /app/share/dbus-1/services/ dbus-1/de.swsnr.turnon.service
+      - install -Dm0644 -t /app/share/gnome-shell/search-providers/ de.swsnr.turnon.search-provider.ini
