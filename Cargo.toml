@@ -15,7 +15,6 @@ adw = { package = "libadwaita", version = "0.7.0", features = ["v1_6"] }
 async-channel = "2.3.1"
 env_filter = "0.1.0"
 env_logger = { version = "0.11.5", default-features = false }
-etherparse = "0.16.0"
 futures-util = { version = "0.3.31", default-features = false }
 gettext-rs = { version = "0.7.2", features = ["gettext-system"] }
 glib = { version = "0.20.4", features = ["log"] }
