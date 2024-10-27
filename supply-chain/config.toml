@@ -61,14 +61,20 @@ criteria = "safe-to-run"
 [[exemptions.objc]]
 version = "0.2.7"
 criteria = "safe-to-run"
+suggest = false
+notes = "Only used by gettext-rs on macOS targets which does not apply to Turn On"
 
 [[exemptions.objc-foundation]]
 version = "0.1.1"
 criteria = "safe-to-run"
+suggest = false
+notes = "Only used by gettext-rs on macOS targets which does not apply to Turn On"
 
 [[exemptions.objc_id]]
 version = "0.1.1"
 criteria = "safe-to-run"
+suggest = false
+notes = "Only used by objc-foundation which in turn is only used on macOS by gettext-rs and thus does not apply to Turn On"
 
 [[exemptions.parking]]
 version = "2.2.1"
@@ -105,7 +111,11 @@ criteria = "safe-to-run"
 [[exemptions.winapi-i686-pc-windows-gnu]]
 version = "0.4.0"
 criteria = "safe-to-run"
+suggest = false
+notes = "winapi is only used by gettext-rs on Windows which does not apply to Turn On"
 
 [[exemptions.winapi-x86_64-pc-windows-gnu]]
 version = "0.4.0"
 criteria = "safe-to-run"
+suggest = false
+notes = "winapi is only used by gettext-rs on Windows which does not apply to Turn On"
