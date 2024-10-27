@@ -9,15 +9,13 @@
 //! Contains a dead simple and somewhat inefficient ping implementation.
 
 use std::cell::RefCell;
-use std::error::Error;
 use std::fmt::Display;
-use std::io::{ErrorKind, Write};
+use std::io::Write;
 use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 use std::os::fd::{AsRawFd, OwnedFd};
 use std::rc::Rc;
 use std::time::Duration;
 
-use etherparse::{IcmpEchoHeader, Icmpv4Slice, Icmpv4Type, Icmpv6Slice, Icmpv6Type};
 use futures_util::stream;
 use futures_util::stream::FuturesUnordered;
 use futures_util::{future, select_biased, FutureExt, Stream, StreamExt, TryFutureExt};
@@ -30,10 +28,20 @@ use gtk::prelude::{InetAddressExt, InetAddressExtManual};
 use macaddr::MacAddr6;
 use socket2::*;
 
-fn create_dgram_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket, Box<dyn Error>> {
-    let socket = socket2::Socket::new_raw(domain, Type::DGRAM, Some(protocol))?;
-    socket.set_nonblocking(true)?;
-    socket.set_read_timeout(Some(Duration::from_secs(10)))?;
+fn to_glib_error(error: std::io::Error) -> glib::Error {
+    let io_error = error
+        .raw_os_error()
+        .map_or(IOErrorEnum::Failed, gio::io_error_from_errno);
+    glib::Error::new(io_error, &error.to_string())
+}
+
+fn create_dgram_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket, glib::Error> {
+    let socket =
+        socket2::Socket::new_raw(domain, Type::DGRAM, Some(protocol)).map_err(to_glib_error)?;
+    socket.set_nonblocking(true).map_err(to_glib_error)?;
+    socket
+        .set_read_timeout(Some(Duration::from_secs(10)))
+        .map_err(to_glib_error)?;
     let fd = OwnedFd::from(socket);
     // SAFETY: from_fd has unfortunate ownership semantics: It claims the fd on
     // success, but on error the caller retains ownership of the fd.  Hence, we
@@ -83,19 +91,11 @@ fn to_rust(address: InetAddress) -> IpAddr {
     }
 }
 
-/// A reply to a single ping.
-#[derive(Debug)]
-pub enum PingReply {
-    /// A correct ICMP echo reply.
-    EchoReply,
-    /// Another response for an ICMP v4 echo request.
-    OtherV4(Icmpv4Type),
-    /// Another response for an ICMP v6 echo request.
-    OtherV6(Icmpv6Type),
-}
-
 /// Send a single ping to `ip_address`.
-async fn ping(ip_address: IpAddr) -> Result<PingReply, Box<dyn Error>> {
+///
+/// Return an error if pinging `ip_address` failed, or if we received a non-reply
+/// response.
+async fn ping(ip_address: IpAddr, sequence_number: u16) -> Result<(), glib::Error> {
     log::trace!("Sending ICMP echo request to {ip_address}");
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
@@ -107,78 +107,117 @@ async fn ping(ip_address: IpAddr) -> Result<PingReply, Box<dyn Error>> {
         .await;
     if condition != glib::IOCondition::OUT {
         socket.close().ok();
-        return Err(std::io::Error::new(
-            ErrorKind::BrokenPipe,
-            format!("Socket for {ip_address} not ready to write"),
-        )
-        .into());
+        return Err(glib::Error::new(
+            IOErrorEnum::BrokenPipe,
+            &format!("Socket for {ip_address} not ready to write"),
+        ));
     }
 
     let condition =
         socket.create_source_future(IOCondition::IN, Cancellable::NONE, glib::Priority::DEFAULT);
     let socket_address: gio::InetSocketAddress = SocketAddr::new(ip_address, 0).into();
-    let header = IcmpEchoHeader { id: 42, seq: 23 };
-    let payload = b"turnon-ping turnon-ping turnon-ping turnon-ping";
-    let mut packet = match ip_address {
-        IpAddr::V4(_) => {
-            let echo = etherparse::Icmpv4Type::EchoRequest(header);
-            let header = etherparse::Icmpv4Header::with_checksum(echo, payload);
-            header.to_bytes().to_vec()
-        }
-        IpAddr::V6(_) => {
-            let echo = etherparse::Icmpv6Type::EchoRequest(header);
-            let header =
-                etherparse::Icmpv6Header::with_checksum(echo, [0; 16], [0; 16], payload).unwrap();
-            header.to_bytes().to_vec()
-        }
+    // An echo reply for ICMPv4 and ICMPv6 respectively.
+    let r#type = match ip_address {
+        IpAddr::V4(_) => 8u8,
+        IpAddr::V6(_) => 128u8,
     };
-    packet.extend_from_slice(payload);
-    let bytes_written = socket.send_to(Some(&socket_address), &packet, Cancellable::NONE)?;
-    assert!(bytes_written == packet.len());
+    // Our ICMP packet.  ICMPv4 and ICMPv6 have the same layout, so we can use the
+    // same packet for both.
+    //
+    // Documentation around unprivileged ICMP is somewhat sparse in Linux land, but
+    // it seems that the kernel handles the checksum and the identifier for us,
+    // so we can statically assemble the packet.
+    let mut echo_request = [
+        r#type, // Type
+        0,      // code,
+        0, 0, // Checksum
+        0, 0, // Identifier
+        0, 0, // Sequence number
+        b't', b'u', b'r', b'n', b'o', b'n', b'-', b'p', b'i', b'n', b'g', b'\n', // line 1
+        b't', b'u', b'r', b'n', b'o', b'n', b'-', b'p', b'i', b'n', b'g', b'\n', // line 2
+        b't', b'u', b'r', b'n', b'o', b'n', b'-', b'p', b'i', b'n', b'g', b'\n', // line 3
+        b't', b'u', b'r', b'n', b'o', b'n', b'-', b'p', b'i', b'n', b'g', b'\n', // line 4
+    ];
+    echo_request[6..8].copy_from_slice(&sequence_number.to_be_bytes());
+    let bytes_written = socket.send_to(Some(&socket_address), echo_request, Cancellable::NONE)?;
+    if bytes_written != echo_request.len() {
+        return Err(glib::Error::new(
+            IOErrorEnum::BrokenPipe,
+            &format!("Failed to write full ICMP echo request to {ip_address} to socket"),
+        ));
+    }
     if condition.await != glib::IOCondition::IN {
         socket.close().ok();
-        return Err(std::io::Error::new(
-            ErrorKind::BrokenPipe,
-            format!("Socket for {ip_address} not ready to read"),
-        )
-        .into());
+        return Err(glib::Error::new(
+            IOErrorEnum::BrokenPipe,
+            &format!("Socket for {ip_address} not ready to read"),
+        ));
     }
 
-    let mut buffer = [0; 128];
-    let (bytes_received, _) = socket.receive_from(&mut buffer, Cancellable::NONE)?;
+    // We expect a response of the same size as the echo request: The response
+    // header has the same size, and the payload is mirrored back.
+    let mut response = [0; 56];
+    // Sanity check in case we got the array length wrong!
+    assert!(response.len() == echo_request.len());
+    let (bytes_received, _) = socket.receive_from(&mut response, Cancellable::NONE)?;
     socket.close().ok();
-    match ip_address {
-        IpAddr::V4(_) => match Icmpv4Slice::from_slice(&buffer[..bytes_received])?.icmp_type() {
-            Icmpv4Type::EchoReply(_) => Ok(PingReply::EchoReply),
-            other => Ok(PingReply::OtherV4(other)),
-        },
-        IpAddr::V6(_) => match Icmpv6Slice::from_slice(&buffer[..bytes_received])?.icmp_type() {
-            Icmpv6Type::EchoReply(_) => Ok(PingReply::EchoReply),
-            other => Ok(PingReply::OtherV6(other)),
-        },
+    if bytes_received != response.len() {
+        return Err(glib::Error::new(
+            IOErrorEnum::BrokenPipe,
+            &format!("Failed to read full ICMP echo reply from {ip_address} from socket"),
+        ));
+    }
+
+    // Check that we received an echo reply.
+    let response_type = match ip_address {
+        IpAddr::V4(_) => 0,
+        IpAddr::V6(_) => 129,
+    };
+    if response[0] == response_type {
+        // We will not panic here, because `response` is guaranteed to be larger than 8 (see above!)
+        let received_sequence_number = u16::from_be_bytes(response[6..8].try_into().unwrap());
+        if sequence_number == received_sequence_number {
+            Ok(())
+        } else {
+            Err(glib::Error::new(
+                IOErrorEnum::InvalidData,
+                &format!("Received out of order sequence number {received_sequence_number}, expected {sequence_number}"),
+            ))
+        }
+    } else {
+        Err(glib::Error::new(
+            IOErrorEnum::InvalidData,
+            &format!("Received unexpected response of type {}", response[0]),
+        ))
     }
 }
 
 fn to_rust_addresses(
     result: Result<Vec<InetAddress>, glib::Error>,
-) -> Result<Vec<IpAddr>, Box<dyn Error>> {
-    match result {
-        Ok(addresses) if addresses.is_empty() => {
-            Err(std::io::Error::new(std::io::ErrorKind::NotFound, "No addresses found").into())
+) -> Result<Vec<IpAddr>, glib::Error> {
+    result.and_then(|addresses| {
+        if addresses.is_empty() {
+            Err(glib::Error::new(
+                IOErrorEnum::NotFound,
+                "No addresses found",
+            ))
+        } else {
+            Ok(addresses.into_iter().map(to_rust).collect())
         }
-        Ok(addresses) => Ok(addresses.into_iter().map(to_rust).collect()),
-        Err(error) => Err(error.into()),
-    }
+    })
 }
 
 /// Monitor a `target` at the given `interval`.
 ///
-/// Return a stream providing whether the target is online.
-pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
+/// Return a stream which yields `Ok` if the target could be resolved and reply to echo requests,
+/// or `Err` if a ping failed.
+pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = Result<(), glib::Error>> {
     let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Default::default();
     futures_util::stream::iter(vec![()])
         .chain(glib::interval_stream(interval))
-        .scan(cached_ip_address, move |state, _| {
+        .enumerate()
+        .map(|(seqnr, _)| (seqnr % (u16::MAX as usize)) as u16)
+        .scan(cached_ip_address, move |state, seqnr| {
             let target = target.clone();
             let state = state.clone();
             async move {
@@ -212,22 +251,14 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                     .flat_map(|addresses| {
                         addresses
                             .into_iter()
-                            .map(|addr| ping(addr).map(move |result| (addr, result)))
+                            .map(|addr| ping(addr, seqnr).map(move |result| (addr, result)))
                             .collect::<FuturesUnordered<_>>()
                     })
                     // Filter out all address which we can't ping or which don't reply
                     .filter_map(|(ip_address, result)| match result {
-                        Ok(PingReply::EchoReply) => {
+                        Ok(_) => {
                             log::trace!("{ip_address} replied to ping");
                             future::ready(Some(ip_address))
-                        }
-                        Ok(PingReply::OtherV4(other)) => {
-                            log::trace!("{ip_address} did not reply: {other:?}");
-                            future::ready(None)
-                        }
-                        Ok(PingReply::OtherV6(other)) => {
-                            log::trace!("{ip_address} did not reply: {other:?}");
-                            future::ready(None)
                         }
                         Err(error) => {
                             log::trace!("Failed to ping {ip_address}: {error}");
@@ -240,14 +271,19 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = bool> {
                 select_biased! {
                     reachable_address = reachable_addresses.next() => match reachable_address {
                         // The stream was empty, meaning we failed to ping any address
-                        None => Some(false),
+                        None => Some(Err(glib::Error::new(
+                            IOErrorEnum::NotFound,
+                            &format!("Target {target} had no reachable addresses")
+                        ))),
                         Some(address) => {
                             // Cache the first reachable address we get for the next ping.
                             state.replace(Some(address));
-                            Some(true)
+                            Some(Ok(()))
                         },
                     },
-                    _ = glib::timeout_future(interval).fuse() => Some(false),
+                    _ = glib::timeout_future(interval).fuse() => Some(Err(
+                        glib::Error::new(IOErrorEnum::TimedOut, &format!("No response received from {target} after {}s", interval.as_secs()))
+                    )),
                 }
             }
         })

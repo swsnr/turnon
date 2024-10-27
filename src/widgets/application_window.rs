@@ -165,8 +165,11 @@ mod imp {
                 row,
                 #[upgrade_or]
                 futures_util::future::err(()),
-                move |is_online| {
-                    row.set_is_device_online(is_online);
+                move |result| {
+                    if let Err(error) = &result {
+                        log::trace!("Device {} not reachable: {error}", row.device().label());
+                    }
+                    row.set_is_device_online(result.is_ok());
                     futures_util::future::ok(())
                 }
             )));
