@@ -26,16 +26,6 @@ criteria = "safe-to-run"
 version = "2.3.1"
 criteria = "safe-to-run"
 
-[[exemptions.block]]
-version = "0.1.6"
-criteria = "safe-to-run"
-suggest = false
-notes = "Only used by objc-foundation which in turn is only used on macOS by gettext-rs and thus does not apply to Turn On"
-
-[[exemptions.cc]]
-version = "1.1.31"
-criteria = "safe-to-run"
-
 [[exemptions.concurrent-queue]]
 version = "2.5.0"
 criteria = "safe-to-run"
@@ -47,24 +37,6 @@ criteria = "safe-to-run"
 [[exemptions.event-listener-strategy]]
 version = "0.5.2"
 criteria = "safe-to-run"
-
-[[exemptions.objc]]
-version = "0.2.7"
-criteria = "safe-to-run"
-suggest = false
-notes = "Only used by gettext-rs on macOS targets which does not apply to Turn On"
-
-[[exemptions.objc-foundation]]
-version = "0.1.1"
-criteria = "safe-to-run"
-suggest = false
-notes = "Only used by gettext-rs on macOS targets which does not apply to Turn On"
-
-[[exemptions.objc_id]]
-version = "0.1.1"
-criteria = "safe-to-run"
-suggest = false
-notes = "Only used by objc-foundation which in turn is only used on macOS by gettext-rs and thus does not apply to Turn On"
 
 [[exemptions.parking]]
 version = "2.2.1"
@@ -84,12 +56,6 @@ criteria = "safe-to-run"
 suggest = false
 notes = "Do not self-certify my own crate"
 
-[[exemptions.temp-dir]]
-version = "0.1.14"
-criteria = "safe-to-run"
-suggest = false
-notes = "Comes in via gettext-sys, perhaps we can get rid of it, see https://github.com/gettext-rs/gettext-rs/pull/130"
-
 [[exemptions.value-bag]]
 version = "1.9.0"
 criteria = "safe-to-run"
@@ -97,15 +63,3 @@ criteria = "safe-to-run"
 [[exemptions.version-compare]]
 version = "0.2.0"
 criteria = "safe-to-run"
-
-[[exemptions.winapi-i686-pc-windows-gnu]]
-version = "0.4.0"
-criteria = "safe-to-run"
-suggest = false
-notes = "winapi is only used by gettext-rs on Windows which does not apply to Turn On"
-
-[[exemptions.winapi-x86_64-pc-windows-gnu]]
-version = "0.4.0"
-criteria = "safe-to-run"
-suggest = false
-notes = "winapi is only used by gettext-rs on Windows which does not apply to Turn On"

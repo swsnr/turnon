@@ -73,8 +73,7 @@ mod imp {
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
-    use gettextrs::pgettext;
-    use glib::{OptionArg, OptionFlags};
+    use glib::{dpgettext2, OptionArg, OptionFlags};
     use gtk::gio::RegistrationId;
 
     use crate::model::{Device, Devices};
@@ -137,7 +136,7 @@ mod imp {
                 0.into(),
                 OptionFlags::NONE,
                 OptionArg::None,
-                &pgettext("option.add-device.description", "Add a new device"),
+                &dpgettext2(None, "option.add-device.description", "Add a new device"),
                 None,
             );
             app.add_main_option(
@@ -145,11 +144,16 @@ mod imp {
                 0.into(),
                 OptionFlags::NONE,
                 OptionArg::String,
-                &pgettext(
+                &dpgettext2(
+                    None,
                     "option.turn-on-device.description",
                     "Turn on a device by its label",
                 ),
-                Some(&pgettext("option.turn-on-device.arg.description", "LABEL")),
+                Some(&dpgettext2(
+                    None,
+                    "option.turn-on-device.arg.description",
+                    "LABEL",
+                )),
             )
         }
     }
@@ -246,7 +250,8 @@ mod imp {
                                         command_line
                                             .set_exit_status(glib::ExitCode::SUCCESS.value());
                                         command_line.print_literal(
-                                            &pgettext(
+                                            &dpgettext2(
+                                                None,
                                                 "option.turn-on-device.message",
                                                 "Sent magic packet to mac address %1 of device %2\n",
                                             )
@@ -256,7 +261,8 @@ mod imp {
                                     }
                                     Err(error) => {
                                         command_line.printerr_literal(
-                                            &pgettext(
+                                            &dpgettext2(
+                                                None,
                                                 "option.turn-on-device.error",
                                                 "Failed to turn on device %1: %2\n",
                                             )
@@ -274,7 +280,8 @@ mod imp {
                     }
                     None => {
                         command_line.printerr_literal(
-                            &pgettext(
+                            &dpgettext2(
+                                None,
                                 "option.turn-on-device.error",
                                 "No device found for label %s\n",
                             )
