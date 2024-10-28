@@ -6,4 +6,5 @@
 
 //! DBus interface definitions and helpers.
 
+pub mod invocation;
 pub mod searchprovider2;

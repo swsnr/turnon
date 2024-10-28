@@ -12,6 +12,7 @@ use gtk::gio::{DBusMethodInvocation, Notification, NotificationPriority, Registr
 use gtk::prelude::*;
 
 use crate::app::TurnOnApplication;
+use crate::dbus::invocation::DBusMethodInvocationExt;
 use crate::dbus::searchprovider2::{self, ActivateResult, GetResultMetas, MethodCall};
 use crate::model::{Device, Devices};
 
@@ -170,16 +171,7 @@ fn handle_search_provider_method_call(
     invocation: DBusMethodInvocation,
 ) {
     let call = searchprovider2::MethodCall::parse(method_name, parameters);
-    glib::spawn_future_local(async move {
-        let result = match call {
-            Ok(call) => dispatch_method_call(app, call).await,
-            Err(error) => Err(error),
-        };
-        match result {
-            Ok(value) => invocation.return_value(value.as_ref()),
-            Err(error) => invocation.return_gerror(error),
-        }
-    });
+    invocation.return_future_local(async move { dispatch_method_call(app, call?).await });
 }
 
 /// Register the Turn On search provider for `app`.
