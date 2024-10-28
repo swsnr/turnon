@@ -60,7 +60,7 @@ mod imp {
     use adw::subclass::prelude::*;
     use adw::{prelude::*, ToastOverlay};
     use futures_util::{stream, StreamExt, TryStreamExt};
-    use gettextrs::pgettext;
+    use glib::dpgettext2;
     use gtk::glib::subclass::InitializingObject;
     use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
@@ -104,7 +104,8 @@ mod imp {
             // Notify the user that we're about to send the magic packet to the target device
             let toast_sending = adw::Toast::builder()
                 .title(
-                    pgettext(
+                    dpgettext2(
+                        None,
                         "application-window.feedback.toast",
                         "Sending magic packet to device %s",
                     )
@@ -126,7 +127,8 @@ mod imp {
 
                             let toast = adw::Toast::builder()
                                 .title(
-                                    pgettext(
+                                    dpgettext2(
+                                        None,
                                         "application-window.feedback.toast",
                                         "Sent magic packet to device %s",
                                     )
@@ -140,7 +142,8 @@ mod imp {
                             toast_sending.inspect(|t| t.dismiss());
                             let toast = adw::Toast::builder()
                                 .title(
-                                    pgettext(
+                                    dpgettext2(
+                                        None,
                                         "application-window.feedback.toast",
                                         "Failed to send magic packet to device %s",
                                     )

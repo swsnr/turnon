@@ -6,8 +6,10 @@
 
 use std::path::PathBuf;
 
+use glib::{gstr, GStr};
+
 /// The app ID to use.
-pub static APP_ID: &str = "de.swsnr.turnon";
+pub static APP_ID: &GStr = gstr!("de.swsnr.turnon");
 
 /// Whether the app is running in flatpak.
 fn running_in_flatpak() -> bool {
