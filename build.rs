@@ -4,7 +4,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 /// Compile all blueprint files.
 fn compile_blueprint() {
@@ -36,52 +36,29 @@ fn compile_blueprint() {
     );
 }
 
-fn msgfmt_desktop() {
-    let desktop_file = "de.swsnr.turnon.desktop.in";
-    println!("cargo:rerun-if-changed={}", desktop_file);
+/// Run `msgfmt` over a template file to merge translations with the template.
+fn msgfmt_template<P: AsRef<Path>>(template: P) {
+    let target = template.as_ref().with_extension("");
+    println!("cargo:rerun-if-changed={}", template.as_ref().display());
+
+    let mode = match target.extension().and_then(|e| e.to_str()) {
+        Some("desktop") => "--desktop",
+        Some("xml") => "--xml",
+        other => panic!("Unsupported template extension: {:?}", other),
+    };
 
     let output = std::process::Command::new("msgfmt")
-        .args([
-            "--desktop",
-            "--template",
-            desktop_file,
-            "-d",
-            "po",
-            "--output",
-            "de.swsnr.turnon.desktop",
-        ])
+        .args([mode, "--template"])
+        .arg(template.as_ref())
+        .args(["-d", "po", "--output"])
+        .arg(target)
         .output()
         .unwrap();
 
     assert!(
         output.status.success(),
-        "msgfmt failed with exit status {} and stdout\n{}\n\n and stderr:\n{}",
-        output.status,
-        String::from_utf8_lossy(&output.stdout),
-        String::from_utf8_lossy(&output.stderr)
-    );
-}
-
-fn msgfmt_metainfo() {
-    let metainfo_file = "resources/de.swsnr.turnon.metainfo.xml.in";
-    println!("cargo:rerun-if-changed={}", metainfo_file);
-
-    let output = std::process::Command::new("msgfmt")
-        .args([
-            "--xml",
-            "--template",
-            metainfo_file,
-            "-d",
-            "po",
-            "--output",
-            "resources/de.swsnr.turnon.metainfo.xml",
-        ])
-        .output()
-        .unwrap();
-
-    assert!(
-        output.status.success(),
-        "msgfmt failed with exit status {} and stdout\n{}\n\n and stderr:\n{}",
+        "msgfmt of {} failed with exit status {} and stdout\n{}\n\n and stderr:\n{}",
+        template.as_ref().display(),
         output.status,
         String::from_utf8_lossy(&output.stdout),
         String::from_utf8_lossy(&output.stderr)
@@ -104,16 +81,18 @@ fn msgfmt() {
         .output()
         .is_ok_and(|output| output.status.success());
 
+    let templates = [
+        "resources/de.swsnr.turnon.metainfo.xml.in",
+        "de.swsnr.turnon.desktop.in",
+    ];
     if msgfmt_exists {
-        msgfmt_desktop();
-        msgfmt_metainfo();
+        for file in templates {
+            msgfmt_template(file);
+        }
     } else {
         println!("cargo::warning=msgfmt not found; using untranslated desktop and metainfo file.");
-        for file in [
-            "resources/de.swsnr.turnon.metainfo.xml",
-            "de.swsnr.turnon.desktop",
-        ] {
-            std::fs::copy(format!("{file}.in"), file).unwrap();
+        for file in templates {
+            std::fs::copy(file, Path::new(file).with_extension("")).unwrap();
         }
     }
 }
