@@ -21,10 +21,8 @@ use futures_util::stream::FuturesUnordered;
 use futures_util::{future, select_biased, FutureExt, Stream, StreamExt, TryFutureExt};
 use glib::IOCondition;
 use gtk::gio::prelude::{ResolverExt, SocketExt, SocketExtManual};
-use gtk::gio::InetAddressBytes;
 use gtk::gio::{self, IOErrorEnum};
 use gtk::gio::{Cancellable, InetAddress};
-use gtk::prelude::{InetAddressExt, InetAddressExtManual};
 use macaddr::MacAddr6;
 use socket2::*;
 
@@ -76,18 +74,6 @@ impl Display for Target {
             Target::Dns(host) => host.fmt(f),
             Target::Addr(ip_addr) => ip_addr.fmt(f),
         }
-    }
-}
-
-/// Convert a GIO inet address to Rust.
-///
-/// We deliberately do not use the From impl from gtk-rs-core, because it's
-/// broken, see <https://github.com/gtk-rs/gtk-rs-core/issues/1535>.
-fn to_rust(address: InetAddress) -> IpAddr {
-    match address.to_bytes() {
-        Some(InetAddressBytes::V4(bytes)) => IpAddr::from(*bytes),
-        Some(InetAddressBytes::V6(bytes)) => IpAddr::from(*bytes),
-        None => panic!("Unsupported address family: {:?}", address.family()),
     }
 }
 
@@ -202,7 +188,7 @@ fn to_rust_addresses(
                 "No addresses found",
             ))
         } else {
-            Ok(addresses.into_iter().map(to_rust).collect())
+            Ok(addresses.into_iter().map(Into::into).collect())
         }
     })
 }
@@ -335,28 +321,9 @@ pub async fn wol(mac_address: MacAddr6) -> Result<(), glib::Error> {
 
 #[cfg(test)]
 mod tests {
-    use std::net::IpAddr;
-
-    use gtk::gio;
     use macaddr::MacAddr6;
 
-    use crate::net::{to_rust, write_magic_packet};
-
-    #[test]
-    fn test_ipv6_to_rust() {
-        let rust_addr = "2606:50c0:8000::153".parse::<IpAddr>().unwrap();
-        assert!(rust_addr.is_ipv6());
-        let gio_addr = gio::InetAddress::from(rust_addr);
-        assert_eq!(rust_addr, to_rust(gio_addr));
-    }
-
-    #[test]
-    fn test_ipv4_to_rust() {
-        let rust_addr = "185.199.108.153".parse::<IpAddr>().unwrap();
-        assert!(rust_addr.is_ipv4());
-        let gio_addr = gio::InetAddress::from(rust_addr);
-        assert_eq!(rust_addr, to_rust(gio_addr));
-    }
+    use crate::net::write_magic_packet;
 
     #[test]
     fn test_write_magic_packet() {
