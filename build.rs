@@ -16,6 +16,11 @@ fn compile_blueprint() {
         println!("cargo:rerun-if-changed={}", blueprint_file.display());
     }
 
+    if let Some("1") | Some("true") = std::env::var("SKIP_BLUEPRINT").ok().as_deref() {
+        println!("cargo::warning=Skipping blueprint compilation, falling back to committed files.");
+        return;
+    }
+
     let output = std::process::Command::new("blueprint-compiler")
         .args(["batch-compile", "resources", "resources"])
         .args(&blueprint_files)
@@ -114,14 +119,9 @@ fn msgfmt() {
 }
 
 fn main() {
-    if let Some("1") | Some("true") = std::env::var("SKIP_BLUEPRINT").ok().as_deref() {
-        println!("cargo::warning=Skipping blueprint compilation, falling back to committed files.");
-    } else {
-        // Since blueprint generates UI files for glib resources, we must compile
-        // blueprint files before compiling resources!
-        compile_blueprint();
-    }
-
+    // Compile blueprints and msgfmt our metainfo template first, as these are
+    // inputs to resource compilation.
+    compile_blueprint();
     msgfmt();
 
     glib_build_tools::compile_resources(
