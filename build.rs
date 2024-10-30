@@ -4,7 +4,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use std::path::{Path, PathBuf};
+use std::{
+    path::{Path, PathBuf},
+    process::Command,
+};
 
 /// Compile all blueprint files.
 fn compile_blueprint() {
@@ -21,7 +24,7 @@ fn compile_blueprint() {
         return;
     }
 
-    let output = std::process::Command::new("blueprint-compiler")
+    let output = Command::new("blueprint-compiler")
         .args(["batch-compile", "resources", "resources"])
         .args(&blueprint_files)
         .output()
@@ -47,7 +50,7 @@ fn msgfmt_template<P: AsRef<Path>>(template: P) {
         other => panic!("Unsupported template extension: {:?}", other),
     };
 
-    let output = std::process::Command::new("msgfmt")
+    let output = Command::new("msgfmt")
         .args([mode, "--template"])
         .arg(template.as_ref())
         .args(["-d", "po", "--output"])
@@ -76,7 +79,7 @@ fn msgfmt() {
     }
     println!("cargo:rerun-if-changed=po/LINGUAS");
 
-    let msgfmt_exists = std::process::Command::new("msgfmt")
+    let msgfmt_exists = Command::new("msgfmt")
         .arg("--version")
         .output()
         .is_ok_and(|output| output.status.success());
@@ -97,13 +100,66 @@ fn msgfmt() {
     }
 }
 
+pub fn compile_resources<P: AsRef<Path>>(source_dirs: &[P], gresource: &str, target: &str) {
+    let out_dir = std::env::var("OUT_DIR").unwrap();
+    let out_dir = Path::new(&out_dir);
+
+    let mut command = Command::new("glib-compile-resources");
+
+    for source_dir in source_dirs {
+        command.arg("--sourcedir").arg(source_dir.as_ref());
+    }
+
+    let output = command
+        .arg("--target")
+        .arg(out_dir.join(target))
+        .arg(gresource)
+        .output()
+        .unwrap();
+
+    assert!(
+        output.status.success(),
+        "glib-compile-resources failed with exit status {} and stderr:\n{}",
+        output.status,
+        String::from_utf8_lossy(&output.stderr)
+    );
+
+    println!("cargo:rerun-if-changed={gresource}");
+    let mut command = Command::new("glib-compile-resources");
+
+    for source_dir in source_dirs {
+        command.arg("--sourcedir").arg(source_dir.as_ref());
+    }
+
+    let output = command
+        .arg("--generate-dependencies")
+        .arg(gresource)
+        .output()
+        .unwrap()
+        .stdout;
+    for line in String::from_utf8(output).unwrap().lines() {
+        let dep = Path::new(line);
+        if let Some("ui") = dep.extension().and_then(|e| e.to_str()) {
+            // We build UI files from blueprint, so adapt the dependency
+            println!(
+                "cargo:rerun-if-changed={}",
+                dep.with_extension("blp").display()
+            );
+        } else if line.ends_with(".metainfo.xml") {
+            // We build the metainfo file from the template
+            println!("cargo:rerun-if-changed={line}.in",);
+        } else {
+            println!("cargo:rerun-if-changed={line}",);
+        }
+    }
+}
+
 fn main() {
     // Compile blueprints and msgfmt our metainfo template first, as these are
     // inputs to resource compilation.
     compile_blueprint();
     msgfmt();
-
-    glib_build_tools::compile_resources(
+    compile_resources(
         &["resources"],
         "resources/resources.gresource.xml",
         "turnon.gresource",
