@@ -78,7 +78,7 @@ notes = "Trusted by mozilla"
 
 [[trusted.errno]]
 criteria = "safe-to-run"
-user-id = 6825 # Dan Gohman (sunfishcode)
+user-id = 6825
 start = "2023-08-29"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
@@ -288,7 +288,7 @@ notes = "Trusted by mozilla"
 
 [[trusted.linux-raw-sys]]
 criteria = "safe-to-run"
-user-id = 6825 # Dan Gohman (sunfishcode)
+user-id = 6825
 start = "2021-06-12"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
@@ -344,7 +344,7 @@ notes = "Trusted by mozilla"
 
 [[trusted.rustix]]
 criteria = "safe-to-run"
-user-id = 6825 # Dan Gohman (sunfishcode)
+user-id = 6825
 start = "2021-10-29"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
@@ -386,7 +386,7 @@ notes = "Trusted by mozilla"
 
 [[trusted.target-lexicon]]
 criteria = "safe-to-run"
-user-id = 6825 # Dan Gohman (sunfishcode)
+user-id = 6825
 start = "2019-03-06"
 end = "2025-10-26"
 notes = "Trusted by mozilla"

@@ -13,6 +13,8 @@ use async_channel::{Receiver, Sender};
 use macaddr::MacAddr6;
 use serde::{Deserialize, Serialize};
 
+use crate::config::G_LOG_DOMAIN;
+
 /// A stored device.
 ///
 /// Like [`model::Device`], but for serialization.
@@ -79,19 +81,19 @@ async fn handle_save_requests(data_file: PathBuf, rx: Receiver<Vec<StoredDevice>
                         resume_unwind(payload);
                     }
                     Ok(Err(error)) => {
-                        log::error!(
+                        glib::error!(
                             "Failed to save devices to {}: {}",
                             data_file.display(),
                             error
                         );
                     }
                     Ok(Ok(_)) => {
-                        log::info!("Saved devices to {}", data_file.display());
+                        glib::info!("Saved devices to {}", data_file.display());
                     }
                 }
             }
             Err(_) => {
-                log::warn!("Channel closed");
+                glib::warn!("Channel closed");
                 break;
             }
         }

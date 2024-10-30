@@ -11,6 +11,7 @@ use gtk::gio;
 use gtk::gio::ActionEntry;
 use gtk::glib;
 
+use crate::config::G_LOG_DOMAIN;
 use crate::model::Devices;
 
 use super::EditDeviceDialog;
@@ -40,7 +41,7 @@ impl TurnOnApplicationWindow {
                     #[weak]
                     window,
                     move |_, device| {
-                        log::debug!("Adding new device: {:?}", device.imp());
+                        glib::debug!("Adding new device: {:?}", device.imp());
                         window.devices().add_device(device);
                     }
                 ));
@@ -65,6 +66,7 @@ mod imp {
     use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
 
+    use crate::config::G_LOG_DOMAIN;
     use crate::model::{Device, Devices};
     use crate::net;
     use crate::widgets::device_row::DeviceRow;
@@ -170,7 +172,7 @@ mod imp {
                 futures_util::future::err(()),
                 move |result| {
                     if let Err(error) = &result {
-                        log::trace!("Device {} not reachable: {error}", row.device().label());
+                        glib::trace!("Device {} not reachable: {error}", row.device().label());
                     }
                     row.set_is_device_online(result.is_ok());
                     futures_util::future::ok(())
@@ -201,7 +203,7 @@ mod imp {
                 #[strong(rename_to=window)]
                 self.obj(),
                 move |_, device| {
-                    log::info!("Deleting device {}", device.label());
+                    glib::info!("Deleting device {}", device.label());
                     window.devices().delete_device(device);
                 }
             ));

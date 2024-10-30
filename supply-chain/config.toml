@@ -50,16 +50,6 @@ criteria = "safe-to-run"
 version = "7.0.2"
 criteria = "safe-to-run"
 
-[[exemptions.systemd-journal-logger]]
-version = "2.1.1"
-criteria = "safe-to-run"
-suggest = false
-notes = "Do not self-certify my own crate"
-
-[[exemptions.value-bag]]
-version = "1.9.0"
-criteria = "safe-to-run"
-
 [[exemptions.version-compare]]
 version = "0.2.0"
 criteria = "safe-to-run"

@@ -42,13 +42,6 @@ user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
 
-[[publisher.errno]]
-version = "0.3.9"
-when = "2024-05-08"
-user-id = 6825
-user-login = "sunfishcode"
-user-name = "Dan Gohman"
-
 [[publisher.gdk-pixbuf]]
 version = "0.20.4"
 when = "2024-09-26"
@@ -203,13 +196,6 @@ user-id = 51017
 user-login = "JohnTitor"
 user-name = "Yuki Okushi"
 
-[[publisher.linux-raw-sys]]
-version = "0.4.14"
-when = "2024-05-17"
-user-id = 6825
-user-login = "sunfishcode"
-user-name = "Dan Gohman"
-
 [[publisher.memchr]]
 version = "2.7.4"
 when = "2024-06-14"
@@ -258,13 +244,6 @@ when = "2024-09-29"
 user-id = 189
 user-login = "BurntSushi"
 user-name = "Andrew Gallant"
-
-[[publisher.rustix]]
-version = "0.38.37"
-when = "2024-09-11"
-user-id = 6825
-user-login = "sunfishcode"
-user-name = "Dan Gohman"
 
 [[publisher.ryu]]
 version = "1.0.18"

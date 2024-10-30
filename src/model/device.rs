@@ -11,6 +11,7 @@ use gtk::gio::IOErrorEnum;
 use gtk::glib;
 use macaddr::MacAddr6;
 
+use crate::config::G_LOG_DOMAIN;
 use crate::net::wol;
 use crate::storage::StoredDevice;
 
@@ -41,7 +42,7 @@ impl Device {
     /// Send the magic packet to this device.
     pub async fn wol(&self) -> Result<(), glib::Error> {
         let mac_address = self.mac_addr6();
-        log::info!(
+        glib::info!(
             "Sending magic packet for mac address {mac_address} of device {}",
             self.label()
         );
@@ -55,13 +56,13 @@ impl Device {
         };
         result
             .inspect(|_| {
-                log::info!(
+                glib::info!(
                     "Sent magic packet to {mac_address} of device {}",
                     self.label()
                 );
             })
             .inspect_err(|error| {
-                log::warn!(
+                glib::warn!(
                     "Failed to send magic packet to {mac_address} of device{}: {error}",
                     self.label()
                 );

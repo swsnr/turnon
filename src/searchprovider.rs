@@ -11,6 +11,7 @@ use gtk::gio::{DBusMethodInvocation, Notification, NotificationPriority, Registr
 use gtk::prelude::*;
 
 use crate::app::TurnOnApplication;
+use crate::config::G_LOG_DOMAIN;
 use crate::dbus::invocation::DBusMethodInvocationExt;
 use crate::dbus::searchprovider2::{self, ActivateResult, GetResultMetas, MethodCall};
 use crate::model::{Device, Devices};
@@ -51,14 +52,14 @@ async fn activate_result(
         .parse::<usize>()
         .ok()
         .and_then(|n| app.model().get(n));
-    log::trace!(
+    glib::trace!(
         "Activating device at index {}, device found? {}",
         call.identifier,
         device.is_some()
     );
     match device {
         None => {
-            log::warn!("Failed to find device with id {}", call.identifier);
+            glib::warn!("Failed to find device with id {}", call.identifier);
             Ok(None)
         }
         Some(device) => device
@@ -144,11 +145,11 @@ async fn dispatch_method_call(
     use MethodCall::*;
     match call {
         GetInitialResultSet(c) => {
-            log::trace!("Initial search for terms {:?}", c.terms);
+            glib::trace!("Initial search for terms {:?}", c.terms);
             Ok(Some(get_result_set(&app, c.terms.as_slice())))
         }
         GetSubsearchResultSet(c) => {
-            log::trace!(
+            glib::trace!(
                 "Sub-search for terms {:?}, with initial results {:?}",
                 c.terms,
                 c.previous_results
@@ -159,7 +160,7 @@ async fn dispatch_method_call(
         GetResultMetas(c) => Ok(get_result_metas(&app, c)),
         ActivateResult(c) => activate_result(&app, c).await,
         LaunchSearch(c) => {
-            log::debug!("Launching search for terms {:?}", &c.terms);
+            glib::debug!("Launching search for terms {:?}", &c.terms);
             // We don't have in-app search (yet?) so let's just raise our main window
             app.activate();
             Ok(None)
@@ -191,7 +192,7 @@ pub fn register_app_search_provider(app: TurnOnApplication) -> Option<Registrati
                 #[strong]
                 app,
                 move |_, sender, object_path, interface_name, method_name, parameters, invocation| {
-                    log::debug!("Sender {sender} called method {method_name} of {interface_name} on object {object_path}");
+                    glib::debug!("Sender {sender} called method {method_name} of {interface_name} on object {object_path}");
                     assert!(interface_name == searchprovider2::INTERFACE_NAME);
                     handle_search_provider_method_call(
                         app.clone(),

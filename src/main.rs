@@ -23,41 +23,24 @@ mod searchprovider;
 mod storage;
 mod widgets;
 
-/// Set up logging.
-///
-/// If the process is connected to journald log structured events directly to journald.
-///
-/// Otherwise log to console.
-///
-/// `$TURNON_LOG` and `$TURNON_LOG_STYLE` configure log level and log style (for console logging)
-fn setup_logging() {
-    let env_var = "TURNON_LOG";
-    let default_level = log::LevelFilter::Info;
-    if systemd_journal_logger::connected_to_journal() {
-        let logger = systemd_journal_logger::JournalLog::new()
-            .unwrap()
-            .with_extra_fields([("VERSION", env!("CARGO_PKG_VERSION"))]);
-        let filter = env_filter::Builder::from_env(env_var)
-            .filter_level(default_level)
-            .build();
-        let max_level = filter.filter();
-        log::set_boxed_logger(Box::new(env_filter::FilteredLog::new(logger, filter))).unwrap();
-        log::set_max_level(max_level);
-    } else {
-        env_logger::Builder::new()
-            .filter_level(default_level)
-            .parse_env(env_var)
-            .init();
-    }
-    glib::log_set_default_handler(glib::rust_log_handler);
-}
+use config::G_LOG_DOMAIN;
 
 fn main() -> glib::ExitCode {
-    setup_logging();
+    let max_level = if std::env::var_os("G_MESSAGES_DEBUG").is_some() {
+        log::LevelFilter::Trace
+    } else {
+        log::LevelFilter::Warn
+    };
+    static GLIB_LOGGER: glib::GlibLogger = glib::GlibLogger::new(
+        glib::GlibLoggerFormat::Structured,
+        glib::GlibLoggerDomain::CrateTarget,
+    );
+    log::set_max_level(max_level);
+    log::set_logger(&GLIB_LOGGER).unwrap();
 
     use gettext::*;
     let locale_dir = config::locale_directory();
-    log::debug!(
+    glib::debug!(
         "Initializing gettext with locale directory {}",
         locale_dir.display()
     );

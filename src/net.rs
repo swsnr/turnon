@@ -26,6 +26,8 @@ use gtk::gio::{Cancellable, InetAddress};
 use macaddr::MacAddr6;
 use socket2::*;
 
+use crate::config::G_LOG_DOMAIN;
+
 fn to_glib_error(error: std::io::Error) -> glib::Error {
     let io_error = error
         .raw_os_error()
@@ -82,7 +84,7 @@ impl Display for Target {
 /// Return an error if pinging `ip_address` failed, or if we received a non-reply
 /// response.
 async fn ping(ip_address: IpAddr, sequence_number: u16) -> Result<(), glib::Error> {
-    log::trace!("Sending ICMP echo request to {ip_address}");
+    glib::trace!("Sending ICMP echo request to {ip_address}");
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
         IpAddr::V6(_) => (Domain::IPV6, Protocol::ICMPV6),
@@ -211,7 +213,7 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = Result<
                 // If we get a reply from the IP address we'll cache it again after pinging it.
                 let addresses = match state.take() {
                     Some(address) => {
-                        log::trace!("Using cached IP address {address}");
+                        glib::trace!("Using cached IP address {address}");
                         future::ready(vec![address]).right_future()
                     }
                     // We don't have a cached IP address, so let's look at the target.
@@ -219,12 +221,12 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = Result<
                         Target::Addr(address) => future::ready(vec![address]).right_future(),
                         Target::Dns(ref host) => {
                             // The target is a DNS name so let's resolve it into a list of IP addresses.
-                            log::trace!("Resolving {host} to IP address");
+                            glib::trace!("Resolving {host} to IP address");
                             gio::Resolver::default()
                                 .lookup_by_name_future(host)
                                 .map(to_rust_addresses)
                                 .inspect_err(|error| {
-                                    log::trace!(
+                                    glib::trace!(
                                         "Failed to resolve {target} to an IP address: {error}"
                                     );
                                 })
@@ -243,11 +245,11 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = Result<
                     // Filter out all address which we can't ping or which don't reply
                     .filter_map(|(ip_address, result)| match result {
                         Ok(_) => {
-                            log::trace!("{ip_address} replied to ping");
+                            glib::trace!("{ip_address} replied to ping");
                             future::ready(Some(ip_address))
                         }
                         Err(error) => {
-                            log::trace!("Failed to ping {ip_address}: {error}");
+                            glib::trace!("Failed to ping {ip_address}: {error}");
                             future::ready(None)
                         }
                     });

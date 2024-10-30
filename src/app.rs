@@ -9,7 +9,7 @@ use adw::subclass::prelude::*;
 use glib::Object;
 use gtk::gio::{ActionEntry, ApplicationFlags};
 
-use crate::config::APP_ID;
+use crate::config::{APP_ID, G_LOG_DOMAIN};
 use crate::model::Devices;
 use crate::widgets::EditDeviceDialog;
 
@@ -31,7 +31,7 @@ impl TurnOnApplication {
                     let dialog = EditDeviceDialog::new();
                     let devices = app.imp().model().clone();
                     dialog.connect_saved(move |_, device| {
-                        log::debug!("Adding new device: {:?}", device.imp());
+                        glib::debug!("Adding new device: {:?}", device.imp());
                         devices.add_device(device);
                     });
                     dialog.present(app.active_window().as_ref());
@@ -76,6 +76,7 @@ mod imp {
     use glib::{dpgettext2, OptionArg, OptionFlags};
     use gtk::gio::RegistrationId;
 
+    use crate::config::G_LOG_DOMAIN;
     use crate::model::{Device, Devices};
     use crate::searchprovider::register_app_search_provider;
     use crate::storage::{StorageService, StorageServiceClient};
@@ -95,7 +96,7 @@ mod imp {
         fn save_automatically(&self, storage: StorageServiceClient) {
             self.model
                 .connect_items_changed(move |model, pos, _, n_added| {
-                    log::debug!("Device list changed, saving devices");
+                    glib::debug!("Device list changed, saving devices");
                     storage.request_save_devices(model.into());
                     // Persist devices whenever one device changes
                     for n in pos..n_added {
@@ -107,7 +108,7 @@ mod imp {
                                 #[weak]
                                 model,
                                 move |_, _| {
-                                    log::debug!("One device was changed, saving devices");
+                                    glib::debug!("One device was changed, saving devices");
                                     storage.request_save_devices((&model).into());
                                 }
                             ),
@@ -172,19 +173,19 @@ mod imp {
         fn startup(&self) {
             self.parent_startup();
             let app = self.obj();
-            log::debug!("Application starting");
+            glib::debug!("Application starting");
             gtk::Window::set_default_icon_name(super::APP_ID);
 
             app.setup_actions();
 
-            log::debug!("Initializing storage");
+            glib::debug!("Initializing storage");
             let data_dir = glib::user_data_dir().join(super::APP_ID);
             let storage = StorageService::new(data_dir.join("devices.json"));
 
-            log::info!("Loading devices synchronously");
+            glib::info!("Loading devices synchronously");
             let devices = match storage.load_sync() {
                 Err(error) => {
-                    log::error!(
+                    glib::error!(
                         "Failed to load devices from {}: {}",
                         storage.target().display(),
                         error
@@ -197,7 +198,7 @@ mod imp {
             self.save_automatically(storage.client());
             glib::spawn_future_local(storage.spawn());
 
-            log::info!("Registering search provider");
+            glib::info!("Registering search provider");
             self.registered_search_provider
                 .replace(register_app_search_provider(app.clone()));
         }
@@ -208,29 +209,29 @@ mod imp {
         /// new application window and presents it, if the application doesn't
         /// have an active window currently.
         fn activate(&self) {
-            log::debug!("Activating application");
+            glib::debug!("Activating application");
             self.parent_activate();
             let app: &super::TurnOnApplication = &self.obj();
             match app.active_window() {
                 Some(window) => {
-                    log::debug!("Representing existing application window");
+                    glib::debug!("Representing existing application window");
                     window.present()
                 }
                 None => {
-                    log::debug!("Creating new application window");
+                    glib::debug!("Creating new application window");
                     TurnOnApplicationWindow::new(app, &self.model).present();
                 }
             }
         }
 
         fn command_line(&self, command_line: &gtk::gio::ApplicationCommandLine) -> glib::ExitCode {
-            log::debug!(
+            glib::debug!(
                 "Handling command line. Remote? {}",
                 command_line.is_remote()
             );
             let options = command_line.options_dict();
             if let Ok(Some(true)) = options.lookup("add-device") {
-                log::debug!(
+                glib::debug!(
                     "Activating app.add-device action in response to command line argument"
                 );
                 // Activate application to show main window first
@@ -238,7 +239,7 @@ mod imp {
                 self.obj().activate_action("add-device", None);
                 glib::ExitCode::SUCCESS
             } else if let Ok(Some(label)) = options.lookup::<String>("turn-on-device") {
-                log::debug!("Turning on device in response to command line argument");
+                glib::debug!("Turning on device in response to command line argument");
                 match self.model.into_iter().find(|d| d.label() == label) {
                     Some(device) => {
                         glib::spawn_future_local(glib::clone!(
