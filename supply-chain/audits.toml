@@ -64,14 +64,14 @@ notes = "Trusted by mozilla"
 
 [[trusted.env_filter]]
 criteria = "safe-to-run"
-user-id = 6743 # Ed Page (epage)
+user-id = 6743
 start = "2024-01-19"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.env_logger]]
 criteria = "safe-to-run"
-user-id = 6743 # Ed Page (epage)
+user-id = 6743
 start = "2022-11-24"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
