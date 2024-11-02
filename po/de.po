@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-27 17:36+0100\n"
+"POT-Creation-Date: 2024-11-02 09:44+0100\n"
 "PO-Revision-Date: 2024-10-27 18:05+0100\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
 "Language-Team: German\n"
@@ -146,10 +146,6 @@ msgstr "Die Reihenfolge der Geräte kann nicht verändert werden."
 #: resources/de.swsnr.turnon.metainfo.xml.in:82
 msgid "Languages other than English are not supported"
 msgstr "Sprachen außer Englisch werden nicht unterstützt."
-
-#: resources/de.swsnr.turnon.metainfo.xml.in:90
-msgid "Sebastian Wiesner"
-msgstr "Sebastian Wiesner"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:95
 msgid "Two devices, one of them on, and the other off"
@@ -316,67 +312,67 @@ msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "Neues Gerät hinzufügen"
 
-#: src/app.rs:150
+#: src/app.rs:151
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr "Gerät anhand dessen Bezeichnung anschalten"
 
-#: src/app.rs:152
+#: src/app.rs:156
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr "BEZEICHNUNG"
 
-#: src/app.rs:251
+#: src/app.rs:257
 msgctxt "option.turn-on-device.message"
 msgid "Sent magic packet to mac address %1 of device %2\n"
 msgstr "Magisches Paket wurde an die MAC-Adresse %1 des Geräts %2 gesendet\n"
 
-#: src/app.rs:261
+#: src/app.rs:268
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
 msgstr "Gerät %1 konnte nicht angeschaltet werden: %2\n"
 
-#: src/app.rs:279
+#: src/app.rs:287
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
 msgstr "Kein Gerät mit der Bezeichnung %s gefunden\n"
 
-#: src/searchprovider.rs:70
+#: src/searchprovider.rs:72
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
 msgstr "Magisches Paket konnte nicht gesendet werden"
 
-#: src/searchprovider.rs:75
+#: src/searchprovider.rs:78
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr ""
 "Magisches Paket konnte nicht an die MAC-Adresse %1 des Geräts %2 gesendet "
 "werden."
 
-#: src/searchprovider.rs:86
+#: src/searchprovider.rs:90
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
 msgstr "Magisches Paket wurde gesendet"
 
-#: src/searchprovider.rs:91
+#: src/searchprovider.rs:96
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
 msgstr "Magisches Paket wurde an die MAC-Adresse %1 des Geräts %2 gesendet."
 
-#: src/widgets/application_window.rs:109
+#: src/widgets/application_window.rs:112
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
 msgstr "Magisches Paket wird an Gerät %s gesendet"
 
-#: src/widgets/application_window.rs:131
+#: src/widgets/application_window.rs:135
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr "Magisches Paket wurde an Gerät %s gesendet"
 
-#: src/widgets/application_window.rs:145
+#: src/widgets/application_window.rs:150
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"

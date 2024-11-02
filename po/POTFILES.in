@@ -8,8 +8,10 @@
 ./resources/ui/validation-indicator.blp
 ./src/app.rs
 ./src/config.rs
+./src/dbus/invocation.rs
 ./src/dbus.rs
 ./src/dbus/searchprovider2.rs
+./src/gettext.rs
 ./src/main.rs
 ./src/model/device.rs
 ./src/model/devices.rs
@@ -22,5 +24,3 @@
 ./src/widgets/edit_device_dialog.rs
 ./src/widgets.rs
 ./src/widgets/validation_indicator.rs
-./target/debug/build/target-lexicon-ca7dffa0df8208c7/out/host.rs
-./target/release/build/target-lexicon-e24a0417730c2135/out/host.rs
