@@ -23,10 +23,6 @@ pot:
 .PHONY: messages
 messages: pot $(CATALOGS)
 
-po/*.po: po/de.swsnr.turnon.pot
-	msgmerge --update --backup=none --sort-by-file --previous \
-		--lang=$(notdir $(basename $@)) $@ $<
-
 po/%.mo: po/%.po
 	msgfmt --output-file $@ --check $<
 
