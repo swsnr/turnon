@@ -77,9 +77,9 @@
                 </ul>
                 <p>This release is missing the following features:</p>
                 <ul>
-                    <li>Devices can not be edited or removed</li>
-                    <li>The order of devices cannot be changed</li>
-                    <li>Languages other than English are not supported</li>
+                    <li>Devices can not be edited or removed.</li>
+                    <li>The order of devices cannot be changed.</li>
+                    <li>Languages other than English are not supported.</li>
                 </ul>
             </description>
             <url>https://github.com/swsnr/turnon/releases/tag/v0.1.0</url>
