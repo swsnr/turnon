@@ -87,7 +87,7 @@
     </releases>
     <project_license>MPL-2.0</project_license>
     <developer id="de.swsnr">
-        <name translatable="no">Sebastian Wiesner</name>
+        <name translate="no">Sebastian Wiesner</name>
     </developer>
     <screenshots>
         <screenshot type="default">
