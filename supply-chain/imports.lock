@@ -9,8 +9,8 @@ user-login = "cuviper"
 user-name = "Josh Stone"
 
 [[publisher.cairo-rs]]
-version = "0.20.1"
-when = "2024-08-12"
+version = "0.20.5"
+when = "2024-10-30"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -43,18 +43,18 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4]]
-version = "0.9.2"
-when = "2024-09-26"
-user-id = 3623
-user-login = "sdroege"
-user-name = "Sebastian Dröge"
+version = "0.9.3"
+when = "2024-10-31"
+user-id = 54339
+user-login = "bilelmoussaoui"
+user-name = "Bilal Elmoussaoui"
 
 [[publisher.gdk4-sys]]
-version = "0.9.2"
-when = "2024-09-26"
-user-id = 3623
-user-login = "sdroege"
-user-name = "Sebastian Dröge"
+version = "0.9.3"
+when = "2024-10-31"
+user-id = 54339
+user-login = "bilelmoussaoui"
+user-name = "Bilal Elmoussaoui"
 
 [[publisher.gio]]
 version = "0.20.5"
@@ -113,25 +113,25 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gsk4]]
-version = "0.9.2"
-when = "2024-09-26"
-user-id = 3623
-user-login = "sdroege"
-user-name = "Sebastian Dröge"
+version = "0.9.3"
+when = "2024-10-31"
+user-id = 54339
+user-login = "bilelmoussaoui"
+user-name = "Bilal Elmoussaoui"
 
 [[publisher.gsk4-sys]]
-version = "0.9.2"
-when = "2024-09-26"
-user-id = 3623
-user-login = "sdroege"
-user-name = "Sebastian Dröge"
+version = "0.9.3"
+when = "2024-10-31"
+user-id = 54339
+user-login = "bilelmoussaoui"
+user-name = "Bilal Elmoussaoui"
 
 [[publisher.gtk4]]
-version = "0.9.2"
-when = "2024-09-26"
-user-id = 3623
-user-login = "sdroege"
-user-name = "Sebastian Dröge"
+version = "0.9.3"
+when = "2024-10-31"
+user-id = 54339
+user-login = "bilelmoussaoui"
+user-name = "Bilal Elmoussaoui"
 
 [[publisher.gtk4-macros]]
 version = "0.9.1"
@@ -141,11 +141,11 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gtk4-sys]]
-version = "0.9.2"
-when = "2024-09-26"
-user-id = 3623
-user-login = "sdroege"
-user-name = "Sebastian Dröge"
+version = "0.9.3"
+when = "2024-10-31"
+user-id = 54339
+user-login = "bilelmoussaoui"
+user-name = "Bilal Elmoussaoui"
 
 [[publisher.hashbrown]]
 version = "0.14.5"
@@ -162,15 +162,15 @@ user-login = "cuviper"
 user-name = "Josh Stone"
 
 [[publisher.libadwaita]]
-version = "0.7.0"
-when = "2024-07-10"
+version = "0.7.1"
+when = "2024-10-31"
 user-id = 54339
 user-login = "bilelmoussaoui"
 user-name = "Bilal Elmoussaoui"
 
 [[publisher.libadwaita-sys]]
-version = "0.7.0"
-when = "2024-07-10"
+version = "0.7.1"
+when = "2024-10-31"
 user-id = 54339
 user-login = "bilelmoussaoui"
 user-name = "Bilal Elmoussaoui"

@@ -230,6 +230,13 @@ start = "2022-01-15"
 end = "2025-10-26"
 notes = "Known Gnome developer"
 
+[[trusted.gtk4]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2025-11-02"
+notes = "Well-known Gnome developer"
+
 [[trusted.gtk4-macros]]
 criteria = "safe-to-run"
 user-id = 3623 # Sebastian Dröge (sdroege)
