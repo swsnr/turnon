@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-02 09:44+0100\n"
+"POT-Creation-Date: 2024-11-02 20:25+0100\n"
 "PO-Revision-Date: 2024-10-27 18:05+0100\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
 "Language-Team: German\n"
@@ -136,15 +136,21 @@ msgid "This release is missing the following features:"
 msgstr "In dieser Version fehlt folgende Funktionalität:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:80
-msgid "Devices can not be edited or removed"
+#, fuzzy
+#| msgid "Devices can not be edited or removed"
+msgid "Devices can not be edited or removed."
 msgstr "Geräte können weder bearbeitet noch entfernt werden."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:81
-msgid "The order of devices cannot be changed"
+#, fuzzy
+#| msgid "The order of devices cannot be changed"
+msgid "The order of devices cannot be changed."
 msgstr "Die Reihenfolge der Geräte kann nicht verändert werden."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:82
-msgid "Languages other than English are not supported"
+#, fuzzy
+#| msgid "Languages other than English are not supported"
+msgid "Languages other than English are not supported."
 msgstr "Sprachen außer Englisch werden nicht unterstützt."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:95
