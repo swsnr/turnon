@@ -2,19 +2,22 @@
 # Copyright (C) YEAR Sebastian Wiesner <sebastian@swsnr.de>
 # This file is distributed under the same license as the de.swsnr.turnon package.
 # ALBANO BATTISTELLA <ALBANOBATTISTELLA@GMAIL.COM>, 2024.
-#
+# swsnr <swsnr@users.noreply.translate.codeberg.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-02 20:25+0100\n"
-"PO-Revision-Date: 2024-10-28 14:55+0100\n"
-"Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
-"Language-Team: Italian <LL@li.org>\n"
+"PO-Revision-Date: 2024-11-02 19:47+0000\n"
+"Last-Translator: swsnr <swsnr@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.1\n"
 
 #: de.swsnr.turnon.desktop.in:3 resources/de.swsnr.turnon.metainfo.xml.in:5
 msgid "Turn On"
@@ -135,22 +138,16 @@ msgid "This release is missing the following features:"
 msgstr "Questa versione non include le seguenti funzionalità:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:80
-#, fuzzy
-#| msgid "Devices can not be edited or removed"
 msgid "Devices can not be edited or removed."
-msgstr "I dispositivi non possono essere modificati o rimossi"
+msgstr "I dispositivi non possono essere modificati o rimossi."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:81
-#, fuzzy
-#| msgid "The order of devices cannot be changed"
 msgid "The order of devices cannot be changed."
-msgstr "L'ordine dei dispositivi non può essere modificato"
+msgstr "L'ordine dei dispositivi non può essere modificato."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:82
-#, fuzzy
-#| msgid "Languages other than English are not supported"
 msgid "Languages other than English are not supported."
-msgstr "Non sono supportate lingue diverse dall'inglese"
+msgstr "Non sono supportate lingue diverse dall'inglese."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:95
 msgid "Two devices, one of them on, and the other off"
