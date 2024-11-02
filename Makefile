@@ -10,10 +10,11 @@ XGETTEXT_METADATA = \
 
 .PHONY: pot
 pot:
-	find -not -path '*/.*' -and '(' -name '*.rs' -or \
-		-name '*.desktop.in' -or \
-		-name '*.metainfo.xml.in' \
-		-or -name '*.blp' ')' | sort > po/POTFILES.in
+	find -not '(' -path '*/.*' -or -path './target/*' ')' -and \
+		'(' -name '*.rs' -or \
+			-name '*.desktop.in' -or \
+			-name '*.metainfo.xml.in' \
+			-or -name '*.blp' ')' | sort > po/POTFILES.in
 	xgettext $(XGETTEXT_METADATA) --files-from=po/POTFILES.in \
 		--add-comments \
 		--keyword=_ --keyword=C_:1c,2 --keyword=dpgettext2:2c,3 \
