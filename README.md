@@ -14,6 +14,10 @@ A small GNOME utility application to send Wake On LAN (WoL) magic packets to dev
 
 Alternatively, I provide a [binary package for Arch Linux](https://build.opensuse.org/project/show/home:swsnr:turnon).
 
+## Translations
+
+Please submit translations to <https://translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/>.
+
 ## License
 
 This Program is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at <http://mozilla.org/MPL/2.0/>.
