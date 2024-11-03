@@ -30,7 +30,7 @@
     <releases>
         <release version="next" date="9999-01-01">
             <description>
-                <p>Add Italian translation, and update German translation</p>
+                <p>Add Italian translation, and update German translation.</p>
             </description>
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>
