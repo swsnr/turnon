@@ -6,6 +6,11 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.15.8 -> 0.16.0"
 
+[[audits.cfg-expr]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.16.0 -> 0.17.0"
+
 [[audits.crossbeam-utils]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -17,6 +22,11 @@ criteria = "safe-to-run"
 version = "0.3.6"
 notes = "Very simple crate which doesn't interact with the underlying system at all."
 
+[[audits.futures-executor]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.3.28 -> 0.3.31"
+
 [[audits.macaddr]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -27,10 +37,21 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.9.0 -> 0.9.1"
 
+[[audits.pin-project-lite]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.2.14 -> 0.2.15"
+
 [[audits.system-deps]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 version = "7.0.2"
+
+[[audits.system-deps]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-deploy"
+delta = "7.0.2 -> 7.0.3"
+notes = "The diff just updates a dependency version, and does not involve a code change."
 
 [[trusted.aho-corasick]]
 criteria = "safe-to-run"
@@ -69,14 +90,14 @@ notes = "Trusted by mozilla"
 
 [[trusted.env_filter]]
 criteria = "safe-to-run"
-user-id = 6743
+user-id = 6743 # Ed Page (epage)
 start = "2024-01-19"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.env_logger]]
 criteria = "safe-to-run"
-user-id = 6743
+user-id = 6743 # Ed Page (epage)
 start = "2022-11-24"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
@@ -249,6 +270,13 @@ start = "2021-04-04"
 end = "2025-10-26"
 notes = "Known Gnome developer"
 
+[[trusted.gtk4-macros]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2025-11-03"
+notes = "Well-known Gnome developer"
+
 [[trusted.gtk4-sys]]
 criteria = "safe-to-run"
 user-id = 3623 # Sebastian Dröge (sdroege)
@@ -368,6 +396,13 @@ start = "2019-05-02"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
+[[trusted.serde_spanned]]
+criteria = "safe-to-run"
+user-id = 6743 # Ed Page (epage)
+start = "2023-01-20"
+end = "2025-11-03"
+notes = "Trusted by mozilla and bytecode-alliance"
+
 [[trusted.slab]]
 criteria = "safe-to-run"
 user-id = 6741 # Alice Ryhl (Darksonn)
@@ -389,6 +424,13 @@ start = "2019-05-06"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
+[[trusted.syn]]
+criteria = "safe-to-run"
+user-id = 3618 # David Tolnay (dtolnay)
+start = "2019-03-01"
+end = "2025-11-03"
+notes = "swsnr trusts dtolnay"
+
 [[trusted.target-lexicon]]
 criteria = "safe-to-run"
 user-id = 696 # Nick Fitzgerald (fitzgen)
@@ -402,6 +444,13 @@ user-id = 6825
 start = "2019-03-06"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
+
+[[trusted.toml_edit]]
+criteria = "safe-to-run"
+user-id = 6743 # Ed Page (epage)
+start = "2021-09-13"
+end = "2025-11-03"
+notes = "swsnr trusts epage"
 
 [[trusted.windows-sys]]
 criteria = "safe-to-run"
@@ -472,3 +521,10 @@ user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2021-10-27"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
+
+[[trusted.winnow]]
+criteria = "safe-to-run"
+user-id = 6743 # Ed Page (epage)
+start = "2023-02-22"
+end = "2025-11-03"
+notes = "Trusted by mozilla and bytecode-alliance"

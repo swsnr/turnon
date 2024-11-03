@@ -2,8 +2,8 @@
 # cargo-vet imports lock
 
 [[publisher.autocfg]]
-version = "1.3.0"
-when = "2024-05-03"
+version = "1.4.0"
+when = "2024-09-27"
 user-id = 539
 user-login = "cuviper"
 user-name = "Josh Stone"
@@ -134,11 +134,11 @@ user-login = "bilelmoussaoui"
 user-name = "Bilal Elmoussaoui"
 
 [[publisher.gtk4-macros]]
-version = "0.9.1"
-when = "2024-08-27"
-user-id = 3623
-user-login = "sdroege"
-user-name = "Sebastian Dröge"
+version = "0.9.3"
+when = "2024-10-31"
+user-id = 54339
+user-login = "bilelmoussaoui"
+user-name = "Bilal Elmoussaoui"
 
 [[publisher.gtk4-sys]]
 version = "0.9.3"
@@ -148,15 +148,15 @@ user-login = "bilelmoussaoui"
 user-name = "Bilal Elmoussaoui"
 
 [[publisher.hashbrown]]
-version = "0.14.5"
-when = "2024-04-28"
+version = "0.15.0"
+when = "2024-10-01"
 user-id = 2915
 user-login = "Amanieu"
 user-name = "Amanieu d'Antras"
 
 [[publisher.indexmap]]
-version = "2.5.0"
-when = "2024-08-30"
+version = "2.6.0"
+when = "2024-10-01"
 user-id = 539
 user-login = "cuviper"
 user-name = "Josh Stone"
@@ -176,8 +176,8 @@ user-login = "bilelmoussaoui"
 user-name = "Bilal Elmoussaoui"
 
 [[publisher.libc]]
-version = "0.2.154"
-when = "2024-04-29"
+version = "0.2.153"
+when = "2024-01-31"
 user-id = 51017
 user-login = "JohnTitor"
 user-name = "Yuki Okushi"
@@ -204,8 +204,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.pkg-config]]
-version = "0.3.30"
-when = "2024-02-14"
+version = "0.3.31"
+when = "2024-09-23"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -216,6 +216,13 @@ when = "2024-05-07"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
+
+[[publisher.serde_spanned]]
+version = "0.6.8"
+when = "2024-09-25"
+user-id = 6743
+user-login = "epage"
+user-name = "Ed Page"
 
 [[publisher.slab]]
 version = "0.4.9"
@@ -231,12 +238,26 @@ user-id = 2017
 user-login = "mbrubeck"
 user-name = "Matt Brubeck"
 
+[[publisher.syn]]
+version = "2.0.87"
+when = "2024-11-02"
+user-id = 3618
+user-login = "dtolnay"
+user-name = "David Tolnay"
+
 [[publisher.target-lexicon]]
 version = "0.12.16"
 when = "2024-07-30"
 user-id = 696
 user-login = "fitzgen"
 user-name = "Nick Fitzgerald"
+
+[[publisher.toml_edit]]
+version = "0.22.22"
+when = "2024-09-24"
+user-id = 6743
+user-login = "epage"
+user-name = "Ed Page"
 
 [[publisher.windows-sys]]
 version = "0.52.0"
@@ -307,6 +328,24 @@ when = "2024-07-03"
 user-id = 64539
 user-login = "kennykerr"
 user-name = "Kenny Kerr"
+
+[[publisher.winnow]]
+version = "0.6.20"
+when = "2024-09-25"
+user-id = 6743
+user-login = "epage"
+user-name = "Ed Page"
+
+[[audits.bytecode-alliance.audits.libc]]
+who = "Alex Crichton <alex@alexcrichton.com>"
+criteria = "safe-to-deploy"
+delta = "0.2.153 -> 0.2.158"
+notes = "More platforms, more definitions, more headers, it's still just `libc`"
+
+[[audits.bytecode-alliance.audits.libc]]
+who = "Dan Gohman <dev@sunfishcode.online>"
+criteria = "safe-to-deploy"
+delta = "0.2.158 -> 0.2.161"
 
 [[audits.bytecode-alliance.audits.memoffset]]
 who = "Alex Crichton <alex@alexcrichton.com>"
@@ -393,6 +432,12 @@ criteria = "safe-to-run"
 version = "0.3.28"
 aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
 
+[[audits.google.audits.futures-channel]]
+who = "George Burgess IV <gbiv@google.com>"
+criteria = "safe-to-run"
+delta = "0.3.28 -> 0.3.31"
+aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
+
 [[audits.google.audits.futures-core]]
 who = "George Burgess IV <gbiv@google.com>"
 criteria = "safe-to-run"
@@ -415,6 +460,12 @@ aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust
 who = "George Burgess IV <gbiv@google.com>"
 criteria = "safe-to-run"
 version = "0.3.28"
+aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
+
+[[audits.google.audits.futures-io]]
+who = "George Burgess IV <gbiv@google.com>"
+criteria = "safe-to-run"
+delta = "0.3.28 -> 0.3.31"
 aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
 
 [[audits.google.audits.futures-macro]]
@@ -546,72 +597,31 @@ version = "0.1.0"
 aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
 
 [[audits.google.audits.proc-macro2]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-version = "1.0.78"
-notes = """
-Grepped for \"crypt\", \"cipher\", \"fs\", \"net\" - there were no hits
-(except for a benign \"fs\" hit in a doc comment)
-
-Notes from the `unsafe` review can be found in https://crrev.com/c/5385745.
-"""
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
+who = "Ying Hsu <yinghsu@chromium.org>"
+criteria = "safe-to-run"
+version = "1.0.79"
+aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
 
 [[audits.google.audits.proc-macro2]]
-who = "Adrian Taylor <adetaylor@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.78 -> 1.0.79"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Adrian Taylor <adetaylor@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.79 -> 1.0.80"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Dustin J. Mitchell <djmitche@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.80 -> 1.0.81"
-notes = "Comment changes only"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
+who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
+criteria = "safe-to-run"
+delta = "1.0.79 -> 1.0.86"
+aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
 
 [[audits.google.audits.proc-macro2]]
 who = "danakj <danakj@chromium.org>"
 criteria = "safe-to-deploy"
-delta = "1.0.81 -> 1.0.82"
+delta = "1.0.86 -> 1.0.87"
+notes = "No new unsafe interactions."
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
 [[audits.google.audits.proc-macro2]]
-who = "Dustin J. Mitchell <djmitche@chromium.org>"
+who = "Liza Burakova <liza@chromium.org"
 criteria = "safe-to-deploy"
-delta = "1.0.82 -> 1.0.83"
-notes = "Substantive change is replacing String with Box<str>, saving memory."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.83 -> 1.0.84"
-notes = "Only doc comment changes in `src/lib.rs`."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "danakj@chromium.org"
-criteria = "safe-to-deploy"
-delta = "1.0.84 -> 1.0.85"
-notes = "Test-only changes."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.85 -> 1.0.86"
+delta = "1.0.87 -> 1.0.89"
 notes = """
-Comment-only changes in `build.rs`.
-Reordering of `Cargo.toml` entries.
-Just bumping up the version number in `lib.rs`.
-Config-related changes in `test_size.rs`.
+Biggest change is adding error handling in build.rs.
+Some config related changes in wrapper.rs.
 """
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
@@ -769,6 +779,19 @@ delta = "1.0.209 -> 1.0.210"
 notes = "Almost no new code - just feature rearrangement"
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
+[[audits.google.audits.serde]]
+who = "Liza Burakova <liza@chromium.org>"
+criteria = "safe-to-deploy"
+delta = "1.0.210 -> 1.0.213"
+aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
+
+[[audits.google.audits.serde]]
+who = "Dustin J. Mitchell <djmitche@chromium.org>"
+criteria = "safe-to-deploy"
+delta = "1.0.213 -> 1.0.214"
+notes = "No unsafe, no crypto"
+aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
+
 [[audits.google.audits.serde_derive]]
 who = "Lukasz Anforowicz <lukasza@chromium.org>"
 criteria = "safe-to-deploy"
@@ -825,6 +848,20 @@ who = "Adrian Taylor <adetaylor@chromium.org>"
 criteria = "safe-to-deploy"
 delta = "1.0.209 -> 1.0.210"
 notes = "Almost no new code - just feature rearrangement"
+aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
+
+[[audits.google.audits.serde_derive]]
+who = "Liza Burakova <liza@chromium.org>"
+criteria = "safe-to-deploy"
+delta = "1.0.210 -> 1.0.213"
+notes = "Grepped for 'unsafe', 'crypt', 'cipher', 'fs', 'net' - there were no hits"
+aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
+
+[[audits.google.audits.serde_derive]]
+who = "Dustin J. Mitchell <djmitche@chromium.org>"
+criteria = "safe-to-deploy"
+delta = "1.0.213 -> 1.0.214"
+notes = "No changes to unsafe, no crypto"
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
 [[audits.google.audits.serde_json]]
@@ -905,11 +942,16 @@ criteria = "safe-to-run"
 delta = "1.0.127 -> 1.0.128"
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
-[[audits.google.audits.serde_spanned]]
-who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
+[[audits.google.audits.serde_json]]
+who = "Liza Burakova <liza@chromium.org>"
 criteria = "safe-to-run"
-version = "0.6.7"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
+delta = "1.0.128 -> 1.0.132"
+notes = """
+Methods moved into new deserializer trait in de.rs.
+New methods for converting Number to i128 or u128 in number.rs
+No new unsafe changes.
+"""
+aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
 [[audits.google.audits.socket2]]
 who = "Vovo Yang <vovoy@google.com>"
@@ -923,18 +965,6 @@ criteria = "safe-to-deploy"
 delta = "0.4.4 -> 0.5.5"
 notes = "Reviewed at https://fxrev.dev/946307"
 aggregated-from = "https://fuchsia.googlesource.com/fuchsia/+/refs/heads/main/third_party/rust_crates/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.syn]]
-who = "Ying Hsu <yinghsu@chromium.org>"
-criteria = "safe-to-run"
-version = "2.0.58"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.syn]]
-who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
-criteria = "safe-to-run"
-delta = "2.0.58 -> 2.0.77"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
 
 [[audits.google.audits.toml]]
 who = "George Burgess IV <gbiv@google.com>"
@@ -952,12 +982,6 @@ aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust
 who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
 criteria = "safe-to-run"
 version = "0.6.8"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.toml_edit]]
-who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
-criteria = "safe-to-run"
-version = "0.22.20"
 aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
 
 [[audits.google.audits.unicode-ident]]
@@ -983,12 +1007,6 @@ delta = "1.0.12 -> 1.0.13"
 notes = "Lots of table updates, and tables are assumed correct with unsafe `.get_unchecked()`, so ub-risk-2 is appropriate"
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
-[[audits.google.audits.winnow]]
-who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
-criteria = "safe-to-run"
-version = "0.6.18"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
 [[audits.mozilla.audits.crossbeam-utils]]
 who = "Jan-Erik Rediger <jrediger@mozilla.com>"
 criteria = "safe-to-deploy"
@@ -1000,12 +1018,6 @@ who = "Alex Franchuk <afranchuk@mozilla.com>"
 criteria = "safe-to-deploy"
 delta = "0.8.19 -> 0.8.20"
 notes = "Minor changes."
-aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
-
-[[audits.mozilla.audits.libc]]
-who = "Alex Franchuk <afranchuk@mozilla.com>"
-criteria = "safe-to-deploy"
-delta = "0.2.154 -> 0.2.158"
 aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
 
 [[audits.mozilla.audits.pin-project-lite]]
