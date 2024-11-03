@@ -28,6 +28,12 @@
     <url type="contribute">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
+        <release version="next" date="9999-01-01">
+            <description>
+                <p>Add Italian translation, and update German translation</p>
+            </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/next</url>
+        </release>
         <release version="1.1.0" date="2024-10-27">
             <description>
                 <p>Turn On now integrates into GNOME search and offers to turn on devices directly from the search.</p>
