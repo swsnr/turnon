@@ -48,7 +48,3 @@ criteria = "safe-to-run"
 [[exemptions.proc-macro-crate]]
 version = "3.2.0"
 criteria = "safe-to-run"
-
-[[exemptions.system-deps]]
-version = "7.0.2"
-criteria = "safe-to-run"
