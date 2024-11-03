@@ -10,6 +10,9 @@ url = "https://raw.githubusercontent.com/bytecodealliance/wasmtime/main/supply-c
 [imports.embark-studios]
 url = "https://raw.githubusercontent.com/EmbarkStudios/rust-ecosystem/main/audits.toml"
 
+[imports.gnome-releng]
+url = "https://gitlab.gnome.org/Teams/Releng/rust-supply-chain/-/raw/main/gnome-audited/audits.toml"
+
 [imports.google]
 url = "https://raw.githubusercontent.com/google/supply-chain/main/audits.toml"
 
@@ -48,8 +51,4 @@ criteria = "safe-to-run"
 
 [[exemptions.system-deps]]
 version = "7.0.2"
-criteria = "safe-to-run"
-
-[[exemptions.version-compare]]
-version = "0.2.0"
 criteria = "safe-to-run"

@@ -333,7 +333,17 @@ start = "2020-01-01"
 end = "2024-05-23"
 notes = "Maintained by Embark. No unsafe usage or ambient capabilities"
 
-[audits.embark-studios.audits]
+[[audits.embark-studios.audits.version-compare]]
+who = "Johan Andersson <opensource@embark-studios.com>"
+criteria = "safe-to-deploy"
+version = "0.1.1"
+notes = "No unsafe usage or ambient capabilities"
+
+[[audits.gnome-releng.audits.version-compare]]
+who = "Sophie Herold <sophie@hemio.de>"
+criteria = "safe-to-deploy"
+delta = "0.1.1 -> 0.2.0"
+aggregated-from = "https://gitlab.gnome.org/GNOME/loupe/-/raw/main/supply-chain/audits.toml"
 
 [[audits.google.audits.bitflags]]
 who = "Lukasz Anforowicz <lukasza@chromium.org>"
