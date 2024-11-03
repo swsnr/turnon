@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-03 07:17+0100\n"
+"POT-Creation-Date: 2024-11-03 07:21+0100\n"
 "PO-Revision-Date: 2024-11-02 19:47+0000\n"
 "Last-Translator: swsnr <swsnr@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Italian <https://translate.codeberg.org/projects/de-swsnr-"
@@ -62,7 +62,7 @@ msgstr "Monitoraggio dello stato del dispositivo."
 #: resources/de.swsnr.turnon.metainfo.xml.in:33
 #, fuzzy
 #| msgid "Add German translation, and update application metadata."
-msgid "Add Italian translation, and update German translation"
+msgid "Add Italian translation, and update German translation."
 msgstr ""
 "Aggiunta la traduzione in tedesco e aggiorna i metadati dell'applicazione."
 
