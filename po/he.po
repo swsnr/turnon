@@ -7,84 +7,92 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-03 07:21+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-11-04 20:11+0000\n"
+"Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
+"Language-Team: Hebrew <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 5.8.1\n"
 
 #: de.swsnr.turnon.desktop.in:3 resources/de.swsnr.turnon.metainfo.xml.in:5
 msgid "Turn On"
-msgstr ""
+msgstr "הדלקה"
 
 #: de.swsnr.turnon.desktop.in:4 resources/de.swsnr.turnon.metainfo.xml.in:6
 msgid "Turn on devices in your network"
-msgstr ""
+msgstr "הדלקת התקנים ברשת שלך"
 
 #: de.swsnr.turnon.desktop.in:9
 msgid "Gnome;GTK;WakeOnLan;"
-msgstr ""
+msgstr "Gnome;GTK;WakeOnLan;השכמה דרך הרשת;WOL;"
 
 #: de.swsnr.turnon.desktop.in:15
 msgid "Add new device"
-msgstr ""
+msgstr "הוספת התקן חדש"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:8
 msgid ""
 "Conveniently turn on devices in your network, such as a NAS or a gaming "
 "console, using Wake On LAN (WoL)."
 msgstr ""
+"הדלקת התקנים ברשת שלך, כגון שרת קבצים או קונסולת משחקים באמצעות Wake On LAN -"
+" השכמה דרך הרשת המקומית (WoL)."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:10
 msgid "Features:"
-msgstr ""
+msgstr "יכולות:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:12
 msgid "Add devices to turn on."
-msgstr ""
+msgstr "הוספת התקנים להדלקה."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:13
 msgid "Turn on devices with magic Wake On LAN (WoL) packets."
-msgstr ""
+msgstr "הדלקת התקנים באמצעות מנות נתונים להשכמה דרך הרשת (WoL)."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:14
 msgid "Monitor device status."
-msgstr ""
+msgstr "מעקב אחר מצב התקנים."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:33
 msgid "Add Italian translation, and update German translation."
-msgstr ""
+msgstr "נוסף תרגום לאיטלקית והתרגום לגרמנית עודכן."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:39
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
-msgstr ""
+msgstr "הדלקה משתלבת לתוך החיפוש של GNOME ומציעה להדליק התקנים ישירות מהחיפוש."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:40
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
-msgstr ""
+msgstr "משגר הדלקה מציע להוסיף התקן חדש בתפריט ההקשר."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:41
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
 msgstr ""
+"הדלקה מספקת ממשק שורת פקידה בסיסי, במיוחד עם האפשרות ‎--turn-on-device "
+"שמפעילה מעתה התקנים לפי התוויות שלהם."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:47
 msgid "Turn On no longer crashes when removing the last device."
-msgstr ""
+msgstr "הדלקה לא קורס עוד בעת הסרת ההתקן האחרון."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:48
 msgid "Add German translation, and update application metadata."
-msgstr ""
+msgstr "הוספת תרגום לגרמנית ועדכון נתוני העל של היישום."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:54
 msgid "Shorten summary in metadata."
-msgstr ""
+msgstr "קוצר ההסבר בנתוני העל."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:60
 msgid ""
@@ -93,265 +101,268 @@ msgid ""
 "easier to use with the keyboard (pressing Enter now navigates to the next "
 "entry and eventually adds the device)."
 msgstr ""
+"מחיקת התקנים מרשימת ההתקנים, עריכת התקנים קיימים הצגת משוב מוקדם בעת הדלקת "
+"התקן ופישוט חלונית עריכת ההתקנים באמצעות המקלדת (לחיצה אל Enter מנווטת "
+"לרשומה הבאה ובסופו של דבר מוסיפה את ההתקן)."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:72
 msgid "Refined app icon."
-msgstr ""
+msgstr "הסגנון של סמל היישום התעדכן."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:78
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
-msgstr ""
+msgstr "זאת המהדורה הראשונית. היישום תומך ביכולות האלה בגרסה הזאת:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:80
 msgid "Add new devices"
-msgstr ""
+msgstr "הוספת התקנים חדשים"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:81
 msgid "Monitor whether devices are turned on"
-msgstr ""
+msgstr "מעקב אחר האם ההתקנים דולקים"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:82
 msgid "Turn on devices with Wake On LAN"
-msgstr ""
+msgstr "הדלקת התקנים דרך השכמה דרך הרשת המקומית - Wake On LAN"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:84
 msgid "This release is missing the following features:"
-msgstr ""
+msgstr "במהדורה הזאת חסרות היכולות הבאות:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:86
 msgid "Devices can not be edited or removed."
-msgstr ""
+msgstr "אי אפשר לערוך או להסיר התקנים."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:87
 msgid "The order of devices cannot be changed."
-msgstr ""
+msgstr "אי אפשר לשנות את סדר ההתקנים."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:88
 msgid "Languages other than English are not supported."
-msgstr ""
+msgstr "אין תמיכה בשפות מלבד אנגלית."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:101
 msgid "Two devices, one of them on, and the other off"
-msgstr ""
+msgstr "שני התקנים, אחד מהם דולק, השני כבוי"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:105
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
-msgstr ""
+msgstr "עריכת התקן עם שם, כתובת חומרה (MAC), וכתובת IP כדי לבדוק מולו את המצב"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:109
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
-msgstr ""
+msgstr "עמוד קבלת הפנים הריק עם סמל היישום וכפתור להוספת התקן חדש"
 
 #: resources/gtk/help-overlay.blp:21
 msgctxt "shortcuts group"
 msgid "General"
-msgstr ""
+msgstr "כללי"
 
 #: resources/gtk/help-overlay.blp:24
 msgctxt "shortcut description"
 msgid "Add a new device"
-msgstr ""
+msgstr "הוספת התקן חדש"
 
 #: resources/gtk/help-overlay.blp:29
 msgctxt "shortcut description"
 msgid "Show shortcuts"
-msgstr ""
+msgstr "הצגת קיצורי דרך"
 
 #: resources/gtk/help-overlay.blp:34
 msgctxt "shortcut description"
 msgid "Quit"
-msgstr ""
+msgstr "יציאה"
 
 #: resources/ui/device-row.blp:69
 msgctxt "device-row.action.row.edit.tooltip"
 msgid "Edit this device"
-msgstr ""
+msgstr "עריכת ההתקן הזה"
 
 #: resources/ui/device-row.blp:80
 msgctxt "device-row.action.row.ask-delete.tooltip"
 msgid "Delete this device?"
-msgstr ""
+msgstr "למחוק את ההתקן הזה?"
 
 #: resources/ui/device-row.blp:97
 msgctxt "device-row.action.row.delete"
 msgid "Delete"
-msgstr ""
+msgstr "מחיקה"
 
 #: resources/ui/device-row.blp:107
 msgctxt "canceldevice-row.action.row.cancel-delete"
 msgid "Cancel"
-msgstr ""
+msgstr "ביטול"
 
 #: resources/ui/edit-device-dialog.blp:10
 msgid "Edit device"
-msgstr ""
+msgstr "עריכת התקן"
 
 #: resources/ui/edit-device-dialog.blp:21
 msgctxt "edit-device-dialog.entry.label.title"
 msgid "Device _label"
-msgstr ""
+msgstr "_תווית התקן"
 
 #: resources/ui/edit-device-dialog.blp:22
 msgctxt "edit-device-dialog.entry.label.tooltip"
 msgid "A label to recognize the device by"
-msgstr ""
+msgstr "תווית לזיהוי ההתקן"
 
 #: resources/ui/edit-device-dialog.blp:30
 msgctxt "edit-device-dialog.entry.label.feedback"
 msgid "Please provide a label for the device."
-msgstr ""
+msgstr "נא לספק תווית להתקן."
 
 #: resources/ui/edit-device-dialog.blp:35
 msgctxt "edit-device-dialog.entry.mac_address.title"
 msgid "_MAC address"
-msgstr ""
+msgstr "כתובת _חומרה (MAC)"
 
 #: resources/ui/edit-device-dialog.blp:36
 msgctxt "edit-device-dialog.entry.mac_address.tooltip"
 msgid "The hardware address for this device"
-msgstr ""
+msgstr "כתובת החומרה של ההתקן הזה"
 
 #: resources/ui/edit-device-dialog.blp:45
 msgctxt "edit-device-dialog.entry.mac_address.feedback"
 msgid "This is no valid 48-bit MAC address."
-msgstr ""
+msgstr "זאת לא כתובת חומרה (MAC) תקנית של 48 סיביות."
 
 #: resources/ui/edit-device-dialog.blp:50
 msgctxt "edit-device-dialog.entry.host.title"
 msgid "_Host name or IP address"
-msgstr ""
+msgstr "שם מ_ארח או כתובת IP"
 
 #: resources/ui/edit-device-dialog.blp:51
 msgctxt "edit-device-dialog.entry.host.tooltip"
 msgid ""
 "The hostname or IP address of the device to check whether it has woken up"
-msgstr ""
+msgstr "שם המארח או כתובת ה־IP כדי לבדוק האם ההתקן התעורר"
 
 #: resources/ui/edit-device-dialog.blp:66
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "Please specify a target host to check availability"
-msgstr ""
+msgstr "נא לציין את מארח היעד כדי לבדוק זמינות"
 
 #: resources/ui/edit-device-dialog.blp:75
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This looks like a generic name resolved via DNS."
-msgstr ""
+msgstr "זה נראה כמו שם כללי שנפתר דרך ה־DNS."
 
 #: resources/ui/edit-device-dialog.blp:85
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This is a valid IPv4 address."
-msgstr ""
+msgstr "זאת כתובת IPv4 תקנית."
 
 #: resources/ui/edit-device-dialog.blp:95
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This is a valid IPv6 address."
-msgstr ""
+msgstr "זאת כתובת IPv6 תקנית."
 
 #: resources/ui/edit-device-dialog.blp:102
 msgid "_Save"
-msgstr ""
+msgstr "_שמירה"
 
 #: resources/ui/turnon-application-window.blp:22
 msgctxt "application-window.action.win.add-device.tooltip"
 msgid "Add a new device"
-msgstr ""
+msgstr "הוספת התקן חדש"
 
 #: resources/ui/turnon-application-window.blp:50
 msgctxt "application-window.status-page.title"
 msgid "No devices"
-msgstr ""
+msgstr "אין התקנים"
 
 #: resources/ui/turnon-application-window.blp:51
 msgctxt "application-window.status-page.description"
 msgid "Add a new device to turn it on."
-msgstr ""
+msgstr "יש להוסיף התקן חדש כדי להדליק אותו."
 
 #: resources/ui/turnon-application-window.blp:56
 msgctxt "application-window.status-page.button.label"
 msgid "Add new device"
-msgstr ""
+msgstr "הוספת התקן חדש"
 
 #: resources/ui/turnon-application-window.blp:75
 msgctxt "application-window.menu.label"
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_קיצורי מקשי מקלדת"
 
 #: resources/ui/turnon-application-window.blp:80
 msgctxt "application-window.menu.label"
 msgid "_About Turn On"
-msgstr ""
+msgstr "_על הדלקה"
 
 #: src/app.rs:140
 msgctxt "option.add-device.description"
 msgid "Add a new device"
-msgstr ""
+msgstr "הוספת התקן חדש"
 
 #: src/app.rs:151
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
-msgstr ""
+msgstr "הדלקת התקן לפי התווית שלו"
 
 #: src/app.rs:156
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
-msgstr ""
+msgstr "תווית"
 
 #: src/app.rs:257
 msgctxt "option.turn-on-device.message"
 msgid "Sent magic packet to mac address %1 of device %2\n"
-msgstr ""
+msgstr "נשלחת מנת נתונים קסומה לכתובת החומרה %1 של ההתקן %2\n"
 
 #: src/app.rs:268
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
-msgstr ""
+msgstr "הדלקת ההתקן %1 נכשלה: %2\n"
 
 #: src/app.rs:287
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
-msgstr ""
+msgstr "לא נמצא התקן לתווית %s\n"
 
 #: src/searchprovider.rs:72
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
-msgstr ""
+msgstr "שליחת מנת הנתונים הקסומה נכשלה"
 
 #: src/searchprovider.rs:78
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
-msgstr ""
+msgstr "שליחת מנת הנתונים הקסומה לכתובת החומרה %1 של ההתקן %2 נכשלה."
 
 #: src/searchprovider.rs:90
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
-msgstr ""
+msgstr "נשלחה מנת נתונים קסומה"
 
 #: src/searchprovider.rs:96
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
-msgstr ""
+msgstr "נשלחה מנת נתונים קסומה לכתובת החומרה %1 של ההתקן %2."
 
 #: src/widgets/application_window.rs:112
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
-msgstr ""
+msgstr "נשלחת מנת נתונים קסומה להתקן %s"
 
 #: src/widgets/application_window.rs:135
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
-msgstr ""
+msgstr "נשלחה מנת נתונים קסומה להתקן %s"
 
 #: src/widgets/application_window.rs:150
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
-msgstr ""
+msgstr "שליחת מנת נתונים קסומה להתקן %s נכשלה"
