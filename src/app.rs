@@ -6,7 +6,7 @@
 
 use adw::prelude::*;
 use adw::subclass::prelude::*;
-use glib::Object;
+use glib::{dgettext, dpgettext2, Object};
 use gtk::gio::{ActionEntry, ApplicationFlags};
 
 use crate::config::{APP_ID, G_LOG_DOMAIN};
@@ -42,11 +42,18 @@ impl TurnOnApplication {
                 .build(),
             ActionEntry::builder("about")
                 .activate(|app: &TurnOnApplication, _, _| {
-                    adw::AboutDialog::from_appdata(
+                    let dialog = adw::AboutDialog::from_appdata(
                         "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
                         Some(env!("CARGO_PKG_VERSION")),
-                    )
-                    .present(app.active_window().as_ref());
+                    );
+                    dialog.add_link(
+                        &dpgettext2(None, "about-dialog.link.label", "Translations"),
+                        "https://translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/",
+                    );
+                    dialog.set_developers(&["Sebastian Wiesner"]);
+                    dialog.set_designers(&["Sebastian Wiesner"]);
+                    dialog.set_translator_credits(&dgettext(None, "translator-credits"));
+                    dialog.present(app.active_window().as_ref());
                 })
                 .build(),
         ];
