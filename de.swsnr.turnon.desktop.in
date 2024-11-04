@@ -1,10 +1,12 @@
 [Desktop Entry]
+# Translators: Do feel free to translate the application name, as in "Turning on a device".
 Name=Turn On
 Comment=Turn on devices in your network
 Exec=de.swsnr.turnon
 Type=Application
 Icon=de.swsnr.turnon
 Categories=GNOME;GTK;Utility;
+# Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 Keywords=Gnome;GTK;WakeOnLan;
 StartupNotify=true
 DBusActivatable=true
