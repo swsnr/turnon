@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-04 21:02+0100\n"
+"POT-Creation-Date: 2024-11-05 08:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -293,32 +293,51 @@ msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr ""
 
-#: src/app.rs:140
+#: src/app.rs:50
+msgctxt "about-dialog.link.label"
+msgid "Translations"
+msgstr ""
+
+#: src/app.rs:56
+msgid "translator-credits"
+msgstr ""
+
+#: src/app.rs:61
+msgctxt "about-dialog.acknowledgment-section"
+msgid "Help and inspiration"
+msgstr ""
+
+#: src/app.rs:74
+msgctxt "about-dialog.acknowledgment-section"
+msgid "Helpful services"
+msgstr ""
+
+#: src/app.rs:174
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr ""
 
-#: src/app.rs:151
+#: src/app.rs:185
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr ""
 
-#: src/app.rs:156
+#: src/app.rs:190
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr ""
 
-#: src/app.rs:257
+#: src/app.rs:291
 msgctxt "option.turn-on-device.message"
 msgid "Sent magic packet to mac address %1 of device %2\n"
 msgstr ""
 
-#: src/app.rs:268
+#: src/app.rs:302
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
 msgstr ""
 
-#: src/app.rs:287
+#: src/app.rs:321
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
