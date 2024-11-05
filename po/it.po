@@ -9,11 +9,11 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-05 08:32+0100\n"
-"PO-Revision-Date: 2024-11-03 09:26+0000\n"
-"Last-Translator: albanobattistella <albanobattistella@users.noreply."
-"translate.codeberg.org>\n"
-"Language-Team: Italian <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/it/>\n"
+"PO-Revision-Date: 2024-11-05 17:26+0000\n"
+"Last-Translator: albanobattistella <albanobattistella@users.noreply.translate"
+".codeberg.org>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +65,7 @@ msgstr "Monitoraggio dello stato del dispositivo."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:33
 msgid "Add Hebrew translation."
-msgstr ""
+msgstr "Aggiunta la traduzione in ebraico."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:39
 msgid "Add Italian translation, and update German translation."
@@ -325,21 +325,21 @@ msgstr "_Informazioni su Turn On"
 #: src/app.rs:50
 msgctxt "about-dialog.link.label"
 msgid "Translations"
-msgstr ""
+msgstr "Traduzioni"
 
 #: src/app.rs:56
 msgid "translator-credits"
-msgstr ""
+msgstr "crediti-traduttore"
 
 #: src/app.rs:61
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Help and inspiration"
-msgstr ""
+msgstr "Aiuto e ispirazione"
 
 #: src/app.rs:74
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
-msgstr ""
+msgstr "Servizi utili"
 
 #: src/app.rs:174
 msgctxt "option.add-device.description"
