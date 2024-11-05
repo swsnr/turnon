@@ -1,5 +1,10 @@
 # Turn On
 
+[![Latest release](https://img.shields.io/github/v/release/swsnr/turnon)](https://github.com/swsnr/turnon/releases/)
+[![Flathub Version](https://img.shields.io/flathub/v/de.swsnr.turnon)](https://flathub.org/apps/de.swsnr.turnon)
+[![Translation status](https://translate.codeberg.org/widget/de-swsnr-turnon/de-swsnr-turnon/svg-badge.svg)](https://translate.codeberg.org/engage/de-swsnr-turnon/)
+[![CI status](https://img.shields.io/github/actions/workflow/status/swsnr/turnon/test.yml)](https://github.com/swsnr/turnon/actions)
+
 Turn on devices in your network on GNOME:
 
 ![The empty greeting page with the application icon and a button to add a new device](./screenshots/start-page.png)
