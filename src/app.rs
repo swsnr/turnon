@@ -55,7 +55,11 @@ impl TurnOnApplication {
                     dialog.set_designers(&["Sebastian Wiesner https://swsnr.de"]);
                     dialog.set_translator_credits(&dgettext(None, "translator-credits"));
                     dialog.add_acknowledgement_section(
-                        Some("Help and inspiration"),
+                        Some(&dpgettext2(
+                            None,
+                            "about-dialog.acknowledgment-section",
+                            "Help and inspiration",
+                        )),
                         &[
                             "Sebastian Dröge https://github.com/sdroege",
                             "Bilal Elmoussaoui https://github.com/bilelmoussaoui",
@@ -64,7 +68,11 @@ impl TurnOnApplication {
                         ],
                     );
                     dialog.add_acknowledgement_section(
-                        Some("Helpful services"),
+                        Some(&dpgettext2(
+                            None,
+                            "about-dialog.acknowledgment-section",
+                            "Helpful services",
+                        )),
                         &[
                             "Flathub https://flathub.org/",
                             "Open Build Service https://build.opensuse.org/",
