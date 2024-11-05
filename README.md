@@ -20,7 +20,7 @@ A small GNOME utility application to send Wake On LAN (WoL) magic packets to dev
 
 ## Translations
 
-Please submit translations to <https://translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/>.
+Please submit translations to <https://translate.codeberg.org/engage/de-swsnr-turnon/>.
 
 ## License
 

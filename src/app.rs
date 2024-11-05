@@ -48,7 +48,7 @@ impl TurnOnApplication {
                     );
                     dialog.add_link(
                         &dpgettext2(None, "about-dialog.link.label", "Translations"),
-                        "https://translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/",
+                        "https://translate.codeberg.org/engage/de-swsnr-turnon/",
                     );
 
                     dialog.set_developers(&["Sebastian Wiesner https://swsnr.de"]);
