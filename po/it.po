@@ -9,9 +9,8 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-05 08:32+0100\n"
-"PO-Revision-Date: 2024-11-05 17:26+0000\n"
-"Last-Translator: albanobattistella <albanobattistella@users.noreply.translate"
-".codeberg.org>\n"
+"PO-Revision-Date: 2024-11-06 06:34+0000\n"
+"Last-Translator: swsnr <swsnr@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Italian <https://translate.codeberg.org/projects/"
 "de-swsnr-turnon/de-swsnr-turnon/it/>\n"
 "Language: it\n"
@@ -328,8 +327,9 @@ msgid "Translations"
 msgstr "Traduzioni"
 
 #: src/app.rs:56
+#, fuzzy
 msgid "translator-credits"
-msgstr "crediti-traduttore"
+msgstr "Albano Battistella"
 
 #: src/app.rs:61
 msgctxt "about-dialog.acknowledgment-section"
