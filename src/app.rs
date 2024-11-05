@@ -50,9 +50,28 @@ impl TurnOnApplication {
                         &dpgettext2(None, "about-dialog.link.label", "Translations"),
                         "https://translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/",
                     );
-                    dialog.set_developers(&["Sebastian Wiesner"]);
-                    dialog.set_designers(&["Sebastian Wiesner"]);
+
+                    dialog.set_developers(&["Sebastian Wiesner https://swsnr.de"]);
+                    dialog.set_designers(&["Sebastian Wiesner https://swsnr.de"]);
                     dialog.set_translator_credits(&dgettext(None, "translator-credits"));
+                    dialog.add_acknowledgement_section(
+                        Some("Help and inspiration"),
+                        &[
+                            "Sebastian Dröge https://github.com/sdroege",
+                            "Bilal Elmoussaoui https://github.com/bilelmoussaoui",
+                            "Authenticator https://gitlab.gnome.org/World/Authenticator",
+                            "Decoder https://gitlab.gnome.org/World/decoder/",
+                        ],
+                    );
+                    dialog.add_acknowledgement_section(
+                        Some("Helpful services"),
+                        &[
+                            "Flathub https://flathub.org/",
+                            "Open Build Service https://build.opensuse.org/",
+                            "GitHub actions https://github.com/features/actions",
+                        ],
+                    );
+
                     dialog.present(app.active_window().as_ref());
                 })
                 .build(),
