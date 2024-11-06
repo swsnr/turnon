@@ -8,11 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-05 08:32+0100\n"
+"POT-Creation-Date: 2024-11-06 07:34+0100\n"
 "PO-Revision-Date: 2024-11-06 06:34+0000\n"
 "Last-Translator: swsnr <swsnr@users.noreply.translate.codeberg.org>\n"
-"Language-Team: Italian <https://translate.codeberg.org/projects/"
-"de-swsnr-turnon/de-swsnr-turnon/it/>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/de-swsnr-"
+"turnon/de-swsnr-turnon/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -326,47 +326,50 @@ msgctxt "about-dialog.link.label"
 msgid "Translations"
 msgstr "Traduzioni"
 
-#: src/app.rs:56
+#. Credits for the translator to the current language.
+#. Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
+#. Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
+#: src/app.rs:59
 #, fuzzy
 msgid "translator-credits"
 msgstr "Albano Battistella"
 
-#: src/app.rs:61
+#: src/app.rs:64
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Help and inspiration"
 msgstr "Aiuto e ispirazione"
 
-#: src/app.rs:74
+#: src/app.rs:77
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
 msgstr "Servizi utili"
 
-#: src/app.rs:174
+#: src/app.rs:177
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "Aggiungi un nuovo dispositivo"
 
-#: src/app.rs:185
+#: src/app.rs:188
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr "Accendi un dispositivo tramite la sua etichetta"
 
-#: src/app.rs:190
+#: src/app.rs:193
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr "ETICHETTA"
 
-#: src/app.rs:291
+#: src/app.rs:294
 msgctxt "option.turn-on-device.message"
 msgid "Sent magic packet to mac address %1 of device %2\n"
 msgstr "Inviato pacchetto magico all'indirizzo MAC %1 del dispositivo %2\n"
 
-#: src/app.rs:302
+#: src/app.rs:305
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
 msgstr "Impossibile accendere il dispositivo %1: %2\n"
 
-#: src/app.rs:321
+#: src/app.rs:324
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
