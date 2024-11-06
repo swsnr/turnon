@@ -53,6 +53,9 @@ impl TurnOnApplication {
 
                     dialog.set_developers(&["Sebastian Wiesner https://swsnr.de"]);
                     dialog.set_designers(&["Sebastian Wiesner https://swsnr.de"]);
+                    // Credits for the translator to the current language.
+                    // Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
+                    // Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
                     dialog.set_translator_credits(&dgettext(None, "translator-credits"));
                     dialog.add_acknowledgement_section(
                         Some(&dpgettext2(
