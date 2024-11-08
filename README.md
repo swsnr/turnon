@@ -4,6 +4,7 @@
 [![Flathub Version](https://img.shields.io/flathub/v/de.swsnr.turnon)](https://flathub.org/apps/de.swsnr.turnon)
 [![Translation status](https://translate.codeberg.org/widget/de-swsnr-turnon/de-swsnr-turnon/svg-badge.svg)](https://translate.codeberg.org/engage/de-swsnr-turnon/)
 [![CI status](https://img.shields.io/github/actions/workflow/status/swsnr/turnon/test.yml)](https://github.com/swsnr/turnon/actions)
+[![Package build result](https://build.opensuse.org/projects/home:swsnr:turnon/packages/turnon/badge.svg?type=default)](https://build.opensuse.org/package/show/home:swsnr:turnon/turnon)
 
 Turn on devices in your network on GNOME:
 
