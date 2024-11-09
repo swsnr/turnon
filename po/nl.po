@@ -7,90 +7,103 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-06 07:34+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2024-11-09 11:07+0000\n"
+"Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.1\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop.in:4 resources/de.swsnr.turnon.metainfo.xml.in:5
 msgid "Turn On"
-msgstr ""
+msgstr "Aanzetten"
 
 #: de.swsnr.turnon.desktop.in:5 resources/de.swsnr.turnon.metainfo.xml.in:6
 msgid "Turn on devices in your network"
-msgstr ""
+msgstr "Zet apparaten op uw netwerk aan"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: de.swsnr.turnon.desktop.in:11
 msgid "Gnome;GTK;WakeOnLan;"
-msgstr ""
+msgstr "Gnome;GTK;WakeOnLan;"
 
 #: de.swsnr.turnon.desktop.in:17
 msgid "Add new device"
-msgstr ""
+msgstr "Apparaat toevoegen"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:8
 msgid ""
 "Conveniently turn on devices in your network, such as a NAS or a gaming "
 "console, using Wake On LAN (WoL)."
 msgstr ""
+"Zet apparaten op uw netwerk, zoals een NAS of gamingconsole, snel aan met "
+"behulp van Wake On Lan (WoL)."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:10
 msgid "Features:"
-msgstr ""
+msgstr "Kenmerken:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:12
 msgid "Add devices to turn on."
-msgstr ""
+msgstr "Voeg aan te zetten apparaten toe."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:13
 msgid "Turn on devices with magic Wake On LAN (WoL) packets."
 msgstr ""
+"Schakel apparaten in met behulp van magische Wake On Lan (WoL)-pakketten."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:14
 msgid "Monitor device status."
-msgstr ""
+msgstr "Monitor de apparaatstatus."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:33
 msgid "Add Hebrew translation."
-msgstr ""
+msgstr "Nieuw: Hebreeuwse vertaling."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:39
 msgid "Add Italian translation, and update German translation."
-msgstr ""
+msgstr "Nieuw: Italiaanse vertaling - Bijgewerkt: Duitse vertaling."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:45
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr ""
+"Deze toepassing is voortaan geïntegreerd in de GNOME-zoekfunctie, zodat "
+"apparaten via daar aangezet kunnen worden."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:46
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr ""
+"Apparaten kunnen voortaan via het rechtermuisknopmenu van de starter worden "
+"aangezet."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:47
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
 msgstr ""
+"Er is nu basale ondersteuning voor de opdrachtregel. Met --turn-on-device, "
+"gevolgd door de apparaatnaam, kan een apparaat vanuit een terminalvenster "
+"worden aangezet."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:53
 msgid "Turn On no longer crashes when removing the last device."
-msgstr ""
+msgstr "De toepassing crasht niet meer als het laatste apparaat verwijderd is."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:54
 msgid "Add German translation, and update application metadata."
-msgstr ""
+msgstr "Nieuw: Duitse vertaling - Bijgewerkt: metagegevens."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:60
 msgid "Shorten summary in metadata."
-msgstr ""
+msgstr "De metagegevens zijn ingekort."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:66
 msgid ""
@@ -99,287 +112,296 @@ msgid ""
 "easier to use with the keyboard (pressing Enter now navigates to the next "
 "entry and eventually adds the device)."
 msgstr ""
+"Verwijder apparaten van de lijst, bewerk reeds toegevoegde, toon "
+"terugkoppeling na het aanzetten en navigeer door het bewerkvenster met "
+"behulp van het toetsenbord (entertoets = volgend item en apparaat toevoegen)."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:78
 msgid "Refined app icon."
-msgstr ""
+msgstr "Bijgewerkt: toepassingspictogram."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:84
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr ""
+"Dit is de allereerste versie. In deze uitgave is er ondersteuning voor de "
+"volgende functies:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:86
 msgid "Add new devices"
-msgstr ""
+msgstr "Voeg apparaten toe"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:87
 msgid "Monitor whether devices are turned on"
-msgstr ""
+msgstr "Monitor apparaten"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:88
 msgid "Turn on devices with Wake On LAN"
-msgstr ""
+msgstr "Schakel apparaten in met behulp van Wake On Lan"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:90
 msgid "This release is missing the following features:"
-msgstr ""
+msgstr "De volgende functies ontbreken nog:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:92
 msgid "Devices can not be edited or removed."
-msgstr ""
+msgstr "Apparaten kunnen niet worden bewerkt of verwijderd."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:93
 msgid "The order of devices cannot be changed."
-msgstr ""
+msgstr "De volgorde kan niet worden aangepast."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:94
 msgid "Languages other than English are not supported."
-msgstr ""
+msgstr "Er zijn nog geen vertalingen beschikbaar."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:107
 msgid "Two devices, one of them on, and the other off"
-msgstr ""
+msgstr "Twee apparaten: een aan, de ander uit"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:111
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
-msgstr ""
+msgstr "Bewerk de naam, het mac- en ip-adres van een apparaat"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:115
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
 msgstr ""
+"Het welkomstscherm met toepassingspictogram en knop om een apparaat toe te "
+"voegen"
 
 #: resources/gtk/help-overlay.blp:21
 msgctxt "shortcuts group"
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: resources/gtk/help-overlay.blp:24
 msgctxt "shortcut description"
 msgid "Add a new device"
-msgstr ""
+msgstr "Apparaat toevoegen"
 
 #: resources/gtk/help-overlay.blp:29
 msgctxt "shortcut description"
 msgid "Show shortcuts"
-msgstr ""
+msgstr "Sneltoetsen tonen"
 
 #: resources/gtk/help-overlay.blp:34
 msgctxt "shortcut description"
 msgid "Quit"
-msgstr ""
+msgstr "Afsluiten"
 
 #: resources/ui/device-row.blp:69
 msgctxt "device-row.action.row.edit.tooltip"
 msgid "Edit this device"
-msgstr ""
+msgstr "Apparaat bewerken"
 
 #: resources/ui/device-row.blp:80
 msgctxt "device-row.action.row.ask-delete.tooltip"
 msgid "Delete this device?"
-msgstr ""
+msgstr "Wilt u dit apparaat verwijderen?"
 
 #: resources/ui/device-row.blp:97
 msgctxt "device-row.action.row.delete"
 msgid "Delete"
-msgstr ""
+msgstr "Verwijderen"
 
 #: resources/ui/device-row.blp:107
 msgctxt "canceldevice-row.action.row.cancel-delete"
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: resources/ui/edit-device-dialog.blp:10
 msgid "Edit device"
-msgstr ""
+msgstr "Apparaat bewerken"
 
 #: resources/ui/edit-device-dialog.blp:21
 msgctxt "edit-device-dialog.entry.label.title"
 msgid "Device _label"
-msgstr ""
+msgstr "Apparaat_naam"
 
 #: resources/ui/edit-device-dialog.blp:22
 msgctxt "edit-device-dialog.entry.label.tooltip"
 msgid "A label to recognize the device by"
-msgstr ""
+msgstr "Hierdoor kan het apparaat makkelijk worden herkend"
 
 #: resources/ui/edit-device-dialog.blp:30
 msgctxt "edit-device-dialog.entry.label.feedback"
 msgid "Please provide a label for the device."
-msgstr ""
+msgstr "Geef het apparaat een naam."
 
 #: resources/ui/edit-device-dialog.blp:35
 msgctxt "edit-device-dialog.entry.mac_address.title"
 msgid "_MAC address"
-msgstr ""
+msgstr "_Macadres"
 
 #: resources/ui/edit-device-dialog.blp:36
 msgctxt "edit-device-dialog.entry.mac_address.tooltip"
 msgid "The hardware address for this device"
-msgstr ""
+msgstr "Het hardwareadres van het apparaat"
 
 #: resources/ui/edit-device-dialog.blp:45
 msgctxt "edit-device-dialog.entry.mac_address.feedback"
 msgid "This is no valid 48-bit MAC address."
-msgstr ""
+msgstr "Dit is geen geldig 48-bit-adres."
 
 #: resources/ui/edit-device-dialog.blp:50
 msgctxt "edit-device-dialog.entry.host.title"
 msgid "_Host name or IP address"
-msgstr ""
+msgstr "_Hostnaam of ip-adres"
 
 #: resources/ui/edit-device-dialog.blp:51
 msgctxt "edit-device-dialog.entry.host.tooltip"
 msgid ""
 "The hostname or IP address of the device to check whether it has woken up"
 msgstr ""
+"De hostnaam of het ip-adres van het apparaat, om te zien of het aanzetten "
+"gelukt is"
 
 #: resources/ui/edit-device-dialog.blp:66
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "Please specify a target host to check availability"
-msgstr ""
+msgstr "Voer een host in om de beschikbaarheid ervan te controleren"
 
 #: resources/ui/edit-device-dialog.blp:75
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This looks like a generic name resolved via DNS."
-msgstr ""
+msgstr "Dit lijkt op een algemene via dns verkregen naam."
 
 #: resources/ui/edit-device-dialog.blp:85
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This is a valid IPv4 address."
-msgstr ""
+msgstr "Dit is een geldig ipv4-adres."
 
 #: resources/ui/edit-device-dialog.blp:95
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This is a valid IPv6 address."
-msgstr ""
+msgstr "Dit is een geldig ipv6-adres."
 
 #: resources/ui/edit-device-dialog.blp:102
 msgid "_Save"
-msgstr ""
+msgstr "Op_slaan"
 
 #: resources/ui/turnon-application-window.blp:22
 msgctxt "application-window.action.win.add-device.tooltip"
 msgid "Add a new device"
-msgstr ""
+msgstr "Voeg een apparaat toe"
 
 #: resources/ui/turnon-application-window.blp:50
 msgctxt "application-window.status-page.title"
 msgid "No devices"
-msgstr ""
+msgstr "Er zijn geen apparaten"
 
 #: resources/ui/turnon-application-window.blp:51
 msgctxt "application-window.status-page.description"
 msgid "Add a new device to turn it on."
-msgstr ""
+msgstr "Voeg een aan te zetten apparaat toe."
 
 #: resources/ui/turnon-application-window.blp:56
 msgctxt "application-window.status-page.button.label"
 msgid "Add new device"
-msgstr ""
+msgstr "Apparaat toevoegen"
 
 #: resources/ui/turnon-application-window.blp:75
 msgctxt "application-window.menu.label"
 msgid "_Keyboard Shortcuts"
-msgstr ""
+msgstr "_Sneltoetsen"
 
 #: resources/ui/turnon-application-window.blp:80
 msgctxt "application-window.menu.label"
 msgid "_About Turn On"
-msgstr ""
+msgstr "Over _Aanzetten"
 
 #: src/app.rs:50
 msgctxt "about-dialog.link.label"
 msgid "Translations"
-msgstr ""
+msgstr "Vertalingen"
 
 #. Credits for the translator to the current language.
 #. Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
 #. Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
 #: src/app.rs:59
 msgid "translator-credits"
-msgstr ""
+msgstr "Heimen Stoffels <vistausss@fastmail.com>"
 
 #: src/app.rs:64
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Help and inspiration"
-msgstr ""
+msgstr "Hulp en inspiratie"
 
 #: src/app.rs:77
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
-msgstr ""
+msgstr "Nuttige diensten"
 
 #: src/app.rs:177
 msgctxt "option.add-device.description"
 msgid "Add a new device"
-msgstr ""
+msgstr "Apparaat toevoegen"
 
 #: src/app.rs:188
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
-msgstr ""
+msgstr "Schakel een apparaat in op basis van naam"
 
 #: src/app.rs:193
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
-msgstr ""
+msgstr "NAAM"
 
 #: src/app.rs:294
 msgctxt "option.turn-on-device.message"
 msgid "Sent magic packet to mac address %1 of device %2\n"
-msgstr ""
+msgstr "Er is een magisch pakket verstuurd naar %1 van ‘%2’\n"
 
 #: src/app.rs:305
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
-msgstr ""
+msgstr "‘%1’ kan niet worden aangezet: %2\n"
 
 #: src/app.rs:324
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
-msgstr ""
+msgstr "Er is geen apparaat genaamd “%s”\n"
 
 #: src/searchprovider.rs:72
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
-msgstr ""
+msgstr "Het magische pakket kan niet worden verstuurd"
 
 #: src/searchprovider.rs:78
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
-msgstr ""
+msgstr "Het magische pakket kan niet worden verstuurd naar %1 van ‘%2’."
 
 #: src/searchprovider.rs:90
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
-msgstr ""
+msgstr "Magisch pakket verstuurd"
 
 #: src/searchprovider.rs:96
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
-msgstr ""
+msgstr "Het magische pakket is verstuurd naar %1 van ‘%2’."
 
 #: src/widgets/application_window.rs:112
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
-msgstr ""
+msgstr "Het magische pakket wordt verstuurd naar ‘%s’"
 
 #: src/widgets/application_window.rs:135
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
-msgstr ""
+msgstr "Het magische pakket is verstuurd naar ‘%s’"
 
 #: src/widgets/application_window.rs:150
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
-msgstr ""
+msgstr "Het magische pakket kan niet worden verstuurd naar ‘%s’"
