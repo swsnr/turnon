@@ -31,6 +31,7 @@
         <release version="next" date="9999-01-01">
             <description>
                 <p>Add Dutch translation, and update existing translations.</p>
+                <p>Correctly persist devices when a device was edited right after starting the application.</p>
             </description>
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>
