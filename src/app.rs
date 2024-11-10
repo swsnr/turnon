@@ -125,30 +125,38 @@ mod imp {
         registered_search_provider: RefCell<Option<RegistrationId>>,
     }
 
+    /// Save `model` to `storage` whenever `device` changed.
+    fn save_device_automatically(storage: StorageServiceClient, model: Devices, device: Device) {
+        device.connect_notify_local(None, move |device, _| {
+            glib::debug!("Device {} was changed, saving devices", device.label());
+            storage.request_save_devices((&model).into());
+        });
+    }
+
     impl TurnOnApplication {
         pub fn model(&self) -> &Devices {
             &self.model
         }
 
+        /// Start saving changes to the model automatically.
+        ///
+        /// Monitor the device model for changes, and automatically persist
+        /// devices to `storage` whenever the model changed.
         fn save_automatically(&self, storage: StorageServiceClient) {
+            // Monitor existing devices for changes
+            for device in &self.model {
+                save_device_automatically(storage.clone(), self.model.clone(), device.clone());
+            }
+            // Monitor any newly added device for changes
             self.model
                 .connect_items_changed(move |model, pos, _, n_added| {
                     glib::debug!("Device list changed, saving devices");
                     storage.request_save_devices(model.into());
-                    // Persist devices whenever one device changes
                     for n in pos..n_added {
-                        model.item(n).unwrap().connect_notify_local(
-                            None,
-                            glib::clone!(
-                                #[strong]
-                                storage,
-                                #[weak]
-                                model,
-                                move |_, _| {
-                                    glib::debug!("One device was changed, saving devices");
-                                    storage.request_save_devices((&model).into());
-                                }
-                            ),
+                        save_device_automatically(
+                            storage.clone(),
+                            model.clone(),
+                            model.item(n).unwrap().downcast().unwrap(),
                         );
                     }
                 });
