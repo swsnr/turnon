@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-10 11:48+0100\n"
+"POT-Creation-Date: 2024-11-10 11:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,9 +62,7 @@ msgid "Add Dutch translation, and update existing translations."
 msgstr ""
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:34
-msgid ""
-"Turn On now correctly persists devices when a device was edited right after "
-"starting the application."
+msgid "Turn On now correctly persists devices when a device was edited."
 msgstr ""
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:40
