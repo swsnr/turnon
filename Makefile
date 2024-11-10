@@ -4,24 +4,24 @@ UIDEFS = $(addsuffix .ui,$(basename $(BLUEPRINTS)))
 CATALOGS = $(wildcard po/*.po)
 LOCALEDIR = /app/share/locale/
 
-XGETTEXT_METADATA = \
+XGETTEXT_OPTS = \
 	--package-name=$(APPID) \
-	--copyright-holder "Sebastian Wiesner <sebastian@swsnr.de>"
+	--foreign-user --copyright-holder "Sebastian Wiesner <sebastian@swsnr.de>" \
+	--sort-by-file --from-code=UTF-8 --add-comments
 
 .PHONY: pot
 pot:
-	find -not '(' -path '*/.*' -or -path './target/*' ')' -and \
-		'(' -name '*.rs' -or \
-			-name '*.desktop.in' -or \
-			-name '*.metainfo.xml.in' \
-			-or -name '*.blp' ')' | sort > po/POTFILES.in
-	xgettext $(XGETTEXT_METADATA) --files-from=po/POTFILES.in \
-		--add-comments \
-		--keyword=_ --keyword=C_:1c,2 --keyword=dpgettext2:2c,3 \
-		--sort-by-file --from-code=UTF-8 --output=po/de.swsnr.turnon.pot
+	find src -name '*.rs' > po/POTFILES.rs
+	find resources/ -name '*.blp' > po/POTFILES.blp
+	xgettext $(XGETTEXT_OPTS) --language=C --keyword=dpgettext2:2c,3 --files-from=po/POTFILES.rs --output=po/de.swsnr.turnon.rs.pot
+	xgettext $(XGETTEXT_OPTS) --language=C --keyword=_ --keyword=C_:1c,2 --files-from=po/POTFILES.blp --output=po/de.swsnr.turnon.blp.pot
+	xgettext $(XGETTEXT_OPTS) --output=po/de.swsnr.turnon.pot \
+		po/de.swsnr.turnon.rs.pot po/de.swsnr.turnon.blp.pot \
+		resources/de.swsnr.turnon.metainfo.xml.in de.swsnr.turnon.desktop.in
+	rm -f po/POTFILES* po/de.swsnr.turnon.rs.pot po/de.swsnr.turnon.blp.pot
 
 .PHONY: messages
-messages: pot $(CATALOGS)
+messages: pot
 
 po/%.mo: po/%.po
 	msgfmt --output-file $@ --check $<
