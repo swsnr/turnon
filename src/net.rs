@@ -16,7 +16,6 @@ use std::os::fd::{AsRawFd, OwnedFd};
 use std::rc::Rc;
 use std::time::Duration;
 
-use futures_util::stream;
 use futures_util::stream::FuturesUnordered;
 use futures_util::{future, select_biased, FutureExt, Stream, StreamExt, TryFutureExt};
 use glib::IOCondition;
@@ -234,14 +233,11 @@ pub fn monitor(target: Target, interval: Duration) -> impl Stream<Item = Result<
                                 .left_future()
                         }
                     },
-                };
-                let mut reachable_addresses = stream::once(addresses)
-                    .flat_map(|addresses| {
-                        addresses
-                            .into_iter()
-                            .map(|addr| ping(addr, seqnr).map(move |result| (addr, result)))
-                            .collect::<FuturesUnordered<_>>()
-                    })
+                }.await;
+                let mut reachable_addresses = addresses
+                    .into_iter()
+                    .map(|addr| ping(addr, seqnr).map(move |result| (addr, result)))
+                    .collect::<FuturesUnordered<_>>()
                     // Filter out all address which we can't ping or which don't reply
                     .filter_map(|(ip_address, result)| match result {
                         Ok(_) => {
