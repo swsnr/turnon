@@ -9,8 +9,8 @@ msgstr ""
 "POT-Creation-Date: 2024-11-10 11:58+0100\n"
 "PO-Revision-Date: 2024-11-11 11:07+0000\n"
 "Last-Translator: Vistaus <Vistaus@users.noreply.translate.codeberg.org>\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/"
-"de-swsnr-turnon/de-swsnr-turnon/nl/>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/de-swsnr-"
+"turnon/de-swsnr-turnon/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +63,8 @@ msgstr "Monitor de apparaatstatus."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:33
 msgid "Add Dutch translation, and update existing translations."
-msgstr "Nieuw: Nederlandse vertaling - Bijgewerkt: reeds aanwezige vertalingen."
+msgstr ""
+"Nieuw: Nederlandse vertaling - Bijgewerkt: reeds aanwezige vertalingen."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:34
 msgid "Turn On now correctly persists devices when a device was edited."
