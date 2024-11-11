@@ -10,6 +10,7 @@ use glib::{dgettext, dpgettext2, Object};
 use gtk::gio::{ActionEntry, ApplicationFlags};
 
 use crate::config::{APP_ID, G_LOG_DOMAIN};
+use crate::debuginfo::DebugInfo;
 use crate::model::Devices;
 use crate::widgets::EditDeviceDialog;
 
@@ -44,8 +45,21 @@ impl TurnOnApplication {
                 .activate(|app: &TurnOnApplication, _, _| {
                     let dialog = adw::AboutDialog::from_appdata(
                         "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
-                        Some(env!("CARGO_PKG_VERSION")),
+                        Some(crate::config::VERSION),
                     );
+
+                    glib::spawn_future_local(glib::clone!(
+                        #[strong(rename_to = model)]
+                        app.model(),
+                        #[weak]
+                        dialog,
+                        async move {
+                            let info = DebugInfo::assemble(model).await;
+                            dialog.set_debug_info(&info.to_string());
+                            dialog.set_debug_info_filename(&info.suggested_file_name());
+                        }
+                    ));
+
                     dialog.add_link(
                         &dpgettext2(None, "about-dialog.link.label", "Translations"),
                         "https://translate.codeberg.org/engage/de-swsnr-turnon/",

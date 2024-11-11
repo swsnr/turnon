@@ -32,6 +32,7 @@
             <description>
                 <p>Add Dutch translation, and update existing translations.</p>
                 <p>Turn On now correctly persists devices when a device was edited.</p>
+                <p>The "About Turn On" dialog now provides a debug report for troubleshooting.</p>
             </description>
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>

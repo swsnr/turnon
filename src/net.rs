@@ -82,7 +82,7 @@ impl Display for Target {
 ///
 /// Return an error if pinging `ip_address` failed, or if we received a non-reply
 /// response.
-async fn ping(ip_address: IpAddr, sequence_number: u16) -> Result<(), glib::Error> {
+pub async fn ping(ip_address: IpAddr, sequence_number: u16) -> Result<(), glib::Error> {
     glib::trace!("Sending ICMP echo request to {ip_address}");
     let (domain, protocol) = match ip_address {
         IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),

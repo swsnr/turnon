@@ -17,6 +17,7 @@ mod config;
 mod dbus;
 mod gettext;
 
+mod debuginfo;
 mod model;
 mod net;
 mod searchprovider;
