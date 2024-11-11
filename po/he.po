@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-06 07:34+0100\n"
+"POT-Creation-Date: 2024-11-10 11:58+0100\n"
 "PO-Revision-Date: 2024-11-04 20:11+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.codeberg.org/projects/de-swsnr-"
@@ -62,25 +62,37 @@ msgid "Monitor device status."
 msgstr "מעקב אחר מצב התקנים."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:33
+#, fuzzy
+#| msgid "Add Italian translation, and update German translation."
+msgid "Add Dutch translation, and update existing translations."
+msgstr "נוסף תרגום לאיטלקית והתרגום לגרמנית עודכן."
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:34
+#, fuzzy
+#| msgid "Turn On no longer crashes when removing the last device."
+msgid "Turn On now correctly persists devices when a device was edited."
+msgstr "הדלקה לא קורס עוד בעת הסרת ההתקן האחרון."
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:40
 msgid "Add Hebrew translation."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:39
+#: resources/de.swsnr.turnon.metainfo.xml.in:46
 msgid "Add Italian translation, and update German translation."
 msgstr "נוסף תרגום לאיטלקית והתרגום לגרמנית עודכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:45
+#: resources/de.swsnr.turnon.metainfo.xml.in:52
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr "הדלקה משתלבת לתוך החיפוש של GNOME ומציעה להדליק התקנים ישירות מהחיפוש."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:46
+#: resources/de.swsnr.turnon.metainfo.xml.in:53
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr "משגר הדלקה מציע להוסיף התקן חדש בתפריט ההקשר."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:47
+#: resources/de.swsnr.turnon.metainfo.xml.in:54
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -88,19 +100,19 @@ msgstr ""
 "הדלקה מספקת ממשק שורת פקידה בסיסי, במיוחד עם האפשרות ‎--turn-on-device "
 "שמפעילה מעתה התקנים לפי התוויות שלהם."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:53
+#: resources/de.swsnr.turnon.metainfo.xml.in:60
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "הדלקה לא קורס עוד בעת הסרת ההתקן האחרון."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:54
+#: resources/de.swsnr.turnon.metainfo.xml.in:61
 msgid "Add German translation, and update application metadata."
 msgstr "הוספת תרגום לגרמנית ועדכון נתוני העל של היישום."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:60
+#: resources/de.swsnr.turnon.metainfo.xml.in:67
 msgid "Shorten summary in metadata."
 msgstr "קוצר ההסבר בנתוני העל."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:66
+#: resources/de.swsnr.turnon.metainfo.xml.in:73
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -111,55 +123,55 @@ msgstr ""
 "התקן ופישוט חלונית עריכת ההתקנים באמצעות המקלדת (לחיצה אל Enter מנווטת "
 "לרשומה הבאה ובסופו של דבר מוסיפה את ההתקן)."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:78
+#: resources/de.swsnr.turnon.metainfo.xml.in:85
 msgid "Refined app icon."
 msgstr "הסגנון של סמל היישום התעדכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:84
+#: resources/de.swsnr.turnon.metainfo.xml.in:91
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr "זאת המהדורה הראשונית. היישום תומך ביכולות האלה בגרסה הזאת:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:86
+#: resources/de.swsnr.turnon.metainfo.xml.in:93
 msgid "Add new devices"
 msgstr "הוספת התקנים חדשים"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:87
+#: resources/de.swsnr.turnon.metainfo.xml.in:94
 msgid "Monitor whether devices are turned on"
 msgstr "מעקב אחר האם ההתקנים דולקים"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:88
+#: resources/de.swsnr.turnon.metainfo.xml.in:95
 msgid "Turn on devices with Wake On LAN"
 msgstr "הדלקת התקנים דרך השכמה דרך הרשת המקומית - Wake On LAN"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:90
+#: resources/de.swsnr.turnon.metainfo.xml.in:97
 msgid "This release is missing the following features:"
 msgstr "במהדורה הזאת חסרות היכולות הבאות:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:92
+#: resources/de.swsnr.turnon.metainfo.xml.in:99
 msgid "Devices can not be edited or removed."
 msgstr "אי אפשר לערוך או להסיר התקנים."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:93
+#: resources/de.swsnr.turnon.metainfo.xml.in:100
 msgid "The order of devices cannot be changed."
 msgstr "אי אפשר לשנות את סדר ההתקנים."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:94
+#: resources/de.swsnr.turnon.metainfo.xml.in:101
 msgid "Languages other than English are not supported."
 msgstr "אין תמיכה בשפות מלבד אנגלית."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:107
+#: resources/de.swsnr.turnon.metainfo.xml.in:114
 msgid "Two devices, one of them on, and the other off"
 msgstr "שני התקנים, אחד מהם דולק, השני כבוי"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:111
+#: resources/de.swsnr.turnon.metainfo.xml.in:118
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr "עריכת התקן עם שם, כתובת חומרה (MAC), וכתובת IP כדי לבדוק מולו את המצב"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:115
+#: resources/de.swsnr.turnon.metainfo.xml.in:122
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
@@ -326,32 +338,32 @@ msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
 msgstr ""
 
-#: src/app.rs:177
+#: src/app.rs:185
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "הוספת התקן חדש"
 
-#: src/app.rs:188
+#: src/app.rs:196
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr "הדלקת התקן לפי התווית שלו"
 
-#: src/app.rs:193
+#: src/app.rs:201
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr "תווית"
 
-#: src/app.rs:294
+#: src/app.rs:302
 msgctxt "option.turn-on-device.message"
 msgid "Sent magic packet to mac address %1 of device %2\n"
 msgstr "נשלחת מנת נתונים קסומה לכתובת החומרה %1 של ההתקן %2\n"
 
-#: src/app.rs:305
+#: src/app.rs:313
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
 msgstr "הדלקת ההתקן %1 נכשלה: %2\n"
 
-#: src/app.rs:324
+#: src/app.rs:332
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
