@@ -11,10 +11,13 @@ use glib::{gstr, GStr};
 /// The app ID to use.
 pub static APP_ID: &GStr = gstr!("de.swsnr.turnon");
 
+/// The app version.
+pub static VERSION: &str = env!("CARGO_PKG_VERSION");
+
 pub const G_LOG_DOMAIN: &str = "TurnOn";
 
 /// Whether the app is running in flatpak.
-fn running_in_flatpak() -> bool {
+pub fn running_in_flatpak() -> bool {
     std::fs::exists("/.flatpak-info").unwrap_or_default()
 }
 
