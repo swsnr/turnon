@@ -43,36 +43,36 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4]]
-version = "0.9.3"
-when = "2024-10-31"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.9.4"
+when = "2024-11-12"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-sys]]
-version = "0.9.3"
-when = "2024-10-31"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.9.4"
+when = "2024-11-12"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gio]]
-version = "0.20.5"
-when = "2024-10-30"
+version = "0.20.6"
+when = "2024-11-12"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio-sys]]
-version = "0.20.5"
-when = "2024-10-30"
+version = "0.20.6"
+when = "2024-11-12"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib]]
-version = "0.20.5"
-when = "2024-10-30"
+version = "0.20.6"
+when = "2024-11-12"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -85,8 +85,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-sys]]
-version = "0.20.5"
-when = "2024-10-30"
+version = "0.20.6"
+when = "2024-11-12"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -113,25 +113,25 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gsk4]]
-version = "0.9.3"
-when = "2024-10-31"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.9.4"
+when = "2024-11-12"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gsk4-sys]]
-version = "0.9.3"
-when = "2024-10-31"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.9.4"
+when = "2024-11-12"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gtk4]]
-version = "0.9.3"
-when = "2024-10-31"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.9.4"
+when = "2024-11-12"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gtk4-macros]]
 version = "0.9.3"
@@ -141,15 +141,15 @@ user-login = "bilelmoussaoui"
 user-name = "Bilal Elmoussaoui"
 
 [[publisher.gtk4-sys]]
-version = "0.9.3"
-when = "2024-10-31"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.9.4"
+when = "2024-11-12"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.hashbrown]]
-version = "0.15.0"
-when = "2024-10-01"
+version = "0.15.1"
+when = "2024-11-04"
 user-id = 2915
 user-login = "Amanieu"
 user-name = "Amanieu d'Antras"
@@ -190,8 +190,8 @@ user-login = "BurntSushi"
 user-name = "Andrew Gallant"
 
 [[publisher.pango]]
-version = "0.20.4"
-when = "2024-09-26"
+version = "0.20.6"
+when = "2024-11-12"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
