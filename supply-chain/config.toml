@@ -41,10 +41,6 @@ criteria = "safe-to-run"
 version = "0.5.2"
 criteria = "safe-to-run"
 
-[[exemptions.parking]]
-version = "2.2.1"
-criteria = "safe-to-run"
-
 [[exemptions.proc-macro-crate]]
 version = "3.2.0"
 criteria = "safe-to-run"

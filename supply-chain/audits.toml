@@ -37,6 +37,16 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.9.0 -> 0.9.1"
 
+[[audits.parking]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-deploy"
+version = "2.2.1"
+notes = """
+Contains no unsafe code, and does not access the system beyond parking.
+Thread locking and parking logic is a bit intricate, but well documented, and
+appears to be sound, superficially.
+"""
+
 [[audits.pin-project-lite]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
