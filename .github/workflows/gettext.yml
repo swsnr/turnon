@@ -18,10 +18,11 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - name: Install gettext
+      # We need appstream as it provides extraction rules for metainfo files
+      - name: Install gettext and appstream
         run: |
           sudo apt-get update -qq
-          sudo apt-get install --no-install-recommends -qq -y gettext
+          sudo apt-get install --no-install-recommends -qq -y gettext appstream
       - run: make pot
       # Create a pull request to update the messages file
       - uses: peter-evans/create-pull-request@v7
