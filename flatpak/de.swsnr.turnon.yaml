@@ -22,7 +22,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/swsnr/turnon/archive/refs/tags/v1.4.0.tar.gz
-        sha512: "cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e"
+        sha512: "7a53de1b3481174c27877f01e9388555ea7db0b057f9c6d49a728d73bfe60127f45a6dc41e2fb46cd2b3e8f0b961fc50b91d068e76c0a3f54edcb26b76799207"
       - cargo-sources.json
     build-commands:
       # Point cargo to vendored sources downloaded by flatpak builder
