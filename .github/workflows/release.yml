@@ -1,0 +1,43 @@
+name: Release
+
+# We run the workflow on the main branch, too, to make sure release notes
+# processing works.
+on:
+  push:
+    branches: [main]
+    tags: v*
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: appstreamcli metainfo-to-news
+        uses: docker://ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
+        with:
+          args: appstreamcli metainfo-to-news resources/de.swsnr.turnon.metainfo.xml.in news.yaml
+      - name: yq eval-all '[.]' -oj news.yaml
+        id: news
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq eval-all '[.]' -oj news.yaml
+      - run: jq -nr --arg tag "${TAGNAME}" '$ENV.JSON | fromjson | .[] | select(.Version == ($tag | ltrimstr("v"))) | .Description | tostring' > relnotes.md
+        env:
+          JSON: ${{ steps.news.outputs.result }}
+          # Get release notes for the next release on the main branch, otherwise use the tag name
+          TAGNAME: ${{ !startsWith(github.ref, 'refs/tags/') && 'next' || github.ref_name }}
+      - run: cat relnotes.md
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Release Notes
+          path: relnotes.md
+      - name: Create release
+        # Only create the actual release when we push to a tag.
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: ./relnotes.md
+          make_latest: true
