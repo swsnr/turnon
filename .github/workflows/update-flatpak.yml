@@ -50,7 +50,7 @@ jobs:
           name: cargo-sources
       - run: mv cargo-sources.json flatpak/cargo-sources.json
       # Get the SHA512 checksum for the git sources archive of the tag
-      - run: echo ARCHIVE_SHA512="$(curl https://github.com/swsnr/turnon/archive/refs/tags/${GITHUB_REF_NAME}.tar.gz | sha512sum | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      - run: echo ARCHIVE_SHA512="$(curl -L https://github.com/swsnr/turnon/archive/refs/tags/${GITHUB_REF_NAME}.tar.gz | sha512sum | cut -d' ' -f1)" >> "$GITHUB_ENV"
       # Replace the actual sources for turnon with appropriate environment variables...
       - name: Replace sha512sum
         uses: mikefarah/yq@master
