@@ -4,6 +4,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use std::borrow::Cow;
 use std::fmt::Display;
 use std::net::IpAddr;
 use std::time::Duration;
@@ -90,6 +91,8 @@ pub struct DebugInfo {
     pub version: &'static str,
     /// Whether the application runs inside a flatpak sandbox.
     pub flatpak: bool,
+    /// Overall network connectivity
+    pub connectivity: gio::NetworkConnectivity,
     /// Results from pinging devices once, for debugging.
     pub ping_results: Vec<(Device, DevicePingResult)>,
 }
@@ -100,6 +103,7 @@ impl DebugInfo {
     /// This method returns a human-readable plain text debug report which can help
     /// to identify issues.
     pub async fn assemble(devices: Devices) -> DebugInfo {
+        let connectivity = gio::NetworkMonitor::default().connectivity();
         let ping_results = std::iter::once(Device::new(
             "localhost".to_owned(),
             MacAddr6::nil(),
@@ -114,6 +118,7 @@ impl DebugInfo {
             app_id: config::APP_ID,
             version: config::VERSION,
             flatpak: config::running_in_flatpak(),
+            connectivity,
             ping_results,
         }
     }
@@ -125,6 +130,13 @@ impl DebugInfo {
 
 impl Display for DebugInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let connectivity: Cow<'static, str> = match self.connectivity {
+            gio::NetworkConnectivity::Local => "Local".into(),
+            gio::NetworkConnectivity::Limited => "Limited".into(),
+            gio::NetworkConnectivity::Portal => "Portal".into(),
+            gio::NetworkConnectivity::Full => "Full".into(),
+            other => format!("Other {:?}", other).into(),
+        };
         let pings = self
             .ping_results
             .iter()
@@ -163,6 +175,7 @@ THIS REPORT CONTAINS HOST NAMES AND IP ADDRESSES OF YOUR DEVICES.
 IF YOU CONSIDER THIS REPORT SENSITIVE DO NOT POST IT PUBLICLY!
 
 Flatpak? {}
+Network connectivity: {connectivity}
 
 {}",
             self.app_id, self.version, self.flatpak, pings
