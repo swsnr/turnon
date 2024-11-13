@@ -1,6 +1,7 @@
-name: Handle gettext
+name: gettext
 
 on:
+  workflow_dispatch:
   push:
     branches: ["main"]
     paths:
