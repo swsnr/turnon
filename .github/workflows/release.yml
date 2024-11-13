@@ -84,6 +84,9 @@ jobs:
     needs: update-cargo-sources
     # Only update the flatpak manifest if we actually push to a tag.
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v4
       # Download the cargo-sources.json manifest and move it to the right place.
