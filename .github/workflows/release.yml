@@ -50,14 +50,38 @@ jobs:
           body_path: ./relnotes.md
           make_latest: true
 
+  update-cargo-sources:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: flatpak/flatpak-builder-tools
+          path: flatpak-builder-tools
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pipx install poetry
+      - run: poetry install
+        working-directory: flatpak-builder-tools/cargo
+      - run: poetry run python ./flatpak-cargo-generator.py "${GITHUB_WORKSPACE}/Cargo.lock" -o "${GITHUB_WORKSPACE}/flatpak/cargo-sources.json"
+        working-directory: flatpak-builder-tools/cargo
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cargo-sources
+          path: flatpak/cargo-sources.json
+
   # When pushing a tag also make a pull request to update the flatpak manifest
   # to refer to the new release.
   update-manifest:
     runs-on: ubuntu-latest
-    # Only update the flatpak manifest if we actually push to a tag.
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    needs: update-cargo-sources
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: cargo-sources
+      - run: mv cargo-sources.json flatpak/cargo-sources.json
       - name: Replace sha512sum
         uses: mikefarah/yq@master
         with:
@@ -73,6 +97,8 @@ jobs:
           cmd: yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
       - run: git diff
       - uses: peter-evans/create-pull-request@v7
+        # Only update the flatpak manifest if we actually push to a tag.
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
           commit-message: "Update flatpak manifest for ${{ github.ref_name }}"
           branch: update-flatpak-manifest
