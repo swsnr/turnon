@@ -103,16 +103,21 @@ impl DebugInfo {
     /// This method returns a human-readable plain text debug report which can help
     /// to identify issues.
     pub async fn assemble(devices: Devices) -> DebugInfo {
-        let connectivity = gio::NetworkMonitor::default().connectivity();
-        let ping_results = std::iter::once(Device::new(
-            "localhost".to_owned(),
-            MacAddr6::nil(),
-            "localhost".to_owned(),
-        ))
-        .chain(devices.into_iter())
-        .map(ping_device)
-        .collect::<FuturesOrdered<_>>()
-        .collect::<Vec<_>>()
+        let monitor = gio::NetworkMonitor::default();
+        let (connectivity, ping_results) = futures_util::future::join(
+            // Give network monitor time to actually figure out what the state of the network is,
+            // especially inside a flatpak sandbox, see https://gitlab.gnome.org/GNOME/glib/-/issues/1718
+            glib::timeout_future(Duration::from_millis(500)).map(|_| monitor.connectivity()),
+            std::iter::once(Device::new(
+                "localhost".to_owned(),
+                MacAddr6::nil(),
+                "localhost".to_owned(),
+            ))
+            .chain(devices.into_iter())
+            .map(ping_device)
+            .collect::<FuturesOrdered<_>>()
+            .collect::<Vec<_>>(),
+        )
         .await;
         DebugInfo {
             app_id: config::APP_ID,
