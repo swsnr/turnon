@@ -49,3 +49,36 @@ jobs:
         with:
           body_path: ./relnotes.md
           make_latest: true
+
+  # When pushing a tag also make a pull request to update the flatpak manifest
+  # to refer to the new release.
+  update-manifest:
+    runs-on: ubuntu-latest
+    # Only update the flatpak manifest if we actually push to a tag.
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace sha512sum
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq eval -i '.modules.[0].sources.[0].url = "https://github.com/swsnr/turnon/archive/refs/tags/$GITHUB_REF_NAME.tar.gz"' flatpak/de.swsnr.turnon.yaml
+      - name: Replace sha512sum
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq eval -i '.modules.[0].sources.[0].sha512 = "$ARCHIVE_SHA512"' flatpak/de.swsnr.turnon.yaml
+      - run: echo ARCHIVE_SHA512="$(curl https://github.com/swsnr/turnon/archive/refs/tags/${GITHUB_REF_NAME}.tar.gz | sha512sum | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      - name: Substitute environment variables
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
+      - run: git diff
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "Update flatpak manifest for ${{ github.ref_name }}"
+          branch: update-flatpak-manifest
+          base: main
+          sign-commits: true
+          delete-branch: true
+          title: "Update flatpak manifest for ${{ github.ref_name }}"
+          body: "Automated update of flatpak manifest for release ${{ github.ref_name }}"
+          assignees: swsnr
