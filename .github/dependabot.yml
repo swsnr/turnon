@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # Check for updates of actions every month.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: monthly
+    assignees: [swsnr]
+  # We deliberately do not check crate updates, because it's way too much,
+  # and cargo update exists.  With cargo-vet we'd not be able to merge these
+  # PRs anyway.
+  #
+  # For security updates we get Github notifications anyway.
