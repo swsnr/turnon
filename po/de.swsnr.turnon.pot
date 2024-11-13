@@ -8,13 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-11 22:10+0100\n"
+"POT-Creation-Date: 2024-11-13 19:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
@@ -58,56 +58,62 @@ msgid "Monitor device status."
 msgstr ""
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:33
+msgid ""
+"The link to translations in application metadata and on Flathub is more "
+"helpful now."
+msgstr ""
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:39
 msgid "Add Dutch translation, and update existing translations."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:34
+#: resources/de.swsnr.turnon.metainfo.xml.in:40
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:35
+#: resources/de.swsnr.turnon.metainfo.xml.in:41
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:41
+#: resources/de.swsnr.turnon.metainfo.xml.in:47
 msgid "Add Hebrew translation."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:47
+#: resources/de.swsnr.turnon.metainfo.xml.in:53
 msgid "Add Italian translation, and update German translation."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:53
+#: resources/de.swsnr.turnon.metainfo.xml.in:59
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:54
+#: resources/de.swsnr.turnon.metainfo.xml.in:60
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:55
+#: resources/de.swsnr.turnon.metainfo.xml.in:61
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:61
+#: resources/de.swsnr.turnon.metainfo.xml.in:67
 msgid "Turn On no longer crashes when removing the last device."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:62
+#: resources/de.swsnr.turnon.metainfo.xml.in:68
 msgid "Add German translation, and update application metadata."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:68
+#: resources/de.swsnr.turnon.metainfo.xml.in:74
 msgid "Shorten summary in metadata."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:74
+#: resources/de.swsnr.turnon.metainfo.xml.in:80
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -115,55 +121,55 @@ msgid ""
 "entry and eventually adds the device)."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:86
+#: resources/de.swsnr.turnon.metainfo.xml.in:92
 msgid "Refined app icon."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:92
+#: resources/de.swsnr.turnon.metainfo.xml.in:98
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:94
+#: resources/de.swsnr.turnon.metainfo.xml.in:100
 msgid "Add new devices"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:95
+#: resources/de.swsnr.turnon.metainfo.xml.in:101
 msgid "Monitor whether devices are turned on"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:96
+#: resources/de.swsnr.turnon.metainfo.xml.in:102
 msgid "Turn on devices with Wake On LAN"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:98
+#: resources/de.swsnr.turnon.metainfo.xml.in:104
 msgid "This release is missing the following features:"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:100
+#: resources/de.swsnr.turnon.metainfo.xml.in:106
 msgid "Devices can not be edited or removed."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:101
+#: resources/de.swsnr.turnon.metainfo.xml.in:107
 msgid "The order of devices cannot be changed."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:102
+#: resources/de.swsnr.turnon.metainfo.xml.in:108
 msgid "Languages other than English are not supported."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:115
+#: resources/de.swsnr.turnon.metainfo.xml.in:121
 msgid "Two devices, one of them on, and the other off"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:119
+#: resources/de.swsnr.turnon.metainfo.xml.in:125
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:123
+#: resources/de.swsnr.turnon.metainfo.xml.in:129
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
