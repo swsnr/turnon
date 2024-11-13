@@ -27,7 +27,10 @@ jobs:
       # Create a pull request to update the messages file
       - uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "Update messages"
+          commit-message: |
+            Update messages
+
+            Github bot runs make pot :v:
           branch: workflow/update-messages
           base: main
           sign-commits: true
