@@ -22,12 +22,18 @@
     </keywords>
     <url type="homepage">https://github.com/swsnr/turnon</url>
     <url type="bugtracker">https://github.com/swsnr/turnon/issues</url>
-    <url type="translate">https://translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/</url>
+    <url type="translate">https://translate.codeberg.org/engage/de-swsnr-turnon/</url>
     <url type="contact">https://swsnr.de/</url>
     <url type="vcs-browser">https://github.com/swsnr/turnon</url>
     <url type="contribute">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
+        <release version="next" date="9999-01-01">
+            <description>
+                <p>The link to translations in application metadata and on Flathub is more helpful now.</p>
+            </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/next</url>
+        </release>
         <release version="1.4.0" date="2024-11-13">
             <description>
                 <p>Add Dutch translation, and update existing translations.</p>
