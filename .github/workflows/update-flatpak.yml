@@ -76,3 +76,4 @@ jobs:
           title: "Update flatpak manifest for ${{ github.ref_name }}"
           body: "Automated update of flatpak manifest for release ${{ github.ref_name }}"
           assignees: swsnr
+          draft: always-true

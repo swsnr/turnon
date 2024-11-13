@@ -5,6 +5,10 @@ on:
     branches: ["main", "devel"]
   pull_request:
     branches: ["main"]
+    # Run this workflow also when a PR becomes ready for review; this enables us
+    # to open automated PRs as draft, and then explicitly make them ready for
+    # review manually to trigger the workflow.
+    types: [opened, reopened, synchronize, ready_for_review]
 
 env:
   CARGO_TERM_COLOR: always
