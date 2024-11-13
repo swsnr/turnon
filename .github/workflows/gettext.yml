@@ -1,0 +1,37 @@
+name: Handle gettext
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - src/**/*.rs
+      - resources/**/*.blp
+      - resources/de.swsnr.turnon.metainfo.xml.in
+      - de.swsnr.turnon.desktop.in
+
+jobs:
+  xgettext:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install gettext
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --no-install-recommends -qq -y gettext
+      - run: make pot
+      # Create a pull request to update the messages file
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "Update messages"
+          branch: workflow/update-messages
+          base: main
+          sign-commits: true
+          delete-branch: true
+          title: "Automated update of messages"
+          body: "Github bot runs make pot :v:"
+          assignees: swsnr
+          draft: true
+          add-paths: po/de.swsnr.turnon.pot

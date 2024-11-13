@@ -9,6 +9,9 @@ XGETTEXT_OPTS = \
 	--foreign-user --copyright-holder "Sebastian Wiesner <sebastian@swsnr.de>" \
 	--sort-by-file --from-code=UTF-8 --add-comments
 
+# When changing the set of files taken into account for xgettext also update the
+# paths list in the gettext.yml workflow to make sure that updates to these
+# files are caught by the gettext workflows.
 .PHONY: pot
 pot:
 	find src -name '*.rs' > po/POTFILES.rs
