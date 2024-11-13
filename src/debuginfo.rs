@@ -31,12 +31,14 @@ pub enum DevicePingResult {
 fn timeout_err(timeout: Duration) -> glib::Error {
     glib::Error::new(
         IOErrorEnum::TimedOut,
-        &format!("Timeout after {}s", timeout.as_secs()),
+        &format!("Timeout after {}ms", timeout.as_millis()),
     )
 }
 
 async fn ping_device(device: Device) -> (Device, DevicePingResult) {
-    let timeout = Duration::from_secs(2);
+    // For debug info we use a very aggressive timeout for resolution and pings.
+    // We expect everything to be in the local network anyways.
+    let timeout = Duration::from_millis(500);
     let target = Target::from(device.host());
 
     let addresses = match target {
