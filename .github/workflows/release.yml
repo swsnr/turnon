@@ -50,8 +50,13 @@ jobs:
           body_path: ./relnotes.md
           make_latest: true
 
+  # Re-generate cargo-sources.json whenever we push a release.
+  # We use a separate job here because we need to setup Python and clone the
+  # whole builder tools repo.
   update-cargo-sources:
     runs-on: ubuntu-latest
+    # Only update cargo sources for flatpak if we're pushing a tag
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
@@ -75,13 +80,20 @@ jobs:
   # to refer to the new release.
   update-manifest:
     runs-on: ubuntu-latest
+    # We also want updated cargo-sources.json
     needs: update-cargo-sources
+    # Only update the flatpak manifest if we actually push to a tag.
+    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     steps:
       - uses: actions/checkout@v4
+      # Download the cargo-sources.json manifest and move it to the right place.
       - uses: actions/download-artifact@v4
         with:
           name: cargo-sources
       - run: mv cargo-sources.json flatpak/cargo-sources.json
+      # Get the SHA512 checksum for the git sources archive of the tag
+      - run: echo ARCHIVE_SHA512="$(curl https://github.com/swsnr/turnon/archive/refs/tags/${GITHUB_REF_NAME}.tar.gz | sha512sum | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      # Replace the actual sources for turnon with appropriate environment variables...
       - name: Replace sha512sum
         uses: mikefarah/yq@master
         with:
@@ -90,15 +102,15 @@ jobs:
         uses: mikefarah/yq@master
         with:
           cmd: yq eval -i '.modules.[0].sources.[0].sha512 = "$ARCHIVE_SHA512"' flatpak/de.swsnr.turnon.yaml
-      - run: echo ARCHIVE_SHA512="$(curl https://github.com/swsnr/turnon/archive/refs/tags/${GITHUB_REF_NAME}.tar.gz | sha512sum | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      # ...and then substitute the environment variables to get the actual URL and checksum into the manifest
       - name: Substitute environment variables
         uses: mikefarah/yq@master
         with:
           cmd: yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
+      # A little sanity check
       - run: git diff
+      # Create a pull request to update the manifest on main
       - uses: peter-evans/create-pull-request@v7
-        # Only update the flatpak manifest if we actually push to a tag.
-        if: ${{ startsWith(github.ref, 'refs/tags/') }}
         with:
           commit-message: "Update flatpak manifest for ${{ github.ref_name }}"
           branch: update-flatpak-manifest
