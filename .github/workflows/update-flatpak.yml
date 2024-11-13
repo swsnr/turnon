@@ -1,7 +1,5 @@
 name: Update flatpak manifest
 
-# We run the workflow on the main branch, too, to make sure release notes
-# processing works.
 on:
   push:
     tags: v*
