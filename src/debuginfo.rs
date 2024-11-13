@@ -147,7 +147,7 @@ impl Display for DebugInfo {
                 DevicePingResult::Pinged(addresses) => {
                     format!(
                         "Host {}:\n{}",
-                        d.label(),
+                        d.host(),
                         addresses
                             .iter()
                             .map(|(addr, result)| {
