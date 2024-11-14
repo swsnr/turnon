@@ -10,6 +10,7 @@ on:
       - resources/de.swsnr.turnon.metainfo.xml.in
       - de.swsnr.turnon.desktop.in
       - Makefile
+      - .github/workflows/gettext.yml
 
 jobs:
   xgettext:
