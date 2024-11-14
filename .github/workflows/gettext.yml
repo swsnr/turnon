@@ -22,7 +22,7 @@ jobs:
       image: docker.io/fedora:latest
     steps:
       - name: Install git, gettext, and appstream
-        run: dnf install git gettext appstream
+        run: dnf install -y git gettext appstream
       - uses: actions/checkout@v4
       - run: make pot
       # Create a pull request to update the messages file
