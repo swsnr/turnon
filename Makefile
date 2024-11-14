@@ -12,6 +12,10 @@ XGETTEXT_OPTS = \
 # When changing the set of files taken into account for xgettext also update the
 # paths list in the gettext.yml workflow to make sure that updates to these
 # files are caught by the gettext workflows.
+#
+# We strip the POT-Creation-Date from the resulting POT because xgettext bumps
+# it everytime regardless if anything else changed, and this just generates
+# needless diffs.
 .PHONY: pot
 pot:
 	find src -name '*.rs' > po/POTFILES.rs
@@ -22,6 +26,7 @@ pot:
 		po/de.swsnr.turnon.rs.pot po/de.swsnr.turnon.blp.pot \
 		resources/de.swsnr.turnon.metainfo.xml.in de.swsnr.turnon.desktop.in
 	rm -f po/POTFILES* po/de.swsnr.turnon.rs.pot po/de.swsnr.turnon.blp.pot
+	sed -i /POT-Creation-Date/d po/de.swsnr.turnon.pot
 
 .PHONY: messages
 messages: pot
