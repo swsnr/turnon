@@ -138,12 +138,11 @@ pub fn compile_resources<P: AsRef<Path>>(source_dirs: &[P], gresource: &str, tar
         .unwrap()
         .stdout;
     for line in String::from_utf8(output).unwrap().lines() {
-        let dep = Path::new(line);
-        if let Some("ui") = dep.extension().and_then(|e| e.to_str()) {
+        if line.ends_with(".ui") {
             // We build UI files from blueprint, so adapt the dependency
             println!(
                 "cargo:rerun-if-changed={}",
-                dep.with_extension("blp").display()
+                Path::new(line).with_extension("blp").display()
             );
         } else if line.ends_with(".metainfo.xml") {
             // We build the metainfo file from the template
