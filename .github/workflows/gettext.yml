@@ -9,6 +9,7 @@ on:
       - resources/**/*.blp
       - resources/de.swsnr.turnon.metainfo.xml.in
       - de.swsnr.turnon.desktop.in
+      - Makefile
 
 jobs:
   xgettext:
