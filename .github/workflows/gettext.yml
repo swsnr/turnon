@@ -18,13 +18,12 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+    container:
+      image: docker.io/fedora:latest
     steps:
+      - name: Install git, gettext, and appstream
+        run: dnf install git gettext apprestream
       - uses: actions/checkout@v4
-      # We need appstream as it provides extraction rules for metainfo files
-      - name: Install gettext and appstream
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install --no-install-recommends -qq -y gettext appstream
       - run: make pot
       # Create a pull request to update the messages file
       - uses: peter-evans/create-pull-request@v7
