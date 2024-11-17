@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-11 22:10+0100\n"
+"POT-Creation-Date: 2024-11-13 19:52+0000\n"
 "PO-Revision-Date: 2024-11-04 20:11+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.codeberg.org/projects/de-swsnr-"
@@ -62,42 +62,48 @@ msgid "Monitor device status."
 msgstr "מעקב אחר מצב התקנים."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:33
+msgid ""
+"The link to translations in application metadata and on Flathub is more "
+"helpful now."
+msgstr ""
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:39
 #, fuzzy
 #| msgid "Add Italian translation, and update German translation."
 msgid "Add Dutch translation, and update existing translations."
 msgstr "נוסף תרגום לאיטלקית והתרגום לגרמנית עודכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:34
+#: resources/de.swsnr.turnon.metainfo.xml.in:40
 #, fuzzy
 #| msgid "Turn On no longer crashes when removing the last device."
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr "הדלקה לא קורס עוד בעת הסרת ההתקן האחרון."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:35
+#: resources/de.swsnr.turnon.metainfo.xml.in:41
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:41
+#: resources/de.swsnr.turnon.metainfo.xml.in:47
 msgid "Add Hebrew translation."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:47
+#: resources/de.swsnr.turnon.metainfo.xml.in:53
 msgid "Add Italian translation, and update German translation."
 msgstr "נוסף תרגום לאיטלקית והתרגום לגרמנית עודכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:53
+#: resources/de.swsnr.turnon.metainfo.xml.in:59
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr "הדלקה משתלבת לתוך החיפוש של GNOME ומציעה להדליק התקנים ישירות מהחיפוש."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:54
+#: resources/de.swsnr.turnon.metainfo.xml.in:60
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr "משגר הדלקה מציע להוסיף התקן חדש בתפריט ההקשר."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:55
+#: resources/de.swsnr.turnon.metainfo.xml.in:61
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -105,19 +111,19 @@ msgstr ""
 "הדלקה מספקת ממשק שורת פקידה בסיסי, במיוחד עם האפשרות ‎--turn-on-device "
 "שמפעילה מעתה התקנים לפי התוויות שלהם."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:61
+#: resources/de.swsnr.turnon.metainfo.xml.in:67
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "הדלקה לא קורס עוד בעת הסרת ההתקן האחרון."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:62
+#: resources/de.swsnr.turnon.metainfo.xml.in:68
 msgid "Add German translation, and update application metadata."
 msgstr "הוספת תרגום לגרמנית ועדכון נתוני העל של היישום."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:68
+#: resources/de.swsnr.turnon.metainfo.xml.in:74
 msgid "Shorten summary in metadata."
 msgstr "קוצר ההסבר בנתוני העל."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:74
+#: resources/de.swsnr.turnon.metainfo.xml.in:80
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -128,55 +134,55 @@ msgstr ""
 "התקן ופישוט חלונית עריכת ההתקנים באמצעות המקלדת (לחיצה אל Enter מנווטת "
 "לרשומה הבאה ובסופו של דבר מוסיפה את ההתקן)."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:86
+#: resources/de.swsnr.turnon.metainfo.xml.in:92
 msgid "Refined app icon."
 msgstr "הסגנון של סמל היישום התעדכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:92
+#: resources/de.swsnr.turnon.metainfo.xml.in:98
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr "זאת המהדורה הראשונית. היישום תומך ביכולות האלה בגרסה הזאת:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:94
+#: resources/de.swsnr.turnon.metainfo.xml.in:100
 msgid "Add new devices"
 msgstr "הוספת התקנים חדשים"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:95
+#: resources/de.swsnr.turnon.metainfo.xml.in:101
 msgid "Monitor whether devices are turned on"
 msgstr "מעקב אחר האם ההתקנים דולקים"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:96
+#: resources/de.swsnr.turnon.metainfo.xml.in:102
 msgid "Turn on devices with Wake On LAN"
 msgstr "הדלקת התקנים דרך השכמה דרך הרשת המקומית - Wake On LAN"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:98
+#: resources/de.swsnr.turnon.metainfo.xml.in:104
 msgid "This release is missing the following features:"
 msgstr "במהדורה הזאת חסרות היכולות הבאות:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:100
+#: resources/de.swsnr.turnon.metainfo.xml.in:106
 msgid "Devices can not be edited or removed."
 msgstr "אי אפשר לערוך או להסיר התקנים."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:101
+#: resources/de.swsnr.turnon.metainfo.xml.in:107
 msgid "The order of devices cannot be changed."
 msgstr "אי אפשר לשנות את סדר ההתקנים."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:102
+#: resources/de.swsnr.turnon.metainfo.xml.in:108
 msgid "Languages other than English are not supported."
 msgstr "אין תמיכה בשפות מלבד אנגלית."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:115
+#: resources/de.swsnr.turnon.metainfo.xml.in:121
 msgid "Two devices, one of them on, and the other off"
 msgstr "שני התקנים, אחד מהם דולק, השני כבוי"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:119
+#: resources/de.swsnr.turnon.metainfo.xml.in:125
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr "עריכת התקן עם שם, כתובת חומרה (MAC), וכתובת IP כדי לבדוק מולו את המצב"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:123
+#: resources/de.swsnr.turnon.metainfo.xml.in:129
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
