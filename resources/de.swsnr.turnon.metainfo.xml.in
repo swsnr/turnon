@@ -13,6 +13,7 @@
             <li>Turn on devices with magic Wake On LAN (WoL) packets.</li>
             <li>Monitor device status.</li>
             <li>Turn on devices from GNOME Shell search.</li>
+            <li>Turn on devices from the command line.</li>
         </ul>
     </description>
     <categories>
