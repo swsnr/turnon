@@ -33,6 +33,7 @@
         <release version="next" date="9999-01-01">
             <description>
                 <p>Searching for devices via GNOME Shell now ignores case.</p>
+                <p>Update translations.</p>
             </description>
             <issues>
                 <issue url="https://github.com/swsnr/turnon/issues/29">GH-29</issue>
