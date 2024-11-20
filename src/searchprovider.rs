@@ -17,12 +17,14 @@ use crate::dbus::searchprovider2::{self, ActivateResult, GetResultMetas, MethodC
 use crate::model::{Device, Devices};
 
 fn matches_terms<S: AsRef<str>>(device: &Device, terms: &[S]) -> bool {
-    let label = device.label();
-    let host = device.host();
-    terms
-        .iter()
-        .all(|term| label.contains(term.as_ref()) || host.contains(term.as_ref()))
+    let label = device.label().to_lowercase();
+    let host = device.host().to_lowercase();
+    terms.iter().all(|term| {
+        let term = term.as_ref().to_lowercase();
+        label.contains(&term) || host.contains(&term)
+    })
 }
+
 /// Get a result set.
 ///
 /// Return the id of all devices which match all of `terms`, either in their
@@ -207,5 +209,38 @@ pub fn register_app_search_provider(app: TurnOnApplication) -> Option<Registrati
         Some(registration_id)
     } else {
         None
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use macaddr::MacAddr6;
+
+    use crate::{model::Device, searchprovider::matches_terms};
+
+    #[test]
+    fn device_matches_terms_case_insensitive() {
+        let device = Device::new("Server", MacAddr6::nil(), "foo.example.com");
+        assert!(matches_terms(&device, &["server"]));
+        assert!(matches_terms(&device, &["SERVER"]));
+        assert!(matches_terms(&device, &["SeRvEr"]));
+        assert!(matches_terms(&device, &["FOO"]));
+        assert!(matches_terms(&device, &["fOo"]));
+    }
+
+    #[test]
+    fn device_matches_terms_in_label_and_host() {
+        let device = Device::new("Server", MacAddr6::nil(), "foo.example.com");
+        assert!(matches_terms(&device, &["Server", "foo"]));
+    }
+
+    #[test]
+    fn device_matches_terms_ignores_mac_address() {
+        let device = Device::new(
+            "Server",
+            "a2:35:e4:9e:b4:c3".parse().unwrap(),
+            "foo.example.com",
+        );
+        assert!(!matches_terms(&device, &["a2:35"]));
     }
 }

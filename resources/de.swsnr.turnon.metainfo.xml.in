@@ -28,6 +28,15 @@
     <url type="contribute">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
+        <release version="next" date="9999-01-01">
+            <description>
+                <p>Searching for devices via GNOME Shell now ignores case.</p>
+            </description>
+            <issues>
+                <issue url="https://github.com/swsnr/turnon/issues/29">GH-29</issue>
+            </issues>
+            <url>https://github.com/swsnr/turnon/releases/tag/next</url>
+        </release>
         <release version="1.5.0" date="2024-11-17">
             <description>
                 <p>The link to translations in application metadata and on Flathub is more helpful now.</p>
