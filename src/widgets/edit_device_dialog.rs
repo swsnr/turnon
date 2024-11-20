@@ -198,7 +198,7 @@ mod imp {
                         }
                         None => {
                             // Create a new device if the dialog does not own a device.
-                            Device::new(dialog.label().clone(), mac_address, dialog.host().clone())
+                            Device::new(&dialog.label(), mac_address, &dialog.host())
                         }
                     };
                     dialog.emit_by_name::<()>("saved", &[&device]);

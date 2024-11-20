@@ -108,15 +108,11 @@ impl DebugInfo {
             // Give network monitor time to actually figure out what the state of the network is,
             // especially inside a flatpak sandbox, see https://gitlab.gnome.org/GNOME/glib/-/issues/1718
             glib::timeout_future(Duration::from_millis(500)).map(|_| monitor.connectivity()),
-            std::iter::once(Device::new(
-                "localhost".to_owned(),
-                MacAddr6::nil(),
-                "localhost".to_owned(),
-            ))
-            .chain(devices.into_iter())
-            .map(ping_device)
-            .collect::<FuturesOrdered<_>>()
-            .collect::<Vec<_>>(),
+            std::iter::once(Device::new("localhost", MacAddr6::nil(), "localhost"))
+                .chain(devices.into_iter())
+                .map(ping_device)
+                .collect::<FuturesOrdered<_>>()
+                .collect::<Vec<_>>(),
         )
         .await;
         DebugInfo {

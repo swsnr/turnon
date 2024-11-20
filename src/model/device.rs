@@ -20,7 +20,7 @@ glib::wrapper! {
 }
 
 impl Device {
-    pub fn new(label: String, mac_address: MacAddr6, host: String) -> Self {
+    pub fn new(label: &str, mac_address: MacAddr6, host: &str) -> Self {
         glib::Object::builder()
             .property("label", label)
             .property("mac_address", glib::Bytes::from(mac_address.as_bytes()))
