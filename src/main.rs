@@ -17,6 +17,7 @@ mod config;
 mod dbus;
 mod gettext;
 
+mod commandline;
 mod debuginfo;
 mod model;
 mod net;

@@ -298,58 +298,7 @@ mod imp {
                 self.obj().activate_action("add-device", None);
                 glib::ExitCode::SUCCESS
             } else if let Ok(Some(label)) = options.lookup::<String>("turn-on-device") {
-                glib::debug!("Turning on device in response to command line argument");
-                match self.model.into_iter().find(|d| d.label() == label) {
-                    Some(device) => {
-                        glib::spawn_future_local(glib::clone!(
-                            #[strong]
-                            command_line,
-                            async move {
-                                match device.wol().await {
-                                    Ok(_) => {
-                                        command_line
-                                            .set_exit_status(glib::ExitCode::SUCCESS.value());
-                                        command_line.print_literal(
-                                            &dpgettext2(
-                                                None,
-                                                "option.turn-on-device.message",
-                                                "Sent magic packet to mac address %1 of device %2\n",
-                                            )
-                                            .replace("%1", &device.mac_addr6().to_string())
-                                            .replace("%2", &label),
-                                        );
-                                    }
-                                    Err(error) => {
-                                        command_line.printerr_literal(
-                                            &dpgettext2(
-                                                None,
-                                                "option.turn-on-device.error",
-                                                "Failed to turn on device %1: %2\n",
-                                            )
-                                            .replace("%1", &label)
-                                            .replace("%2", &error.to_string()),
-                                        );
-                                        command_line
-                                            .set_exit_status(glib::ExitCode::FAILURE.value());
-                                    }
-                                }
-                                command_line.done();
-                            }
-                        ));
-                        glib::ExitCode::SUCCESS
-                    }
-                    None => {
-                        command_line.printerr_literal(
-                            &dpgettext2(
-                                None,
-                                "option.turn-on-device.error",
-                                "No device found for label %s\n",
-                            )
-                            .replace("%s", &label),
-                        );
-                        glib::ExitCode::FAILURE
-                    }
-                }
+                crate::commandline::turn_on_device_by_label(command_line, &self.model, label)
             } else {
                 self.obj().activate();
                 glib::ExitCode::SUCCESS
