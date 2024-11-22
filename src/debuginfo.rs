@@ -40,7 +40,7 @@ async fn ping_device(device: Device) -> (Device, DevicePingResult) {
     // We expect everything to be in the local network anyways.
     let timeout = Duration::from_millis(500);
     let addresses = select_biased! {
-        addresses = resolve_target(&device.host().into()).fuse() => addresses,
+        addresses = resolve_target(device.host().into()).fuse() => addresses,
         _ = glib::timeout_future(timeout).fuse() => Err(timeout_err(timeout)),
     };
 
