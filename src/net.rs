@@ -297,6 +297,7 @@ pub fn monitor(
     interval: Duration,
 ) -> impl Stream<Item = Result<Duration, glib::Error>> {
     let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Default::default();
+    let timeout = interval / 2;
     futures_util::stream::iter(vec![()])
         .chain(glib::interval_stream(interval))
         .enumerate()
@@ -310,7 +311,7 @@ pub fn monitor(
                 let result = match state.take() {
                     // If we have a cached IP address, ping it, and cache it again
                     // if it's still reachable.
-                    Some(address) => ping_address_with_timeout(address, seqnr, interval)
+                    Some(address) => ping_address_with_timeout(address, seqnr, timeout)
                         .await
                         .inspect(|duration| {
                             glib::trace!(
@@ -321,7 +322,7 @@ pub fn monitor(
                         }),
                     // If we have no cached IP address resolve the target and ping all
                     // addresses it resolves to, then cache the first reachable address.
-                    None => ping_target_with_timeout(&target, seqnr, interval)
+                    None => ping_target_with_timeout(&target, seqnr, timeout)
                         .await
                         .inspect(|(address, duration)| {
                             glib::trace!("{address} of {target} replied after {}ms, caching", duration.as_millis());
