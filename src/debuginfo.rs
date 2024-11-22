@@ -8,9 +8,8 @@ use std::borrow::Cow;
 use std::fmt::Display;
 use std::net::IpAddr;
 use std::time::Duration;
-use std::time::Instant;
 
-use futures_util::stream::FuturesOrdered;
+use futures_util::stream::{FuturesOrdered, FuturesUnordered};
 use futures_util::StreamExt;
 use futures_util::{select_biased, FutureExt};
 use gtk::gio;
@@ -21,7 +20,7 @@ use macaddr::MacAddr6;
 use crate::config;
 use crate::model::Device;
 use crate::model::Devices;
-use crate::net::Target;
+use crate::net::{ping_address_with_timeout, resolve_target};
 
 #[derive(Debug)]
 pub enum DevicePingResult {
@@ -40,41 +39,20 @@ async fn ping_device(device: Device) -> (Device, DevicePingResult) {
     // For debug info we use a very aggressive timeout for resolution and pings.
     // We expect everything to be in the local network anyways.
     let timeout = Duration::from_millis(500);
-    let target = Target::from(device.host());
-
-    let addresses = match target {
-        Target::Dns(name) => {
-            select_biased! {
-                result = gio::Resolver::default().lookup_by_name_future(&name).fuse() => result,
-                _ = glib::timeout_future(timeout).fuse() => Err(timeout_err(timeout)),
-            }
-        }
-        Target::Addr(ip_addr) => Ok(vec![ip_addr.into()]),
+    let addresses = select_biased! {
+        addresses = resolve_target(&device.host().into()).fuse() => addresses,
+        _ = glib::timeout_future(timeout).fuse() => Err(timeout_err(timeout)),
     };
 
     match addresses {
         Err(error) => (device, DevicePingResult::ResolveFailed(error)),
-        Ok(addresses) if addresses.is_empty() => {
-            let error = glib::Error::new(
-                IOErrorEnum::NotFound,
-                &format!("No addresses found for {}", device.host()),
-            );
-            (device, DevicePingResult::ResolveFailed(error))
-        }
         Ok(addresses) => {
-            let ping_start = Instant::now();
             let pings = addresses
                 .into_iter()
-                .map(|addr| async move {
-                    let addr = addr.into();
-                    let ping = crate::net::ping(addr, 1);
-                    select_biased! {
-                        r = ping.fuse() => (addr, r.map(|_| Instant::now() - ping_start)),
-                        _ = glib::timeout_future(timeout).fuse() => (addr, Err(timeout_err(timeout))),
-                    }
-                })
-                .collect::<FuturesOrdered<_>>()
-                .collect::<Vec<_>>().await;
+                .map(|addr| ping_address_with_timeout(addr, 1, timeout).map(move |r| (addr, r)))
+                .collect::<FuturesUnordered<_>>()
+                .collect::<Vec<_>>()
+                .await;
 
             (device, DevicePingResult::Pinged(pings))
         }
