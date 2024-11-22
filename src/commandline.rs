@@ -8,15 +8,14 @@ use gio::prelude::*;
 use glib::dpgettext2;
 use gtk::gio;
 
-use crate::{
-    config::G_LOG_DOMAIN,
-    model::{Device, Devices},
-};
+use crate::{app::TurnOnApplication, config::G_LOG_DOMAIN, model::Device};
 
-async fn turn_on_device(command_line: &gio::ApplicationCommandLine, device: &Device) {
+async fn turn_on_device(
+    command_line: &gio::ApplicationCommandLine,
+    device: &Device,
+) -> glib::ExitCode {
     match device.wol().await {
         Ok(_) => {
-            command_line.set_exit_status(glib::ExitCode::SUCCESS.value());
             command_line.print_literal(
                 &dpgettext2(
                     None,
@@ -26,6 +25,7 @@ async fn turn_on_device(command_line: &gio::ApplicationCommandLine, device: &Dev
                 .replace("%1", &device.mac_addr6().to_string())
                 .replace("%2", &device.label()),
             );
+            glib::ExitCode::SUCCESS
         }
         Err(error) => {
             command_line.printerr_literal(
@@ -37,24 +37,29 @@ async fn turn_on_device(command_line: &gio::ApplicationCommandLine, device: &Dev
                 .replace("%1", &device.label())
                 .replace("%2", &error.to_string()),
             );
-            command_line.set_exit_status(glib::ExitCode::FAILURE.value());
+            glib::ExitCode::FAILURE
         }
     }
-    command_line.done();
 }
 
 pub fn turn_on_device_by_label(
+    app: &TurnOnApplication,
     command_line: &gio::ApplicationCommandLine,
-    model: &Devices,
     label: String,
 ) -> glib::ExitCode {
+    let guard = app.hold();
     glib::debug!("Turning on device in response to command line argument");
-    match model.into_iter().find(|d| d.label() == label) {
+    match app.model().into_iter().find(|d| d.label() == label) {
         Some(device) => {
             glib::spawn_future_local(glib::clone!(
                 #[strong]
                 command_line,
-                async move { turn_on_device(&command_line, &device).await }
+                async move {
+                    let exit_code = turn_on_device(&command_line, &device).await;
+                    command_line.set_exit_status(exit_code.value());
+                    command_line.done();
+                    std::mem::drop(guard);
+                }
             ));
             glib::ExitCode::SUCCESS
         }

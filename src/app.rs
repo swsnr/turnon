@@ -284,6 +284,7 @@ mod imp {
         }
 
         fn command_line(&self, command_line: &gtk::gio::ApplicationCommandLine) -> glib::ExitCode {
+            let _guard = self.obj().hold();
             glib::debug!(
                 "Handling command line. Remote? {}",
                 command_line.is_remote()
@@ -298,7 +299,7 @@ mod imp {
                 self.obj().activate_action("add-device", None);
                 glib::ExitCode::SUCCESS
             } else if let Ok(Some(label)) = options.lookup::<String>("turn-on-device") {
-                crate::commandline::turn_on_device_by_label(command_line, &self.model, label)
+                crate::commandline::turn_on_device_by_label(&self.obj(), command_line, label)
             } else {
                 self.obj().activate();
                 glib::ExitCode::SUCCESS
