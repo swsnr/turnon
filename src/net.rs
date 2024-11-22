@@ -8,6 +8,7 @@
 //!
 //! Contains a dead simple and somewhat inefficient ping implementation.
 
+use std::borrow::Cow;
 use std::cell::RefCell;
 use std::fmt::Display;
 use std::future::Future;
@@ -55,22 +56,39 @@ fn create_dgram_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket
     Ok(gio_socket)
 }
 
-/// The target to ping.
+/// A target to ping.
 #[derive(Debug, Clone)]
-pub enum Target {
-    /// Ping a DNS name which we need to resolve first.
-    Dns(String),
-    /// Ping a resolved IP address.
+pub enum Target<'a> {
+    /// A DNS name which needs to be resolved first.
+    Dns(Cow<'a, str>),
+    /// A resolved IP address.
     Addr(IpAddr),
 }
 
-impl From<String> for Target {
-    fn from(host: String) -> Self {
-        host.parse().map_or_else(|_| Self::Dns(host), Self::Addr)
+impl Target<'_> {
+    pub fn as_ref(&self) -> Target<'_> {
+        match self {
+            Target::Dns(cow) => Target::Dns(Cow::Borrowed(cow)),
+            Target::Addr(ip_addr) => Target::Addr(*ip_addr),
+        }
     }
 }
 
-impl Display for Target {
+impl From<String> for Target<'_> {
+    fn from(host: String) -> Self {
+        host.parse()
+            .map_or_else(|_| Self::Dns(Cow::Owned(host)), Self::Addr)
+    }
+}
+
+impl<'a> From<&'a str> for Target<'a> {
+    fn from(host: &'a str) -> Self {
+        host.parse()
+            .map_or_else(|_| Self::Dns(Cow::Borrowed(host)), Self::Addr)
+    }
+}
+
+impl Display for Target<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Target::Dns(host) => host.fmt(f),
@@ -212,9 +230,11 @@ pub async fn ping_address_with_timeout(
 ///
 /// If `target` is an IP address just return the IP address again.  Otherwise
 /// resolve `target` using the default resolver, and return all addresses.
-pub fn resolve_target(target: &Target) -> impl Future<Output = Result<Vec<IpAddr>, glib::Error>> {
+pub fn resolve_target(
+    target: Target<'_>,
+) -> impl Future<Output = Result<Vec<IpAddr>, glib::Error>> {
     match target {
-        Target::Addr(address) => future::ready(Ok(vec![*address])).right_future(),
+        Target::Addr(address) => future::ready(Ok(vec![address])).right_future(),
         Target::Dns(ref host) => {
             // The target is a DNS name so let's resolve it into a list of IP addresses.
             glib::trace!("Resolving {host} to IP address");
@@ -239,10 +259,10 @@ pub fn resolve_target(target: &Target) -> impl Future<Output = Result<Vec<IpAddr
 /// at once.  Then return the first address that replied, and the approximate
 /// roundtrip time to that address.
 pub async fn ping_target(
-    target: &Target,
+    target: Target<'_>,
     sequence_number: u16,
 ) -> Result<(IpAddr, Duration), glib::Error> {
-    let addresses = resolve_target(target).await.inspect_err(|error| {
+    let addresses = resolve_target(target.as_ref()).await.inspect_err(|error| {
         glib::trace!("Failed to resolve {target} to an IP address: {error}");
     })?;
     let mut reachable_addresses = addresses
@@ -273,7 +293,7 @@ pub async fn ping_target(
 /// Return an error if no address of `target` replied within `timeout`.  This
 /// includes name resolution.
 pub async fn ping_target_with_timeout(
-    target: &Target,
+    target: Target<'_>,
     sequence_number: u16,
     timeout: Duration,
 ) -> Result<(IpAddr, Duration), glib::Error> {
@@ -293,7 +313,7 @@ pub async fn ping_target_with_timeout(
 /// Return a stream which yields `Ok` if the target could be resolved and reply to echo requests,
 /// or `Err` if a ping failed.
 pub fn monitor(
-    target: Target,
+    target: Target<'static>,
     interval: Duration,
 ) -> impl Stream<Item = Result<Duration, glib::Error>> {
     let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Default::default();
@@ -322,7 +342,7 @@ pub fn monitor(
                         }),
                     // If we have no cached IP address resolve the target and ping all
                     // addresses it resolves to, then cache the first reachable address.
-                    None => ping_target_with_timeout(&target, seqnr, timeout)
+                    None => ping_target_with_timeout(target.as_ref(), seqnr, timeout)
                         .await
                         .inspect(|(address, duration)| {
                             glib::trace!("{address} of {target} replied after {}ms, caching", duration.as_millis());

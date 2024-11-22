@@ -214,7 +214,19 @@ mod imp {
                     "option.turn-on-device.arg.description",
                     "LABEL",
                 )),
-            )
+            );
+            app.add_main_option(
+                "list-devices",
+                0.into(),
+                OptionFlags::NONE,
+                OptionArg::None,
+                &dpgettext2(
+                    None,
+                    "option.list-devices.description",
+                    "List all devices and their status",
+                ),
+                None,
+            );
         }
     }
 
@@ -290,7 +302,9 @@ mod imp {
                 command_line.is_remote()
             );
             let options = command_line.options_dict();
-            if let Ok(Some(true)) = options.lookup("add-device") {
+            if let Ok(Some(true)) = options.lookup("list-devices") {
+                crate::commandline::list_devices(&self.obj(), command_line)
+            } else if let Ok(Some(true)) = options.lookup("add-device") {
                 glib::debug!(
                     "Activating app.add-device action in response to command line argument"
                 );
