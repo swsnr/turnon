@@ -749,7 +749,7 @@ dependencies = [
 
 [[package]]
 name = "turnon"
-version = "1.6.0"
+version = "1.6.1"
 dependencies = [
  "async-channel",
  "futures-util",

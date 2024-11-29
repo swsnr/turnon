@@ -30,11 +30,11 @@
     <url type="contribute">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
-        <release version="next" date="9999-01-01">
+        <release version="1.6.1" date="2024-11-29">
             <description>
                 <p>Update translations.</p>
             </description>
-            <url>https://github.com/swsnr/turnon/releases/tag/next</url>
+            <url>https://github.com/swsnr/turnon/releases/tag/v1.6.1</url>
         </release>
         <release version="1.6.0" date="2024-11-24">
             <description>
