@@ -14,11 +14,17 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
           <object class="GtkImage" id="invalid">
             <property name="icon-name">dialog-warning-symbolic</property>
             <property name="tooltip-text" bind-source="ValidationIndicator" bind-property="feedback" bind-flags="sync-create"/>
+            <style>
+              <class name="error"/>
+            </style>
           </object>
         </child>
         <child>
           <object class="GtkImage" id="valid">
             <property name="icon-name">emblem-ok-symbolic</property>
+            <style>
+              <class name="success"/>
+            </style>
           </object>
         </child>
       </object>

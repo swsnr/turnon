@@ -69,6 +69,9 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                               <object class="GtkImage">
                                 <property name="icon-name">dialog-warning-symbolic</property>
                                 <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.feedback">Please specify a target host to check availability</property>
+                                <style>
+                                  <class name="error"/>
+                                </style>
                               </object>
                             </property>
                           </object>
@@ -80,6 +83,9 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                               <object class="GtkImage">
                                 <property name="icon-name">computer-symbolic</property>
                                 <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.feedback">This looks like a generic name resolved via DNS.</property>
+                                <style>
+                                  <class name="success"/>
+                                </style>
                               </object>
                             </property>
                           </object>
@@ -92,6 +98,9 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                                 <property name="label">&lt;b&gt;v4&lt;/b&gt;</property>
                                 <property name="use-markup">true</property>
                                 <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.feedback">This is a valid IPv4 address.</property>
+                                <style>
+                                  <class name="success"/>
+                                </style>
                               </object>
                             </property>
                           </object>
@@ -104,6 +113,9 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                                 <property name="label">&lt;b&gt;v6&lt;/b&gt;</property>
                                 <property name="use-markup">true</property>
                                 <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.feedback">This is a valid IPv6 address.</property>
+                                <style>
+                                  <class name="success"/>
+                                </style>
                               </object>
                             </property>
                           </object>

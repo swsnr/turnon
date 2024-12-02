@@ -64,6 +64,10 @@ template $EditDeviceDialog: Adw.Dialog {
               child: Gtk.Image {
                 icon-name: "dialog-warning-symbolic";
                 tooltip-text: C_("edit-device-dialog.entry.host.feedback", "Please specify a target host to check availability");
+
+                styles [
+                  "error"
+                ]
               };
             }
 
@@ -73,6 +77,10 @@ template $EditDeviceDialog: Adw.Dialog {
               child: Gtk.Image {
                 icon-name: "computer-symbolic";
                 tooltip-text: C_("edit-device-dialog.entry.host.feedback", "This looks like a generic name resolved via DNS.");
+
+                styles [
+                  "success"
+                ]
               };
             }
 
@@ -83,6 +91,10 @@ template $EditDeviceDialog: Adw.Dialog {
                 label: "<b>v4</b>";
                 use-markup: true;
                 tooltip-text: C_("edit-device-dialog.entry.host.feedback", "This is a valid IPv4 address.");
+
+                styles [
+                  "success"
+                ]
               };
             }
 
@@ -93,6 +105,10 @@ template $EditDeviceDialog: Adw.Dialog {
                 label: "<b>v6</b>";
                 use-markup: true;
                 tooltip-text: C_("edit-device-dialog.entry.host.feedback", "This is a valid IPv6 address.");
+
+                styles [
+                  "success"
+                ]
               };
             }
           }
