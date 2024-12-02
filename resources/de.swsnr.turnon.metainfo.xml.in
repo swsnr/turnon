@@ -33,7 +33,11 @@
         <release version="next" date="9999-01-01">
             <description>
                 <p>The dialog to add a new device now uses success and error styles for the validity indicators.</p>
+                <p>Refuse to add a new device if the host name contains a port which is not permitted at this place.</p>
             </description>
+            <issues>
+                <issue url="https://github.com/swsnr/turnon/issues/40">GH-40</issue>
+            </issues>
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>
         <release version="1.6.1" date="2024-11-29">
