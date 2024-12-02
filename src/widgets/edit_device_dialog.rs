@@ -73,6 +73,15 @@ mod imp {
     use crate::model::Device;
     use crate::widgets::ValidationIndicator;
 
+    /// Whether `s` looks as if it's a host and port, e.g. `localhost:1245`.
+    fn is_host_and_port(s: &str) -> bool {
+        if let Some((_, port)) = s.rsplit_once(":") {
+            port.chars().all(|c| c.is_ascii_digit())
+        } else {
+            false
+        }
+    }
+
     #[derive(CompositeTemplate, Properties)]
     #[template(resource = "/de/swsnr/turnon/ui/edit-device-dialog.ui")]
     #[properties(wrapper_type = super::EditDeviceDialog)]
@@ -89,7 +98,7 @@ mod imp {
         pub mac_address_valid: Cell<bool>,
         #[property(get, set)]
         pub host: RefCell<String>,
-        #[property(get, default = "empty")]
+        #[property(get, default = "invalid-empty")]
         pub host_indicator: RefCell<String>,
         #[property(get = Self::is_valid, default = false, type = bool)]
         pub is_valid: (),
@@ -125,7 +134,13 @@ mod imp {
                 Ok(IpAddr::V6(..)) => "ipv6",
                 Err(_) => {
                     if host.is_empty() {
-                        "empty"
+                        "invalid-empty"
+                    } else if is_host_and_port(&host) {
+                        // Check whether the user specified a port, and if so,
+                        // reject the input.
+                        //
+                        // See https://github.com/swsnr/turnon/issues/40
+                        "invalid-socket-address"
                     } else {
                         "host"
                     }
@@ -137,7 +152,7 @@ mod imp {
         }
 
         fn host_valid(&self) -> bool {
-            *self.host_indicator.borrow() != "empty"
+            !self.host_indicator.borrow().starts_with("invalid-")
         }
 
         fn validate_all(&self) {
@@ -172,7 +187,7 @@ mod imp {
                 mac_address: Default::default(),
                 mac_address_valid: Default::default(),
                 host: Default::default(),
-                host_indicator: RefCell::new("empty".to_string()),
+                host_indicator: RefCell::new("invalid-empty".to_string()),
                 is_valid: (),
             }
         }
