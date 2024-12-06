@@ -7,14 +7,16 @@
 //! Utilities for the search provider of Turn On.
 
 use glib::{dpgettext2, ControlFlow, Variant, VariantDict};
-use gtk::gio::{DBusMethodInvocation, Notification, NotificationPriority, RegistrationId};
+use gtk::gio::{
+    DBusMethodInvocation, ListStore, Notification, NotificationPriority, RegistrationId,
+};
 use gtk::prelude::*;
 
 use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
 use crate::dbus::invocation::DBusMethodInvocationExt;
 use crate::dbus::searchprovider2::{self, ActivateResult, GetResultMetas, MethodCall};
-use crate::model::{Device, Devices};
+use crate::model::Device;
 
 fn matches_terms<S: AsRef<str>>(device: &Device, terms: &[S]) -> bool {
     let label = device.label().to_lowercase();
@@ -31,11 +33,13 @@ fn matches_terms<S: AsRef<str>>(device: &Device, terms: &[S]) -> bool {
 /// label or their host.
 ///
 /// The ID of a device is simply the stringified position in the list of devices.
-pub fn get_ids_for_terms<S: AsRef<str>>(devices: &Devices, terms: &[S]) -> Vec<String> {
+pub fn get_ids_for_terms<S: AsRef<str>>(devices: &ListStore, terms: &[S]) -> Vec<String> {
     devices
         .into_iter()
+        .map(|obj| obj.unwrap().downcast::<Device>().unwrap())
+        // Enumerate first so that the index is correct
         .enumerate()
-        .filter(|(_, d)| matches_terms(d, terms))
+        .filter(|(_, device)| matches_terms(device, terms))
         .map(|(i, _)| i.to_string())
         .collect::<Vec<_>>()
 }
@@ -51,9 +55,10 @@ async fn activate_result(
 ) -> Result<Option<Variant>, glib::Error> {
     let device = call
         .identifier
-        .parse::<usize>()
+        .parse::<u32>()
         .ok()
-        .and_then(|n| app.model().get(n));
+        .and_then(|n| app.model().item(n))
+        .map(|o| o.downcast::<Device>().unwrap());
     glib::trace!(
         "Activating device at index {}, device found? {}",
         call.identifier,
@@ -125,10 +130,11 @@ fn get_result_metas(app: &TurnOnApplication, call: GetResultMetas) -> Option<Var
         .identifiers
         .iter()
         .filter_map(|id| {
-            id.parse::<usize>()
+            id.parse::<u32>()
                 .ok()
-                .and_then(|n| app.model().get(n))
-                .map(|device| {
+                .and_then(|n| app.model().item(n))
+                .map(|obj| {
+                    let device = obj.downcast::<Device>().unwrap();
                     let metas = VariantDict::new(None);
                     metas.insert("id", id);
                     metas.insert("name", device.label());

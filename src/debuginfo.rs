@@ -19,7 +19,6 @@ use macaddr::MacAddr6;
 
 use crate::config;
 use crate::model::Device;
-use crate::model::Devices;
 use crate::net::{ping_address_with_timeout, resolve_target};
 
 #[derive(Debug)]
@@ -80,14 +79,14 @@ impl DebugInfo {
     ///
     /// This method returns a human-readable plain text debug report which can help
     /// to identify issues.
-    pub async fn assemble(devices: Devices) -> DebugInfo {
+    pub async fn assemble(model: gio::ListStore) -> DebugInfo {
         let monitor = gio::NetworkMonitor::default();
         let (connectivity, ping_results) = futures_util::future::join(
             // Give network monitor time to actually figure out what the state of the network is,
             // especially inside a flatpak sandbox, see https://gitlab.gnome.org/GNOME/glib/-/issues/1718
             glib::timeout_future(Duration::from_millis(500)).map(|_| monitor.connectivity()),
             std::iter::once(Device::new("localhost", MacAddr6::nil(), "localhost"))
-                .chain(devices.into_iter())
+                .chain(model.into_iter().map(|d| d.unwrap().downcast().unwrap()))
                 .map(ping_device)
                 .collect::<FuturesOrdered<_>>()
                 .collect::<Vec<_>>(),

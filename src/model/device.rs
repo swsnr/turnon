@@ -13,7 +13,6 @@ use macaddr::MacAddr6;
 
 use crate::config::G_LOG_DOMAIN;
 use crate::net::wol;
-use crate::storage::StoredDevice;
 
 glib::wrapper! {
     pub struct Device(ObjectSubclass<imp::Device>);
@@ -73,29 +72,6 @@ impl Device {
 impl Default for Device {
     fn default() -> Self {
         glib::Object::builder().build()
-    }
-}
-
-impl From<StoredDevice> for Device {
-    fn from(value: StoredDevice) -> Self {
-        glib::Object::builder()
-            .property("label", value.label)
-            .property(
-                "mac_address",
-                glib::Bytes::from(value.mac_address.as_bytes()),
-            )
-            .property("host", value.host)
-            .build()
-    }
-}
-
-impl From<&Device> for StoredDevice {
-    fn from(device: &Device) -> Self {
-        StoredDevice {
-            label: device.label(),
-            host: device.host(),
-            mac_address: device.mac_addr6(),
-        }
     }
 }
 

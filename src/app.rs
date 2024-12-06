@@ -7,11 +7,10 @@
 use adw::prelude::*;
 use adw::subclass::prelude::*;
 use glib::{dgettext, dpgettext2, Object};
-use gtk::gio::{ActionEntry, ApplicationFlags};
+use gtk::gio::{ActionEntry, ApplicationFlags, ListStore};
 
 use crate::config::{APP_ID, G_LOG_DOMAIN};
 use crate::debuginfo::DebugInfo;
-use crate::model::Devices;
 use crate::widgets::EditDeviceDialog;
 
 glib::wrapper! {
@@ -21,7 +20,7 @@ glib::wrapper! {
 }
 
 impl TurnOnApplication {
-    pub fn model(&self) -> &Devices {
+    pub fn model(&self) -> &ListStore {
         self.imp().model()
     }
 
@@ -33,7 +32,7 @@ impl TurnOnApplication {
                     let devices = app.imp().model().clone();
                     dialog.connect_saved(move |_, device| {
                         glib::debug!("Adding new device: {:?}", device.imp());
-                        devices.add_device(device);
+                        devices.append(device);
                     });
                     dialog.present(app.active_window().as_ref());
                 })
@@ -125,30 +124,29 @@ mod imp {
     use adw::prelude::*;
     use adw::subclass::prelude::*;
     use glib::{dpgettext2, OptionArg, OptionFlags};
-    use gtk::gio::RegistrationId;
+    use gtk::gio::{ListStore, RegistrationId};
 
     use crate::config::G_LOG_DOMAIN;
-    use crate::model::{Device, Devices};
+    use crate::model::Device;
     use crate::searchprovider::register_app_search_provider;
     use crate::storage::{StorageService, StorageServiceClient};
     use crate::widgets::TurnOnApplicationWindow;
 
-    #[derive(Default)]
     pub struct TurnOnApplication {
-        model: Devices,
+        model: ListStore,
         registered_search_provider: RefCell<Option<RegistrationId>>,
     }
 
     /// Save `model` to `storage` whenever `device` changed.
-    fn save_device_automatically(storage: StorageServiceClient, model: Devices, device: Device) {
+    fn save_device_automatically(storage: StorageServiceClient, model: ListStore, device: Device) {
         device.connect_notify_local(None, move |device, _| {
             glib::debug!("Device {} was changed, saving devices", device.label());
-            storage.request_save_devices((&model).into());
+            storage.request_save_device_store(&model);
         });
     }
 
     impl TurnOnApplication {
-        pub fn model(&self) -> &Devices {
+        pub fn model(&self) -> &ListStore {
             &self.model
         }
 
@@ -159,13 +157,17 @@ mod imp {
         fn save_automatically(&self, storage: StorageServiceClient) {
             // Monitor existing devices for changes
             for device in &self.model {
-                save_device_automatically(storage.clone(), self.model.clone(), device.clone());
+                save_device_automatically(
+                    storage.clone(),
+                    self.model.clone(),
+                    device.unwrap().downcast().unwrap(),
+                );
             }
             // Monitor any newly added device for changes
             self.model
                 .connect_items_changed(move |model, pos, _, n_added| {
                     glib::debug!("Device list changed, saving devices");
-                    storage.request_save_devices(model.into());
+                    storage.request_save_device_store(model);
                     for n in pos..n_added {
                         save_device_automatically(
                             storage.clone(),
@@ -184,6 +186,15 @@ mod imp {
         type Type = super::TurnOnApplication;
 
         type ParentType = adw::Application;
+
+        fn new() -> Self {
+            Self {
+                model: ListStore::builder()
+                    .item_type(Device::static_type())
+                    .build(),
+                registered_search_provider: Default::default(),
+            }
+        }
     }
 
     impl ObjectImpl for TurnOnApplication {
@@ -265,7 +276,8 @@ mod imp {
                 }
                 Ok(devices) => devices.into_iter().map(Device::from).collect(),
             };
-            self.model.reset_devices(devices);
+            self.model.remove_all();
+            self.model.extend_from_slice(devices.as_slice());
             self.save_automatically(storage.client());
             glib::spawn_future_local(storage.spawn());
 
@@ -290,7 +302,9 @@ mod imp {
                 }
                 None => {
                     glib::debug!("Creating new application window");
-                    TurnOnApplicationWindow::new(app, &self.model).present();
+                    let window = TurnOnApplicationWindow::new(app);
+                    window.bind_model(self.model());
+                    window.present();
                 }
             }
         }

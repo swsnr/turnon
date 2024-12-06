@@ -7,12 +7,11 @@
 use adw::prelude::*;
 use adw::subclass::prelude::*;
 use glib::object::IsA;
-use gtk::gio;
 use gtk::gio::ActionEntry;
+use gtk::gio::{self, ListStore};
 use gtk::glib;
 
 use crate::config::G_LOG_DOMAIN;
-use crate::model::Devices;
 
 use super::EditDeviceDialog;
 
@@ -26,23 +25,27 @@ glib::wrapper! {
 
 impl TurnOnApplicationWindow {
     /// Create a new application window for the given `application`.
-    pub fn new(application: &impl IsA<gtk::Application>, devices: &Devices) -> Self {
+    pub fn new(application: &impl IsA<gtk::Application>) -> Self {
         glib::Object::builder()
             .property("application", application)
-            .property("devices", devices)
             .build()
     }
 
-    fn setup_actions(&self) {
+    pub fn bind_model(&self, devices: &ListStore) {
+        self.setup_actions(devices.clone());
+        self.imp().bind_model(devices);
+    }
+
+    fn setup_actions(&self, devices: ListStore) {
         let add_device = ActionEntry::builder("add-device")
-            .activate(|window: &TurnOnApplicationWindow, _, _| {
+            .activate(move |window: &TurnOnApplicationWindow, _, _| {
                 let dialog = EditDeviceDialog::new();
                 dialog.connect_saved(glib::clone!(
                     #[weak]
-                    window,
+                    devices,
                     move |_, device| {
                         glib::debug!("Adding new device: {:?}", device.imp());
-                        window.devices().add_device(device);
+                        devices.append(device);
                     }
                 ));
                 dialog.present(Some(window));
@@ -62,21 +65,18 @@ mod imp {
     use adw::{prelude::*, ToastOverlay};
     use futures_util::{stream, StreamExt, TryStreamExt};
     use glib::dpgettext2;
+    use gtk::gio::ListStore;
     use gtk::glib::subclass::InitializingObject;
-    use gtk::glib::Properties;
     use gtk::{glib, CompositeTemplate};
 
     use crate::config::G_LOG_DOMAIN;
-    use crate::model::{Device, Devices};
+    use crate::model::Device;
     use crate::net;
     use crate::widgets::device_row::DeviceRow;
 
-    #[derive(CompositeTemplate, Default, Properties)]
-    #[properties(wrapper_type = super::TurnOnApplicationWindow)]
+    #[derive(CompositeTemplate, Default)]
     #[template(resource = "/de/swsnr/turnon/ui/turnon-application-window.ui")]
     pub struct TurnOnApplicationWindow {
-        #[property(get, set, construct_only)]
-        devices: RefCell<Devices>,
         #[template_child]
         devices_list: TemplateChild<gtk::ListBox>,
         #[template_child]
@@ -101,6 +101,19 @@ mod imp {
     }
 
     impl TurnOnApplicationWindow {
+        pub fn bind_model(&self, model: &ListStore) {
+            self.devices_list.get().bind_model(
+                Some(model),
+                glib::clone!(
+                    #[strong(rename_to = window)]
+                    self.obj(),
+                    #[strong]
+                    model,
+                    move |o| window.imp().create_device_row(&model, o)
+                ),
+            );
+        }
+
         fn turn_on_device(&self, device: Device) {
             let window = self.obj().clone();
             // Notify the user that we're about to send the magic packet to the target device
@@ -181,7 +194,7 @@ mod imp {
             abort_monitoring
         }
 
-        fn create_device_row(&self, object: &glib::Object) -> gtk::Widget {
+        fn create_device_row(&self, devices: &ListStore, object: &glib::Object) -> gtk::Widget {
             let device = &object.clone().downcast::<Device>().unwrap();
             let row = DeviceRow::new(device);
             let ongoing_monitor = Rc::new(RefCell::new(Self::monitor_device(&row)));
@@ -200,33 +213,18 @@ mod imp {
                 move |row| window.imp().turn_on_device(row.device())
             ));
             row.connect_deleted(glib::clone!(
-                #[strong(rename_to=window)]
-                self.obj(),
+                #[strong]
+                devices,
                 move |_, device| {
                     glib::info!("Deleting device {}", device.label());
-                    window.devices().delete_device(device);
+                    devices.remove(devices.find(device).unwrap());
                 }
             ));
             row.upcast()
         }
     }
 
-    #[glib::derived_properties]
-    impl ObjectImpl for TurnOnApplicationWindow {
-        fn constructed(&self) {
-            self.parent_constructed();
-
-            let window = self.obj().clone();
-
-            self.devices_list
-                .get()
-                .bind_model(Some(&self.devices.borrow().clone()), move |o| {
-                    window.imp().create_device_row(o)
-                });
-
-            self.obj().setup_actions();
-        }
-    }
+    impl ObjectImpl for TurnOnApplicationWindow {}
 
     impl WidgetImpl for TurnOnApplicationWindow {}
 

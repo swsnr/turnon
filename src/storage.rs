@@ -10,10 +10,13 @@ use std::panic::resume_unwind;
 use std::path::{Path, PathBuf};
 
 use async_channel::{Receiver, Sender};
+use glib::object::Cast;
+use gtk::gio::ListStore;
 use macaddr::MacAddr6;
 use serde::{Deserialize, Serialize};
 
 use crate::config::G_LOG_DOMAIN;
+use crate::model::Device;
 
 /// A stored device.
 ///
@@ -24,6 +27,29 @@ pub struct StoredDevice {
     #[serde(with = "mac_addr6_as_string")]
     pub mac_address: MacAddr6,
     pub host: String,
+}
+
+impl From<StoredDevice> for Device {
+    fn from(value: StoredDevice) -> Self {
+        glib::Object::builder()
+            .property("label", value.label)
+            .property(
+                "mac_address",
+                glib::Bytes::from(value.mac_address.as_bytes()),
+            )
+            .property("host", value.host)
+            .build()
+    }
+}
+
+impl From<Device> for StoredDevice {
+    fn from(device: Device) -> Self {
+        StoredDevice {
+            label: device.label(),
+            host: device.host(),
+            mac_address: device.mac_addr6(),
+        }
+    }
 }
 
 mod mac_addr6_as_string {
@@ -159,6 +185,17 @@ pub struct StorageServiceClient {
 }
 
 impl StorageServiceClient {
+    /// Request that the service save all devices in the given device `model`.
+    pub fn request_save_device_store(&self, model: &ListStore) {
+        self.request_save_devices(
+            model
+                .into_iter()
+                .filter_map(|obj| obj.unwrap().downcast::<Device>().ok())
+                .map(StoredDevice::from)
+                .collect(),
+        )
+    }
+
     /// Request that the service save the given `devices`.
     pub fn request_save_devices(&self, devices: Vec<StoredDevice>) {
         // Forcibly overwrite earlier storage requests, to ensure we only store

@@ -12,10 +12,7 @@ use glib::dpgettext2;
 use gtk::gio;
 
 use crate::{
-    app::TurnOnApplication,
-    config::G_LOG_DOMAIN,
-    model::{Device, Devices},
-    net::ping_target_with_timeout,
+    app::TurnOnApplication, config::G_LOG_DOMAIN, model::Device, net::ping_target_with_timeout,
 };
 
 async fn turn_on_device(
@@ -57,7 +54,16 @@ pub fn turn_on_device_by_label(
 ) -> glib::ExitCode {
     let guard = app.hold();
     glib::debug!("Turning on device in response to command line argument");
-    match app.model().into_iter().find(|d| d.label() == label) {
+    match app
+        .model()
+        .find_with_equal_func(|o| {
+            o.downcast_ref::<Device>()
+                .filter(|d| d.label() == label)
+                .is_some()
+        })
+        .and_then(|position| app.model().item(position))
+        .and_then(|o| o.downcast::<Device>().ok())
+    {
         Some(device) => {
             glib::spawn_future_local(glib::clone!(
                 #[strong]
@@ -85,8 +91,8 @@ pub fn turn_on_device_by_label(
     }
 }
 
-pub fn ping_all_devices(
-    devices: &Devices,
+pub fn ping_all_devices<I: IntoIterator<Item = Device>>(
+    devices: I,
 ) -> impl Future<Output = Vec<(Device, Result<Duration, glib::Error>)>> {
     devices
         .into_iter()
@@ -109,7 +115,12 @@ pub fn list_devices(
         #[strong]
         command_line,
         async move {
-            let pinged_devices = ping_all_devices(app.model()).await;
+            let pinged_devices = ping_all_devices(
+                app.model()
+                    .into_iter()
+                    .map(|o| o.unwrap().downcast().unwrap()),
+            )
+            .await;
             let (label_width, host_width) =
                 pinged_devices.iter().fold((0, 0), |(lw, hw), (device, _)| {
                     (
