@@ -11,9 +11,11 @@ use gio::prelude::*;
 use glib::dpgettext2;
 use gtk::gio;
 
-use crate::{
-    app::TurnOnApplication, config::G_LOG_DOMAIN, model::Device, net::ping_target_with_timeout,
-};
+use crate::app::TurnOnApplication;
+use crate::config::G_LOG_DOMAIN;
+use crate::net::ping_target_with_timeout;
+
+use super::model::Device;
 
 async fn turn_on_device(
     command_line: &gio::ApplicationCommandLine,

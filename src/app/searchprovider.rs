@@ -16,7 +16,8 @@ use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
 use crate::dbus::invocation::DBusMethodInvocationExt;
 use crate::dbus::searchprovider2::{self, ActivateResult, GetResultMetas, MethodCall};
-use crate::model::Device;
+
+use super::model::Device;
 
 fn matches_terms<S: AsRef<str>>(device: &Device, terms: &[S]) -> bool {
     let label = device.label().to_lowercase();
@@ -33,7 +34,7 @@ fn matches_terms<S: AsRef<str>>(device: &Device, terms: &[S]) -> bool {
 /// label or their host.
 ///
 /// The ID of a device is simply the stringified position in the list of devices.
-pub fn get_ids_for_terms<S: AsRef<str>>(devices: &ListStore, terms: &[S]) -> Vec<String> {
+fn get_ids_for_terms<S: AsRef<str>>(devices: &ListStore, terms: &[S]) -> Vec<String> {
     devices
         .into_iter()
         .map(|obj| obj.unwrap().downcast::<Device>().unwrap())
@@ -222,7 +223,9 @@ pub fn register_app_search_provider(app: TurnOnApplication) -> Option<Registrati
 mod tests {
     use macaddr::MacAddr6;
 
-    use crate::{model::Device, searchprovider::matches_terms};
+    use crate::app::model::Device;
+
+    use super::*;
 
     #[test]
     fn device_matches_terms_case_insensitive() {

@@ -10,5 +10,6 @@ mod edit_device_dialog;
 mod validation_indicator;
 
 pub use application_window::TurnOnApplicationWindow;
+pub use device_row::DeviceRow;
 pub use edit_device_dialog::EditDeviceDialog;
 pub use validation_indicator::ValidationIndicator;

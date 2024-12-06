@@ -16,14 +16,7 @@ mod app;
 mod config;
 mod dbus;
 mod gettext;
-
-mod commandline;
-mod debuginfo;
-mod model;
 mod net;
-mod searchprovider;
-mod storage;
-mod widgets;
 
 use config::G_LOG_DOMAIN;
 

@@ -16,7 +16,8 @@ use macaddr::MacAddr6;
 use serde::{Deserialize, Serialize};
 
 use crate::config::G_LOG_DOMAIN;
-use crate::model::Device;
+
+use super::model::Device;
 
 /// A stored device.
 ///
