@@ -10,8 +10,16 @@ use glib::{dgettext, dpgettext2, Object};
 use gtk::gio::{ActionEntry, ApplicationFlags, ListStore};
 
 use crate::config::{APP_ID, G_LOG_DOMAIN};
-use crate::debuginfo::DebugInfo;
-use crate::widgets::EditDeviceDialog;
+
+mod commandline;
+mod debuginfo;
+mod model;
+mod searchprovider;
+mod storage;
+mod widgets;
+
+use debuginfo::DebugInfo;
+use widgets::EditDeviceDialog;
 
 glib::wrapper! {
     pub struct TurnOnApplication(ObjectSubclass<imp::TurnOnApplication>)
@@ -127,10 +135,12 @@ mod imp {
     use gtk::gio::{ListStore, RegistrationId};
 
     use crate::config::G_LOG_DOMAIN;
-    use crate::model::Device;
-    use crate::searchprovider::register_app_search_provider;
-    use crate::storage::{StorageService, StorageServiceClient};
-    use crate::widgets::TurnOnApplicationWindow;
+
+    use super::commandline;
+    use super::model::Device;
+    use super::searchprovider::register_app_search_provider;
+    use super::storage::{StorageService, StorageServiceClient};
+    use super::widgets::TurnOnApplicationWindow;
 
     pub struct TurnOnApplication {
         model: ListStore,
@@ -317,7 +327,7 @@ mod imp {
             );
             let options = command_line.options_dict();
             if let Ok(Some(true)) = options.lookup("list-devices") {
-                crate::commandline::list_devices(&self.obj(), command_line)
+                commandline::list_devices(&self.obj(), command_line)
             } else if let Ok(Some(true)) = options.lookup("add-device") {
                 glib::debug!(
                     "Activating app.add-device action in response to command line argument"
@@ -327,7 +337,7 @@ mod imp {
                 self.obj().activate_action("add-device", None);
                 glib::ExitCode::SUCCESS
             } else if let Ok(Some(label)) = options.lookup::<String>("turn-on-device") {
-                crate::commandline::turn_on_device_by_label(&self.obj(), command_line, label)
+                commandline::turn_on_device_by_label(&self.obj(), command_line, label)
             } else {
                 self.obj().activate();
                 glib::ExitCode::SUCCESS

@@ -7,7 +7,7 @@
 use glib::clone;
 use gtk::{glib, prelude::ObjectExt};
 
-use crate::model::Device;
+use crate::app::model::Device;
 
 glib::wrapper! {
     pub struct EditDeviceDialog(ObjectSubclass<imp::EditDeviceDialog>)
@@ -70,8 +70,9 @@ mod imp {
     use gtk::{glib, template_callbacks};
     use macaddr::MacAddr6;
 
-    use crate::model::Device;
-    use crate::widgets::ValidationIndicator;
+    use crate::app::model::Device;
+
+    use super::super::ValidationIndicator;
 
     /// Whether `s` looks as if it's a host and port, e.g. `localhost:1245`.
     fn is_host_and_port(s: &str) -> bool {

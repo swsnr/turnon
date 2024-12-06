@@ -18,8 +18,9 @@ use gtk::prelude::*;
 use macaddr::MacAddr6;
 
 use crate::config;
-use crate::model::Device;
 use crate::net::{ping_address_with_timeout, resolve_target};
+
+use super::model::Device;
 
 #[derive(Debug)]
 pub enum DevicePingResult {

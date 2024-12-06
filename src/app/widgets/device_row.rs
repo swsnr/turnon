@@ -7,7 +7,7 @@
 use glib::object::ObjectExt;
 use gtk::glib;
 
-use crate::model::Device;
+use super::super::model::Device;
 
 glib::wrapper! {
     pub struct DeviceRow(ObjectSubclass<imp::DeviceRow>)
@@ -60,8 +60,9 @@ mod imp {
     use glib::Properties;
     use gtk::{template_callbacks, CompositeTemplate};
 
-    use crate::model::Device;
-    use crate::widgets::EditDeviceDialog;
+    use crate::app::model::Device;
+
+    use super::super::EditDeviceDialog;
 
     #[derive(CompositeTemplate, Properties)]
     #[properties(wrapper_type = super::DeviceRow)]

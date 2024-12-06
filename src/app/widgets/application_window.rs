@@ -69,10 +69,11 @@ mod imp {
     use gtk::glib::subclass::InitializingObject;
     use gtk::{glib, CompositeTemplate};
 
+    use crate::app::model::Device;
     use crate::config::G_LOG_DOMAIN;
-    use crate::model::Device;
     use crate::net;
-    use crate::widgets::device_row::DeviceRow;
+
+    use super::super::DeviceRow;
 
     #[derive(CompositeTemplate, Default)]
     #[template(resource = "/de/swsnr/turnon/ui/turnon-application-window.ui")]
