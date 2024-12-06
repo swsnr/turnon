@@ -63,19 +63,16 @@ fn write_devices(target: &Path, devices: Vec<StoredDevice>) -> Result<()> {
 }
 
 async fn handle_save_requests(data_file: PathBuf, rx: Receiver<Vec<StoredDevice>>) {
-    let pool = glib::ThreadPool::shared(Some(1)).unwrap();
     loop {
         match rx.recv().await {
             Ok(devices) => {
                 let target = data_file.clone();
-                // Off-load serialization and writing to the thread pool. We
+                // Off-load serialization and writing to gio's blocking pool. We
                 // then wait for the result of saving the file before processing
                 // the next storage request, to avoid writing to the same file
                 // in parallel.
-                let result = pool
-                    .push_future(move || write_devices(&target, devices))
-                    .unwrap()
-                    .await;
+                let result =
+                    gtk::gio::spawn_blocking(move || write_devices(&target, devices)).await;
                 match result {
                     Err(payload) => {
                         resume_unwind(payload);
