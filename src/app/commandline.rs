@@ -15,11 +15,11 @@ use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
 use crate::net::ping_target_with_timeout;
 
-use super::model::Device;
+use super::model::RegisteredDevice;
 
 async fn turn_on_device(
     command_line: &gio::ApplicationCommandLine,
-    device: &Device,
+    device: &RegisteredDevice,
 ) -> glib::ExitCode {
     match device.wol().await {
         Ok(_) => {
@@ -59,12 +59,12 @@ pub fn turn_on_device_by_label(
     match app
         .model()
         .find_with_equal_func(|o| {
-            o.downcast_ref::<Device>()
+            o.downcast_ref::<RegisteredDevice>()
                 .filter(|d| d.label() == label)
                 .is_some()
         })
         .and_then(|position| app.model().item(position))
-        .and_then(|o| o.downcast::<Device>().ok())
+        .and_then(|o| o.downcast::<RegisteredDevice>().ok())
     {
         Some(device) => {
             glib::spawn_future_local(glib::clone!(
@@ -93,9 +93,9 @@ pub fn turn_on_device_by_label(
     }
 }
 
-pub fn ping_all_devices<I: IntoIterator<Item = Device>>(
+pub fn ping_all_devices<I: IntoIterator<Item = RegisteredDevice>>(
     devices: I,
-) -> impl Future<Output = Vec<(Device, Result<Duration, glib::Error>)>> {
+) -> impl Future<Output = Vec<(RegisteredDevice, Result<Duration, glib::Error>)>> {
     devices
         .into_iter()
         .map(|device| {
