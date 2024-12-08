@@ -69,7 +69,7 @@ mod imp {
     use gtk::glib::subclass::InitializingObject;
     use gtk::{glib, CompositeTemplate};
 
-    use crate::app::model::Device;
+    use crate::app::model::RegisteredDevice;
     use crate::config::G_LOG_DOMAIN;
     use crate::net;
 
@@ -115,7 +115,7 @@ mod imp {
             );
         }
 
-        fn turn_on_device(&self, device: Device) {
+        fn turn_on_device(&self, device: RegisteredDevice) {
             let window = self.obj().clone();
             // Notify the user that we're about to send the magic packet to the target device
             let toast_sending = adw::Toast::builder()
@@ -196,7 +196,7 @@ mod imp {
         }
 
         fn create_device_row(&self, devices: &ListStore, object: &glib::Object) -> gtk::Widget {
-            let device = &object.clone().downcast::<Device>().unwrap();
+            let device = &object.clone().downcast::<RegisteredDevice>().unwrap();
             let row = DeviceRow::new(device);
             let ongoing_monitor = Rc::new(RefCell::new(Self::monitor_device(&row)));
             // If the host changed monitor the new host.

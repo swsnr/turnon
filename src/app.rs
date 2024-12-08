@@ -137,7 +137,7 @@ mod imp {
     use crate::config::G_LOG_DOMAIN;
 
     use super::commandline;
-    use super::model::Device;
+    use super::model::RegisteredDevice;
     use super::searchprovider::register_app_search_provider;
     use super::storage::{StorageService, StorageServiceClient};
     use super::widgets::TurnOnApplicationWindow;
@@ -148,7 +148,11 @@ mod imp {
     }
 
     /// Save `model` to `storage` whenever `device` changed.
-    fn save_device_automatically(storage: StorageServiceClient, model: ListStore, device: Device) {
+    fn save_device_automatically(
+        storage: StorageServiceClient,
+        model: ListStore,
+        device: RegisteredDevice,
+    ) {
         device.connect_notify_local(None, move |device, _| {
             glib::debug!("Device {} was changed, saving devices", device.label());
             storage.request_save_device_store(&model);
@@ -200,7 +204,7 @@ mod imp {
         fn new() -> Self {
             Self {
                 model: ListStore::builder()
-                    .item_type(Device::static_type())
+                    .item_type(RegisteredDevice::static_type())
                     .build(),
                 registered_search_provider: Default::default(),
             }
@@ -284,7 +288,7 @@ mod imp {
                     );
                     Vec::new()
                 }
-                Ok(devices) => devices.into_iter().map(Device::from).collect(),
+                Ok(devices) => devices.into_iter().map(RegisteredDevice::from).collect(),
             };
             self.model.remove_all();
             self.model.extend_from_slice(devices.as_slice());

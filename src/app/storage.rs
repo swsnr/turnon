@@ -17,7 +17,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::config::G_LOG_DOMAIN;
 
-use super::model::Device;
+use super::model::RegisteredDevice;
 
 /// A stored device.
 ///
@@ -30,7 +30,7 @@ pub struct StoredDevice {
     pub host: String,
 }
 
-impl From<StoredDevice> for Device {
+impl From<StoredDevice> for RegisteredDevice {
     fn from(value: StoredDevice) -> Self {
         glib::Object::builder()
             .property("label", value.label)
@@ -43,8 +43,8 @@ impl From<StoredDevice> for Device {
     }
 }
 
-impl From<Device> for StoredDevice {
-    fn from(device: Device) -> Self {
+impl From<RegisteredDevice> for StoredDevice {
+    fn from(device: RegisteredDevice) -> Self {
         StoredDevice {
             label: device.label(),
             host: device.host(),
@@ -191,7 +191,7 @@ impl StorageServiceClient {
         self.request_save_devices(
             model
                 .into_iter()
-                .filter_map(|obj| obj.unwrap().downcast::<Device>().ok())
+                .filter_map(|obj| obj.unwrap().downcast::<RegisteredDevice>().ok())
                 .map(StoredDevice::from)
                 .collect(),
         )

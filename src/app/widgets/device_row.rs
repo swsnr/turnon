@@ -7,7 +7,7 @@
 use glib::object::ObjectExt;
 use gtk::glib;
 
-use super::super::model::Device;
+use super::super::model::RegisteredDevice;
 
 glib::wrapper! {
     pub struct DeviceRow(ObjectSubclass<imp::DeviceRow>)
@@ -16,7 +16,7 @@ glib::wrapper! {
 }
 
 impl DeviceRow {
-    pub fn new(device: &Device) -> Self {
+    pub fn new(device: &RegisteredDevice) -> Self {
         glib::Object::builder()
             .property("device", device)
             .property("is_device_online", false)
@@ -25,7 +25,7 @@ impl DeviceRow {
 
     pub fn connect_deleted<F>(&self, callback: F) -> glib::SignalHandlerId
     where
-        F: Fn(&Self, &Device) + 'static,
+        F: Fn(&Self, &RegisteredDevice) + 'static,
     {
         self.connect_local(
             "deleted",
@@ -60,7 +60,7 @@ mod imp {
     use glib::Properties;
     use gtk::{template_callbacks, CompositeTemplate};
 
-    use crate::app::model::Device;
+    use crate::app::model::RegisteredDevice;
 
     use super::super::EditDeviceDialog;
 
@@ -69,7 +69,7 @@ mod imp {
     #[template(resource = "/de/swsnr/turnon/ui/device-row.ui")]
     pub struct DeviceRow {
         #[property(get, set)]
-        device: RefCell<Device>,
+        device: RefCell<RegisteredDevice>,
         #[property(get, set)]
         is_device_online: Cell<bool>,
         #[property(get)]
@@ -79,7 +79,7 @@ mod imp {
     #[template_callbacks]
     impl DeviceRow {
         #[template_callback]
-        pub fn device_mac_address(_row: &super::DeviceRow, device: &Device) -> String {
+        pub fn device_mac_address(_row: &super::DeviceRow, device: &RegisteredDevice) -> String {
             device.mac_addr6().to_string()
         }
 
@@ -144,7 +144,7 @@ mod imp {
             static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
                 vec![Signal::builder("deleted")
                     .action()
-                    .param_types([Device::static_type()])
+                    .param_types([RegisteredDevice::static_type()])
                     .build()]
             });
             SIGNALS.as_ref()

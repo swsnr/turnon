@@ -15,10 +15,10 @@ use crate::config::G_LOG_DOMAIN;
 use crate::net::wol;
 
 glib::wrapper! {
-    pub struct Device(ObjectSubclass<imp::Device>);
+    pub struct RegisteredDevice(ObjectSubclass<imp::RegisteredDevice>);
 }
 
-impl Device {
+impl RegisteredDevice {
     pub fn new(label: &str, mac_address: MacAddr6, host: &str) -> Self {
         glib::Object::builder()
             .property("label", label)
@@ -69,7 +69,7 @@ impl Device {
     }
 }
 
-impl Default for Device {
+impl Default for RegisteredDevice {
     fn default() -> Self {
         glib::Object::builder().build()
     }
@@ -83,8 +83,8 @@ mod imp {
     use gtk::glib;
 
     #[derive(Debug, glib::Properties)]
-    #[properties(wrapper_type = super::Device)]
-    pub struct Device {
+    #[properties(wrapper_type = super::RegisteredDevice)]
+    pub struct RegisteredDevice {
         /// The human-readable label for this device, for display in the UI.
         #[property(get, set)]
         pub label: RefCell<String>,
@@ -97,10 +97,10 @@ mod imp {
     }
 
     #[glib::object_subclass]
-    impl ObjectSubclass for Device {
-        const NAME: &'static str = "Device";
+    impl ObjectSubclass for RegisteredDevice {
+        const NAME: &'static str = "RegisteredDevice";
 
-        type Type = super::Device;
+        type Type = super::RegisteredDevice;
 
         fn new() -> Self {
             Self {
@@ -112,5 +112,5 @@ mod imp {
     }
 
     #[glib::derived_properties]
-    impl ObjectImpl for Device {}
+    impl ObjectImpl for RegisteredDevice {}
 }

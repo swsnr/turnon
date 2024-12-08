@@ -7,7 +7,7 @@
 use glib::clone;
 use gtk::{glib, prelude::ObjectExt};
 
-use crate::app::model::Device;
+use crate::app::model::RegisteredDevice;
 
 glib::wrapper! {
     pub struct EditDeviceDialog(ObjectSubclass<imp::EditDeviceDialog>)
@@ -22,7 +22,7 @@ impl EditDeviceDialog {
     }
 
     /// Create a new dialog the edit an existing device.
-    pub fn edit(device: Device) -> Self {
+    pub fn edit(device: RegisteredDevice) -> Self {
         glib::Object::builder()
             .property("device", Some(device))
             .build()
@@ -30,7 +30,7 @@ impl EditDeviceDialog {
 
     pub fn connect_saved<F>(&self, callback: F) -> glib::SignalHandlerId
     where
-        F: Fn(&Self, &Device) + 'static,
+        F: Fn(&Self, &RegisteredDevice) + 'static,
     {
         self.connect_local(
             "saved",
@@ -70,7 +70,7 @@ mod imp {
     use gtk::{glib, template_callbacks};
     use macaddr::MacAddr6;
 
-    use crate::app::model::Device;
+    use crate::app::model::RegisteredDevice;
 
     use super::super::ValidationIndicator;
 
@@ -88,7 +88,7 @@ mod imp {
     #[properties(wrapper_type = super::EditDeviceDialog)]
     pub struct EditDeviceDialog {
         #[property(get, set, construct_only)]
-        pub device: RefCell<Option<Device>>,
+        pub device: RefCell<Option<RegisteredDevice>>,
         #[property(get, set)]
         pub label: RefCell<String>,
         #[property(get)]
@@ -195,7 +195,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             ValidationIndicator::ensure_type();
-            Device::ensure_type();
+            RegisteredDevice::ensure_type();
 
             klass.bind_template();
             klass.bind_template_callbacks();
@@ -214,7 +214,7 @@ mod imp {
                         }
                         None => {
                             // Create a new device if the dialog does not own a device.
-                            Device::new(&dialog.label(), mac_address, &dialog.host())
+                            RegisteredDevice::new(&dialog.label(), mac_address, &dialog.host())
                         }
                     };
                     dialog.emit_by_name::<()>("saved", &[&device]);
@@ -234,7 +234,7 @@ mod imp {
             static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
                 vec![Signal::builder("saved")
                     .action()
-                    .param_types([Device::static_type()])
+                    .param_types([RegisteredDevice::static_type()])
                     .build()]
             });
             SIGNALS.as_ref()

@@ -20,7 +20,7 @@ use macaddr::MacAddr6;
 use crate::config;
 use crate::net::{ping_address_with_timeout, resolve_target};
 
-use super::model::Device;
+use super::model::RegisteredDevice;
 
 #[derive(Debug)]
 pub enum DevicePingResult {
@@ -35,7 +35,7 @@ fn timeout_err(timeout: Duration) -> glib::Error {
     )
 }
 
-async fn ping_device(device: Device) -> (Device, DevicePingResult) {
+async fn ping_device(device: RegisteredDevice) -> (RegisteredDevice, DevicePingResult) {
     // For debug info we use a very aggressive timeout for resolution and pings.
     // We expect everything to be in the local network anyways.
     let timeout = Duration::from_millis(500);
@@ -72,7 +72,7 @@ pub struct DebugInfo {
     /// Overall network connectivity
     pub connectivity: gio::NetworkConnectivity,
     /// Results from pinging devices once, for debugging.
-    pub ping_results: Vec<(Device, DevicePingResult)>,
+    pub ping_results: Vec<(RegisteredDevice, DevicePingResult)>,
 }
 
 impl DebugInfo {
@@ -86,11 +86,15 @@ impl DebugInfo {
             // Give network monitor time to actually figure out what the state of the network is,
             // especially inside a flatpak sandbox, see https://gitlab.gnome.org/GNOME/glib/-/issues/1718
             glib::timeout_future(Duration::from_millis(500)).map(|_| monitor.connectivity()),
-            std::iter::once(Device::new("localhost", MacAddr6::nil(), "localhost"))
-                .chain(model.into_iter().map(|d| d.unwrap().downcast().unwrap()))
-                .map(ping_device)
-                .collect::<FuturesOrdered<_>>()
-                .collect::<Vec<_>>(),
+            std::iter::once(RegisteredDevice::new(
+                "localhost",
+                MacAddr6::nil(),
+                "localhost",
+            ))
+            .chain(model.into_iter().map(|d| d.unwrap().downcast().unwrap()))
+            .map(ping_device)
+            .collect::<FuturesOrdered<_>>()
+            .collect::<Vec<_>>(),
         )
         .await;
         DebugInfo {

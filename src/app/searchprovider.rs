@@ -17,9 +17,9 @@ use crate::config::G_LOG_DOMAIN;
 use crate::dbus::invocation::DBusMethodInvocationExt;
 use crate::dbus::searchprovider2::{self, ActivateResult, GetResultMetas, MethodCall};
 
-use super::model::Device;
+use super::model::RegisteredDevice;
 
-fn matches_terms<S: AsRef<str>>(device: &Device, terms: &[S]) -> bool {
+fn matches_terms<S: AsRef<str>>(device: &RegisteredDevice, terms: &[S]) -> bool {
     let label = device.label().to_lowercase();
     let host = device.host().to_lowercase();
     terms.iter().all(|term| {
@@ -37,7 +37,7 @@ fn matches_terms<S: AsRef<str>>(device: &Device, terms: &[S]) -> bool {
 fn get_ids_for_terms<S: AsRef<str>>(devices: &ListStore, terms: &[S]) -> Vec<String> {
     devices
         .into_iter()
-        .map(|obj| obj.unwrap().downcast::<Device>().unwrap())
+        .map(|obj| obj.unwrap().downcast::<RegisteredDevice>().unwrap())
         // Enumerate first so that the index is correct
         .enumerate()
         .filter(|(_, device)| matches_terms(device, terms))
@@ -59,7 +59,7 @@ async fn activate_result(
         .parse::<u32>()
         .ok()
         .and_then(|n| app.model().item(n))
-        .map(|o| o.downcast::<Device>().unwrap());
+        .map(|o| o.downcast::<RegisteredDevice>().unwrap());
     glib::trace!(
         "Activating device at index {}, device found? {}",
         call.identifier,
@@ -135,7 +135,7 @@ fn get_result_metas(app: &TurnOnApplication, call: GetResultMetas) -> Option<Var
                 .ok()
                 .and_then(|n| app.model().item(n))
                 .map(|obj| {
-                    let device = obj.downcast::<Device>().unwrap();
+                    let device = obj.downcast::<RegisteredDevice>().unwrap();
                     let metas = VariantDict::new(None);
                     metas.insert("id", id);
                     metas.insert("name", device.label());
@@ -223,13 +223,13 @@ pub fn register_app_search_provider(app: TurnOnApplication) -> Option<Registrati
 mod tests {
     use macaddr::MacAddr6;
 
-    use crate::app::model::Device;
+    use crate::app::model::RegisteredDevice;
 
     use super::*;
 
     #[test]
     fn device_matches_terms_case_insensitive() {
-        let device = Device::new("Server", MacAddr6::nil(), "foo.example.com");
+        let device = RegisteredDevice::new("Server", MacAddr6::nil(), "foo.example.com");
         assert!(matches_terms(&device, &["server"]));
         assert!(matches_terms(&device, &["SERVER"]));
         assert!(matches_terms(&device, &["SeRvEr"]));
@@ -239,13 +239,13 @@ mod tests {
 
     #[test]
     fn device_matches_terms_in_label_and_host() {
-        let device = Device::new("Server", MacAddr6::nil(), "foo.example.com");
+        let device = RegisteredDevice::new("Server", MacAddr6::nil(), "foo.example.com");
         assert!(matches_terms(&device, &["Server", "foo"]));
     }
 
     #[test]
     fn device_matches_terms_ignores_mac_address() {
-        let device = Device::new(
+        let device = RegisteredDevice::new(
             "Server",
             "a2:35:e4:9e:b4:c3".parse().unwrap(),
             "foo.example.com",
