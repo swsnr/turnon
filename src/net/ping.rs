@@ -50,47 +50,6 @@ fn create_dgram_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket
     Ok(gio_socket)
 }
 
-/// A target to ping.
-#[derive(Debug, Clone)]
-pub enum Target<'a> {
-    /// A DNS name which needs to be resolved first.
-    Dns(Cow<'a, str>),
-    /// A resolved IP address.
-    Addr(IpAddr),
-}
-
-impl Target<'_> {
-    pub fn as_ref(&self) -> Target<'_> {
-        match self {
-            Target::Dns(cow) => Target::Dns(Cow::Borrowed(cow)),
-            Target::Addr(ip_addr) => Target::Addr(*ip_addr),
-        }
-    }
-}
-
-impl From<String> for Target<'_> {
-    fn from(host: String) -> Self {
-        host.parse()
-            .map_or_else(|_| Self::Dns(Cow::Owned(host)), Self::Addr)
-    }
-}
-
-impl<'a> From<&'a str> for Target<'a> {
-    fn from(host: &'a str) -> Self {
-        host.parse()
-            .map_or_else(|_| Self::Dns(Cow::Borrowed(host)), Self::Addr)
-    }
-}
-
-impl Display for Target<'_> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            Target::Dns(host) => host.fmt(f),
-            Target::Addr(ip_addr) => ip_addr.fmt(f),
-        }
-    }
-}
-
 /// Send a single ping to `ip_address`.
 ///
 /// Return an error if pinging `ip_address` failed, or if we received a non-reply
@@ -217,6 +176,47 @@ pub async fn ping_address_with_timeout(
                 &format!("Timeout after {}ms", timeout.as_millis()),
             )
         )
+    }
+}
+
+/// A target to ping.
+#[derive(Debug, Clone)]
+pub enum Target<'a> {
+    /// A DNS name which needs to be resolved first.
+    Dns(Cow<'a, str>),
+    /// A resolved IP address.
+    Addr(IpAddr),
+}
+
+impl Target<'_> {
+    pub fn as_ref(&self) -> Target<'_> {
+        match self {
+            Target::Dns(cow) => Target::Dns(Cow::Borrowed(cow)),
+            Target::Addr(ip_addr) => Target::Addr(*ip_addr),
+        }
+    }
+}
+
+impl From<String> for Target<'_> {
+    fn from(host: String) -> Self {
+        host.parse()
+            .map_or_else(|_| Self::Dns(Cow::Owned(host)), Self::Addr)
+    }
+}
+
+impl<'a> From<&'a str> for Target<'a> {
+    fn from(host: &'a str) -> Self {
+        host.parse()
+            .map_or_else(|_| Self::Dns(Cow::Borrowed(host)), Self::Addr)
+    }
+}
+
+impl Display for Target<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Target::Dns(host) => host.fmt(f),
+            Target::Addr(ip_addr) => ip_addr.fmt(f),
+        }
     }
 }
 
