@@ -9,16 +9,14 @@
 //! Contains a dead simple and somewhat inefficient ping implementation.
 
 use std::borrow::Cow;
-use std::cell::RefCell;
 use std::fmt::Display;
 use std::future::Future;
 use std::net::{IpAddr, SocketAddr};
 use std::os::fd::{AsRawFd, OwnedFd};
-use std::rc::Rc;
 use std::time::{Duration, Instant};
 
 use futures_util::stream::FuturesUnordered;
-use futures_util::{future, select_biased, FutureExt, Stream, StreamExt};
+use futures_util::{future, select_biased, FutureExt, StreamExt};
 use glib::IOCondition;
 use gtk::gio::prelude::{ResolverExt, SocketExt, SocketExtManual};
 use gtk::gio::Cancellable;
@@ -27,8 +25,10 @@ use socket2::*;
 
 use crate::config::G_LOG_DOMAIN;
 
+mod monitor;
 mod wol;
 
+pub use monitor::monitor;
 pub use wol::wol;
 
 fn to_glib_error(error: std::io::Error) -> glib::Error {
@@ -308,51 +308,4 @@ pub async fn ping_target_with_timeout(
             )
         )
     }
-}
-
-/// Monitor a `target` at the given `interval`.
-///
-/// Return a stream which yields `Ok` if the target could be resolved and reply to echo requests,
-/// or `Err` if a ping failed.
-pub fn monitor(
-    target: Target<'static>,
-    interval: Duration,
-) -> impl Stream<Item = Result<Duration, glib::Error>> {
-    let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Default::default();
-    let timeout = interval / 2;
-    futures_util::stream::iter(vec![()])
-        .chain(glib::interval_stream(interval))
-        .enumerate()
-        .map(|(seqnr, _)| (seqnr % (u16::MAX as usize)) as u16)
-        .scan(cached_ip_address, move |state, seqnr| {
-            let target = target.clone();
-            let state = state.clone();
-            async move {
-                // Take any cached IP address out of the state, leaving an empty state.
-                // If we get a reply from the IP address we'll cache it again after pinging it.
-                let result = match state.take() {
-                    // If we have a cached IP address, ping it, and cache it again
-                    // if it's still reachable.
-                    Some(address) => ping_address_with_timeout(address, seqnr, timeout)
-                        .await
-                        .inspect(|duration| {
-                            glib::trace!(
-                                "Cached address {address} replied to ping after {}ms and is still reachable, caching again",
-                                duration.as_millis()
-                            );
-                            state.replace(Some(address));
-                        }),
-                    // If we have no cached IP address resolve the target and ping all
-                    // addresses it resolves to, then cache the first reachable address.
-                    None => ping_target_with_timeout(target.as_ref(), seqnr, timeout)
-                        .await
-                        .inspect(|(address, duration)| {
-                            glib::trace!("{address} of {target} replied after {}ms, caching", duration.as_millis());
-                            state.replace(Some(*address));
-                        })
-                        .map(|(_, duration)| duration),
-                };
-                Some(result)
-            }
-        })
 }
