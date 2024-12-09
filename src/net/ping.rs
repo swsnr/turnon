@@ -6,7 +6,6 @@
 
 //! A simple user-space ping implementation.
 
-use std::borrow::Cow;
 use std::fmt::Display;
 use std::future::Future;
 use std::net::{IpAddr, SocketAddr};
@@ -181,123 +180,103 @@ pub async fn ping_address_with_timeout(
 
 /// A target to ping.
 #[derive(Debug, Clone)]
-pub enum Target<'a> {
+pub enum Target {
     /// A DNS name which needs to be resolved first.
-    Dns(Cow<'a, str>),
+    Dns(String),
     /// A resolved IP address.
     Addr(IpAddr),
 }
 
-impl Target<'_> {
-    pub fn as_ref(&self) -> Target<'_> {
+impl Target {
+    /// Resolve a `target` into a list of IP addresses.
+    ///
+    /// If `target` is an IP address just return the IP address again.  Otherwise
+    /// resolve `target` using the default resolver, and return all addresses.
+    pub fn resolve(&self) -> impl Future<Output = Result<Vec<IpAddr>, glib::Error>> {
         match self {
-            Target::Dns(cow) => Target::Dns(Cow::Borrowed(cow)),
-            Target::Addr(ip_addr) => Target::Addr(*ip_addr),
+            Target::Addr(address) => future::ready(Ok(vec![*address])).right_future(),
+            Target::Dns(ref host) => {
+                // The target is a DNS name so let's resolve it into a list of IP addresses.
+                glib::trace!("Resolving {host} to IP address");
+                gio::Resolver::default()
+                    .lookup_by_name_future(host)
+                    .map(move |result| match result {
+                        Ok(addresses) if addresses.is_empty() => Err(glib::Error::new(
+                            IOErrorEnum::NotFound,
+                            "No addresses found",
+                        )),
+                        Ok(addresses) => Ok(addresses.into_iter().map(Into::into).collect()),
+                        Err(error) => Err(error),
+                    })
+                    .left_future()
+            }
+        }
+    }
+
+    /// Ping a single target and return the first reachable address.
+    ///
+    /// Resolve the target using [`resolve_target`] and ping all resolved addresses
+    /// at once.  Then return the first address that replied, and the approximate
+    /// roundtrip time to that address.
+    pub async fn ping(&self, sequence_number: u16) -> Result<(IpAddr, Duration), glib::Error> {
+        let addresses = self.resolve().await.inspect_err(|error| {
+            glib::trace!("Failed to resolve {self} to an IP address: {error}");
+        })?;
+        let mut reachable_addresses = addresses
+            .into_iter()
+            .map(|addr| ping_address(addr, sequence_number).map(move |result| (addr, result)))
+            .collect::<FuturesUnordered<_>>()
+            // Filter out all address which we can't ping or which don't reply
+            .filter_map(|(ip_address, result)| match result {
+                Ok(duration) => {
+                    glib::trace!("{ip_address} replied to ping");
+                    future::ready(Some((ip_address, duration)))
+                }
+                Err(error) => {
+                    glib::trace!("Failed to ping {ip_address}: {error}");
+                    future::ready(None)
+                }
+            });
+        reachable_addresses.next().await.ok_or_else(|| {
+            glib::Error::new(
+                IOErrorEnum::NotFound,
+                &format!("Target {self} had no reachable addresses"),
+            )
+        })
+    }
+
+    /// Like [`ping_target`] but with a timeout.
+    ///
+    /// Return an error if no address of `target` replied within `timeout`.  This
+    /// includes name resolution.
+    pub async fn ping_with_timeout(
+        &self,
+        sequence_number: u16,
+        timeout: Duration,
+    ) -> Result<(IpAddr, Duration), glib::Error> {
+        select_biased! {
+            r = self.ping(sequence_number).fuse() => r,
+            _ = glib::timeout_future(timeout).fuse() => Err(
+                glib::Error::new(
+                    IOErrorEnum::TimedOut,
+                    &format!("Timeout after {}ms", timeout.as_millis()),
+                )
+            )
         }
     }
 }
 
-impl From<String> for Target<'_> {
+impl From<String> for Target {
     fn from(host: String) -> Self {
-        host.parse()
-            .map_or_else(|_| Self::Dns(Cow::Owned(host)), Self::Addr)
+        host.parse().map_or_else(|_| Self::Dns(host), Self::Addr)
     }
 }
 
-impl<'a> From<&'a str> for Target<'a> {
-    fn from(host: &'a str) -> Self {
-        host.parse()
-            .map_or_else(|_| Self::Dns(Cow::Borrowed(host)), Self::Addr)
-    }
-}
-
-impl Display for Target<'_> {
+impl Display for Target {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Target::Dns(host) => host.fmt(f),
             Target::Addr(ip_addr) => ip_addr.fmt(f),
         }
-    }
-}
-
-/// Resolve a `target` into a list of IP addresses.
-///
-/// If `target` is an IP address just return the IP address again.  Otherwise
-/// resolve `target` using the default resolver, and return all addresses.
-pub fn resolve_target(
-    target: Target<'_>,
-) -> impl Future<Output = Result<Vec<IpAddr>, glib::Error>> {
-    match target {
-        Target::Addr(address) => future::ready(Ok(vec![address])).right_future(),
-        Target::Dns(ref host) => {
-            // The target is a DNS name so let's resolve it into a list of IP addresses.
-            glib::trace!("Resolving {host} to IP address");
-            gio::Resolver::default()
-                .lookup_by_name_future(host)
-                .map(move |result| match result {
-                    Ok(addresses) if addresses.is_empty() => Err(glib::Error::new(
-                        IOErrorEnum::NotFound,
-                        "No addresses found",
-                    )),
-                    Ok(addresses) => Ok(addresses.into_iter().map(Into::into).collect()),
-                    Err(error) => Err(error),
-                })
-                .left_future()
-        }
-    }
-}
-
-/// Ping a single target and return the first reachable address.
-///
-/// Resolve the target using [`resolve_target`] and ping all resolved addresses
-/// at once.  Then return the first address that replied, and the approximate
-/// roundtrip time to that address.
-pub async fn ping_target(
-    target: Target<'_>,
-    sequence_number: u16,
-) -> Result<(IpAddr, Duration), glib::Error> {
-    let addresses = resolve_target(target.as_ref()).await.inspect_err(|error| {
-        glib::trace!("Failed to resolve {target} to an IP address: {error}");
-    })?;
-    let mut reachable_addresses = addresses
-        .into_iter()
-        .map(|addr| ping_address(addr, sequence_number).map(move |result| (addr, result)))
-        .collect::<FuturesUnordered<_>>()
-        // Filter out all address which we can't ping or which don't reply
-        .filter_map(|(ip_address, result)| match result {
-            Ok(duration) => {
-                glib::trace!("{ip_address} replied to ping");
-                future::ready(Some((ip_address, duration)))
-            }
-            Err(error) => {
-                glib::trace!("Failed to ping {ip_address}: {error}");
-                future::ready(None)
-            }
-        });
-    reachable_addresses.next().await.ok_or_else(|| {
-        glib::Error::new(
-            IOErrorEnum::NotFound,
-            &format!("Target {target} had no reachable addresses"),
-        )
-    })
-}
-
-/// Like [`ping_target`] but with a timeout.
-///
-/// Return an error if no address of `target` replied within `timeout`.  This
-/// includes name resolution.
-pub async fn ping_target_with_timeout(
-    target: Target<'_>,
-    sequence_number: u16,
-    timeout: Duration,
-) -> Result<(IpAddr, Duration), glib::Error> {
-    select_biased! {
-        r = ping_target(target, sequence_number).fuse() => r,
-        _ = glib::timeout_future(timeout).fuse() => Err(
-            glib::Error::new(
-                IOErrorEnum::TimedOut,
-                &format!("Timeout after {}ms", timeout.as_millis()),
-            )
-        )
     }
 }

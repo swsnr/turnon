@@ -13,5 +13,5 @@ mod ping;
 mod wol;
 
 pub use monitor::monitor;
-pub use ping::{ping_address_with_timeout, ping_target_with_timeout, resolve_target, Target};
+pub use ping::{ping_address_with_timeout, Target};
 pub use wol::wol;

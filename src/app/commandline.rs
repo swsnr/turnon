@@ -6,14 +6,14 @@
 
 use std::{borrow::Cow, future::Future, time::Duration};
 
-use futures_util::{stream::FuturesOrdered, FutureExt, StreamExt};
+use futures_util::{stream::FuturesOrdered, StreamExt};
 use gio::prelude::*;
 use glib::dpgettext2;
 use gtk::gio;
 
 use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
-use crate::net::ping_target_with_timeout;
+use crate::net::Target;
 
 use super::model::Device;
 
@@ -93,15 +93,20 @@ pub fn turn_on_device_by_label(
     }
 }
 
+async fn ping_device(device: Device) -> (Device, Result<Duration, glib::Error>) {
+    let target = Target::from(device.host());
+    let result = target
+        .ping_with_timeout(1, Duration::from_millis(500))
+        .await;
+    (device, result.map(|v| v.1))
+}
+
 pub fn ping_all_devices<I: IntoIterator<Item = Device>>(
     devices: I,
 ) -> impl Future<Output = Vec<(Device, Result<Duration, glib::Error>)>> {
     devices
         .into_iter()
-        .map(|device| {
-            ping_target_with_timeout(device.host().into(), 1, Duration::from_millis(500))
-                .map(|r| (device, r.map(|v| v.1)))
-        })
+        .map(ping_device)
         .collect::<FuturesOrdered<_>>()
         .collect::<Vec<_>>()
 }

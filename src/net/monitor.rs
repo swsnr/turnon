@@ -14,14 +14,14 @@ use futures_util::{Stream, StreamExt};
 
 use crate::config::G_LOG_DOMAIN;
 
-use super::{ping_address_with_timeout, ping_target_with_timeout, Target};
+use super::{ping_address_with_timeout, Target};
 
 /// Monitor a `target` at the given `interval`.
 ///
 /// Return a stream which yields `Ok` if the target could be resolved and reply to echo requests,
 /// or `Err` if a ping failed.
 pub fn monitor(
-    target: Target<'static>,
+    target: Target,
     interval: Duration,
 ) -> impl Stream<Item = Result<Duration, glib::Error>> {
     let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Default::default();
@@ -50,7 +50,7 @@ pub fn monitor(
                         }),
                     // If we have no cached IP address resolve the target and ping all
                     // addresses it resolves to, then cache the first reachable address.
-                    None => ping_target_with_timeout(target.as_ref(), seqnr, timeout)
+                    None => target.ping_with_timeout(seqnr, timeout)
                         .await
                         .inspect(|(address, duration)| {
                             glib::trace!("{address} of {target} replied after {}ms, caching", duration.as_millis());
