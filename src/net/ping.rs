@@ -178,25 +178,26 @@ pub async fn ping_address_with_timeout(
     }
 }
 
-/// A target to ping.
+/// A network destination which we can ping.
 #[derive(Debug, Clone)]
-pub enum Target {
+pub enum PingDestination {
     /// A DNS name which needs to be resolved first.
     Dns(String),
     /// A resolved IP address.
     Addr(IpAddr),
 }
 
-impl Target {
-    /// Resolve a `target` into a list of IP addresses.
+impl PingDestination {
+    /// Resolve this destination into a list of IP addresses.
     ///
-    /// If `target` is an IP address just return the IP address again.  Otherwise
-    /// resolve `target` using the default resolver, and return all addresses.
+    /// If this destnation is an IP address just return the IP address again.
+    /// Otherwise resolve this destination using the default Gio resolver, and
+    /// return all addresses the name resolves to.
     pub fn resolve(&self) -> impl Future<Output = Result<Vec<IpAddr>, glib::Error>> {
         match self {
-            Target::Addr(address) => future::ready(Ok(vec![*address])).right_future(),
-            Target::Dns(ref host) => {
-                // The target is a DNS name so let's resolve it into a list of IP addresses.
+            PingDestination::Addr(address) => future::ready(Ok(vec![*address])).right_future(),
+            PingDestination::Dns(ref host) => {
+                // The destination a DNS name so let's resolve it into a list of IP addresses.
                 glib::trace!("Resolving {host} to IP address");
                 gio::Resolver::default()
                     .lookup_by_name_future(host)
@@ -213,9 +214,9 @@ impl Target {
         }
     }
 
-    /// Ping a single target and return the first reachable address.
+    /// Ping a single destination and return the first reachable address.
     ///
-    /// Resolve the target using [`resolve_target`] and ping all resolved addresses
+    /// Resolve this destination using [`resolve`] and ping all resolved addresses
     /// at once.  Then return the first address that replied, and the approximate
     /// roundtrip time to that address.
     pub async fn ping(&self, sequence_number: u16) -> Result<(IpAddr, Duration), glib::Error> {
@@ -245,10 +246,12 @@ impl Target {
         })
     }
 
-    /// Like [`ping_target`] but with a timeout.
+    /// Like [`ping`] but with a timeout.
     ///
-    /// Return an error if no address of `target` replied within `timeout`.  This
-    /// includes name resolution.
+    /// If no address of this destination (see [`resolve`]) replied within the
+    /// given `timeout` return an error.  Otherwise return the first address
+    /// which replied, together with the approximate round trip time to that
+    /// address.
     pub async fn ping_with_timeout(
         &self,
         sequence_number: u16,
@@ -266,17 +269,17 @@ impl Target {
     }
 }
 
-impl From<String> for Target {
+impl From<String> for PingDestination {
     fn from(host: String) -> Self {
         host.parse().map_or_else(|_| Self::Dns(host), Self::Addr)
     }
 }
 
-impl Display for Target {
+impl Display for PingDestination {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Target::Dns(host) => host.fmt(f),
-            Target::Addr(ip_addr) => ip_addr.fmt(f),
+            PingDestination::Dns(host) => host.fmt(f),
+            PingDestination::Addr(ip_addr) => ip_addr.fmt(f),
         }
     }
 }

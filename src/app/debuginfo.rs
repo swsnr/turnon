@@ -18,7 +18,7 @@ use gtk::prelude::*;
 use macaddr::MacAddr6;
 
 use crate::config;
-use crate::net::{ping_address_with_timeout, Target};
+use crate::net::{ping_address_with_timeout, PingDestination};
 
 use super::model::Device;
 
@@ -40,7 +40,7 @@ async fn ping_device(device: Device) -> (Device, DevicePingResult) {
     // We expect everything to be in the local network anyways.
     let timeout = Duration::from_millis(500);
     let addresses = select_biased! {
-        addresses = Target::from(device.host()).resolve().fuse() => addresses,
+        addresses = PingDestination::from(device.host()).resolve().fuse() => addresses,
         _ = glib::timeout_future(timeout).fuse() => Err(timeout_err(timeout)),
     };
 
