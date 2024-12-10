@@ -80,7 +80,7 @@ mod imp {
     impl DeviceRow {
         #[template_callback]
         pub fn device_mac_address(_row: &super::DeviceRow, device: &Device) -> String {
-            device.mac_addr6().to_string()
+            device.mac_address().to_string()
         }
 
         #[template_callback]

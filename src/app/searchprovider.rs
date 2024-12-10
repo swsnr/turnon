@@ -85,7 +85,7 @@ async fn activate_result(
                         "search-provider.notification.body",
                         "Failed to send magic packet to mac address %1 of device %2.",
                     )
-                    .replace("%1", &device.mac_addr6().to_string())
+                    .replace("%1", &device.mac_address().to_string())
                     .replace("%2", &device.label()),
                 ));
                 notification.set_priority(NotificationPriority::Urgent);
@@ -103,7 +103,7 @@ async fn activate_result(
                         "search-provider.notification.body",
                         "Sent magic packet to mac address %1 of device %2.",
                     )
-                    .replace("%1", &device.mac_addr6().to_string())
+                    .replace("%1", &device.mac_address().to_string())
                     .replace("%2", &device.label()),
                 ));
                 let id = glib::uuid_string_random();
@@ -229,7 +229,7 @@ mod tests {
 
     #[test]
     fn device_matches_terms_case_insensitive() {
-        let device = Device::new("Server", MacAddr6::nil(), "foo.example.com");
+        let device = Device::new("Server", MacAddr6::nil().into(), "foo.example.com");
         assert!(matches_terms(&device, &["server"]));
         assert!(matches_terms(&device, &["SERVER"]));
         assert!(matches_terms(&device, &["SeRvEr"]));
@@ -239,7 +239,7 @@ mod tests {
 
     #[test]
     fn device_matches_terms_in_label_and_host() {
-        let device = Device::new("Server", MacAddr6::nil(), "foo.example.com");
+        let device = Device::new("Server", MacAddr6::nil().into(), "foo.example.com");
         assert!(matches_terms(&device, &["Server", "foo"]));
     }
 

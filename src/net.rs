@@ -8,10 +8,12 @@
 //!
 //! Contains a dead simple and somewhat inefficient ping implementation.
 
+mod macaddr;
 mod monitor;
 mod ping;
 mod wol;
 
+pub use macaddr::MacAddr6Boxed;
 pub use monitor::monitor;
 pub use ping::{ping_address_with_timeout, PingDestination};
 pub use wol::wol;

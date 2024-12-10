@@ -68,9 +68,9 @@ mod imp {
     use gtk::glib::Properties;
     use gtk::CompositeTemplate;
     use gtk::{glib, template_callbacks};
-    use macaddr::MacAddr6;
 
     use crate::app::model::Device;
+    use crate::net::MacAddr6Boxed;
 
     use super::super::ValidationIndicator;
 
@@ -203,12 +203,12 @@ mod imp {
             klass.install_action("device.save", None, |dialog, _, _| {
                 if dialog.is_valid() {
                     // At this point we know that the MAC address is valid, hence we can unwrap
-                    let mac_address = MacAddr6::from_str(&dialog.mac_address()).unwrap();
+                    let mac_address = MacAddr6Boxed::from_str(&dialog.mac_address()).unwrap();
                     let device = match dialog.device() {
                         Some(device) => {
                             // The dialog edits an existing device, so update its fields.
                             device.set_label(dialog.label());
-                            device.set_mac_addr6(mac_address);
+                            device.set_mac_address(mac_address);
                             device.set_host(dialog.host());
                             device
                         }
@@ -245,7 +245,7 @@ mod imp {
             if let Some(device) = self.obj().device() {
                 // Initialize properties from device
                 self.obj().set_label(device.label());
-                self.obj().set_mac_address(device.mac_addr6().to_string());
+                self.obj().set_mac_address(device.mac_address().to_string());
                 self.obj().set_host(device.host());
             }
             // After initialization, update validation status.

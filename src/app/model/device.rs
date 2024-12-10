@@ -9,45 +9,33 @@ use std::time::Duration;
 use futures_util::{select_biased, FutureExt};
 use gtk::gio::IOErrorEnum;
 use gtk::glib;
-use macaddr::MacAddr6;
 
 use crate::config::G_LOG_DOMAIN;
-use crate::net::wol;
+use crate::net::{wol, MacAddr6Boxed};
 
 glib::wrapper! {
     pub struct Device(ObjectSubclass<imp::Device>);
 }
 
 impl Device {
-    pub fn new(label: &str, mac_address: MacAddr6, host: &str) -> Self {
+    pub fn new(label: &str, mac_address: MacAddr6Boxed, host: &str) -> Self {
         glib::Object::builder()
             .property("label", label)
-            .property("mac_address", glib::Bytes::from(mac_address.as_bytes()))
+            .property("mac_address", mac_address)
             .property("host", host)
             .build()
     }
 
-    pub fn mac_addr6(&self) -> MacAddr6 {
-        // We unwrap, because we try very hard to make sure that mac_address
-        // contains 6 bytes.
-        let data: [u8; 6] = (*self.mac_address()).try_into().unwrap();
-        MacAddr6::from(data)
-    }
-
-    pub fn set_mac_addr6(&self, mac_address: MacAddr6) {
-        self.set_mac_address(glib::Bytes::from(mac_address.as_bytes()));
-    }
-
     /// Send the magic packet to this device.
     pub async fn wol(&self) -> Result<(), glib::Error> {
-        let mac_address = self.mac_addr6();
+        let mac_address = self.mac_address();
         glib::info!(
             "Sending magic packet for mac address {mac_address} of device {}",
             self.label()
         );
         let wol_timeout = Duration::from_secs(5);
         let result = select_biased! {
-            result = wol(mac_address).fuse() => result,
+            result = wol(*mac_address).fuse() => result,
             _ = glib::timeout_future(wol_timeout).fuse() => {
                 let message = &format!("Failed to send magic packet within {wol_timeout:#?}");
                 Err(glib::Error::new(IOErrorEnum::TimedOut, message))
@@ -82,7 +70,9 @@ mod imp {
     use glib::subclass::prelude::*;
     use gtk::glib;
 
-    #[derive(Debug, glib::Properties)]
+    use crate::net::MacAddr6Boxed;
+
+    #[derive(Debug, Default, glib::Properties)]
     #[properties(wrapper_type = super::Device)]
     pub struct Device {
         /// The human-readable label for this device, for display in the UI.
@@ -90,7 +80,7 @@ mod imp {
         pub label: RefCell<String>,
         /// The MAC address of the device to wake.
         #[property(get, set)]
-        pub mac_address: RefCell<glib::Bytes>,
+        pub mac_address: RefCell<MacAddr6Boxed>,
         /// The host name or IP 4/6 address of the device, to check whether it is reachable.
         #[property(get, set)]
         pub host: RefCell<String>,
@@ -101,14 +91,6 @@ mod imp {
         const NAME: &'static str = "Device";
 
         type Type = super::Device;
-
-        fn new() -> Self {
-            Self {
-                label: Default::default(),
-                mac_address: RefCell::new(glib::Bytes::from_static(&[0; 6])),
-                host: Default::default(),
-            }
-        }
     }
 
     #[glib::derived_properties]

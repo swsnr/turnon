@@ -48,7 +48,7 @@ impl From<Device> for StoredDevice {
         StoredDevice {
             label: device.label(),
             host: device.host(),
-            mac_address: device.mac_addr6(),
+            mac_address: *device.mac_address(),
         }
     }
 }

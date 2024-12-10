@@ -29,7 +29,7 @@ async fn turn_on_device(
                     "option.turn-on-device.message",
                     "Sent magic packet to mac address %1 of device %2\n",
                 )
-                .replace("%1", &device.mac_addr6().to_string())
+                .replace("%1", &device.mac_address().to_string())
                 .replace("%2", &device.label()),
             );
             glib::ExitCode::SUCCESS
@@ -148,7 +148,7 @@ pub fn list_devices(
                     color,
                     indicator,
                     device.label(),
-                    device.mac_addr6(),
+                    device.mac_address(),
                     device.host()
                 ));
             }
