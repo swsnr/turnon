@@ -355,7 +355,7 @@ msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr ""
 
-#: src/app.rs:64
+#: src/app.rs:71
 msgctxt "about-dialog.link.label"
 msgid "Translations"
 msgstr ""
@@ -363,89 +363,89 @@ msgstr ""
 #. Credits for the translator to the current language.
 #. Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
 #. Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
-#: src/app.rs:73
+#: src/app.rs:80
 msgid "translator-credits"
 msgstr ""
 
-#: src/app.rs:78
+#: src/app.rs:85
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Help and inspiration"
 msgstr ""
 
-#: src/app.rs:91
+#: src/app.rs:98
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
 msgstr ""
 
-#: src/app.rs:199
+#: src/app.rs:220
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr ""
 
-#: src/app.rs:210
+#: src/app.rs:231
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr ""
 
-#: src/app.rs:215
+#: src/app.rs:236
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr ""
 
-#: src/app.rs:226
+#: src/app.rs:247
 msgctxt "option.list-devices.description"
 msgid "List all devices and their status"
 msgstr ""
 
-#: src/commandline.rs:31
+#: src/app/commandline.rs:30
 msgctxt "option.turn-on-device.message"
 msgid "Sent magic packet to mac address %1 of device %2\n"
 msgstr ""
 
-#: src/commandline.rs:43
+#: src/app/commandline.rs:42
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
 msgstr ""
 
-#: src/commandline.rs:79
+#: src/app/commandline.rs:87
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
 msgstr ""
 
-#: src/searchprovider.rs:74
+#: src/app/searchprovider.rs:80
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
 msgstr ""
 
-#: src/searchprovider.rs:80
+#: src/app/searchprovider.rs:86
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr ""
 
-#: src/searchprovider.rs:92
+#: src/app/searchprovider.rs:98
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
 msgstr ""
 
-#: src/searchprovider.rs:98
+#: src/app/searchprovider.rs:104
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
 msgstr ""
 
-#: src/widgets/application_window.rs:112
+#: src/app/widgets/application_window.rs:126
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
 msgstr ""
 
-#: src/widgets/application_window.rs:135
+#: src/app/widgets/application_window.rs:149
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr ""
 
-#: src/widgets/application_window.rs:150
+#: src/app/widgets/application_window.rs:164
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
