@@ -16,6 +16,7 @@ use macaddr::MacAddr6;
 use serde::{Deserialize, Serialize};
 
 use crate::config::G_LOG_DOMAIN;
+use crate::net::MacAddr6Boxed;
 
 use super::model::Device;
 
@@ -32,14 +33,11 @@ pub struct StoredDevice {
 
 impl From<StoredDevice> for Device {
     fn from(value: StoredDevice) -> Self {
-        glib::Object::builder()
-            .property("label", value.label)
-            .property(
-                "mac_address",
-                glib::Bytes::from(value.mac_address.as_bytes()),
-            )
-            .property("host", value.host)
-            .build()
+        Device::new(
+            &value.label,
+            MacAddr6Boxed::from(value.mac_address),
+            &value.host,
+        )
     }
 }
 
