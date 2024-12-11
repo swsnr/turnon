@@ -5,4 +5,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 mod device;
+mod wakeable_device;
+
 pub use device::Device;
+pub use wakeable_device::{WakeableDevice, WakeableDeviceExt};

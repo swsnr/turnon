@@ -15,7 +15,7 @@ use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
 use crate::net::PingDestination;
 
-use super::model::Device;
+use super::model::{Device, WakeableDeviceExt};
 
 async fn turn_on_device(
     command_line: &gio::ApplicationCommandLine,

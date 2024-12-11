@@ -69,7 +69,7 @@ mod imp {
     use gtk::glib::subclass::InitializingObject;
     use gtk::{glib, CompositeTemplate};
 
-    use crate::app::model::Device;
+    use crate::app::model::{Device, WakeableDeviceExt};
     use crate::config::G_LOG_DOMAIN;
     use crate::net;
 

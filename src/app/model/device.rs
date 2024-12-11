@@ -4,56 +4,23 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use std::time::Duration;
-
-use futures_util::{select_biased, FutureExt};
-use gtk::gio::IOErrorEnum;
 use gtk::glib;
 
-use crate::config::G_LOG_DOMAIN;
-use crate::net::{wol, MacAddr6Boxed};
+use crate::net::MacAddr6Boxed;
+
+use super::WakeableDevice;
 
 glib::wrapper! {
-    pub struct Device(ObjectSubclass<imp::Device>);
+    pub struct Device(ObjectSubclass<imp::Device>) @implements WakeableDevice;
 }
 
 impl Device {
     pub fn new(label: &str, mac_address: MacAddr6Boxed, host: &str) -> Self {
         glib::Object::builder()
             .property("label", label)
-            .property("mac_address", mac_address)
+            .property("mac-address", mac_address)
             .property("host", host)
             .build()
-    }
-
-    /// Send the magic packet to this device.
-    pub async fn wol(&self) -> Result<(), glib::Error> {
-        let mac_address = self.mac_address();
-        glib::info!(
-            "Sending magic packet for mac address {mac_address} of device {}",
-            self.label()
-        );
-        let wol_timeout = Duration::from_secs(5);
-        let result = select_biased! {
-            result = wol(*mac_address).fuse() => result,
-            _ = glib::timeout_future(wol_timeout).fuse() => {
-                let message = &format!("Failed to send magic packet within {wol_timeout:#?}");
-                Err(glib::Error::new(IOErrorEnum::TimedOut, message))
-            }
-        };
-        result
-            .inspect(|_| {
-                glib::info!(
-                    "Sent magic packet to {mac_address} of device {}",
-                    self.label()
-                );
-            })
-            .inspect_err(|error| {
-                glib::warn!(
-                    "Failed to send magic packet to {mac_address} of device{}: {error}",
-                    self.label()
-                );
-            })
     }
 }
 
@@ -70,6 +37,7 @@ mod imp {
     use glib::subclass::prelude::*;
     use gtk::glib;
 
+    use crate::app::model::WakeableDevice;
     use crate::net::MacAddr6Boxed;
 
     #[derive(Debug, Default, glib::Properties)]
@@ -91,8 +59,28 @@ mod imp {
         const NAME: &'static str = "Device";
 
         type Type = super::Device;
+
+        type Interfaces = (WakeableDevice,);
     }
 
     #[glib::derived_properties]
     impl ObjectImpl for Device {}
+}
+
+#[cfg(test)]
+mod tests {
+    use glib::object::Cast;
+
+    use crate::app::model::{WakeableDevice, WakeableDeviceExt};
+
+    use super::Device;
+
+    #[test]
+    fn test_property_in_interface() {
+        let device = Device::default();
+        device.set_label("foobar");
+
+        let device_iface: WakeableDevice = device.upcast();
+        assert_eq!(device_iface.label(), "foobar");
+    }
 }

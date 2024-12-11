@@ -12,6 +12,7 @@ use gtk::gio::{
 };
 use gtk::prelude::*;
 
+use crate::app::model::WakeableDeviceExt;
 use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
 use crate::dbus::invocation::DBusMethodInvocationExt;
