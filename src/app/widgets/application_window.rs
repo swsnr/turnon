@@ -57,7 +57,20 @@ impl TurnOnApplicationWindow {
             ))
             .build();
 
-        self.add_action_entries([add_device]);
+        let scan_network = ActionEntry::builder("toggle-scan-network")
+            .state(false.into())
+            .change_state(|_, act, state| {
+                act.set_state(state.unwrap());
+                let is_scanning = state.unwrap().try_get::<bool>().unwrap();
+                if is_scanning {
+                    // TODO:
+                } else {
+                    // TODO
+                }
+            })
+            .build();
+
+        self.add_action_entries([add_device, scan_network]);
     }
 }
 

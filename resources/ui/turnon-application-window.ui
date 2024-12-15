@@ -22,6 +22,13 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                 <property name="tooltip-text" translatable="yes" context="application-window.action.win.add-device.tooltip">Add a new device</property>
               </object>
             </child>
+            <child type="start">
+              <object class="GtkToggleButton" id="toggle_scan_network">
+                <property name="action-name">win.toggle-scan-network</property>
+                <property name="icon-name">waves-and-screen-symbolic</property>
+                <property name="tooltip-text" translatable="yes" context="application-window.action.win.scan-network.tooltip">Scan the network for devices</property>
+              </object>
+            </child>
             <child type="end">
               <object class="GtkMenuButton" id="button_menu">
                 <property name="menu-model">main_menu</property>
