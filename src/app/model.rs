@@ -5,4 +5,7 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 mod device;
+mod devices;
+
 pub use device::Device;
+pub use devices::Devices;

@@ -7,10 +7,11 @@
 use adw::prelude::*;
 use adw::subclass::prelude::*;
 use glib::object::IsA;
+use gtk::gio;
 use gtk::gio::ActionEntry;
-use gtk::gio::{self, ListStore};
 use gtk::glib;
 
+use crate::app::model::Devices;
 use crate::config::G_LOG_DOMAIN;
 
 use super::EditDeviceDialog;
@@ -31,25 +32,29 @@ impl TurnOnApplicationWindow {
             .build()
     }
 
-    pub fn bind_model(&self, devices: &ListStore) {
-        self.setup_actions(devices.clone());
+    pub fn bind_model(&self, devices: &Devices) {
+        self.setup_actions(devices);
         self.imp().bind_model(devices);
     }
 
-    fn setup_actions(&self, devices: ListStore) {
+    fn setup_actions(&self, devices: &Devices) {
         let add_device = ActionEntry::builder("add-device")
-            .activate(move |window: &TurnOnApplicationWindow, _, _| {
-                let dialog = EditDeviceDialog::new();
-                dialog.connect_saved(glib::clone!(
-                    #[weak]
-                    devices,
-                    move |_, device| {
-                        glib::debug!("Adding new device: {:?}", device.imp());
-                        devices.append(device);
-                    }
-                ));
-                dialog.present(Some(window));
-            })
+            .activate(glib::clone!(
+                #[weak]
+                devices,
+                move |window: &TurnOnApplicationWindow, _, _| {
+                    let dialog = EditDeviceDialog::new();
+                    dialog.connect_saved(glib::clone!(
+                        #[weak]
+                        devices,
+                        move |_, device| {
+                            glib::debug!("Adding new device: {:?}", device.imp());
+                            devices.registered_devices().append(device);
+                        }
+                    ));
+                    dialog.present(Some(window));
+                }
+            ))
             .build();
 
         self.add_action_entries([add_device]);
@@ -65,11 +70,10 @@ mod imp {
     use adw::{prelude::*, ToastOverlay};
     use futures_util::{stream, StreamExt, TryStreamExt};
     use glib::dpgettext2;
-    use gtk::gio::ListStore;
     use gtk::glib::subclass::InitializingObject;
     use gtk::{glib, CompositeTemplate};
 
-    use crate::app::model::Device;
+    use crate::app::model::{Device, Devices};
     use crate::config::G_LOG_DOMAIN;
     use crate::net;
 
@@ -102,7 +106,7 @@ mod imp {
     }
 
     impl TurnOnApplicationWindow {
-        pub fn bind_model(&self, model: &ListStore) {
+        pub fn bind_model(&self, model: &Devices) {
             self.devices_list.get().bind_model(
                 Some(model),
                 glib::clone!(
@@ -195,7 +199,7 @@ mod imp {
             abort_monitoring
         }
 
-        fn create_device_row(&self, devices: &ListStore, object: &glib::Object) -> gtk::Widget {
+        fn create_device_row(&self, devices: &Devices, object: &glib::Object) -> gtk::Widget {
             let device = &object.clone().downcast::<Device>().unwrap();
             let row = DeviceRow::new(device);
             let ongoing_monitor = Rc::new(RefCell::new(Self::monitor_device(&row)));
@@ -218,7 +222,9 @@ mod imp {
                 devices,
                 move |_, device| {
                     glib::info!("Deleting device {}", device.label());
-                    devices.remove(devices.find(device).unwrap());
+                    if let Some(index) = devices.registered_devices().find(device) {
+                        devices.registered_devices().remove(index)
+                    }
                 }
             ));
             row.upcast()
