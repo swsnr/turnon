@@ -19,7 +19,9 @@ impl DeviceRow {
     pub fn new(device: &Device) -> Self {
         glib::Object::builder()
             .property("device", device)
-            .property("is_device_online", false)
+            .property("is-device-online", false)
+            .property("can-delete", false)
+            .property("can-edit", false)
             .build()
     }
 
@@ -74,6 +76,10 @@ mod imp {
         is_device_online: Cell<bool>,
         #[property(get)]
         suffix_mode: RefCell<String>,
+        #[property(get, set, default = false)]
+        can_delete: Cell<bool>,
+        #[property(get, set, default = false)]
+        can_edit: Cell<bool>,
     }
 
     #[template_callbacks]
@@ -134,6 +140,8 @@ mod imp {
                 device: Default::default(),
                 is_device_online: Default::default(),
                 suffix_mode: RefCell::new("buttons".into()),
+                can_edit: Default::default(),
+                can_delete: Default::default(),
             }
         }
     }

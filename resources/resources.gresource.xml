@@ -16,6 +16,7 @@
         <file preprocess="xml-stripblanks">icons/scalable/apps/de.swsnr.turnon-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/de.swsnr.turnon.Devel.svg</file>
         <!-- Other data files -->
+        <file compressed="true">style.css</file>
         <file compressed="true" preprocess="xml-stripblanks">de.swsnr.turnon.metainfo.xml</file>
     </gresource>
 </gresources>

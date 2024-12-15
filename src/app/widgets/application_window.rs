@@ -12,6 +12,7 @@ use gtk::gio::ActionEntry;
 use gtk::glib;
 
 use crate::app::model::Devices;
+use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
 
 use super::EditDeviceDialog;
@@ -32,40 +33,47 @@ impl TurnOnApplicationWindow {
             .build()
     }
 
+    pub fn application(&self) -> TurnOnApplication {
+        GtkWindowExt::application(self)
+            .unwrap()
+            .downcast::<TurnOnApplication>()
+            .unwrap()
+    }
+
     pub fn bind_model(&self, devices: &Devices) {
-        self.setup_actions(devices);
+        self.setup_actions();
         self.imp().bind_model(devices);
     }
 
-    fn setup_actions(&self, devices: &Devices) {
+    fn setup_actions(&self) {
         let add_device = ActionEntry::builder("add-device")
-            .activate(glib::clone!(
-                #[weak]
-                devices,
-                move |window: &TurnOnApplicationWindow, _, _| {
-                    let dialog = EditDeviceDialog::new();
-                    dialog.connect_saved(glib::clone!(
-                        #[weak]
-                        devices,
-                        move |_, device| {
-                            glib::debug!("Adding new device: {:?}", device.imp());
-                            devices.registered_devices().append(device);
-                        }
-                    ));
-                    dialog.present(Some(window));
-                }
-            ))
+            .activate(move |window: &TurnOnApplicationWindow, _, _| {
+                let dialog = EditDeviceDialog::new();
+                dialog.connect_saved(glib::clone!(
+                    #[weak(rename_to = devices)]
+                    window.application().devices(),
+                    move |_, device| {
+                        glib::debug!("Adding new device: {:?}", device.imp());
+                        devices.registered_devices().append(device);
+                    }
+                ));
+                dialog.present(Some(window));
+            })
             .build();
 
         let scan_network = ActionEntry::builder("toggle-scan-network")
             .state(false.into())
-            .change_state(|_, act, state| {
+            .change_state(|window: &TurnOnApplicationWindow, act, state| {
                 act.set_state(state.unwrap());
                 let is_scanning = state.unwrap().try_get::<bool>().unwrap();
                 if is_scanning {
-                    // TODO:
+                    // TODO: Add discovered devices to model
                 } else {
-                    // TODO
+                    window
+                        .application()
+                        .devices()
+                        .discovered_devices()
+                        .remove_all();
                 }
             })
             .build();
@@ -240,6 +248,14 @@ mod imp {
                     }
                 }
             ));
+
+            if devices.registered_devices().find(device).is_some() {
+                row.set_can_delete(true);
+                row.set_can_edit(true);
+            } else {
+                row.add_css_class("discovered");
+            }
+
             row.upcast()
         }
     }
