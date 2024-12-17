@@ -35,7 +35,11 @@
             <description>
                 <p>Add a toolbar button to enable or disable network scanning.</p>
                 <p>When network scanning is enabled show devices from the system's ARP cache.</p>
+                <p>Add a button to directly add devices discovered from network scanning.</p>
             </description>
+            <issues>
+                <issue url="https://github.com/swsnr/turnon/issues/4">GH-4</issue>
+            </issues>
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>
         <release version="1.6.2" date="2024-12-12">

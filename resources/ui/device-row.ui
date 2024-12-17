@@ -91,6 +91,18 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     <property name="orientation">0</property>
                     <child>
                       <object class="GtkButton">
+                        <property name="icon-name">list-add-symbolic</property>
+                        <property name="tooltip-text" translatable="yes" context="device-row.action.row.add.tooltip">Add this device</property>
+                        <property name="action-name">row.add</property>
+                        <property name="valign">3</property>
+                        <property name="visible" bind-source="DeviceRow" bind-property="can-add" bind-flags="sync-create"/>
+                        <style>
+                          <class name="flat"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
                         <property name="icon-name">document-edit-symbolic</property>
                         <property name="tooltip-text" translatable="yes" context="device-row.action.row.edit.tooltip">Edit this device</property>
                         <property name="action-name">row.edit</property>

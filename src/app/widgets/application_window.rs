@@ -262,11 +262,20 @@ mod imp {
                     }
                 }
             ));
+            row.connect_added(glib::clone!(
+                #[strong]
+                devices,
+                move |_, device| {
+                    glib::info!("Adding device {}", device.label());
+                    devices.registered_devices().append(device);
+                }
+            ));
 
             if devices.registered_devices().find(device).is_some() {
                 row.set_can_delete(true);
                 row.set_can_edit(true);
             } else {
+                row.set_can_add(true);
                 row.add_css_class("discovered");
             }
 
