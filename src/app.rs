@@ -128,6 +128,7 @@ impl Default for TurnOnApplication {
 
 mod imp {
     use std::cell::RefCell;
+    use std::path::PathBuf;
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
@@ -145,6 +146,8 @@ mod imp {
     pub struct TurnOnApplication {
         model: ListStore,
         registered_search_provider: RefCell<Option<RegistrationId>>,
+        /// Use a different file to store devices at.
+        devices_file: RefCell<Option<PathBuf>>,
     }
 
     /// Save `model` to `storage` whenever `device` changed.
@@ -203,6 +206,7 @@ mod imp {
                     .item_type(Device::static_type())
                     .build(),
                 registered_search_provider: Default::default(),
+                devices_file: Default::default(),
             }
         }
     }
@@ -248,6 +252,18 @@ mod imp {
                 ),
                 None,
             );
+            app.add_main_option(
+                "devices-file",
+                0.into(),
+                OptionFlags::NONE,
+                OptionArg::Filename,
+                &dpgettext2(
+                    None,
+                    "option.devices-file.description",
+                    "Use the given file as storage for devices (for development only)",
+                ),
+                None,
+            )
         }
     }
 
@@ -270,14 +286,17 @@ mod imp {
 
             app.setup_actions();
 
-            glib::debug!("Initializing storage");
-            let data_dir = glib::user_data_dir().join(super::APP_ID);
-            let storage = StorageService::new(data_dir.join("devices.json"));
-
+            let devices_file = self.devices_file.borrow_mut().take().unwrap_or_else(|| {
+                glib::user_data_dir()
+                    .join(super::APP_ID)
+                    .join("devices.json")
+            });
+            glib::debug!("Initializing storage from {}", devices_file.display());
+            let storage = StorageService::new(devices_file);
             glib::info!("Loading devices synchronously");
             let devices = match storage.load_sync() {
                 Err(error) => {
-                    glib::error!(
+                    glib::warn!(
                         "Failed to load devices from {}: {}",
                         storage.target().display(),
                         error
@@ -317,6 +336,20 @@ mod imp {
                     window.present();
                 }
             }
+        }
+
+        fn handle_local_options(&self, options: &glib::VariantDict) -> glib::ExitCode {
+            glib::debug!("Handling local options");
+            self.parent_handle_local_options(options);
+            if let Ok(Some(path)) = options.lookup::<PathBuf>("devices-file") {
+                glib::warn!(
+                    "Overriding storage file to {}; only use for development purposes!",
+                    path.display()
+                );
+                self.devices_file.replace(Some(path));
+            }
+            // -1 means continue normal command line processing
+            glib::ExitCode::from(-1)
         }
 
         fn command_line(&self, command_line: &gtk::gio::ApplicationCommandLine) -> glib::ExitCode {
