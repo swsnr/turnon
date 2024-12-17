@@ -7,14 +7,11 @@
 //! Utilities for the search provider of Turn On.
 
 use glib::{dpgettext2, ControlFlow, Variant, VariantDict};
-use gtk::gio::{
-    DBusMethodInvocation, ListStore, Notification, NotificationPriority, RegistrationId,
-};
+use gtk::gio::{ListStore, Notification, NotificationPriority, RegistrationId};
 use gtk::prelude::*;
 
 use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
-use crate::dbus::invocation::DBusMethodInvocationExt;
 use crate::dbus::searchprovider2::{self, ActivateResult, GetResultMetas, MethodCall};
 
 use super::model::Device;
@@ -177,16 +174,6 @@ async fn dispatch_method_call(
     }
 }
 
-fn handle_search_provider_method_call(
-    app: TurnOnApplication,
-    method_name: &str,
-    parameters: Variant,
-    invocation: DBusMethodInvocation,
-) {
-    let call = searchprovider2::MethodCall::parse(method_name, parameters);
-    invocation.return_future_local(async move { dispatch_method_call(app, call?).await });
-}
-
 /// Register the Turn On search provider for `app`.
 ///
 /// Register a search provider for devices on the DBus connection of `app`.
@@ -197,18 +184,13 @@ pub fn register_app_search_provider(app: TurnOnApplication) -> Option<Registrati
         let interface_info = searchprovider2::interface();
         let registration_id = connection
             .register_object("/de/swsnr/turnon/search", &interface_info)
-            .method_call(glib::clone!(
+            .typed_method_call::<searchprovider2::MethodCall>()
+            .invoke_and_return_future_local(glib::clone!(
                 #[strong]
                 app,
-                move |_, sender, object_path, interface_name, method_name, parameters, invocation| {
-                    glib::debug!("Sender {sender} called method {method_name} of {interface_name} on object {object_path}");
-                    assert!(interface_name == searchprovider2::INTERFACE_NAME);
-                    handle_search_provider_method_call(
-                        app.clone(),
-                        method_name,
-                        parameters,
-                        invocation,
-                    );
+                move |_, sender, call| {
+                    glib::debug!("Sender {sender:?} called method {call:?}");
+                    dispatch_method_call(app.clone(), call)
                 }
             ))
             .build()

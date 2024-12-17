@@ -7,7 +7,10 @@
 //! The search provider dbus interface.
 
 use glib::Variant;
-use gtk::gio::{DBusInterfaceInfo, DBusNodeInfo, IOErrorEnum};
+use gtk::{
+    gio::{DBusInterfaceInfo, DBusNodeInfo, IOErrorEnum},
+    prelude::DBusMethodCall,
+};
 
 /// The literal XML definition of the interface.
 static XML: &str = include_str!("../../dbus-1/org.gnome.ShellSearchProvider2.xml");
@@ -71,27 +74,37 @@ fn invalid_parameters() -> glib::Error {
     )
 }
 
-impl MethodCall {
-    /// Parse a method call to a search provider.
-    pub fn parse(method_name: &str, parameters: Variant) -> Result<MethodCall, glib::Error> {
-        match method_name {
-            "GetInitialResultSet" => parameters
+impl DBusMethodCall for MethodCall {
+    fn parse_call(
+        _obj_path: &str,
+        interface: Option<&str>,
+        method: &str,
+        params: glib::Variant,
+    ) -> Result<Self, glib::Error> {
+        if interface != Some(INTERFACE_NAME) {
+            return Err(glib::Error::new(
+                IOErrorEnum::InvalidArgument,
+                "Unexpected interface",
+            ));
+        }
+        match method {
+            "GetInitialResultSet" => params
                 .get::<GetInitialResultSet>()
                 .map(MethodCall::GetInitialResultSet)
                 .ok_or_else(invalid_parameters),
-            "GetSubsearchResultSet" => parameters
+            "GetSubsearchResultSet" => params
                 .get::<GetSubsearchResultSet>()
                 .map(MethodCall::GetSubsearchResultSet)
                 .ok_or_else(invalid_parameters),
-            "GetResultMetas" => parameters
+            "GetResultMetas" => params
                 .get::<GetResultMetas>()
                 .map(MethodCall::GetResultMetas)
                 .ok_or_else(invalid_parameters),
-            "ActivateResult" => parameters
+            "ActivateResult" => params
                 .get::<ActivateResult>()
                 .map(MethodCall::ActivateResult)
                 .ok_or_else(invalid_parameters),
-            "LaunchSearch" => parameters
+            "LaunchSearch" => params
                 .get::<LaunchSearch>()
                 .map(MethodCall::LaunchSearch)
                 .ok_or_else(invalid_parameters),
