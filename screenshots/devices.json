@@ -1,0 +1,12 @@
+[
+  {
+    "label": "NAS",
+    "mac_address": "2E:E3:50:A3:E2:F7",
+    "host": "192.168.2.100"
+  },
+  {
+    "label": "Desktop",
+    "mac_address": "BF:B4:3B:24:C9:47",
+    "host": "my-desktop.local"
+  }
+]
