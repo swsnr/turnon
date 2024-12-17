@@ -11,6 +11,7 @@ use gtk::gio;
 use gtk::gio::ActionEntry;
 use gtk::glib;
 
+use crate::app::model::discovery::devices_from_arp_cache;
 use crate::app::model::Devices;
 use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
@@ -66,14 +67,27 @@ impl TurnOnApplicationWindow {
             .change_state(|window: &TurnOnApplicationWindow, act, state| {
                 act.set_state(state.unwrap());
                 let is_scanning = state.unwrap().try_get::<bool>().unwrap();
+                let mut discovered_devices = window.application().devices().discovered_devices();
                 if is_scanning {
-                    // TODO: Add discovered devices to model
+                    glib::spawn_future_local(glib::clone!(
+                        #[strong]
+                        act,
+                        async move {
+                            match devices_from_arp_cache().await {
+                                Ok(devices) => {
+                                    // Only add devices if scanning is still enabled
+                                    if act.state().unwrap().try_get::<bool>().unwrap() {
+                                        discovered_devices.extend(devices);
+                                    }
+                                }
+                                Err(error) => {
+                                    glib::warn!("Failed to read ARP cache: {error}");
+                                }
+                            }
+                        }
+                    ));
                 } else {
-                    window
-                        .application()
-                        .devices()
-                        .discovered_devices()
-                        .remove_all();
+                    discovered_devices.remove_all();
                 }
             })
             .build();

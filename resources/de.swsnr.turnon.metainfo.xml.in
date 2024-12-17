@@ -34,6 +34,7 @@
         <release version="next" date="9999-01-01">
             <description>
                 <p>Add a toolbar button to enable or disable network scanning.</p>
+                <p>When network scanning is enabled show devices from the system's ARP cache.</p>
             </description>
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>

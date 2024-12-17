@@ -6,8 +6,11 @@
 
 //! Networking for TurnOn.
 //!
-//! Contains a dead simple and somewhat inefficient ping implementation.
+//! This module provides various utilities around networking required by TurnOn.
+//! Specifically, it has a user-space ping implementation, a WakeOnLan
+//! implementation, some helper types, and various tools for network scanning.
 
+pub mod arpcache;
 mod macaddr;
 mod monitor;
 mod ping;

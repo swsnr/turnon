@@ -6,6 +6,7 @@
 
 mod device;
 mod devices;
+pub mod discovery;
 
 pub use device::Device;
 pub use devices::Devices;
