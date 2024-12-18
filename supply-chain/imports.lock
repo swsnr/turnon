@@ -9,15 +9,15 @@ user-login = "cuviper"
 user-name = "Josh Stone"
 
 [[publisher.cairo-rs]]
-version = "0.20.5"
-when = "2024-10-30"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.cairo-sys-rs]]
-version = "0.20.0"
-when = "2024-07-10"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -29,15 +29,15 @@ user-id = 52553
 user-login = "embark-studios"
 
 [[publisher.gdk-pixbuf]]
-version = "0.20.4"
-when = "2024-09-26"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk-pixbuf-sys]]
-version = "0.20.4"
-when = "2024-09-26"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -64,8 +64,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio-sys]]
-version = "0.20.6"
-when = "2024-11-12"
+version = "0.20.8"
+when = "2024-12-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -78,36 +78,36 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-macros]]
-version = "0.20.5"
-when = "2024-10-30"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-sys]]
-version = "0.20.6"
-when = "2024-11-12"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gobject-sys]]
-version = "0.20.4"
-when = "2024-09-26"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.graphene-rs]]
-version = "0.20.4"
-when = "2024-09-26"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.graphene-sys]]
-version = "0.20.4"
-when = "2024-09-26"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -148,15 +148,15 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.hashbrown]]
-version = "0.15.1"
-when = "2024-11-04"
+version = "0.15.2"
+when = "2024-11-25"
 user-id = 2915
 user-login = "Amanieu"
 user-name = "Amanieu d'Antras"
 
 [[publisher.indexmap]]
-version = "2.6.0"
-when = "2024-10-01"
+version = "2.7.0"
+when = "2024-12-01"
 user-id = 539
 user-login = "cuviper"
 user-name = "Josh Stone"
@@ -190,15 +190,15 @@ user-login = "BurntSushi"
 user-name = "Andrew Gallant"
 
 [[publisher.pango]]
-version = "0.20.6"
-when = "2024-11-12"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.pango-sys]]
-version = "0.20.4"
-when = "2024-09-26"
+version = "0.20.7"
+when = "2024-12-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -213,6 +213,20 @@ user-name = "Sebastian Dröge"
 [[publisher.ryu]]
 version = "1.0.18"
 when = "2024-05-07"
+user-id = 3618
+user-login = "dtolnay"
+user-name = "David Tolnay"
+
+[[publisher.serde]]
+version = "1.0.216"
+when = "2024-12-11"
+user-id = 3618
+user-login = "dtolnay"
+user-name = "David Tolnay"
+
+[[publisher.serde_derive]]
+version = "1.0.216"
+when = "2024-12-11"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
@@ -239,8 +253,8 @@ user-login = "mbrubeck"
 user-name = "Matt Brubeck"
 
 [[publisher.syn]]
-version = "2.0.87"
-when = "2024-11-02"
+version = "2.0.90"
+when = "2024-11-29"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
@@ -262,6 +276,13 @@ user-name = "Ed Page"
 [[publisher.windows-sys]]
 version = "0.52.0"
 when = "2023-11-15"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows-sys]]
+version = "0.59.0"
+when = "2024-07-30"
 user-id = 64539
 user-login = "kennykerr"
 user-name = "Kenny Kerr"
@@ -552,6 +573,15 @@ Straightforward diff between 1.0.10 and 1.0.11 - only 3 commits:
 """
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
+[[audits.google.audits.itoa]]
+who = "Liza Burakova <liza@chromium.org>"
+criteria = "safe-to-deploy"
+delta = "1.0.11 -> 1.0.14"
+notes = """
+Unsafe review at https://crrev.com/c/6051067
+"""
+aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
+
 [[audits.google.audits.log]]
 who = "danakj <danakj@chromium.org>"
 criteria = "safe-to-deploy"
@@ -698,170 +728,11 @@ criteria = "safe-to-run"
 delta = "1.0.22 -> 1.0.23"
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
-[[audits.google.audits.serde]]
+[[audits.google.audits.semver]]
 who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-version = "1.0.197"
-notes = """
-Grepped for `-i cipher`, `-i crypto`, `'\bfs\b'`, `'\bnet\b'`, `'\bunsafe\b'`.
-
-There were some hits for `net`, but they were related to serialization and
-not actually opening any connections or anything like that.
-
-There were 2 hits of `unsafe` when grepping:
-* In `fn as_str` in `impl Buf`
-* In `fn serialize` in `impl Serialize for net::Ipv4Addr`
-
-Unsafe review comments can be found in https://crrev.com/c/5350573/2 (this
-review also covered `serde_json_lenient`).
-
-Version 1.0.130 of the crate has been added to Chromium in
-https://crrev.com/c/3265545.  The CL description contains a link to a
-(Google-internal, sorry) document with a mini security review.
-"""
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "Dustin J. Mitchell <djmitche@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.197 -> 1.0.198"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "danakj <danakj@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.198 -> 1.0.201"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "Dustin J. Mitchell <djmitche@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.201 -> 1.0.202"
-notes = "Trivial changes"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.202 -> 1.0.203"
-notes = "s/doc_cfg/docsrs/ + tuple_impls/tuple_impl_body-related changes"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "Adrian Taylor <adetaylor@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.203 -> 1.0.204"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.204 -> 1.0.207"
-notes = "The small change in `src/private/ser.rs` should have no impact on `ub-risk-2`."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.207 -> 1.0.209"
-notes = """
-The delta carries fairly small changes in `src/private/de.rs` and
-`src/private/ser.rs` (see https://crrev.com/c/5812194/2..5).  AFAICT the
-delta has no impact on the `unsafe`, `from_utf8_unchecked`-related parts
-of the crate (in `src/de/format.rs` and `src/ser/impls.rs`).
-"""
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "Adrian Taylor <adetaylor@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.209 -> 1.0.210"
-notes = "Almost no new code - just feature rearrangement"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "Liza Burakova <liza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.210 -> 1.0.213"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde]]
-who = "Dustin J. Mitchell <djmitche@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.213 -> 1.0.214"
-notes = "No unsafe, no crypto"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-version = "1.0.197"
-notes = "Grepped for \"unsafe\", \"crypt\", \"cipher\", \"fs\", \"net\" - there were no hits"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "danakj <danakj@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.197 -> 1.0.201"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "Dustin J. Mitchell <djmitche@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.201 -> 1.0.202"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.202 -> 1.0.203"
-notes = "Grepped for \"unsafe\", \"crypt\", \"cipher\", \"fs\", \"net\" - there were no hits"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "Adrian Taylor <adetaylor@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.203 -> 1.0.204"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.204 -> 1.0.207"
-notes = 'Grepped for \"unsafe\", \"crypt\", \"cipher\", \"fs\", \"net\" - there were no hits'
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.207 -> 1.0.209"
-notes = '''
-There are no code changes in this delta - see https://crrev.com/c/5812194/2..5
-
-I've neverthless also grepped for `-i cipher`, `-i crypto`, `\bfs\b`,
-`\bnet\b`, and `\bunsafe\b`.  There were no hits.
-'''
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "Adrian Taylor <adetaylor@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.209 -> 1.0.210"
-notes = "Almost no new code - just feature rearrangement"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "Liza Burakova <liza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.210 -> 1.0.213"
-notes = "Grepped for 'unsafe', 'crypt', 'cipher', 'fs', 'net' - there were no hits"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.serde_derive]]
-who = "Dustin J. Mitchell <djmitche@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.213 -> 1.0.214"
-notes = "No changes to unsafe, no crypto"
+criteria = "safe-to-run"
+delta = "1.0.23 -> 1.0.24"
+notes = "Minor, `ptr_eq`-related changes."
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
 [[audits.google.audits.serde_json]]
@@ -953,6 +824,13 @@ No new unsafe changes.
 """
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
+[[audits.google.audits.serde_json]]
+who = "Adrian Taylor <adetaylor@chromium.org>"
+criteria = "safe-to-run"
+delta = "1.0.132 -> 1.0.133"
+notes = "No changes affecting safety-to-run and still no crypto"
+aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
+
 [[audits.google.audits.socket2]]
 who = "Vovo Yang <vovoy@google.com>"
 criteria = "safe-to-run"
@@ -1032,4 +910,20 @@ criteria = "safe-to-deploy"
 delta = "0.5.5 -> 0.5.7"
 aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
 
-[audits.swsnr.audits]
+[[audits.swsnr.audits.cfg-expr]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.17.0 -> 0.17.2"
+aggregated-from = "https://raw.githubusercontent.com/swsnr/gnome-search-providers-vscode/refs/heads/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.proc-macro2]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.89 -> 1.0.92"
+aggregated-from = "https://raw.githubusercontent.com/swsnr/gnome-search-providers-vscode/refs/heads/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.unicode-ident]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.13 -> 1.0.14"
+aggregated-from = "https://raw.githubusercontent.com/swsnr/gnome-search-providers-vscode/refs/heads/main/supply-chain/audits.toml"

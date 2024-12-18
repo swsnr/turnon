@@ -16,6 +16,18 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.8.15 -> 0.8.14"
 
+[[audits.crossbeam-utils]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-deploy"
+delta = "0.8.20 -> 0.8.21"
+notes = "Only changes cfg and lint annotations, no other code change"
+
+[[audits.event-listener-strategy]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-deploy"
+delta = "0.5.2 -> 0.5.3"
+notes = "Only exports a new feature and slightly changes some type signatures."
+
 [[audits.field-offset]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -62,6 +74,12 @@ notes = "No actual code changes."
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "1.0.214 -> 1.0.215"
+
+[[audits.socket2]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.5.7 -> 0.5.8"
+notes = "Only straight-forward wrappers around underlying C/syscall APIs; looks correct, but I didn't audit use of unsafe and correct use of these unsafe APIs."
 
 [[audits.system-deps]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -416,6 +434,18 @@ user-id = 3618 # David Tolnay (dtolnay)
 start = "2019-05-02"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
+
+[[trusted.serde]]
+criteria = "safe-to-run"
+user-id = 3618 # David Tolnay (dtolnay)
+start = "2019-03-01"
+end = "2025-12-18"
+
+[[trusted.serde_derive]]
+criteria = "safe-to-run"
+user-id = 3618 # David Tolnay (dtolnay)
+start = "2019-03-01"
+end = "2025-12-18"
 
 [[trusted.serde_spanned]]
 criteria = "safe-to-run"
