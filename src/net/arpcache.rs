@@ -188,6 +188,11 @@ impl FromStr for ArpCacheEntry {
     }
 }
 
+/// Read the ARP cache table from the given reader.
+///
+/// The reader is expected to provide a textual ARP cache table, as in `/proc/net/arp`.
+///
+/// Return an iterator over all valid cache entries.
 pub fn read_arp_cache<R: BufRead>(
     reader: R,
 ) -> impl Iterator<Item = std::io::Result<ArpCacheEntry>> {
@@ -202,6 +207,11 @@ pub fn read_arp_cache<R: BufRead>(
         })
 }
 
+/// Read the ARP cache table from the given path.
+///
+/// The file is expected to contain a textual ARP cache table, as in `/proc/net/arp`.
+///
+/// Return an iterator over all valid cache entries.
 pub fn read_arp_cache_from_path<P: AsRef<Path>>(
     path: P,
 ) -> std::io::Result<impl Iterator<Item = std::io::Result<ArpCacheEntry>>> {
@@ -209,9 +219,9 @@ pub fn read_arp_cache_from_path<P: AsRef<Path>>(
     Ok(read_arp_cache(source))
 }
 
-pub fn read_linux_arp_cache(
-) -> std::io::Result<impl Iterator<Item = std::io::Result<ArpCacheEntry>>> {
-    read_arp_cache_from_path("/proc/net/arp")
+/// Get the default path to the ARP cache table.
+pub fn default_arp_cache_path() -> &'static Path {
+    Path::new("/proc/net/arp")
 }
 
 #[cfg(test)]

@@ -258,7 +258,19 @@ mod imp {
                     "Use the given file as storage for devices (for development only)",
                 ),
                 None,
-            )
+            );
+            app.add_main_option(
+                "arp-cache-file",
+                0.into(),
+                OptionFlags::NONE,
+                OptionArg::Filename,
+                &dpgettext2(
+                    None,
+                    "option.arp-cache-file.description",
+                    "Use the given file as ARP cache source (for development only)",
+                ),
+                None,
+            );
         }
     }
 
@@ -344,6 +356,13 @@ mod imp {
                     path.display()
                 );
                 self.devices_file.replace(Some(path));
+            }
+            if let Ok(Some(path)) = options.lookup::<PathBuf>("arp-cache-file") {
+                glib::warn!(
+                    "Reading ARP cache from {}; only use for development purposes!",
+                    path.display()
+                );
+                self.devices.discovered_devices().set_arp_cache_file(path);
             }
             // -1 means continue normal command line processing
             glib::ExitCode::from(-1)

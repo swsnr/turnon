@@ -4,12 +4,12 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+use std::path::Path;
+
 use glib::{dpgettext2, Object};
 use gtk::gio;
 
-use crate::net::arpcache::{
-    self, ArpCacheEntry, ArpCacheEntryFlags, ArpHardwareType, ArpKnownHardwareType,
-};
+use crate::net::arpcache::*;
 
 use super::Device;
 use crate::config::G_LOG_DOMAIN;
@@ -30,16 +30,21 @@ mod imp {
     use gtk::gio::prelude::*;
     use gtk::gio::subclass::prelude::*;
 
-    use std::cell::{Cell, RefCell};
+    use std::{
+        cell::{Cell, RefCell},
+        path::PathBuf,
+    };
 
     use super::{super::Device, devices_from_arp_cache};
-    use crate::config::G_LOG_DOMAIN;
+    use crate::{config::G_LOG_DOMAIN, net::arpcache::default_arp_cache_path};
 
-    #[derive(Debug, Default, glib::Properties)]
+    #[derive(Debug, glib::Properties)]
     #[properties(wrapper_type = super::DeviceDiscovery)]
     pub struct DeviceDiscovery {
         #[property(get, set = Self::set_discovery_enabled)]
         discovery_enabled: Cell<bool>,
+        #[property(get, set)]
+        arp_cache_file: RefCell<PathBuf>,
         discovered_devices: RefCell<Vec<Device>>,
     }
 
@@ -64,7 +69,7 @@ mod imp {
         fn scan_devices(&self) {
             let discovery = self.obj().clone();
             glib::spawn_future_local(async move {
-                match devices_from_arp_cache().await {
+                match devices_from_arp_cache(discovery.arp_cache_file()).await {
                     Ok(devices_from_arp_cache) => {
                         if discovery.discovery_enabled() {
                             // If discovery is still enabled remember all discovered devices
@@ -95,6 +100,14 @@ mod imp {
         type Type = super::DeviceDiscovery;
 
         type Interfaces = (gio::ListModel,);
+
+        fn new() -> Self {
+            Self {
+                discovery_enabled: Default::default(),
+                arp_cache_file: RefCell::new(default_arp_cache_path().into()),
+                discovered_devices: Default::default(),
+            }
+        }
     }
 
     #[glib::derived_properties]
@@ -118,15 +131,6 @@ mod imp {
     }
 }
 
-/// Whether `entry` denotes a complete ethernet entry.
-///
-/// Return `true` if `entry` has the `ATF_COM` flag which signifies that the
-/// entry is complete, and the `Ether` hardware type.
-fn is_complete_ethernet_entry(entry: &ArpCacheEntry) -> bool {
-    entry.hardware_type == ArpHardwareType::Known(ArpKnownHardwareType::Ether)
-        && entry.flags.contains(ArpCacheEntryFlags::ATF_COM)
-}
-
 /// Read devices from the ARP cache.
 ///
 /// Return an error if opening the ARP cache file failed; otherwise return a
@@ -135,8 +139,10 @@ fn is_complete_ethernet_entry(entry: &ArpCacheEntry) -> bool {
 ///
 /// All discovered devices have their IP address has `host` and a constant
 /// human readable and translated `label`.
-async fn devices_from_arp_cache() -> std::io::Result<impl Iterator<Item = Device>> {
-    let arp_cache = gio::spawn_blocking(arpcache::read_linux_arp_cache)
+async fn devices_from_arp_cache<P: AsRef<Path> + Send + 'static>(
+    arp_cache_file: P,
+) -> std::io::Result<impl Iterator<Item = Device>> {
+    let arp_cache = gio::spawn_blocking(move || read_arp_cache_from_path(arp_cache_file))
         .await
         .unwrap()?;
 
@@ -147,7 +153,10 @@ async fn devices_from_arp_cache() -> std::io::Result<impl Iterator<Item = Device
             })
             .ok()
         })
-        .filter(is_complete_ethernet_entry)
+        // Only consider ethernet devices
+        .filter(|entry| entry.hardware_type == ArpHardwareType::Known(ArpKnownHardwareType::Ether))
+        // Only include complete ARP cache entries, where the hardware address is fully known and valid
+        .filter(|entry| entry.flags.contains(ArpCacheEntryFlags::ATF_COM))
         .map(|entry| {
             Device::new(
                 &dpgettext2(None, "discovered-device.label", "Discovered device"),
