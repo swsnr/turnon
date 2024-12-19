@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2024-12-19 16:04+0000\n"
+"PO-Revision-Date: 2024-12-19 16:14+0000\n"
 "Last-Translator: swsnr <swsnr@users.noreply.translate.codeberg.org>\n"
 "Language-Team: German <https://translate.codeberg.org/projects/"
 "de-swsnr-turnon/de-swsnr-turnon/de/>\n"
@@ -55,7 +55,7 @@ msgstr "Geräte zum Anschalten hinzufügen."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:13
 msgid "Discover devices in the local network."
-msgstr "Geräte im lokalen Netzwerk auffinden."
+msgstr "Geräte im lokalen Netzwerk erkennen."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:14
 msgid "Monitor device status."
@@ -76,15 +76,21 @@ msgstr "Geräte über die Kommandozeile anschalten."
 #: resources/de.swsnr.turnon.metainfo.xml.in:36
 msgid "Add a toolbar button to enable or disable network scanning."
 msgstr ""
+"Knopf zum An- und Abschalten der Netzwerksuche zur Werkzeugleiste wurde "
+"hinzugefügt."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:37
 msgid ""
 "When network scanning is enabled show devices from the system's ARP cache."
 msgstr ""
+"Wenn die Netzwerksuche aktiv ist werden Geräte aus der ARP-Tabelle des "
+"Systems angezeigt."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:38
 msgid "Add a button to directly add devices discovered from network scanning."
 msgstr ""
+"Ein Knopf wurde hinzugefügt, um Geräte, die durch die Netzwerksuche gefunden "
+"wurden, hinzuzufügen."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:47
 msgid ""
@@ -248,20 +254,20 @@ msgid "Languages other than English are not supported."
 msgstr "Sprachen außer Englisch werden nicht unterstützt."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:171
-#, fuzzy
-#| msgid "Two devices, one of them on, and the other off"
 msgid ""
 "Two devices, one of them on, and the other off, and two devices discovered "
 "in the network"
-msgstr "Zwei Geräte, eines davon angeschaltet, das andere ausgeschaltet"
+msgstr ""
+"Zwei Geräte, eines davon angeschaltet, das andere ausgeschaltet, und zwei "
+"Geräte, die im Netzwerk gefunden wurden"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:175
-#, fuzzy
-#| msgid "Two devices, one of them on, and the other off"
 msgid ""
 "Two devices, one of them on, and the other off, with network discovery not "
 "enabled"
-msgstr "Zwei Geräte, eines davon angeschaltet, das andere ausgeschaltet"
+msgstr ""
+"Zwei Geräte, eines davon angeschaltet, das andere ausgeschaltet, mit "
+"abgeschalteter Netzwerksuche"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:179
 msgid ""
@@ -300,12 +306,9 @@ msgid "Quit"
 msgstr "Beenden"
 
 #: resources/ui/device-row.blp:69
-#, fuzzy
-#| msgctxt "device-row.action.row.edit.tooltip"
-#| msgid "Edit this device"
 msgctxt "device-row.action.row.add.tooltip"
 msgid "Add this device"
-msgstr "Dieses Gerät bearbeiten"
+msgstr "Dieses Gerät hinzufügen"
 
 #: resources/ui/device-row.blp:81
 msgctxt "device-row.action.row.edit.tooltip"
@@ -414,7 +417,7 @@ msgstr "Ein neues Gerät hinzufügen"
 #: resources/ui/turnon-application-window.blp:29
 msgctxt "application-window.action.win.scan-network.tooltip"
 msgid "Scan the network for devices"
-msgstr ""
+msgstr "Geräte im Netzwerk suchen"
 
 #: resources/ui/turnon-application-window.blp:57
 msgctxt "application-window.status-page.title"
@@ -487,11 +490,12 @@ msgstr "Geräte und deren Status auflisten"
 msgctxt "option.devices-file.description"
 msgid "Use the given file as storage for devices (for development only)"
 msgstr ""
+"Die angegebene Datei als Speicher für Geräte nutzen (nur zur Entwicklung)"
 
 #: src/app.rs:270
 msgctxt "option.arp-cache-file.description"
 msgid "Use the given file as ARP cache source (for development only)"
-msgstr ""
+msgstr "Die angegebene Datei als ARP-Tabelle nutzen (nur zur Entwicklung)"
 
 #: src/app/commandline.rs:30
 msgctxt "option.turn-on-device.message"
@@ -512,7 +516,7 @@ msgstr "Kein Gerät mit der Bezeichnung %s gefunden\n"
 #: src/app/model/device_discovery.rs:162
 msgctxt "discovered-device.label"
 msgid "Discovered device"
-msgstr ""
+msgstr "Gefundenes Gerät"
 
 #: src/app/searchprovider.rs:77
 msgctxt "search-provider.notification.title"
