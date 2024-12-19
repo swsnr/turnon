@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2024-12-04 13:07+0000\n"
+"PO-Revision-Date: 2024-12-19 16:04+0000\n"
 "Last-Translator: swsnr <swsnr@users.noreply.translate.codeberg.org>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/de/>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.1\n"
+"X-Generator: Weblate 5.8.4\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop.in:4 resources/de.swsnr.turnon.metainfo.xml.in:5
@@ -54,10 +54,8 @@ msgid "Add devices to turn on."
 msgstr "Geräte zum Anschalten hinzufügen."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:13
-#, fuzzy
-#| msgid "Turn on devices in your network"
 msgid "Discover devices in the local network."
-msgstr "Geräte in Deinem Netzwerk anschalten"
+msgstr "Geräte im lokalen Netzwerk auffinden."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:14
 msgid "Monitor device status."
