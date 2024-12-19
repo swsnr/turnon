@@ -22,6 +22,8 @@ mod imp {
     use gtk::gio::prelude::*;
     use gtk::gio::subclass::prelude::*;
 
+    use crate::app::model::DeviceDiscovery;
+
     use super::super::Device;
 
     #[derive(Debug, glib::Properties)]
@@ -30,7 +32,7 @@ mod imp {
         #[property(get)]
         pub registered_devices: gio::ListStore,
         #[property(get)]
-        pub discovered_devices: gio::ListStore,
+        pub discovered_devices: DeviceDiscovery,
     }
 
     #[glib::object_subclass]
@@ -44,7 +46,7 @@ mod imp {
         fn new() -> Self {
             Self {
                 registered_devices: gio::ListStore::with_type(Device::static_type()),
-                discovered_devices: gio::ListStore::with_type(Device::static_type()),
+                discovered_devices: Default::default(),
             }
         }
     }

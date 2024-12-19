@@ -7,11 +7,10 @@
 use adw::prelude::*;
 use adw::subclass::prelude::*;
 use glib::object::IsA;
-use gtk::gio;
 use gtk::gio::ActionEntry;
+use gtk::gio::{self, PropertyAction};
 use gtk::glib;
 
-use crate::app::model::discovery::devices_from_arp_cache;
 use crate::app::model::Devices;
 use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
@@ -62,37 +61,14 @@ impl TurnOnApplicationWindow {
             })
             .build();
 
-        let scan_network = ActionEntry::builder("toggle-scan-network")
-            .state(false.into())
-            .change_state(|window: &TurnOnApplicationWindow, act, state| {
-                act.set_state(state.unwrap());
-                let is_scanning = state.unwrap().try_get::<bool>().unwrap();
-                let mut discovered_devices = window.application().devices().discovered_devices();
-                if is_scanning {
-                    glib::spawn_future_local(glib::clone!(
-                        #[strong]
-                        act,
-                        async move {
-                            match devices_from_arp_cache().await {
-                                Ok(devices) => {
-                                    // Only add devices if scanning is still enabled
-                                    if act.state().unwrap().try_get::<bool>().unwrap() {
-                                        discovered_devices.extend(devices);
-                                    }
-                                }
-                                Err(error) => {
-                                    glib::warn!("Failed to read ARP cache: {error}");
-                                }
-                            }
-                        }
-                    ));
-                } else {
-                    discovered_devices.remove_all();
-                }
-            })
-            .build();
+        self.add_action_entries([add_device]);
 
-        self.add_action_entries([add_device, scan_network]);
+        let scan_network = PropertyAction::new(
+            "toggle-scan-network",
+            &self.application().devices().discovered_devices(),
+            "discovery-enabled",
+        );
+        self.add_action(&scan_network);
     }
 }
 
