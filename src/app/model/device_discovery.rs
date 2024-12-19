@@ -8,11 +8,12 @@ use std::path::Path;
 
 use glib::{dpgettext2, Object};
 use gtk::gio;
+use gtk::gio::prelude::*;
 
+use crate::config::G_LOG_DOMAIN;
 use crate::net::arpcache::*;
 
 use super::Device;
-use crate::config::G_LOG_DOMAIN;
 
 glib::wrapper! {
     /// Device discovery.
@@ -30,13 +31,14 @@ mod imp {
     use gtk::gio::prelude::*;
     use gtk::gio::subclass::prelude::*;
 
-    use std::{
-        cell::{Cell, RefCell},
-        path::PathBuf,
-    };
+    use std::cell::{Cell, RefCell};
+    use std::path::PathBuf;
 
+    use crate::config::G_LOG_DOMAIN;
+    use crate::net::arpcache::default_arp_cache_path;
+
+    use super::resolve_device_host_to_label;
     use super::{super::Device, devices_from_arp_cache};
-    use crate::{config::G_LOG_DOMAIN, net::arpcache::default_arp_cache_path};
 
     #[derive(Debug, glib::Properties)]
     #[properties(wrapper_type = super::DeviceDiscovery)]
@@ -66,6 +68,7 @@ mod imp {
             }
         }
 
+        /// Scan the local ARP cache for devices.
         fn scan_devices(&self) {
             let discovery = self.obj().clone();
             glib::spawn_future_local(async move {
@@ -83,6 +86,7 @@ mod imp {
                                 0,
                                 n_changed.try_into().unwrap(),
                             );
+                            discovery.imp().reverse_lookup_devices();
                         }
                     }
                     Err(error) => {
@@ -90,6 +94,19 @@ mod imp {
                     }
                 }
             });
+        }
+
+        /// Reverse-lookup the DNS names of all currently discovered devices.
+        fn reverse_lookup_devices(&self) {
+            for device in self.discovered_devices.borrow().iter() {
+                glib::spawn_future_local(glib::clone!(
+                    #[weak]
+                    device,
+                    async move {
+                        resolve_device_host_to_label(device).await;
+                    }
+                ));
+            }
         }
     }
 
@@ -127,6 +144,23 @@ mod imp {
                 .borrow()
                 .get(usize::try_from(position).unwrap())
                 .map(|d| d.clone().upcast())
+        }
+    }
+}
+
+/// Resolve the host of `device` to a DNS name and use it as label.
+async fn resolve_device_host_to_label(device: Device) {
+    if let Some(address) = gio::InetAddress::from_string(&device.host()) {
+        match gio::Resolver::default()
+            .lookup_by_address_future(&address)
+            .await
+        {
+            Ok(name) => {
+                device.set_label(name);
+            }
+            Err(error) => {
+                glib::warn!("Failed to resolve address {address} into DNS name: {error}");
+            }
         }
     }
 }
