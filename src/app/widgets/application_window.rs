@@ -8,9 +8,11 @@ use adw::prelude::*;
 use adw::subclass::prelude::*;
 use glib::object::IsA;
 use gtk::gio::ActionEntry;
-use gtk::gio::{self, ListStore};
+use gtk::gio::{self, PropertyAction};
 use gtk::glib;
 
+use crate::app::model::Devices;
+use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
 
 use super::EditDeviceDialog;
@@ -31,21 +33,28 @@ impl TurnOnApplicationWindow {
             .build()
     }
 
-    pub fn bind_model(&self, devices: &ListStore) {
-        self.setup_actions(devices.clone());
+    pub fn application(&self) -> TurnOnApplication {
+        GtkWindowExt::application(self)
+            .unwrap()
+            .downcast::<TurnOnApplication>()
+            .unwrap()
+    }
+
+    pub fn bind_model(&self, devices: &Devices) {
+        self.setup_actions();
         self.imp().bind_model(devices);
     }
 
-    fn setup_actions(&self, devices: ListStore) {
+    fn setup_actions(&self) {
         let add_device = ActionEntry::builder("add-device")
             .activate(move |window: &TurnOnApplicationWindow, _, _| {
                 let dialog = EditDeviceDialog::new();
                 dialog.connect_saved(glib::clone!(
-                    #[weak]
-                    devices,
+                    #[weak(rename_to = devices)]
+                    window.application().devices(),
                     move |_, device| {
                         glib::debug!("Adding new device: {:?}", device.imp());
-                        devices.append(device);
+                        devices.registered_devices().append(device);
                     }
                 ));
                 dialog.present(Some(window));
@@ -53,6 +62,13 @@ impl TurnOnApplicationWindow {
             .build();
 
         self.add_action_entries([add_device]);
+
+        let scan_network = PropertyAction::new(
+            "toggle-scan-network",
+            &self.application().devices().discovered_devices(),
+            "discovery-enabled",
+        );
+        self.add_action(&scan_network);
     }
 }
 
@@ -65,11 +81,10 @@ mod imp {
     use adw::{prelude::*, ToastOverlay};
     use futures_util::{stream, StreamExt, TryStreamExt};
     use glib::dpgettext2;
-    use gtk::gio::ListStore;
     use gtk::glib::subclass::InitializingObject;
     use gtk::{glib, CompositeTemplate};
 
-    use crate::app::model::Device;
+    use crate::app::model::{Device, Devices};
     use crate::config::G_LOG_DOMAIN;
     use crate::net;
 
@@ -102,7 +117,7 @@ mod imp {
     }
 
     impl TurnOnApplicationWindow {
-        pub fn bind_model(&self, model: &ListStore) {
+        pub fn bind_model(&self, model: &Devices) {
             self.devices_list.get().bind_model(
                 Some(model),
                 glib::clone!(
@@ -195,7 +210,7 @@ mod imp {
             abort_monitoring
         }
 
-        fn create_device_row(&self, devices: &ListStore, object: &glib::Object) -> gtk::Widget {
+        fn create_device_row(&self, devices: &Devices, object: &glib::Object) -> gtk::Widget {
             let device = &object.clone().downcast::<Device>().unwrap();
             let row = DeviceRow::new(device);
             let ongoing_monitor = Rc::new(RefCell::new(Self::monitor_device(&row)));
@@ -218,9 +233,28 @@ mod imp {
                 devices,
                 move |_, device| {
                     glib::info!("Deleting device {}", device.label());
-                    devices.remove(devices.find(device).unwrap());
+                    if let Some(index) = devices.registered_devices().find(device) {
+                        devices.registered_devices().remove(index)
+                    }
                 }
             ));
+            row.connect_added(glib::clone!(
+                #[strong]
+                devices,
+                move |_, device| {
+                    glib::info!("Adding device {}", device.label());
+                    devices.registered_devices().append(device);
+                }
+            ));
+
+            if devices.registered_devices().find(device).is_some() {
+                row.set_can_delete(true);
+                row.set_can_edit(true);
+            } else {
+                row.set_can_add(true);
+                row.add_css_class("discovered");
+            }
+
             row.upcast()
         }
     }

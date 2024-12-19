@@ -1,0 +1,5 @@
+/* Dim labels of discovered devices */
+row.discovered .title > .title,
+row.discovered .suffixes .title {
+    opacity: var(--dim-opacity);
+}

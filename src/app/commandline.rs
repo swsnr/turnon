@@ -56,14 +56,14 @@ pub fn turn_on_device_by_label(
 ) -> glib::ExitCode {
     let guard = app.hold();
     glib::debug!("Turning on device in response to command line argument");
-    match app
-        .model()
+    let registered_devices = app.devices().registered_devices();
+    match registered_devices
         .find_with_equal_func(|o| {
             o.downcast_ref::<Device>()
                 .filter(|d| d.label() == label)
                 .is_some()
         })
-        .and_then(|position| app.model().item(position))
+        .and_then(|position| registered_devices.item(position))
         .and_then(|o| o.downcast::<Device>().ok())
     {
         Some(device) => {
@@ -123,7 +123,8 @@ pub fn list_devices(
         command_line,
         async move {
             let pinged_devices = ping_all_devices(
-                app.model()
+                app.devices()
+                    .registered_devices()
                     .into_iter()
                     .map(|o| o.unwrap().downcast().unwrap()),
             )

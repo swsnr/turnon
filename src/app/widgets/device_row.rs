@@ -19,7 +19,9 @@ impl DeviceRow {
     pub fn new(device: &Device) -> Self {
         glib::Object::builder()
             .property("device", device)
-            .property("is_device_online", false)
+            .property("is-device-online", false)
+            .property("can-delete", false)
+            .property("can-edit", false)
             .build()
     }
 
@@ -29,6 +31,26 @@ impl DeviceRow {
     {
         self.connect_local(
             "deleted",
+            false,
+            glib::clone!(
+                #[weak(rename_to=row)]
+                &self,
+                #[upgrade_or_default]
+                move |args| {
+                    let device = &args[1].get().expect("No device passed as signal argument?");
+                    callback(&row, device);
+                    None
+                }
+            ),
+        )
+    }
+
+    pub fn connect_added<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &Device) + 'static,
+    {
+        self.connect_local(
+            "added",
             false,
             glib::clone!(
                 #[weak(rename_to=row)]
@@ -74,6 +96,12 @@ mod imp {
         is_device_online: Cell<bool>,
         #[property(get)]
         suffix_mode: RefCell<String>,
+        #[property(get, set, default = false)]
+        can_delete: Cell<bool>,
+        #[property(get, set, default = false)]
+        can_edit: Cell<bool>,
+        #[property(get, set, default = false)]
+        can_add: Cell<bool>,
     }
 
     #[template_callbacks]
@@ -110,19 +138,35 @@ mod imp {
             klass.bind_template();
             klass.bind_template_callbacks();
 
-            klass.install_action("row.ask_delete", None, |obj, _, _| {
-                obj.imp().set_suffix_mode("confirm-delete");
+            klass.install_action("row.ask_delete", None, |row, _, _| {
+                row.imp().set_suffix_mode("confirm-delete");
             });
-            klass.install_action("row.cancel-delete", None, |obj, _, _| {
-                obj.imp().set_suffix_mode("buttons");
+            klass.install_action("row.cancel-delete", None, |row, _, _| {
+                row.imp().set_suffix_mode("buttons");
             });
-            klass.install_action("row.delete", None, |obj, _, _| {
-                obj.emit_by_name::<()>("deleted", &[&obj.device()])
+            klass.install_action("row.delete", None, |row, _, _| {
+                row.emit_by_name::<()>("deleted", &[&row.device()])
             });
             klass.install_action("row.edit", None, |obj, _, _| {
                 let dialog = EditDeviceDialog::edit(obj.device());
                 dialog.present(Some(obj));
             });
+            klass.install_action("row.add", None, |row, _, _| {
+                // Create a fresh device, edit it, and then emit an added signal
+                // if the user saves the device.
+                let current_device = row.device();
+                let dialog = EditDeviceDialog::edit(Device::new(
+                    &current_device.label(),
+                    current_device.mac_address(),
+                    &current_device.host(),
+                ));
+                dialog.connect_saved(glib::clone!(
+                    #[weak]
+                    row,
+                    move |_, device| row.emit_by_name::<()>("added", &[device])
+                ));
+                dialog.present(Some(row));
+            })
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -134,6 +178,9 @@ mod imp {
                 device: Default::default(),
                 is_device_online: Default::default(),
                 suffix_mode: RefCell::new("buttons".into()),
+                can_edit: Default::default(),
+                can_delete: Default::default(),
+                can_add: Default::default(),
             }
         }
     }
@@ -142,10 +189,16 @@ mod imp {
     impl ObjectImpl for DeviceRow {
         fn signals() -> &'static [Signal] {
             static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
-                vec![Signal::builder("deleted")
-                    .action()
-                    .param_types([Device::static_type()])
-                    .build()]
+                vec![
+                    Signal::builder("deleted")
+                        .action()
+                        .param_types([Device::static_type()])
+                        .build(),
+                    Signal::builder("added")
+                        .action()
+                        .param_types([Device::static_type()])
+                        .build(),
+                ]
             });
             SIGNALS.as_ref()
         }

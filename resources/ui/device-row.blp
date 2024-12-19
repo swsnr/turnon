@@ -12,7 +12,7 @@ template $DeviceRow: Adw.ActionRow {
 
   [prefix]
   Gtk.Stack {
-    visible-child-name: bind $device_state_name(template.is_device_online) as <string>;
+    visible-child-name: bind $device_state_name(template.is-device-online) as <string>;
 
     Gtk.StackPage {
       name: "offline";
@@ -48,12 +48,12 @@ template $DeviceRow: Adw.ActionRow {
       label: bind (template.device as <$Device>).host;
 
       styles [
-        "dim-label"
+        "title"
       ]
     }
 
     Gtk.Stack {
-      visible-child-name: bind template.suffix_mode;
+      visible-child-name: bind template.suffix-mode;
       margin-start: 12;
       hhomogeneous: false;
       transition-type: slide_left_right;
@@ -65,10 +65,23 @@ template $DeviceRow: Adw.ActionRow {
           orientation: horizontal;
 
           Gtk.Button {
+            icon-name: "list-add-symbolic";
+            tooltip-text: C_("device-row.action.row.add.tooltip", "Add this device");
+            action-name: "row.add";
+            valign: center;
+            visible: bind template.can-add;
+
+            styles [
+              "flat"
+            ]
+          }
+
+          Gtk.Button {
             icon-name: "document-edit-symbolic";
             tooltip-text: C_("device-row.action.row.edit.tooltip", "Edit this device");
             action-name: "row.edit";
             valign: center;
+            visible: bind template.can-edit;
 
             styles [
               "flat"
@@ -81,6 +94,7 @@ template $DeviceRow: Adw.ActionRow {
             action-name: "row.ask_delete";
             margin-start: 6;
             valign: center;
+            visible: bind template.can-delete;
 
             styles [
               "flat"

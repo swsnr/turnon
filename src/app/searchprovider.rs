@@ -43,7 +43,7 @@ fn get_ids_for_terms<S: AsRef<str>>(devices: &ListStore, terms: &[S]) -> Vec<Str
 }
 
 fn get_result_set<S: AsRef<str>>(app: &TurnOnApplication, terms: &[S]) -> Variant {
-    let results = get_ids_for_terms(app.model(), terms);
+    let results = get_ids_for_terms(&app.devices().registered_devices(), terms);
     (results,).into()
 }
 
@@ -55,7 +55,7 @@ async fn activate_result(
         .identifier
         .parse::<u32>()
         .ok()
-        .and_then(|n| app.model().item(n))
+        .and_then(|n| app.devices().registered_devices().item(n))
         .map(|o| o.downcast::<Device>().unwrap());
     glib::trace!(
         "Activating device at index {}, device found? {}",
@@ -130,7 +130,7 @@ fn get_result_metas(app: &TurnOnApplication, call: GetResultMetas) -> Option<Var
         .filter_map(|id| {
             id.parse::<u32>()
                 .ok()
-                .and_then(|n| app.model().item(n))
+                .and_then(|n| app.devices().registered_devices().item(n))
                 .map(|obj| {
                     let device = obj.downcast::<Device>().unwrap();
                     let metas = VariantDict::new(None);

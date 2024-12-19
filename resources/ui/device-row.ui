@@ -26,7 +26,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
       <object class="GtkStack">
         <binding name="visible-child-name">
           <closure function="device_state_name" type="gchararray">
-            <lookup name="is_device_online" type="DeviceRow">
+            <lookup name="is-device-online" type="DeviceRow">
               <constant>DeviceRow</constant>
             </lookup>
           </closure>
@@ -73,13 +73,13 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
               </lookup>
             </binding>
             <style>
-              <class name="dim-label"/>
+              <class name="title"/>
             </style>
           </object>
         </child>
         <child>
           <object class="GtkStack">
-            <property name="visible-child-name" bind-source="DeviceRow" bind-property="suffix_mode" bind-flags="sync-create"/>
+            <property name="visible-child-name" bind-source="DeviceRow" bind-property="suffix-mode" bind-flags="sync-create"/>
             <property name="margin-start">12</property>
             <property name="hhomogeneous">false</property>
             <property name="transition-type">6</property>
@@ -91,10 +91,23 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                     <property name="orientation">0</property>
                     <child>
                       <object class="GtkButton">
+                        <property name="icon-name">list-add-symbolic</property>
+                        <property name="tooltip-text" translatable="yes" context="device-row.action.row.add.tooltip">Add this device</property>
+                        <property name="action-name">row.add</property>
+                        <property name="valign">3</property>
+                        <property name="visible" bind-source="DeviceRow" bind-property="can-add" bind-flags="sync-create"/>
+                        <style>
+                          <class name="flat"/>
+                        </style>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
                         <property name="icon-name">document-edit-symbolic</property>
                         <property name="tooltip-text" translatable="yes" context="device-row.action.row.edit.tooltip">Edit this device</property>
                         <property name="action-name">row.edit</property>
                         <property name="valign">3</property>
+                        <property name="visible" bind-source="DeviceRow" bind-property="can-edit" bind-flags="sync-create"/>
                         <style>
                           <class name="flat"/>
                         </style>
@@ -107,6 +120,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                         <property name="action-name">row.ask_delete</property>
                         <property name="margin-start">6</property>
                         <property name="valign">3</property>
+                        <property name="visible" bind-source="DeviceRow" bind-property="can-delete" bind-flags="sync-create"/>
                         <style>
                           <class name="flat"/>
                         </style>
