@@ -167,8 +167,12 @@
     </developer>
     <screenshots>
         <screenshot type="default">
+            <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/list-of-discovered-devices.png</image>
+            <caption>Two devices, one of them on, and the other off, and two devices discovered in the network</caption>
+        </screenshot>
+        <screenshot>
             <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/list-of-devices.png</image>
-            <caption>Two devices, one of them on, and the other off</caption>
+            <caption>Two devices, one of them on, and the other off, with network discovery not enabled</caption>
         </screenshot>
         <screenshot>
             <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/edit-device.png</image>
