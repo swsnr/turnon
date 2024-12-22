@@ -58,7 +58,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                       <object class="AdwStatusPage">
                         <property name="title" translatable="yes" context="application-window.status-page.title">No devices</property>
                         <property name="description" translatable="yes" context="application-window.status-page.description">Add a new device to turn it on.</property>
-                        <property name="icon-name">de.swsnr.turnon</property>
+                        <property name="icon-name" bind-source="TurnOnApplicationWindow" bind-property="startpage-icon-name" bind-flags="sync-create"/>
                         <property name="vexpand">true</property>
                         <property name="child">
                           <object class="GtkButton">

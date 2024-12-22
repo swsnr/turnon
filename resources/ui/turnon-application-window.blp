@@ -56,7 +56,7 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
           Adw.StatusPage {
             title: C_("application-window.status-page.title", "No devices");
             description: C_("application-window.status-page.description", "Add a new device to turn it on.");
-            icon-name: "de.swsnr.turnon";
+            icon-name: bind template.startpage-icon-name;
             vexpand: true;
 
             child: Gtk.Button {

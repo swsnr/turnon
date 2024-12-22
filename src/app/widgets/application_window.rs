@@ -27,9 +27,10 @@ glib::wrapper! {
 
 impl TurnOnApplicationWindow {
     /// Create a new application window for the given `application`.
-    pub fn new(application: &impl IsA<gtk::Application>) -> Self {
+    pub fn new(application: &impl IsA<gtk::Application>, startpage_icon_name: &str) -> Self {
         glib::Object::builder()
             .property("application", application)
+            .property("startpage-icon-name", startpage_icon_name)
             .build()
     }
 
@@ -90,30 +91,16 @@ mod imp {
 
     use super::super::DeviceRow;
 
-    #[derive(CompositeTemplate, Default)]
+    #[derive(CompositeTemplate, Default, glib::Properties)]
+    #[properties(wrapper_type = super::TurnOnApplicationWindow)]
     #[template(resource = "/de/swsnr/turnon/ui/turnon-application-window.ui")]
     pub struct TurnOnApplicationWindow {
+        #[property(get, set)]
+        startpage_icon_name: RefCell<String>,
         #[template_child]
         devices_list: TemplateChild<gtk::ListBox>,
         #[template_child]
         feedback: TemplateChild<ToastOverlay>,
-    }
-
-    #[glib::object_subclass]
-    impl ObjectSubclass for TurnOnApplicationWindow {
-        const NAME: &'static str = "TurnOnApplicationWindow";
-
-        type Type = super::TurnOnApplicationWindow;
-
-        type ParentType = adw::ApplicationWindow;
-
-        fn class_init(klass: &mut Self::Class) {
-            klass.bind_template();
-        }
-
-        fn instance_init(obj: &InitializingObject<Self>) {
-            obj.init_template();
-        }
     }
 
     impl TurnOnApplicationWindow {
@@ -259,6 +246,24 @@ mod imp {
         }
     }
 
+    #[glib::object_subclass]
+    impl ObjectSubclass for TurnOnApplicationWindow {
+        const NAME: &'static str = "TurnOnApplicationWindow";
+
+        type Type = super::TurnOnApplicationWindow;
+
+        type ParentType = adw::ApplicationWindow;
+
+        fn class_init(klass: &mut Self::Class) {
+            klass.bind_template();
+        }
+
+        fn instance_init(obj: &InitializingObject<Self>) {
+            obj.init_template();
+        }
+    }
+
+    #[glib::derived_properties]
     impl ObjectImpl for TurnOnApplicationWindow {}
 
     impl WidgetImpl for TurnOnApplicationWindow {}

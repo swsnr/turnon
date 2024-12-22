@@ -51,6 +51,11 @@ impl TurnOnApplication {
                         Some(crate::config::VERSION),
                     );
 
+                    if app.is_development() {
+                        dialog.set_version("devel");
+                        dialog.set_application_icon(&app.application_id().unwrap());
+                    }
+
                     glib::spawn_future_local(glib::clone!(
                         #[strong(rename_to = devices)]
                         app.devices(),
@@ -109,6 +114,12 @@ impl TurnOnApplication {
         self.set_accels_for_action("win.add-device", &["<Control>n"]);
         self.set_accels_for_action("window.close", &["<Control>w"]);
         self.set_accels_for_action("app.quit", &["<Control>q"]);
+    }
+
+    fn is_development(&self) -> bool {
+        self.application_id()
+            .map(|id| id.ends_with(".Devel"))
+            .unwrap_or_default()
     }
 }
 
@@ -293,7 +304,13 @@ mod imp {
         fn startup(&self) {
             self.parent_startup();
             let app = self.obj();
-            glib::debug!("Application starting");
+
+            if app.is_development() {
+                glib::warn!("Application starting (DEVELOPMENT BUILD)");
+            } else {
+                glib::debug!("Application starting");
+            }
+
             gtk::Window::set_default_icon_name(super::APP_ID);
 
             app.setup_actions();
@@ -345,7 +362,10 @@ mod imp {
                 }
                 None => {
                     glib::debug!("Creating new application window");
-                    let window = TurnOnApplicationWindow::new(app);
+                    let window = TurnOnApplicationWindow::new(app, &app.application_id().unwrap());
+                    if app.is_development() {
+                        window.add_css_class("devel");
+                    }
                     window.bind_model(&self.devices);
                     window.present();
                 }
