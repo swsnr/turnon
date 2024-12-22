@@ -33,11 +33,13 @@
     <releases>
         <release version="next" date="9999-01-01">
             <description>
-                <p>Add a toolbar button to enable or disable network scanning.</p>
-                <p>Add a button to enable network scanning to the start page.</p>
-                <p>When network scanning is enabled show devices from the system's ARP cache.</p>
-                <p>Add a button to directly add devices discovered from network scanning.</p>
-                <p>Improve app icon contrast on dark backgrounds.</p>
+                <p>
+                    Add new toolbar and start page buttons to enable network scanning.
+                    When network scanning is on show devices discovered in the local network in the list of devices.
+                </p>
+                <p>
+                    Refine the application icon to improve its contrast on dark backgrounds.
+                </p>
             </description>
             <issues>
                 <issue url="https://github.com/swsnr/turnon/issues/4">GH-4</issue>
