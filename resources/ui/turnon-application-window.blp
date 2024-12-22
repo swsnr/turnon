@@ -59,15 +59,36 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
             icon-name: bind template.startpage-icon-name;
             vexpand: true;
 
-            child: Gtk.Button {
-              label: C_("application-window.status-page.button.label", "Add new device");
-              action-name: "win.add-device";
-              halign: center;
+            styles [
+              "compact"
+            ]
 
-              styles [
-                "pill",
-                "suggested-action"
-              ]
+            child: Adw.Clamp {
+              Gtk.Box {
+                orientation: vertical;
+                homogeneous: true;
+                halign: center;
+
+                Gtk.Button {
+                  label: C_("application-window.status-page.button.label", "Add new device");
+                  action-name: "win.add-device";
+
+                  styles [
+                    "pill",
+                    "suggested-action"
+                  ]
+                }
+
+                Gtk.Button {
+                  label: C_("application-window.status-page.button.label", "Scan network");
+                  action-name: "win.toggle-scan-network";
+
+                  styles [
+                    "pill",
+                    "suggested-action"
+                  ]
+                }
+              }
             };
           }
         }

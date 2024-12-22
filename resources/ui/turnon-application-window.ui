@@ -60,15 +60,38 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                         <property name="description" translatable="yes" context="application-window.status-page.description">Add a new device to turn it on.</property>
                         <property name="icon-name" bind-source="TurnOnApplicationWindow" bind-property="startpage-icon-name" bind-flags="sync-create"/>
                         <property name="vexpand">true</property>
+                        <style>
+                          <class name="compact"/>
+                        </style>
                         <property name="child">
-                          <object class="GtkButton">
-                            <property name="label" translatable="yes" context="application-window.status-page.button.label">Add new device</property>
-                            <property name="action-name">win.add-device</property>
-                            <property name="halign">3</property>
-                            <style>
-                              <class name="pill"/>
-                              <class name="suggested-action"/>
-                            </style>
+                          <object class="AdwClamp">
+                            <child>
+                              <object class="GtkBox">
+                                <property name="orientation">1</property>
+                                <property name="homogeneous">true</property>
+                                <property name="halign">3</property>
+                                <child>
+                                  <object class="GtkButton">
+                                    <property name="label" translatable="yes" context="application-window.status-page.button.label">Add new device</property>
+                                    <property name="action-name">win.add-device</property>
+                                    <style>
+                                      <class name="pill"/>
+                                      <class name="suggested-action"/>
+                                    </style>
+                                  </object>
+                                </child>
+                                <child>
+                                  <object class="GtkButton">
+                                    <property name="label" translatable="yes" context="application-window.status-page.button.label">Scan network</property>
+                                    <property name="action-name">win.toggle-scan-network</property>
+                                    <style>
+                                      <class name="pill"/>
+                                      <class name="suggested-action"/>
+                                    </style>
+                                  </object>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                         </property>
                       </object>
