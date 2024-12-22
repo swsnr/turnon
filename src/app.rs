@@ -114,10 +114,15 @@ impl TurnOnApplication {
 
 impl Default for TurnOnApplication {
     fn default() -> Self {
+        let mut flags = ApplicationFlags::HANDLES_COMMAND_LINE;
+        if cfg!(debug_assertions) {
+            // In debug builds allow overriding the app ID for testing
+            flags |= ApplicationFlags::CAN_OVERRIDE_APP_ID;
+        }
         Object::builder()
             .property("application-id", APP_ID)
             .property("resource-base-path", "/de/swsnr/turnon")
-            .property("flags", ApplicationFlags::HANDLES_COMMAND_LINE)
+            .property("flags", flags)
             .build()
     }
 }
