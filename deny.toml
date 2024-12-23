@@ -1,5 +1,9 @@
 [graph]
-targets = [{ triple = 'x86_64-unknown-linux-gnu' }]
+targets = [
+    # Flathub builds these targets
+    { triple = 'x86_64-unknown-linux-gnu' },
+    { triple = 'aarch64-unknown-linux-gnu' },
+]
 
 [advisories]
 version = 2
