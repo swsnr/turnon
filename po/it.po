@@ -9,17 +9,17 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2024-12-09 10:11+0000\n"
-"Last-Translator: albanobattistella <albanobattistella@users.noreply."
-"translate.codeberg.org>\n"
-"Language-Team: Italian <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/it/>\n"
+"PO-Revision-Date: 2024-12-23 23:53+0000\n"
+"Last-Translator: albanobattistella "
+"<albanobattistella@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop.in:4 resources/de.swsnr.turnon.metainfo.xml.in:5
@@ -56,10 +56,8 @@ msgid "Add devices to turn on."
 msgstr "Aggiungi dispositivi da accendere."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:13
-#, fuzzy
-#| msgid "Turn on devices in your network"
 msgid "Discover devices in the local network."
-msgstr "Accendi i dispositivi nella tua rete"
+msgstr "Scopri i dispositivi nella rete locale."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:14
 msgid "Monitor device status."
@@ -83,11 +81,17 @@ msgid ""
 "network scanning is on show devices discovered in the local network in the "
 "list of devices."
 msgstr ""
+"Aggiunta una nuova barra degli strumenti e pulsanti della pagina iniziale "
+"per abilitare la scansione di rete. Quando la scansione della rete è attiva, "
+"i dispositivi rilevati nella rete locale vengono visualizzati nell'elenco "
+"dei dispositivi."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:40
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr ""
+"Perfezionata l'icona dell'applicazione per migliorarne il contrasto sugli "
+"sfondi scuri."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:54
 msgid ""
@@ -250,20 +254,20 @@ msgid "Languages other than English are not supported."
 msgstr "Non sono supportate lingue diverse dall'inglese."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:178
-#, fuzzy
-#| msgid "Two devices, one of them on, and the other off"
 msgid ""
 "Two devices, one of them on, and the other off, and two devices discovered "
 "in the network"
-msgstr "Due dispositivi, uno acceso e l'altro spento"
+msgstr ""
+"Due dispositivi, uno acceso e l'altro spento, e due dispositivi rilevati "
+"nella rete"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:182
-#, fuzzy
-#| msgid "Two devices, one of them on, and the other off"
 msgid ""
 "Two devices, one of them on, and the other off, with network discovery not "
 "enabled"
-msgstr "Due dispositivi, uno acceso e l'altro spento"
+msgstr ""
+"Due dispositivi, uno acceso e l'altro spento, con l'individuazione della "
+"rete non abilitata"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:186
 msgid ""
@@ -302,12 +306,9 @@ msgid "Quit"
 msgstr "Esci"
 
 #: resources/ui/device-row.blp:69
-#, fuzzy
-#| msgctxt "device-row.action.row.edit.tooltip"
-#| msgid "Edit this device"
 msgctxt "device-row.action.row.add.tooltip"
 msgid "Add this device"
-msgstr "Modifica questo dispositivo"
+msgstr "Aggiungi questo dispositivo"
 
 #: resources/ui/device-row.blp:81
 msgctxt "device-row.action.row.edit.tooltip"
@@ -417,7 +418,7 @@ msgstr "Aggiungi un nuovo dispositivo"
 #: resources/ui/turnon-application-window.blp:29
 msgctxt "application-window.action.win.scan-network.tooltip"
 msgid "Scan the network for devices"
-msgstr ""
+msgstr "Esegui la scansione della rete per trovare i dispositivi"
 
 #: resources/ui/turnon-application-window.blp:57
 msgctxt "application-window.status-page.title"
@@ -437,7 +438,7 @@ msgstr "Aggiungi nuovo dispositivo"
 #: resources/ui/turnon-application-window.blp:83
 msgctxt "application-window.status-page.button.label"
 msgid "Scan network"
-msgstr ""
+msgstr "Scansione di rete"
 
 #: resources/ui/turnon-application-window.blp:103
 msgctxt "application-window.menu.label"
@@ -495,11 +496,15 @@ msgstr "Elenca tutti i dispositivi e il loro stato"
 msgctxt "option.devices-file.description"
 msgid "Use the given file as storage for devices (for development only)"
 msgstr ""
+"Utilizzare il file specificato come archivio per i dispositivi (solo per lo "
+"sviluppo)"
 
 #: src/app.rs:286
 msgctxt "option.arp-cache-file.description"
 msgid "Use the given file as ARP cache source (for development only)"
 msgstr ""
+"Utilizzare il file specificato come sorgente della cache ARP (solo per lo "
+"sviluppo)"
 
 #: src/app/commandline.rs:30
 msgctxt "option.turn-on-device.message"
@@ -520,7 +525,7 @@ msgstr "Nessun dispositivo trovato per l'etichetta %s\n"
 #: src/app/model/device_discovery.rs:196
 msgctxt "discovered-device.label"
 msgid "Discovered device"
-msgstr ""
+msgstr "Dispositivo rilevato"
 
 #: src/app/searchprovider.rs:77
 msgctxt "search-provider.notification.title"
