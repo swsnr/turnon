@@ -758,6 +758,7 @@ dependencies = [
  "glob",
  "gtk4",
  "libadwaita",
+ "log",
  "macaddr",
  "serde",
  "serde_json",
