@@ -13,7 +13,7 @@ build = "build.rs"
 [dependencies]
 adw = { package = "libadwaita", version = "0.7.0", features = ["v1_6"] }
 async-channel = "2.3.1"
-futures-util = { version = "0.3.31", default-features = false }
+futures-util = { version = "0.3.31" }
 glib = { version = "0.20.7", features = ["log", "log_macros"] }
 gtk = { package = "gtk4", version = "0.9.4", features = ["gnome_47"] }
 log = "0.4.22"
