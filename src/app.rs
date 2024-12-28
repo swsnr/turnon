@@ -9,7 +9,7 @@ use adw::subclass::prelude::*;
 use glib::{dgettext, dpgettext2, Object};
 use gtk::gio::{ActionEntry, ApplicationFlags};
 
-use crate::config::{APP_ID, G_LOG_DOMAIN};
+use crate::config::G_LOG_DOMAIN;
 
 mod commandline;
 mod debuginfo;
@@ -131,7 +131,7 @@ impl Default for TurnOnApplication {
             flags |= ApplicationFlags::CAN_OVERRIDE_APP_ID;
         }
         Object::builder()
-            .property("application-id", APP_ID)
+            .property("application-id", crate::config::APP_ID)
             .property("resource-base-path", "/de/swsnr/turnon")
             .property("flags", flags)
             .build()
@@ -311,13 +311,15 @@ mod imp {
                 glib::debug!("Application starting");
             }
 
-            gtk::Window::set_default_icon_name(super::APP_ID);
+            gtk::Window::set_default_icon_name(crate::config::APP_ID);
 
             app.setup_actions();
 
             let devices_file = self.devices_file.borrow_mut().take().unwrap_or_else(|| {
                 glib::user_data_dir()
-                    .join(super::APP_ID)
+                    // Use the dynamic app ID so that we load different data
+                    // when the app ID is overwritten on command line
+                    .join(self.obj().application_id().unwrap())
                     .join("devices.json")
             });
             glib::debug!("Initializing storage from {}", devices_file.display());
