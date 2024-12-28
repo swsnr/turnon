@@ -22,6 +22,11 @@ pub fn running_in_flatpak() -> bool {
     std::fs::exists("/.flatpak-info").unwrap_or_default()
 }
 
+/// Whether this is a development/nightly build.
+pub fn is_development() -> bool {
+    APP_ID.ends_with(".Devel")
+}
+
 /// Get a schema source for this application.
 ///
 /// In a debug build load compiled schemas from the manifest directory, to allow

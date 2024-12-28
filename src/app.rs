@@ -51,9 +51,8 @@ impl TurnOnApplication {
                         Some(crate::config::VERSION),
                     );
 
-                    if app.is_development() {
+                    if crate::config::is_development() {
                         dialog.set_version("devel");
-                        dialog.set_application_icon(&app.application_id().unwrap());
                     }
 
                     glib::spawn_future_local(glib::clone!(
@@ -115,25 +114,14 @@ impl TurnOnApplication {
         self.set_accels_for_action("window.close", &["<Control>w"]);
         self.set_accels_for_action("app.quit", &["<Control>q"]);
     }
-
-    fn is_development(&self) -> bool {
-        self.application_id()
-            .map(|id| id.ends_with(".Devel"))
-            .unwrap_or_default()
-    }
 }
 
 impl Default for TurnOnApplication {
     fn default() -> Self {
-        let mut flags = ApplicationFlags::HANDLES_COMMAND_LINE;
-        if cfg!(debug_assertions) {
-            // In debug builds allow overriding the app ID for testing
-            flags |= ApplicationFlags::CAN_OVERRIDE_APP_ID;
-        }
         Object::builder()
             .property("application-id", crate::config::APP_ID)
             .property("resource-base-path", "/de/swsnr/turnon")
-            .property("flags", flags)
+            .property("flags", ApplicationFlags::HANDLES_COMMAND_LINE)
             .build()
     }
 }
@@ -305,7 +293,7 @@ mod imp {
             self.parent_startup();
             let app = self.obj();
 
-            if app.is_development() {
+            if crate::config::is_development() {
                 glib::warn!("Application starting (DEVELOPMENT BUILD)");
             } else {
                 glib::debug!("Application starting");
@@ -317,9 +305,7 @@ mod imp {
 
             let devices_file = self.devices_file.borrow_mut().take().unwrap_or_else(|| {
                 glib::user_data_dir()
-                    // Use the dynamic app ID so that we load different data
-                    // when the app ID is overwritten on command line
-                    .join(self.obj().application_id().unwrap())
+                    .join(crate::config::APP_ID)
                     .join("devices.json")
             });
             glib::debug!("Initializing storage from {}", devices_file.display());
@@ -364,8 +350,8 @@ mod imp {
                 }
                 None => {
                     glib::debug!("Creating new application window");
-                    let window = TurnOnApplicationWindow::new(app, &app.application_id().unwrap());
-                    if app.is_development() {
+                    let window = TurnOnApplicationWindow::new(app, crate::config::APP_ID);
+                    if crate::config::is_development() {
                         window.add_css_class("devel");
                     }
                     window.bind_model(&self.devices);
