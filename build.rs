@@ -153,11 +153,34 @@ pub fn compile_resources<P: AsRef<Path>>(source_dirs: &[P], gresource: &str, tar
     }
 }
 
+fn compile_schemas() {
+    let schemas: Vec<PathBuf> = glob::glob("schemas/*.gschema.xml")
+        .unwrap()
+        .collect::<Result<_, _>>()
+        .unwrap();
+    for schema in schemas {
+        println!("cargo:rerun-if-changed={}", schema.display());
+    }
+
+    let output = Command::new("glib-compile-schemas")
+        .args(["--strict", "schemas"])
+        .output()
+        .unwrap();
+
+    assert!(
+        output.status.success(),
+        "glib-compile-schemas failed with exit status {} and stderr:\n{}",
+        output.status,
+        String::from_utf8_lossy(&output.stderr)
+    );
+}
+
 fn main() {
     // Compile blueprints and msgfmt our metainfo template first, as these are
     // inputs to resource compilation.
     compile_blueprint();
     msgfmt();
+    compile_schemas();
     compile_resources(
         &["resources"],
         "resources/resources.gresource.xml",

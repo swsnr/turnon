@@ -12,3 +12,6 @@
 
 # Compiled gettext catalogs
 /po/*.mo
+
+# Compiled schemas
+/schemas/gschemas.compiled

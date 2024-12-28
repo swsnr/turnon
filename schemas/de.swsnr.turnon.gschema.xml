@@ -1,0 +1,16 @@
+<schemalist>
+  <schema id="de.swsnr.turnon" path="/de/swsnr/turnon/">
+    <key name="main-window-width" type="i">
+      <default>480</default>
+    </key>
+    <key name="main-window-height" type="i">
+      <default>480</default>
+    </key>
+    <key name="main-window-maximized" type="b">
+      <default>false</default>
+    </key>
+    <key name="main-window-fullscreen" type="b">
+      <default>false</default>
+    </key>
+  </schema>
+</schemalist>

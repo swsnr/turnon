@@ -39,3 +39,6 @@ modules:
       - install -Dm0644 resources/de.swsnr.turnon.metainfo.xml  /app/share/metainfo/de.swsnr.turnon.Devel.metainfo.xml
       - install -Dm0644 dbus-1/de.swsnr.turnon.service /app/share/dbus-1/services/de.swsnr.turnon.Devel.service
       - install -Dm0644 de.swsnr.turnon.search-provider.ini /app/share/gnome-shell/search-providers/de.swsnr.turnon.Devel.search-provider.ini
+      # Install settings and compile them
+      - install -Dm0644 schemas/de.swsnr.turnon.gschema.xml /app/share/glib-2.0/schemas/de.swsnr.turnon.Devel.gschema.xml
+      - glib-compile-schemas --strict /app/share/glib-2.0/schemas
