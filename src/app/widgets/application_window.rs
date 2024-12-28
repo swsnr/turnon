@@ -83,7 +83,7 @@ mod imp {
     use futures_util::{stream, StreamExt, TryStreamExt};
     use glib::dpgettext2;
     use gtk::glib::subclass::InitializingObject;
-    use gtk::{glib, CompositeTemplate};
+    use gtk::{gio, glib, CompositeTemplate};
 
     use crate::app::model::{Device, Devices};
     use crate::config::G_LOG_DOMAIN;
@@ -91,10 +91,11 @@ mod imp {
 
     use super::super::DeviceRow;
 
-    #[derive(CompositeTemplate, Default, glib::Properties)]
+    #[derive(CompositeTemplate, glib::Properties)]
     #[properties(wrapper_type = super::TurnOnApplicationWindow)]
     #[template(resource = "/de/swsnr/turnon/ui/turnon-application-window.ui")]
     pub struct TurnOnApplicationWindow {
+        settings: gio::Settings,
         #[property(get, set)]
         startpage_icon_name: RefCell<String>,
         #[template_child]
@@ -254,6 +255,21 @@ mod imp {
 
         type ParentType = adw::ApplicationWindow;
 
+        fn new() -> Self {
+            Self {
+                settings: gio::Settings::new_full(
+                    &crate::config::schema_source()
+                        .lookup(crate::config::APP_ID, true)
+                        .unwrap(),
+                    gio::SettingsBackend::NONE,
+                    None,
+                ),
+                startpage_icon_name: Default::default(),
+                devices_list: Default::default(),
+                feedback: Default::default(),
+            }
+        }
+
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
         }
@@ -264,7 +280,24 @@ mod imp {
     }
 
     #[glib::derived_properties]
-    impl ObjectImpl for TurnOnApplicationWindow {}
+    impl ObjectImpl for TurnOnApplicationWindow {
+        fn constructed(&self) {
+            self.parent_constructed();
+
+            self.settings
+                .bind("main-window-width", &*self.obj(), "default-width")
+                .build();
+            self.settings
+                .bind("main-window-height", &*self.obj(), "default-height")
+                .build();
+            self.settings
+                .bind("main-window-maximized", &*self.obj(), "maximized")
+                .build();
+            self.settings
+                .bind("main-window-fullscreen", &*self.obj(), "fullscreened")
+                .build();
+        }
+    }
 
     impl WidgetImpl for TurnOnApplicationWindow {}
 

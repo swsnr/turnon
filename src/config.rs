@@ -7,6 +7,7 @@
 use std::path::PathBuf;
 
 use glib::{gstr, GStr};
+use gtk::gio;
 
 /// The app ID to use.
 pub static APP_ID: &GStr = gstr!("de.swsnr.turnon");
@@ -19,6 +20,26 @@ pub const G_LOG_DOMAIN: &str = "TurnOn";
 /// Whether the app is running in flatpak.
 pub fn running_in_flatpak() -> bool {
     std::fs::exists("/.flatpak-info").unwrap_or_default()
+}
+
+/// Get a schema source for this application.
+///
+/// In a debug build load compiled schemas from the manifest directory, to allow
+/// running the application uninstalled.
+///
+/// In a release build only use the default schema source.
+pub fn schema_source() -> gio::SettingsSchemaSource {
+    let default = gio::SettingsSchemaSource::default().unwrap();
+    if cfg!(debug_assertions) {
+        let directory = concat!(env!("CARGO_MANIFEST_DIR"), "/schemas");
+        if std::fs::exists(directory).unwrap_or_default() {
+            gio::SettingsSchemaSource::from_directory(directory, Some(&default), false).unwrap()
+        } else {
+            default
+        }
+    } else {
+        default
+    }
 }
 
 /// Get the locale directory.
