@@ -50,10 +50,7 @@ impl TurnOnApplication {
                         "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
                         Some(crate::config::VERSION),
                     );
-
-                    if crate::config::is_development() {
-                        dialog.set_version("devel");
-                    }
+                    dialog.set_version(crate::config::VERSION);
 
                     glib::spawn_future_local(glib::clone!(
                         #[strong(rename_to = devices)]

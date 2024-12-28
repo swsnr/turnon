@@ -3,6 +3,7 @@ BLUEPRINTS = $(wildcard ui/*.blp)
 UIDEFS = $(addsuffix .ui,$(basename $(BLUEPRINTS)))
 CATALOGS = $(wildcard po/*.po)
 LOCALEDIR = /app/share/locale/
+GIT_DESCRIBE = $(shell git describe | tail -c+2)
 
 XGETTEXT_OPTS = \
 	--package-name=$(APPID) \
@@ -71,6 +72,8 @@ flatpak-lint-repo:
 
 .PHONY:
 devel:
+	sed -i 's/^version = .*/version = "$(GIT_DESCRIBE)"/' Cargo.toml
+	cargo update -p turnon
 	sed -i '/de.swsnr.turnon.Devel/! s/de\.swsnr\.turnon/de.swsnr.turnon.Devel/g' \
 		src/config.rs \
 		resources/de.swsnr.turnon.metainfo.xml.in de.swsnr.turnon.desktop.in \
