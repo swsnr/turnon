@@ -18,6 +18,7 @@ use gtk::prelude::*;
 use macaddr::MacAddr6;
 
 use crate::config;
+use crate::net::arpcache::{default_arp_cache_path, read_arp_cache_from_path, ArpCacheEntry};
 use crate::net::{ping_address_with_timeout, PingDestination};
 
 use super::model::{Device, Devices};
@@ -73,6 +74,10 @@ pub struct DebugInfo {
     pub connectivity: gio::NetworkConnectivity,
     /// Results from pinging devices once, for debugging.
     pub ping_results: Vec<(Device, DevicePingResult)>,
+    /// Raw contents of ARP cache.
+    pub arp_cache_contents: std::io::Result<String>,
+    /// Parsed contents of ARP cache.
+    pub parsed_arp_cache: std::io::Result<Vec<ArpCacheEntry>>,
 }
 
 impl DebugInfo {
@@ -102,12 +107,24 @@ impl DebugInfo {
             .collect::<Vec<_>>(),
         )
         .await;
+        let arp_cache_contents =
+            gio::spawn_blocking(|| std::fs::read_to_string(default_arp_cache_path()))
+                .await
+                .unwrap();
+        let parsed_arp_cache = gio::spawn_blocking(|| {
+            read_arp_cache_from_path(default_arp_cache_path())
+                .and_then(|result| result.collect::<std::io::Result<Vec<_>>>())
+        })
+        .await
+        .unwrap();
         DebugInfo {
             app_id: config::APP_ID,
             version: config::VERSION,
             flatpak: config::running_in_flatpak(),
             connectivity,
             ping_results,
+            arp_cache_contents,
+            parsed_arp_cache,
         }
     }
 
@@ -154,19 +171,37 @@ impl Display for DebugInfo {
             })
             .collect::<Vec<_>>()
             .join("\n");
+        let arp_cache_contents = match &self.arp_cache_contents {
+            Ok(contents) => Cow::Borrowed(contents),
+            Err(error) => Cow::Owned(format!("Failed: {error}")),
+        };
+        let parsed_arp_cache = match &self.parsed_arp_cache {
+            Ok(entries) => entries
+                .iter()
+                .map(|entry| format!("{entry:?}"))
+                .collect::<Vec<_>>()
+                .join("\n"),
+            Err(error) => format!("Failed: {error}"),
+        };
         writeln!(
             f,
             "DEBUG REPORT {} {}
 
-THIS REPORT CONTAINS HOST NAMES AND IP ADDRESSES OF YOUR DEVICES.
+THIS REPORT CONTAINS HOST NAMES, IP ADDRESSES, AND HARDWARE ADDRESSES OF YOUR DEVICES.
 
 IF YOU CONSIDER THIS REPORT SENSITIVE DO NOT POST IT PUBLICLY!
 
 Flatpak? {}
 Network connectivity: {connectivity}
 
-{}",
-            self.app_id, self.version, self.flatpak, pings
+{pings}
+
+ARP cache contents:
+{arp_cache_contents}
+
+Parsed ARP cache:
+{parsed_arp_cache}",
+            self.app_id, self.version, self.flatpak,
         )?;
         Ok(())
     }
