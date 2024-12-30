@@ -4,14 +4,14 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use adw::prelude::*;
 use adw::subclass::prelude::*;
 use glib::object::IsA;
+use glib::prelude::*;
 use gtk::gio;
 use gtk::glib;
 
+use crate::app::model::Device;
 use crate::app::model::Devices;
-use crate::app::TurnOnApplication;
 
 glib::wrapper! {
     pub struct TurnOnApplicationWindow(ObjectSubclass<imp::TurnOnApplicationWindow>)
@@ -30,27 +30,42 @@ impl TurnOnApplicationWindow {
             .build()
     }
 
-    pub fn application(&self) -> TurnOnApplication {
-        GtkWindowExt::application(self)
-            .unwrap()
-            .downcast::<TurnOnApplication>()
-            .unwrap()
-    }
-
     pub fn bind_model(&self, devices: &Devices) {
         self.imp().bind_model(devices);
+    }
+
+    pub fn connect_device_added<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &Device) + 'static,
+    {
+        self.connect_local(
+            "device-added",
+            false,
+            glib::clone!(
+                #[weak(rename_to=dialog)]
+                &self,
+                #[upgrade_or_default]
+                move |args| {
+                    let device = &args[1].get().expect("No device passed as signal argument?");
+                    callback(&dialog, device);
+                    None
+                }
+            ),
+        )
     }
 }
 
 mod imp {
     use std::cell::{Cell, RefCell};
     use std::rc::Rc;
+    use std::sync::LazyLock;
     use std::time::Duration;
 
     use adw::subclass::prelude::*;
     use adw::{prelude::*, ToastOverlay};
     use futures_util::{stream, StreamExt, TryStreamExt};
     use glib::dpgettext2;
+    use glib::subclass::Signal;
     use gtk::gdk::{Key, ModifierType};
     use gtk::glib::subclass::InitializingObject;
     use gtk::{gio, glib, CompositeTemplate};
@@ -251,11 +266,11 @@ mod imp {
             klass.install_action("win.add-device", None, move |window, _, _| {
                 let dialog = EditDeviceDialog::new();
                 dialog.connect_saved(glib::clone!(
-                    #[weak(rename_to = devices)]
-                    window.application().devices(),
+                    #[weak]
+                    window,
                     move |_, device| {
                         glib::debug!("Adding new device: {:?}", device.imp());
-                        devices.registered_devices().append(device);
+                        window.emit_by_name::<()>("device-added", &[&device]);
                     }
                 ));
                 dialog.present(Some(window));
@@ -277,6 +292,16 @@ mod imp {
 
     #[glib::derived_properties]
     impl ObjectImpl for TurnOnApplicationWindow {
+        fn signals() -> &'static [Signal] {
+            static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
+                vec![Signal::builder("device-added")
+                    .action()
+                    .param_types([Device::static_type()])
+                    .build()]
+            });
+            SIGNALS.as_ref()
+        }
+
         fn constructed(&self) {
             self.parent_constructed();
 
