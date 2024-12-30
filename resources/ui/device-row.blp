@@ -64,37 +64,37 @@ template $DeviceRow: Adw.ActionRow {
         child: Gtk.Box {
           orientation: horizontal;
 
-          Gtk.Button {
+          Gtk.Button add {
             icon-name: "list-add-symbolic";
             tooltip-text: C_("device-row.action.row.add.tooltip", "Add this device");
             action-name: "row.add";
             valign: center;
-            visible: bind template.can-add;
+            visible: bind add.sensitive;
 
             styles [
               "flat"
             ]
           }
 
-          Gtk.Button {
+          Gtk.Button edit {
             icon-name: "document-edit-symbolic";
             tooltip-text: C_("device-row.action.row.edit.tooltip", "Edit this device");
             action-name: "row.edit";
             valign: center;
-            visible: bind template.can-edit;
+            visible: bind edit.sensitive;
 
             styles [
               "flat"
             ]
           }
 
-          Gtk.Button {
+          Gtk.Button delete {
             icon-name: "user-trash-symbolic";
             tooltip-text: C_("device-row.action.row.ask-delete.tooltip", "Delete this device?");
-            action-name: "row.ask_delete";
+            action-name: "row.ask-delete";
             margin-start: 6;
             valign: center;
-            visible: bind template.can-delete;
+            visible: bind delete.sensitive;
 
             styles [
               "flat"

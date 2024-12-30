@@ -20,8 +20,6 @@ impl DeviceRow {
         glib::Object::builder()
             .property("device", device)
             .property("is-device-online", false)
-            .property("can-delete", false)
-            .property("can-edit", false)
             .build()
     }
 
@@ -80,6 +78,7 @@ mod imp {
     use adw::subclass::prelude::*;
     use glib::subclass::{InitializingObject, Signal};
     use glib::Properties;
+    use gtk::gdk::{Key, ModifierType};
     use gtk::{template_callbacks, CompositeTemplate};
 
     use crate::app::model::Device;
@@ -96,12 +95,6 @@ mod imp {
         is_device_online: Cell<bool>,
         #[property(get)]
         suffix_mode: RefCell<String>,
-        #[property(get, set, default = false)]
-        can_delete: Cell<bool>,
-        #[property(get, set, default = false)]
-        can_edit: Cell<bool>,
-        #[property(get, set, default = false)]
-        can_add: Cell<bool>,
     }
 
     #[template_callbacks]
@@ -138,7 +131,7 @@ mod imp {
             klass.bind_template();
             klass.bind_template_callbacks();
 
-            klass.install_action("row.ask_delete", None, |row, _, _| {
+            klass.install_action("row.ask-delete", None, |row, _, _| {
                 row.imp().set_suffix_mode("confirm-delete");
             });
             klass.install_action("row.cancel-delete", None, |row, _, _| {
@@ -166,7 +159,16 @@ mod imp {
                     move |_, device| row.emit_by_name::<()>("added", &[device])
                 ));
                 dialog.present(Some(row));
-            })
+            });
+
+            klass.add_binding_action(Key::Return, ModifierType::ALT_MASK, "row.edit");
+            klass.add_binding_action(Key::N, ModifierType::CONTROL_MASK, "row.add");
+            klass.add_binding_action(
+                Key::Delete,
+                ModifierType::NO_MODIFIER_MASK,
+                "row.ask-delete",
+            );
+            klass.add_binding_action(Key::Delete, ModifierType::CONTROL_MASK, "row.delete");
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {
@@ -178,9 +180,6 @@ mod imp {
                 device: Default::default(),
                 is_device_online: Default::default(),
                 suffix_mode: RefCell::new("buttons".into()),
-                can_edit: Default::default(),
-                can_delete: Default::default(),
-                can_add: Default::default(),
             }
         }
     }

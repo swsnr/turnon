@@ -107,7 +107,6 @@ impl TurnOnApplication {
         ];
         self.add_action_entries(actions);
 
-        self.set_accels_for_action("win.add-device", &["<Control>n"]);
         self.set_accels_for_action("window.close", &["<Control>w"]);
         self.set_accels_for_action("app.quit", &["<Control>q"]);
     }
@@ -339,7 +338,7 @@ mod imp {
         fn activate(&self) {
             glib::debug!("Activating application");
             self.parent_activate();
-            let app: &super::TurnOnApplication = &self.obj();
+            let app = &*self.obj();
             match app.active_window() {
                 Some(window) => {
                     glib::debug!("Representing existing application window");
@@ -352,6 +351,15 @@ mod imp {
                         window.add_css_class("devel");
                     }
                     window.bind_model(&self.devices);
+                    window.connect_scan_network_notify(glib::clone!(
+                        #[strong]
+                        app,
+                        move |window| {
+                            app.devices()
+                                .discovered_devices()
+                                .set_discovery_enabled(window.scan_network());
+                        }
+                    ));
                     window.present();
                 }
             }
