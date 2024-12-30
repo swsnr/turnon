@@ -7,15 +7,11 @@
 use adw::prelude::*;
 use adw::subclass::prelude::*;
 use glib::object::IsA;
-use gtk::gio::ActionEntry;
-use gtk::gio::{self, PropertyAction};
+use gtk::gio;
 use gtk::glib;
 
 use crate::app::model::Devices;
 use crate::app::TurnOnApplication;
-use crate::config::G_LOG_DOMAIN;
-
-use super::EditDeviceDialog;
 
 glib::wrapper! {
     pub struct TurnOnApplicationWindow(ObjectSubclass<imp::TurnOnApplicationWindow>)
@@ -42,39 +38,12 @@ impl TurnOnApplicationWindow {
     }
 
     pub fn bind_model(&self, devices: &Devices) {
-        self.setup_actions();
         self.imp().bind_model(devices);
-    }
-
-    fn setup_actions(&self) {
-        let add_device = ActionEntry::builder("add-device")
-            .activate(move |window: &TurnOnApplicationWindow, _, _| {
-                let dialog = EditDeviceDialog::new();
-                dialog.connect_saved(glib::clone!(
-                    #[weak(rename_to = devices)]
-                    window.application().devices(),
-                    move |_, device| {
-                        glib::debug!("Adding new device: {:?}", device.imp());
-                        devices.registered_devices().append(device);
-                    }
-                ));
-                dialog.present(Some(window));
-            })
-            .build();
-
-        self.add_action_entries([add_device]);
-
-        let scan_network = PropertyAction::new(
-            "toggle-scan-network",
-            &self.application().devices().discovered_devices(),
-            "discovery-enabled",
-        );
-        self.add_action(&scan_network);
     }
 }
 
 mod imp {
-    use std::cell::RefCell;
+    use std::cell::{Cell, RefCell};
     use std::rc::Rc;
     use std::time::Duration;
 
@@ -82,10 +51,12 @@ mod imp {
     use adw::{prelude::*, ToastOverlay};
     use futures_util::{stream, StreamExt, TryStreamExt};
     use glib::dpgettext2;
+    use gtk::gdk::{Key, ModifierType};
     use gtk::glib::subclass::InitializingObject;
     use gtk::{gio, glib, CompositeTemplate};
 
     use crate::app::model::{Device, Devices};
+    use crate::app::widgets::EditDeviceDialog;
     use crate::config::G_LOG_DOMAIN;
     use crate::net;
 
@@ -96,6 +67,8 @@ mod imp {
     #[template(resource = "/de/swsnr/turnon/ui/turnon-application-window.ui")]
     pub struct TurnOnApplicationWindow {
         settings: gio::Settings,
+        #[property(get, set)]
+        scan_network: Cell<bool>,
         #[property(get, set)]
         startpage_icon_name: RefCell<String>,
         #[template_child]
@@ -235,11 +208,12 @@ mod imp {
                 }
             ));
 
-            if devices.registered_devices().find(device).is_some() {
-                row.set_can_delete(true);
-                row.set_can_edit(true);
-            } else {
-                row.set_can_add(true);
+            let is_registered = devices.registered_devices().find(device).is_some();
+            row.action_set_enabled("row.ask-delete", is_registered);
+            row.action_set_enabled("row.delete", is_registered);
+            row.action_set_enabled("row.edit", is_registered);
+            row.action_set_enabled("row.add", !is_registered);
+            if !is_registered {
                 row.add_css_class("discovered");
             }
 
@@ -264,6 +238,7 @@ mod imp {
                     gio::SettingsBackend::NONE,
                     None,
                 ),
+                scan_network: Default::default(),
                 startpage_icon_name: Default::default(),
                 devices_list: Default::default(),
                 feedback: Default::default(),
@@ -272,6 +247,27 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
+
+            klass.install_action("win.add-device", None, move |window, _, _| {
+                let dialog = EditDeviceDialog::new();
+                dialog.connect_saved(glib::clone!(
+                    #[weak(rename_to = devices)]
+                    window.application().devices(),
+                    move |_, device| {
+                        glib::debug!("Adding new device: {:?}", device.imp());
+                        devices.registered_devices().append(device);
+                    }
+                ));
+                dialog.present(Some(window));
+            });
+            klass.install_property_action("win.toggle-scan-network", "scan-network");
+
+            klass.add_binding_action(Key::N, ModifierType::CONTROL_MASK, "win.add-device");
+            klass.add_binding_action(
+                Key::F5,
+                ModifierType::NO_MODIFIER_MASK,
+                "win.toggle-scan-network",
+            );
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {

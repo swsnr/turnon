@@ -18,12 +18,63 @@ Gtk.ShortcutsWindow help_overlay {
     section-name: "shortcuts";
 
     Gtk.ShortcutsGroup {
-      title: C_("shortcuts group", "General");
+      title: C_("shortcuts group", "Devices");
 
       Gtk.ShortcutsShortcut {
         title: C_("shortcut description", "Add a new device");
-        action-name: "win.add-device";
+        accelerator: "<Ctrl>N";
       }
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Toggle network scanning");
+        accelerator: "F5";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "Single device");
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Turn on device");
+        accelerator: "Return";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Edit device");
+        accelerator: "<Alt>Return";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Ask to delete device");
+        accelerator: "Delete";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Immediately delete device without confirmation");
+        accelerator: "<Ctrl>Delete";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "Discovered device");
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Add as a new device");
+        accelerator: "<Ctrl>N";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "Edit device");
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Save device");
+        accelerator: "<Ctrl>S";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "General");
 
       Gtk.ShortcutsShortcut {
         title: C_("shortcut description", "Show shortcuts");

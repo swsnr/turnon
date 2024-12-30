@@ -34,6 +34,7 @@
         <release version="next" date="9999-01-01">
             <description>
                 <p>Save and restore main window state.</p>
+                <p>Define additional shortcuts.</p>
                 <p>Update translations.</p>
             </description>
             <issues>

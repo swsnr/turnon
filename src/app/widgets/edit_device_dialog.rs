@@ -64,6 +64,7 @@ mod imp {
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
+    use gtk::gdk::{Key, ModifierType};
     use gtk::glib::subclass::{InitializingObject, Signal};
     use gtk::glib::Properties;
     use gtk::CompositeTemplate;
@@ -221,6 +222,8 @@ mod imp {
                     dialog.close();
                 }
             });
+
+            klass.add_binding_action(Key::S, ModifierType::CONTROL_MASK, "device.save");
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {

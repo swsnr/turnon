@@ -13,13 +13,75 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
         <property name="section-name">shortcuts</property>
         <child>
           <object class="GtkShortcutsGroup">
-            <property name="title" translatable="yes" context="shortcuts group">General</property>
+            <property name="title" translatable="yes" context="shortcuts group">Devices</property>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut description">Add a new device</property>
-                <property name="action-name">win.add-device</property>
+                <property name="accelerator">&lt;Ctrl&gt;N</property>
               </object>
             </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Toggle network scanning</property>
+                <property name="accelerator">F5</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="title" translatable="yes" context="shortcuts group">Single device</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Turn on device</property>
+                <property name="accelerator">Return</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Edit device</property>
+                <property name="accelerator">&lt;Alt&gt;Return</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Ask to delete device</property>
+                <property name="accelerator">Delete</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Immediately delete device without confirmation</property>
+                <property name="accelerator">&lt;Ctrl&gt;Delete</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="title" translatable="yes" context="shortcuts group">Discovered device</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Add as a new device</property>
+                <property name="accelerator">&lt;Ctrl&gt;N</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="title" translatable="yes" context="shortcuts group">Edit device</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Save device</property>
+                <property name="accelerator">&lt;Ctrl&gt;S</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
+            <property name="title" translatable="yes" context="shortcuts group">General</property>
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut description">Show shortcuts</property>
