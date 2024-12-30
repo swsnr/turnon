@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-26 20:00+0000\n"
+"PO-Revision-Date: 2024-12-30 11:50+0000\n"
 "Last-Translator: Priit Jõerüüt "
 "<jrtcdbrg@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Estonian <https://translate.codeberg.org/projects/"
@@ -31,44 +31,48 @@ msgstr "Lülita seadmed oma võrgus sisse"
 #: de.swsnr.turnon.desktop.in:11
 msgid "Gnome;GTK;WakeOnLan;"
 msgstr ""
+"Gnome;GTK;WakeOnLan;wol;ärata;lülita "
+"sisse;arvuti;arvutid;seade;seadmed;kohtvõrk;kohtvõrgus;"
 
 #: de.swsnr.turnon.desktop.in:17
 msgid "Add new device"
-msgstr ""
+msgstr "Lisa uus seade"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:8
 msgid ""
 "Conveniently turn on devices in your network, such as a NAS or a gaming "
 "console, using Wake On LAN (WoL)."
 msgstr ""
+"Kasutades „Wake On LAN“ funktsionaalsust lülita mugavalt eemalt sisse "
+"arvutid ja seadmed (mängukonsool, võrgupõhine andmekandja) oma võrgus."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:10
 msgid "Features:"
-msgstr ""
+msgstr "Funktsionaalsus:"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:12
 msgid "Add devices to turn on."
-msgstr ""
+msgstr "Lisa sisselülitavad arvutid või seadmed."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:13
 msgid "Discover devices in the local network."
-msgstr ""
+msgstr "Tuvasta arvutid või seadmed oma kohtvõrgus."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:14
 msgid "Monitor device status."
-msgstr ""
+msgstr "Jälgi arvuti või seadme olekut."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:15
 msgid "Turn on devices with magic Wake On LAN (WoL) packets."
-msgstr ""
+msgstr "Lülita arvutid või seadmed sisse Wake On LAN (WoL) võrgupaketi abil."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:16
 msgid "Turn on devices from GNOME Shell search."
-msgstr ""
+msgstr "Lülita arvutid või seadmed sisse GNOME'i kestaotsingust."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:17
 msgid "Turn on devices from the command line."
-msgstr ""
+msgstr "Lülita arvutid või seadmed sisse käsurealt."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:36
 #: resources/de.swsnr.turnon.metainfo.xml.in:62
@@ -240,56 +244,56 @@ msgstr ""
 #: resources/gtk/help-overlay.blp:21
 msgctxt "shortcuts group"
 msgid "General"
-msgstr ""
+msgstr "Üldised"
 
 #: resources/gtk/help-overlay.blp:24
 msgctxt "shortcut description"
 msgid "Add a new device"
-msgstr ""
+msgstr "Lisa uus seade"
 
 #: resources/gtk/help-overlay.blp:29
 msgctxt "shortcut description"
 msgid "Show shortcuts"
-msgstr ""
+msgstr "Näita kiirklahve"
 
 #: resources/gtk/help-overlay.blp:34
 msgctxt "shortcut description"
 msgid "Quit"
-msgstr ""
+msgstr "Välju"
 
 #: resources/ui/device-row.blp:69
 msgctxt "device-row.action.row.add.tooltip"
 msgid "Add this device"
-msgstr ""
+msgstr "Lisa see seade"
 
 #: resources/ui/device-row.blp:81
 msgctxt "device-row.action.row.edit.tooltip"
 msgid "Edit this device"
-msgstr ""
+msgstr "Muuda seda seadet"
 
 #: resources/ui/device-row.blp:93
 msgctxt "device-row.action.row.ask-delete.tooltip"
 msgid "Delete this device?"
-msgstr ""
+msgstr "Kas kustutame selle seadme?"
 
 #: resources/ui/device-row.blp:111
 msgctxt "device-row.action.row.delete"
 msgid "Delete"
-msgstr ""
+msgstr "Kustuta"
 
 #: resources/ui/device-row.blp:121
 msgctxt "canceldevice-row.action.row.cancel-delete"
 msgid "Cancel"
-msgstr ""
+msgstr "Katkesta"
 
 #: resources/ui/edit-device-dialog.blp:10
 msgid "Edit device"
-msgstr ""
+msgstr "Seadme muutmine"
 
 #: resources/ui/edit-device-dialog.blp:21
 msgctxt "edit-device-dialog.entry.label.title"
 msgid "Device _label"
-msgstr ""
+msgstr "Seadme _silt"
 
 #: resources/ui/edit-device-dialog.blp:22
 msgctxt "edit-device-dialog.entry.label.tooltip"
