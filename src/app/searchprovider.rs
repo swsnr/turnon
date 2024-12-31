@@ -67,59 +67,60 @@ async fn activate_result(
             glib::warn!("Failed to find device with id {}", call.identifier);
             Ok(None)
         }
-        Some(device) => device
-            .wol()
-            .await
-            .inspect_err(|_| {
-                let notification = Notification::new(&dpgettext2(
-                    None,
-                    "search-provider.notification.title",
-                    "Failed to send magic packet",
-                ));
-                notification.set_body(Some(
-                    &dpgettext2(
+        Some(device) => {
+            match device.wol().await {
+                Ok(_) => {
+                    let notification = Notification::new(&dpgettext2(
                         None,
-                        "search-provider.notification.body",
-                        "Failed to send magic packet to mac address %1 of device %2.",
-                    )
-                    .replace("%1", &device.mac_address().to_string())
-                    .replace("%2", &device.label()),
-                ));
-                notification.set_priority(NotificationPriority::Urgent);
-                app.send_notification(None, &notification);
-            })
-            .inspect(|_| {
-                let notification = Notification::new(&dpgettext2(
-                    None,
-                    "search-provider.notification.title",
-                    "Sent magic packet",
-                ));
-                notification.set_body(Some(
-                    &dpgettext2(
+                        "search-provider.notification.title",
+                        "Sent magic packet",
+                    ));
+                    notification.set_body(Some(
+                        &dpgettext2(
+                            None,
+                            "search-provider.notification.body",
+                            "Sent magic packet to mac address %1 of device %2.",
+                        )
+                        .replace("%1", &device.mac_address().to_string())
+                        .replace("%2", &device.label()),
+                    ));
+                    let id = glib::uuid_string_random();
+                    app.send_notification(Some(&id), &notification);
+                    glib::timeout_add_seconds_local(
+                        10,
+                        glib::clone!(
+                            #[weak]
+                            app,
+                            #[upgrade_or]
+                            ControlFlow::Break,
+                            move || {
+                                app.withdraw_notification(&id);
+                                ControlFlow::Break
+                            }
+                        ),
+                    );
+                }
+                Err(_) => {
+                    let notification = Notification::new(&dpgettext2(
                         None,
-                        "search-provider.notification.body",
-                        "Sent magic packet to mac address %1 of device %2.",
-                    )
-                    .replace("%1", &device.mac_address().to_string())
-                    .replace("%2", &device.label()),
-                ));
-                let id = glib::uuid_string_random();
-                app.send_notification(Some(&id), &notification);
-                glib::timeout_add_seconds_local(
-                    10,
-                    glib::clone!(
-                        #[weak]
-                        app,
-                        #[upgrade_or]
-                        ControlFlow::Break,
-                        move || {
-                            app.withdraw_notification(&id);
-                            ControlFlow::Break
-                        }
-                    ),
-                );
-            })
-            .map(|_| None),
+                        "search-provider.notification.title",
+                        "Failed to send magic packet",
+                    ));
+                    notification.set_body(Some(
+                        &dpgettext2(
+                            None,
+                            "search-provider.notification.body",
+                            "Failed to send magic packet to mac address %1 of device %2.",
+                        )
+                        .replace("%1", &device.mac_address().to_string())
+                        .replace("%2", &device.label()),
+                    ));
+                    notification.set_priority(NotificationPriority::Urgent);
+                    app.send_notification(None, &notification);
+                }
+            }
+            Ok(None)
+        }
     }
 }
 
