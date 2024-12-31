@@ -11,6 +11,7 @@ Keywords=Gnome;GTK;WakeOnLan;
 StartupNotify=true
 DBusActivatable=true
 Actions=add-device;
+X-GNOME-UsesNotifications=true
 
 [Desktop Action add-device]
 Name=Add new device
