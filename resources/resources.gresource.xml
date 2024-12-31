@@ -13,8 +13,8 @@
         <file preprocess="xml-stripblanks">icons/scalable/actions/sonar-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/waves-and-screen-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/de.swsnr.turnon.svg</file>
-        <file preprocess="xml-stripblanks">icons/scalable/apps/de.swsnr.turnon-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/apps/de.swsnr.turnon.Devel.svg</file>
+        <file preprocess="xml-stripblanks">icons/symbolic/apps/de.swsnr.turnon-symbolic.svg</file>
         <!-- Other data files -->
         <file compressed="true">style.css</file>
         <file compressed="true" preprocess="xml-stripblanks">de.swsnr.turnon.metainfo.xml</file>
