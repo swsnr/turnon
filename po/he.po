@@ -33,7 +33,7 @@ msgstr "הדלקת התקנים ברשת שלך"
 msgid "Gnome;GTK;WakeOnLan;"
 msgstr "Gnome;GTK;WakeOnLan;השכמה דרך הרשת;WOL;"
 
-#: de.swsnr.turnon.desktop.in:17
+#: de.swsnr.turnon.desktop.in:18
 msgid "Add new device"
 msgstr "הוספת התקן חדש"
 
@@ -578,25 +578,25 @@ msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr ""
 
-#: src/app/searchprovider.rs:77
-msgctxt "search-provider.notification.title"
-msgid "Failed to send magic packet"
-msgstr "שליחת מנת הנתונים הקסומה נכשלה"
-
-#: src/app/searchprovider.rs:83
-msgctxt "search-provider.notification.body"
-msgid "Failed to send magic packet to mac address %1 of device %2."
-msgstr "שליחת מנת הנתונים הקסומה לכתובת החומרה %1 של ההתקן %2 נכשלה."
-
-#: src/app/searchprovider.rs:95
+#: src/app/searchprovider.rs:76
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
 msgstr "נשלחה מנת נתונים קסומה"
 
-#: src/app/searchprovider.rs:101
+#: src/app/searchprovider.rs:82
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
 msgstr "נשלחה מנת נתונים קסומה לכתובת החומרה %1 של ההתקן %2."
+
+#: src/app/searchprovider.rs:107
+msgctxt "search-provider.notification.title"
+msgid "Failed to send magic packet"
+msgstr "שליחת מנת הנתונים הקסומה נכשלה"
+
+#: src/app/searchprovider.rs:113
+msgctxt "search-provider.notification.body"
+msgid "Failed to send magic packet to mac address %1 of device %2."
+msgstr "שליחת מנת הנתונים הקסומה לכתובת החומרה %1 של ההתקן %2 נכשלה."
 
 #: src/app/widgets/application_window.rs:117
 #, c-format

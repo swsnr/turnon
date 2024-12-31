@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
 "PO-Revision-Date: 2024-12-30 12:17+0000\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/"
-"de-swsnr-turnon/de-swsnr-turnon/de/>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/de-swsnr-"
+"turnon/de-swsnr-turnon/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +33,7 @@ msgstr "Geräte in Deinem Netzwerk anschalten"
 msgid "Gnome;GTK;WakeOnLan;"
 msgstr "Gnome;GTK;WakeOnLan;"
 
-#: de.swsnr.turnon.desktop.in:17
+#: de.swsnr.turnon.desktop.in:18
 msgid "Add new device"
 msgstr "Neues Gerät hinzufügen"
 
@@ -586,27 +586,27 @@ msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr "Gefundenes Gerät"
 
-#: src/app/searchprovider.rs:77
+#: src/app/searchprovider.rs:76
+msgctxt "search-provider.notification.title"
+msgid "Sent magic packet"
+msgstr "Magisches Paket wurde gesendet"
+
+#: src/app/searchprovider.rs:82
+msgctxt "search-provider.notification.body"
+msgid "Sent magic packet to mac address %1 of device %2."
+msgstr "Magisches Paket wurde an die MAC-Adresse %1 des Geräts %2 gesendet."
+
+#: src/app/searchprovider.rs:107
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
 msgstr "Magisches Paket konnte nicht gesendet werden"
 
-#: src/app/searchprovider.rs:83
+#: src/app/searchprovider.rs:113
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr ""
 "Magisches Paket konnte nicht an die MAC-Adresse %1 des Geräts %2 gesendet "
 "werden."
-
-#: src/app/searchprovider.rs:95
-msgctxt "search-provider.notification.title"
-msgid "Sent magic packet"
-msgstr "Magisches Paket wurde gesendet"
-
-#: src/app/searchprovider.rs:101
-msgctxt "search-provider.notification.body"
-msgid "Sent magic packet to mac address %1 of device %2."
-msgstr "Magisches Paket wurde an die MAC-Adresse %1 des Geräts %2 gesendet."
 
 #: src/app/widgets/application_window.rs:117
 #, c-format
