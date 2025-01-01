@@ -43,15 +43,15 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4]]
-version = "0.9.4"
-when = "2024-11-12"
+version = "0.9.5"
+when = "2024-12-19"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-sys]]
-version = "0.9.4"
-when = "2024-11-12"
+version = "0.9.5"
+when = "2024-12-19"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -113,36 +113,36 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gsk4]]
-version = "0.9.4"
-when = "2024-11-12"
+version = "0.9.5"
+when = "2024-12-19"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gsk4-sys]]
-version = "0.9.4"
-when = "2024-11-12"
+version = "0.9.5"
+when = "2024-12-19"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gtk4]]
-version = "0.9.4"
-when = "2024-11-12"
+version = "0.9.5"
+when = "2024-12-19"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gtk4-macros]]
-version = "0.9.3"
-when = "2024-10-31"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.9.5"
+when = "2024-12-19"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gtk4-sys]]
-version = "0.9.4"
-when = "2024-11-12"
+version = "0.9.5"
+when = "2024-12-19"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -218,15 +218,15 @@ user-login = "dtolnay"
 user-name = "David Tolnay"
 
 [[publisher.serde]]
-version = "1.0.216"
-when = "2024-12-11"
+version = "1.0.217"
+when = "2024-12-27"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
 
 [[publisher.serde_derive]]
-version = "1.0.216"
-when = "2024-12-11"
+version = "1.0.217"
+when = "2024-12-27"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
@@ -253,8 +253,8 @@ user-login = "mbrubeck"
 user-name = "Matt Brubeck"
 
 [[publisher.syn]]
-version = "2.0.90"
-when = "2024-11-29"
+version = "2.0.93"
+when = "2024-12-28"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
@@ -351,8 +351,8 @@ user-login = "kennykerr"
 user-name = "Kenny Kerr"
 
 [[publisher.winnow]]
-version = "0.6.20"
-when = "2024-09-25"
+version = "0.6.21"
+when = "2024-12-31"
 user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
@@ -829,6 +829,12 @@ who = "Adrian Taylor <adetaylor@chromium.org>"
 criteria = "safe-to-run"
 delta = "1.0.132 -> 1.0.133"
 notes = "No changes affecting safety-to-run and still no crypto"
+aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
+
+[[audits.google.audits.serde_json]]
+who = "Adrian Taylor <adetaylor@chromium.org>"
+criteria = "safe-to-run"
+delta = "1.0.133 -> 1.0.134"
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
 [[audits.google.audits.socket2]]
