@@ -87,6 +87,17 @@ impl TurnOnApplication {
         dialog.present(self.active_window().as_ref());
     }
 
+    /// Setup actions.
+    ///
+    /// Set up the following application actions:
+    ///
+    /// - `app.about` shows an about dialog.
+    /// - `app.quit` quites the application.
+    /// - `app.add-device` shows a dialog to add a new device, on top of an
+    ///   existing application window, if any, or as free dialog.
+    ///
+    /// The `app.add-device` action backs the "Add device" context menu entry
+    /// of the desktop file.
     fn setup_actions(&self) {
         let actions = [
             ActionEntry::builder("add-device")
