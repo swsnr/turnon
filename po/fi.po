@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-28 10:02+0000\n"
+"PO-Revision-Date: 2024-12-31 08:54+0000\n"
 "Last-Translator: artnay <artnay@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Finnish <https://translate.codeberg.org/projects/de-swsnr-"
 "turnon/de-swsnr-turnon/fi/>\n"
@@ -31,7 +31,7 @@ msgstr "Käynnistä laitteita verkon kautta"
 msgid "Gnome;GTK;WakeOnLan;"
 msgstr "Gnome;GTK;WakeOnLan;"
 
-#: de.swsnr.turnon.desktop.in:17
+#: de.swsnr.turnon.desktop.in:18
 msgid "Add new device"
 msgstr "Lisää uusi laite"
 
@@ -247,12 +247,9 @@ msgid ""
 msgstr ""
 
 #: resources/gtk/help-overlay.blp:21
-#, fuzzy
-#| msgctxt "application-window.status-page.title"
-#| msgid "No devices"
 msgctxt "shortcuts group"
 msgid "Devices"
-msgstr "Ei laitteita"
+msgstr "Laitteet"
 
 #: resources/gtk/help-overlay.blp:24
 msgctxt "shortcut description"
@@ -262,73 +259,52 @@ msgstr "Lisää uusi laite"
 #: resources/gtk/help-overlay.blp:29
 msgctxt "shortcut description"
 msgid "Toggle network scanning"
-msgstr ""
+msgstr "Verkon skannaus päällä/pois"
 
 #: resources/gtk/help-overlay.blp:35
-#, fuzzy
-#| msgid "Add new device"
 msgctxt "shortcuts group"
 msgid "Single device"
-msgstr "Lisää uusi laite"
+msgstr "Yksittäinen laite"
 
 #: resources/gtk/help-overlay.blp:38
-#, fuzzy
-#| msgctxt "application-window.status-page.title"
-#| msgid "No devices"
 msgctxt "shortcut description"
 msgid "Turn on device"
-msgstr "Ei laitteita"
+msgstr "Käynnistä laite"
 
 #: resources/gtk/help-overlay.blp:43
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcut description"
 msgid "Edit device"
 msgstr "Muokkaa laitetta"
 
 #: resources/gtk/help-overlay.blp:48
-#, fuzzy
-#| msgctxt "device-row.action.row.ask-delete.tooltip"
-#| msgid "Delete this device?"
 msgctxt "shortcut description"
 msgid "Ask to delete device"
-msgstr "Poistetaanko tämä laite?"
+msgstr "Kysy laitteen poistamista"
 
 #: resources/gtk/help-overlay.blp:53
 msgctxt "shortcut description"
 msgid "Immediately delete device without confirmation"
-msgstr ""
+msgstr "Poista laite välittömästi ilman vahvistusta"
 
 #: resources/gtk/help-overlay.blp:59
-#, fuzzy
-#| msgctxt "discovered-device.label"
-#| msgid "Discovered device"
 msgctxt "shortcuts group"
 msgid "Discovered device"
-msgstr "Löydetyt laitteet"
+msgstr "Löydetty laite"
 
 #: resources/gtk/help-overlay.blp:62
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "shortcut description"
 msgid "Add as a new device"
-msgstr "Lisää uusi laite"
+msgstr "Lisää uutena laitteena"
 
 #: resources/gtk/help-overlay.blp:68
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcuts group"
 msgid "Edit device"
 msgstr "Muokkaa laitetta"
 
 #: resources/gtk/help-overlay.blp:71
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "shortcut description"
 msgid "Save device"
-msgstr "Lisää uusi laite"
+msgstr "Tallenna laite"
 
 #: resources/gtk/help-overlay.blp:77
 msgctxt "shortcuts group"
@@ -562,28 +538,28 @@ msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr "Löydetyt laitteet"
 
-#: src/app/searchprovider.rs:77
+#: src/app/searchprovider.rs:76
+msgctxt "search-provider.notification.title"
+msgid "Sent magic packet"
+msgstr "Lähetetty taikapaketti"
+
+#: src/app/searchprovider.rs:82
+msgctxt "search-provider.notification.body"
+msgid "Sent magic packet to mac address %1 of device %2."
+msgstr ""
+"Lähetettiin taikapaketti MAC-osoitteeseen %1 joka kuuluu laitteelle %2."
+
+#: src/app/searchprovider.rs:107
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
 msgstr "Taikapaketin lähettäminen epäonnistui"
 
-#: src/app/searchprovider.rs:83
+#: src/app/searchprovider.rs:113
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr ""
 "Taikapaketin lähettäminen MAC-osoitteeseen %1, joka kuuluu laitteelle %2, "
 "epäonnistui."
-
-#: src/app/searchprovider.rs:95
-msgctxt "search-provider.notification.title"
-msgid "Sent magic packet"
-msgstr "Lähetetty taikapaketti"
-
-#: src/app/searchprovider.rs:101
-msgctxt "search-provider.notification.body"
-msgid "Sent magic packet to mac address %1 of device %2."
-msgstr ""
-"Lähetettiin taikapaketti MAC-osoitteeseen %1 joka kuuluu laitteelle %2."
 
 #: src/app/widgets/application_window.rs:117
 #, c-format

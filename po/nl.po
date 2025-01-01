@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2024-12-24 21:40+0000\n"
+"PO-Revision-Date: 2024-12-31 17:10+0000\n"
 "Last-Translator: Vistaus <vistaus@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/de-swsnr-"
 "turnon/de-swsnr-turnon/nl/>\n"
@@ -33,7 +33,7 @@ msgstr "Zet apparaten op uw netwerk aan"
 msgid "Gnome;GTK;WakeOnLan;"
 msgstr "Gnome;GTK;WakeOnLan;"
 
-#: de.swsnr.turnon.desktop.in:17
+#: de.swsnr.turnon.desktop.in:18
 msgid "Add new device"
 msgstr "Apparaat toevoegen"
 
@@ -76,11 +76,11 @@ msgstr "Schakel apparaten in met behulp van de opdrachtregel."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:36
 msgid "Save and restore main window state."
-msgstr ""
+msgstr "Bewaar en herstel de vensterstatus."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:37
 msgid "Define additional shortcuts."
-msgstr ""
+msgstr "Stel aanvullende sneltoetsen in."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:38
 #: resources/de.swsnr.turnon.metainfo.xml.in:67
@@ -279,12 +279,9 @@ msgstr ""
 "voegen"
 
 #: resources/gtk/help-overlay.blp:21
-#, fuzzy
-#| msgctxt "application-window.status-page.title"
-#| msgid "No devices"
 msgctxt "shortcuts group"
 msgid "Devices"
-msgstr "Er zijn geen apparaten"
+msgstr "Apparaten"
 
 #: resources/gtk/help-overlay.blp:24
 msgctxt "shortcut description"
@@ -294,73 +291,52 @@ msgstr "Apparaat toevoegen"
 #: resources/gtk/help-overlay.blp:29
 msgctxt "shortcut description"
 msgid "Toggle network scanning"
-msgstr ""
+msgstr "Netwerk doorzoeken aan/uit"
 
 #: resources/gtk/help-overlay.blp:35
-#, fuzzy
-#| msgid "Add new device"
 msgctxt "shortcuts group"
 msgid "Single device"
-msgstr "Apparaat toevoegen"
+msgstr "Eén apparaat"
 
 #: resources/gtk/help-overlay.blp:38
-#, fuzzy
-#| msgctxt "application-window.status-page.title"
-#| msgid "No devices"
 msgctxt "shortcut description"
 msgid "Turn on device"
-msgstr "Er zijn geen apparaten"
+msgstr "Apparaat aanzetten"
 
 #: resources/gtk/help-overlay.blp:43
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcut description"
 msgid "Edit device"
 msgstr "Apparaat bewerken"
 
 #: resources/gtk/help-overlay.blp:48
-#, fuzzy
-#| msgctxt "device-row.action.row.ask-delete.tooltip"
-#| msgid "Delete this device?"
 msgctxt "shortcut description"
 msgid "Ask to delete device"
-msgstr "Wilt u dit apparaat verwijderen?"
+msgstr "Vragen alvorens apparaat te verwijderen"
 
 #: resources/gtk/help-overlay.blp:53
 msgctxt "shortcut description"
 msgid "Immediately delete device without confirmation"
-msgstr ""
+msgstr "Apparaat direct verwijderen"
 
 #: resources/gtk/help-overlay.blp:59
-#, fuzzy
-#| msgctxt "discovered-device.label"
-#| msgid "Discovered device"
 msgctxt "shortcuts group"
 msgid "Discovered device"
 msgstr "Aangetroffen apparaat"
 
 #: resources/gtk/help-overlay.blp:62
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "shortcut description"
 msgid "Add as a new device"
-msgstr "Apparaat toevoegen"
+msgstr "Toevoegen als nieuw apparaat"
 
 #: resources/gtk/help-overlay.blp:68
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcuts group"
 msgid "Edit device"
 msgstr "Apparaat bewerken"
 
 #: resources/gtk/help-overlay.blp:71
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "shortcut description"
 msgid "Save device"
-msgstr "Apparaat toevoegen"
+msgstr "Apparaat opslaan"
 
 #: resources/gtk/help-overlay.blp:77
 msgctxt "shortcuts group"
@@ -596,25 +572,25 @@ msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr "Aangetroffen apparaat"
 
-#: src/app/searchprovider.rs:77
-msgctxt "search-provider.notification.title"
-msgid "Failed to send magic packet"
-msgstr "Het magische pakket kan niet worden verstuurd"
-
-#: src/app/searchprovider.rs:83
-msgctxt "search-provider.notification.body"
-msgid "Failed to send magic packet to mac address %1 of device %2."
-msgstr "Het magische pakket kan niet worden verstuurd naar %1 van ‘%2’."
-
-#: src/app/searchprovider.rs:95
+#: src/app/searchprovider.rs:76
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
 msgstr "Magisch pakket verstuurd"
 
-#: src/app/searchprovider.rs:101
+#: src/app/searchprovider.rs:82
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
 msgstr "Het magische pakket is verstuurd naar %1 van ‘%2’."
+
+#: src/app/searchprovider.rs:107
+msgctxt "search-provider.notification.title"
+msgid "Failed to send magic packet"
+msgstr "Het magische pakket kan niet worden verstuurd"
+
+#: src/app/searchprovider.rs:113
+msgctxt "search-provider.notification.body"
+msgid "Failed to send magic packet to mac address %1 of device %2."
+msgstr "Het magische pakket kan niet worden verstuurd naar %1 van ‘%2’."
 
 #: src/app/widgets/application_window.rs:117
 #, c-format
