@@ -46,6 +46,10 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
+    env:
+      # Skip blueprint compilation because the gtk4-rs container lacks the
+      # typelib files required for blueprint to resolve imports.
+      SKIP_BLUEPRINT: 1
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
@@ -66,17 +70,9 @@ jobs:
       - run: blueprint-compiler format resources/**/*.blp
         # Make the glob work
         shell: bash
-      # Skip blueprint compilation because the gtk4-rs container lacks the
-      # typelib files required for blueprint to resolve imports.
       - run: cargo build --all-features
-        env:
-          SKIP_BLUEPRINT: 1
       - run: cargo clippy --all-targets
-        env:
-          SKIP_BLUEPRINT: 1
       - run: cargo test
-        env:
-          SKIP_BLUEPRINT: 1
       - name: cargo deny check
         uses: EmbarkStudios/cargo-deny-action@v2
       - run: appstreamcli validate --explain resources/de.swsnr.turnon.metainfo.xml
