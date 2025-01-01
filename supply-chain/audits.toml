@@ -39,6 +39,12 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.3.28 -> 0.3.31"
 
+[[audits.glob]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.3.1 -> 0.3.2"
+notes = "A few slightly non-trivial changes around symlinks, but still safe-to-run"
+
 [[audits.macaddr]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -63,6 +69,11 @@ appears to be sound, superficially.
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.2.14 -> 0.2.15"
+
+[[audits.quote]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.37 -> 1.0.38"
 
 [[audits.serde]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
