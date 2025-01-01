@@ -74,6 +74,9 @@ jobs:
           sign-commits: true
           delete-branch: true
           title: "Update flatpak manifest for ${{ github.ref_name }}"
-          body: "Automated update of flatpak manifest for release ${{ github.ref_name }}"
+          body: |
+            Update flatpak manifest for release ${{ github.ref_name }}.
+
+            After merging, manually dispatch the [sync workflow in the flathub repo](https://github.com/flathub/de.swsnr.turnon/actions/workflows/sync.yaml) to update the flathub manifest.
           assignees: swsnr
           draft: always-true

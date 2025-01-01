@@ -37,7 +37,7 @@ jobs:
           base: main
           sign-commits: true
           delete-branch: true
-          title: "Automated update of messages"
+          title: "Update messages"
           body: "Github bot runs make pot :v:"
           assignees: swsnr
           draft: true
