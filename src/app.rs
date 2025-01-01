@@ -364,13 +364,6 @@ mod imp {
                                 .set_discovery_enabled(window.scan_network());
                         }
                     ));
-                    window.connect_device_added(glib::clone!(
-                        #[strong]
-                        app,
-                        move |_, device| {
-                            app.devices().registered_devices().append(device);
-                        }
-                    ));
                     window.present();
                 }
             }

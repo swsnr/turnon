@@ -15,9 +15,9 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
           <object class="AdwHeaderBar">
             <child type="start">
               <object class="GtkButton">
-                <property name="action-name">win.add-device</property>
+                <property name="action-name">app.add-device</property>
                 <property name="icon-name">list-add-symbolic</property>
-                <property name="tooltip-text" translatable="yes" context="application-window.action.win.add-device.tooltip">Add a new device</property>
+                <property name="tooltip-text" translatable="yes" context="application-window.action.app.add-device.tooltip">Add a new device</property>
               </object>
             </child>
             <child type="start">

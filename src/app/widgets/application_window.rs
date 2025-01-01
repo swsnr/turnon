@@ -6,11 +6,9 @@
 
 use adw::subclass::prelude::*;
 use glib::object::IsA;
-use glib::prelude::*;
 use gtk::gio;
 use gtk::glib;
 
-use crate::app::model::Device;
 use crate::app::model::Devices;
 
 glib::wrapper! {
@@ -33,45 +31,22 @@ impl TurnOnApplicationWindow {
     pub fn bind_model(&self, devices: &Devices) {
         self.imp().bind_model(devices);
     }
-
-    pub fn connect_device_added<F>(&self, callback: F) -> glib::SignalHandlerId
-    where
-        F: Fn(&Self, &Device) + 'static,
-    {
-        self.connect_local(
-            "device-added",
-            false,
-            glib::clone!(
-                #[weak(rename_to=dialog)]
-                &self,
-                #[upgrade_or_default]
-                move |args| {
-                    let device = &args[1].get().expect("No device passed as signal argument?");
-                    callback(&dialog, device);
-                    None
-                }
-            ),
-        )
-    }
 }
 
 mod imp {
     use std::cell::{Cell, RefCell};
     use std::rc::Rc;
-    use std::sync::LazyLock;
     use std::time::Duration;
 
     use adw::subclass::prelude::*;
     use adw::{prelude::*, ToastOverlay};
     use futures_util::{stream, StreamExt, TryStreamExt};
     use glib::dpgettext2;
-    use glib::subclass::Signal;
     use gtk::gdk::{Key, ModifierType};
     use gtk::glib::subclass::InitializingObject;
     use gtk::{gio, glib, CompositeTemplate};
 
     use crate::app::model::{Device, Devices};
-    use crate::app::widgets::EditDeviceDialog;
     use crate::config::G_LOG_DOMAIN;
     use crate::net;
 
@@ -263,21 +238,9 @@ mod imp {
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
 
-            klass.install_action("win.add-device", None, move |window, _, _| {
-                let dialog = EditDeviceDialog::new();
-                dialog.connect_saved(glib::clone!(
-                    #[weak]
-                    window,
-                    move |_, device| {
-                        glib::debug!("Adding new device: {:?}", device.imp());
-                        window.emit_by_name::<()>("device-added", &[&device]);
-                    }
-                ));
-                dialog.present(Some(window));
-            });
             klass.install_property_action("win.toggle-scan-network", "scan-network");
 
-            klass.add_binding_action(Key::N, ModifierType::CONTROL_MASK, "win.add-device");
+            klass.add_binding_action(Key::N, ModifierType::CONTROL_MASK, "app.add-device");
             klass.add_binding_action(
                 Key::F5,
                 ModifierType::NO_MODIFIER_MASK,
@@ -292,16 +255,6 @@ mod imp {
 
     #[glib::derived_properties]
     impl ObjectImpl for TurnOnApplicationWindow {
-        fn signals() -> &'static [Signal] {
-            static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
-                vec![Signal::builder("device-added")
-                    .action()
-                    .param_types([Device::static_type()])
-                    .build()]
-            });
-            SIGNALS.as_ref()
-        }
-
         fn constructed(&self) {
             self.parent_constructed();
 
