@@ -23,7 +23,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
             <child>
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut description">Toggle network scanning</property>
-                <property name="accelerator">F5</property>
+                <property name="action-name">app.scan-network</property>
               </object>
             </child>
           </object>

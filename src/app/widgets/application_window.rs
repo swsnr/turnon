@@ -34,7 +34,7 @@ impl TurnOnApplicationWindow {
 }
 
 mod imp {
-    use std::cell::{Cell, RefCell};
+    use std::cell::RefCell;
     use std::rc::Rc;
     use std::time::Duration;
 
@@ -57,8 +57,6 @@ mod imp {
     #[template(resource = "/de/swsnr/turnon/ui/turnon-application-window.ui")]
     pub struct TurnOnApplicationWindow {
         settings: gio::Settings,
-        #[property(get, set)]
-        scan_network: Cell<bool>,
         #[property(get, set)]
         startpage_icon_name: RefCell<String>,
         #[template_child]
@@ -228,7 +226,6 @@ mod imp {
                     gio::SettingsBackend::NONE,
                     None,
                 ),
-                scan_network: Default::default(),
                 startpage_icon_name: Default::default(),
                 devices_list: Default::default(),
                 feedback: Default::default(),
@@ -237,15 +234,7 @@ mod imp {
 
         fn class_init(klass: &mut Self::Class) {
             klass.bind_template();
-
-            klass.install_property_action("win.toggle-scan-network", "scan-network");
-
             klass.add_binding_action(Key::N, ModifierType::CONTROL_MASK, "app.add-device");
-            klass.add_binding_action(
-                Key::F5,
-                ModifierType::NO_MODIFIER_MASK,
-                "win.toggle-scan-network",
-            );
         }
 
         fn instance_init(obj: &InitializingObject<Self>) {

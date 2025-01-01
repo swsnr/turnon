@@ -111,6 +111,18 @@ impl TurnOnApplication {
                     dialog.present(app.active_window().as_ref());
                 })
                 .build(),
+            ActionEntry::builder("scan-network")
+                .state(false.into())
+                .change_state(|app: &TurnOnApplication, action, state| {
+                    // The default activate handler should safely toggle the boolean state of this action
+                    // so we can expect the state to be set at this point.
+                    let state = state.unwrap();
+                    app.devices()
+                        .discovered_devices()
+                        .set_discovery_enabled(state.get::<bool>().unwrap());
+                    action.set_state(state);
+                })
+                .build(),
             ActionEntry::builder("quit")
                 .activate(|app: &TurnOnApplication, _, _| app.quit())
                 .build(),
@@ -122,8 +134,17 @@ impl TurnOnApplication {
         ];
         self.add_action_entries(actions);
 
+        // We do _not_ add a global shortcut for app.add-device because we handle adding devices a bit more flexible:
+        //
+        // Device rows have their own action to add a new device, which enables adding a new device from a discovered
+        // device with pre-filled fields.  We use the Ctrl+N shortcut for this action too, so that the user gets a
+        // prefilled dialog when they press Ctrl+N while a discovered device is focused, or an empty dialog otherwise.
+        //
+        // If we set a global shortcut here, it'd always override the shortcut of the device rows, and users would
+        // always just get the empty dialog.
         self.set_accels_for_action("window.close", &["<Control>w"]);
         self.set_accels_for_action("app.quit", &["<Control>q"]);
+        self.set_accels_for_action("app.scan-network", &["F5"]);
     }
 }
 
@@ -366,15 +387,6 @@ mod imp {
                         window.add_css_class("devel");
                     }
                     window.bind_model(&self.devices);
-                    window.connect_scan_network_notify(glib::clone!(
-                        #[strong]
-                        app,
-                        move |window| {
-                            app.devices()
-                                .discovered_devices()
-                                .set_discovery_enabled(window.scan_network());
-                        }
-                    ));
                     window.present();
                 }
             }

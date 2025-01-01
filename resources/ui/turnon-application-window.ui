@@ -22,9 +22,9 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
             </child>
             <child type="start">
               <object class="GtkToggleButton" id="toggle_scan_network">
-                <property name="action-name">win.toggle-scan-network</property>
+                <property name="action-name">app.scan-network</property>
                 <property name="icon-name">waves-and-screen-symbolic</property>
-                <property name="tooltip-text" translatable="yes" context="application-window.action.win.scan-network.tooltip">Scan the network for devices</property>
+                <property name="tooltip-text" translatable="yes" context="application-window.action.app.scan-network.tooltip">Scan the network for devices</property>
               </object>
             </child>
             <child type="end">
@@ -81,7 +81,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                                 <child>
                                   <object class="GtkButton">
                                     <property name="label" translatable="yes" context="application-window.status-page.button.label">Scan network</property>
-                                    <property name="action-name">win.toggle-scan-network</property>
+                                    <property name="action-name">app.scan-network</property>
                                     <style>
                                       <class name="pill"/>
                                       <class name="suggested-action"/>

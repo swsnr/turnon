@@ -22,9 +22,9 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
 
       [start]
       Gtk.ToggleButton toggle_scan_network {
-        action-name: "win.toggle-scan-network";
+        action-name: "app.scan-network";
         icon-name: "waves-and-screen-symbolic";
-        tooltip-text: C_("application-window.action.win.scan-network.tooltip", "Scan the network for devices");
+        tooltip-text: C_("application-window.action.app.scan-network.tooltip", "Scan the network for devices");
       }
 
       [end]
@@ -79,7 +79,7 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
 
                 Gtk.Button {
                   label: C_("application-window.status-page.button.label", "Scan network");
-                  action-name: "win.toggle-scan-network";
+                  action-name: "app.scan-network";
 
                   styles [
                     "pill",
