@@ -159,13 +159,13 @@ impl Default for TurnOnApplication {
 }
 
 mod imp {
-    use std::cell::RefCell;
+    use std::cell::{Ref, RefCell};
     use std::path::PathBuf;
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
     use glib::{dpgettext2, OptionArg, OptionFlags};
-    use gtk::gio::{ListStore, RegistrationId};
+    use gtk::gio::{ListStore, RegistrationId, Settings, SettingsBackend};
 
     use crate::config::G_LOG_DOMAIN;
 
@@ -175,9 +175,10 @@ mod imp {
     use super::storage::{StorageService, StorageServiceClient};
     use super::widgets::TurnOnApplicationWindow;
 
-    #[derive(glib::Properties)]
+    #[derive(glib::Properties, Default)]
     #[properties(wrapper_type = super::TurnOnApplication)]
     pub struct TurnOnApplication {
+        settings: RefCell<Option<Settings>>,
         #[property(get)]
         devices: Devices,
         registered_search_provider: RefCell<Option<RegistrationId>>,
@@ -194,6 +195,38 @@ mod imp {
     }
 
     impl TurnOnApplication {
+        /// Get application settings.
+        ///
+        /// Panic if settings weren't loaded yet; only call this after `startup`!
+        fn settings(&self) -> Ref<Settings> {
+            Ref::map(self.settings.borrow(), |v| v.as_ref().unwrap())
+        }
+
+        /// Create and return a new application window.
+        fn create_application_window(&self) -> TurnOnApplicationWindow {
+            let window = TurnOnApplicationWindow::new(&*self.obj(), crate::config::APP_ID);
+            if crate::config::is_development() {
+                window.add_css_class("devel");
+            }
+            window.bind_model(&self.devices);
+
+            let settings = self.settings();
+            settings
+                .bind("main-window-width", &window, "default-width")
+                .build();
+            settings
+                .bind("main-window-height", &window, "default-height")
+                .build();
+            settings
+                .bind("main-window-maximized", &window, "maximized")
+                .build();
+            settings
+                .bind("main-window-fullscreen", &window, "fullscreened")
+                .build();
+
+            window
+        }
+
         /// Start saving changes to the model automatically.
         ///
         /// Monitor the device model for changes, and automatically persist
@@ -231,14 +264,6 @@ mod imp {
         type Type = super::TurnOnApplication;
 
         type ParentType = adw::Application;
-
-        fn new() -> Self {
-            Self {
-                devices: Devices::default(),
-                registered_search_provider: Default::default(),
-                devices_file: Default::default(),
-            }
-        }
     }
 
     #[glib::derived_properties]
@@ -335,6 +360,15 @@ mod imp {
 
             app.setup_actions();
 
+            // Load app settings
+            self.settings.replace(Some(Settings::new_full(
+                &crate::config::schema_source()
+                    .lookup(crate::config::APP_ID, true)
+                    .unwrap(),
+                SettingsBackend::NONE,
+                None,
+            )));
+
             let devices_file = self.devices_file.borrow_mut().take().unwrap_or_else(|| {
                 glib::user_data_dir()
                     .join(crate::config::APP_ID)
@@ -382,11 +416,8 @@ mod imp {
                 }
                 None => {
                     glib::debug!("Creating new application window");
-                    let window = TurnOnApplicationWindow::new(app, crate::config::APP_ID);
-                    if crate::config::is_development() {
-                        window.add_css_class("devel");
-                    }
-                    window.bind_model(&self.devices);
+
+                    let window = self.create_application_window();
                     window.present();
                 }
             }
