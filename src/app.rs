@@ -28,6 +28,65 @@ glib::wrapper! {
 }
 
 impl TurnOnApplication {
+    fn show_about_dialog(&self) {
+        let dialog = adw::AboutDialog::from_appdata(
+            "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
+            Some(crate::config::VERSION),
+        );
+        dialog.set_version(crate::config::VERSION);
+
+        glib::spawn_future_local(glib::clone!(
+            #[strong(rename_to = devices)]
+            self.devices(),
+            #[weak]
+            dialog,
+            async move {
+                let info = DebugInfo::assemble(devices).await;
+                dialog.set_debug_info(&info.to_string());
+                dialog.set_debug_info_filename(&info.suggested_file_name());
+            }
+        ));
+
+        dialog.add_link(
+            &dpgettext2(None, "about-dialog.link.label", "Translations"),
+            "https://translate.codeberg.org/engage/de-swsnr-turnon/",
+        );
+
+        dialog.set_developers(&["Sebastian Wiesner https://swsnr.de"]);
+        dialog.set_designers(&["Sebastian Wiesner https://swsnr.de"]);
+        // Credits for the translator to the current language.
+        // Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
+        // Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
+        dialog.set_translator_credits(&dgettext(None, "translator-credits"));
+        dialog.add_acknowledgement_section(
+            Some(&dpgettext2(
+                None,
+                "about-dialog.acknowledgment-section",
+                "Help and inspiration",
+            )),
+            &[
+                "Sebastian Dröge https://github.com/sdroege",
+                "Bilal Elmoussaoui https://github.com/bilelmoussaoui",
+                "Authenticator https://gitlab.gnome.org/World/Authenticator",
+                "Decoder https://gitlab.gnome.org/World/decoder/",
+            ],
+        );
+        dialog.add_acknowledgement_section(
+            Some(&dpgettext2(
+                None,
+                "about-dialog.acknowledgment-section",
+                "Helpful services",
+            )),
+            &[
+                "Flathub https://flathub.org/",
+                "Open Build Service https://build.opensuse.org/",
+                "GitHub actions https://github.com/features/actions",
+            ],
+        );
+
+        dialog.present(self.active_window().as_ref());
+    }
+
     fn setup_actions(&self) {
         let actions = [
             ActionEntry::builder("add-device")
@@ -46,62 +105,7 @@ impl TurnOnApplication {
                 .build(),
             ActionEntry::builder("about")
                 .activate(|app: &TurnOnApplication, _, _| {
-                    let dialog = adw::AboutDialog::from_appdata(
-                        "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
-                        Some(crate::config::VERSION),
-                    );
-                    dialog.set_version(crate::config::VERSION);
-
-                    glib::spawn_future_local(glib::clone!(
-                        #[strong(rename_to = devices)]
-                        app.devices(),
-                        #[weak]
-                        dialog,
-                        async move {
-                            let info = DebugInfo::assemble(devices).await;
-                            dialog.set_debug_info(&info.to_string());
-                            dialog.set_debug_info_filename(&info.suggested_file_name());
-                        }
-                    ));
-
-                    dialog.add_link(
-                        &dpgettext2(None, "about-dialog.link.label", "Translations"),
-                        "https://translate.codeberg.org/engage/de-swsnr-turnon/",
-                    );
-
-                    dialog.set_developers(&["Sebastian Wiesner https://swsnr.de"]);
-                    dialog.set_designers(&["Sebastian Wiesner https://swsnr.de"]);
-                    // Credits for the translator to the current language.
-                    // Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
-                    // Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
-                    dialog.set_translator_credits(&dgettext(None, "translator-credits"));
-                    dialog.add_acknowledgement_section(
-                        Some(&dpgettext2(
-                            None,
-                            "about-dialog.acknowledgment-section",
-                            "Help and inspiration",
-                        )),
-                        &[
-                            "Sebastian Dröge https://github.com/sdroege",
-                            "Bilal Elmoussaoui https://github.com/bilelmoussaoui",
-                            "Authenticator https://gitlab.gnome.org/World/Authenticator",
-                            "Decoder https://gitlab.gnome.org/World/decoder/",
-                        ],
-                    );
-                    dialog.add_acknowledgement_section(
-                        Some(&dpgettext2(
-                            None,
-                            "about-dialog.acknowledgment-section",
-                            "Helpful services",
-                        )),
-                        &[
-                            "Flathub https://flathub.org/",
-                            "Open Build Service https://build.opensuse.org/",
-                            "GitHub actions https://github.com/features/actions",
-                        ],
-                    );
-
-                    dialog.present(app.active_window().as_ref());
+                    app.show_about_dialog();
                 })
                 .build(),
         ];
