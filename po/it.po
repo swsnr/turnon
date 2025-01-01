@@ -499,12 +499,18 @@ msgid "_Save"
 msgstr "_Salva"
 
 #: resources/ui/turnon-application-window.blp:20
-msgctxt "application-window.action.win.add-device.tooltip"
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Add a new device"
+msgctxt "application-window.action.app.add-device.tooltip"
 msgid "Add a new device"
 msgstr "Aggiungi un nuovo dispositivo"
 
 #: resources/ui/turnon-application-window.blp:27
-msgctxt "application-window.action.win.scan-network.tooltip"
+#, fuzzy
+#| msgctxt "application-window.action.win.scan-network.tooltip"
+#| msgid "Scan the network for devices"
+msgctxt "application-window.action.app.scan-network.tooltip"
 msgid "Scan the network for devices"
 msgstr "Esegui la scansione della rete per trovare i dispositivi"
 
@@ -538,7 +544,7 @@ msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr "_Informazioni su Turn On"
 
-#: src/app.rs:68
+#: src/app.rs:51
 msgctxt "about-dialog.link.label"
 msgid "Translations"
 msgstr "Traduzioni"
@@ -546,48 +552,48 @@ msgstr "Traduzioni"
 #. Credits for the translator to the current language.
 #. Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
 #. Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
-#: src/app.rs:77
+#: src/app.rs:60
 msgid "translator-credits"
 msgstr "Albano Battistella <albanobattistella@gmail.com>"
 
-#: src/app.rs:82
+#: src/app.rs:65
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Help and inspiration"
 msgstr "Aiuto e ispirazione"
 
-#: src/app.rs:95
+#: src/app.rs:78
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
 msgstr "Servizi utili"
 
-#: src/app.rs:219
+#: src/app.rs:255
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "Aggiungi un nuovo dispositivo"
 
-#: src/app.rs:230
+#: src/app.rs:266
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr "Accendi un dispositivo tramite la sua etichetta"
 
-#: src/app.rs:235
+#: src/app.rs:271
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr "ETICHETTA"
 
-#: src/app.rs:246
+#: src/app.rs:282
 msgctxt "option.list-devices.description"
 msgid "List all devices and their status"
 msgstr "Elenca tutti i dispositivi e il loro stato"
 
-#: src/app.rs:258
+#: src/app.rs:294
 msgctxt "option.devices-file.description"
 msgid "Use the given file as storage for devices (for development only)"
 msgstr ""
 "Utilizzare il file specificato come archivio per i dispositivi (solo per lo "
 "sviluppo)"
 
-#: src/app.rs:270
+#: src/app.rs:306
 msgctxt "option.arp-cache-file.description"
 msgid "Use the given file as ARP cache source (for development only)"
 msgstr ""
@@ -610,7 +616,7 @@ msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
 msgstr "Nessun dispositivo trovato per l'etichetta %s\n"
 
-#: src/app/model/device_discovery.rs:196
+#: src/app/model/device_discovery.rs:200
 msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr "Dispositivo rilevato"
@@ -637,23 +643,27 @@ msgstr ""
 "Impossibile inviare il pacchetto magico all'indirizzo MAC %1 del dispositivo "
 "%2."
 
-#: src/app/widgets/application_window.rs:117
+#: src/app/widgets/application_window.rs:90
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
 msgstr "Invio del pacchetto magico al dispositivo %s"
 
-#: src/app/widgets/application_window.rs:140
+#: src/app/widgets/application_window.rs:113
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr "Inviato pacchetto magico al dispositivo %s"
 
-#: src/app/widgets/application_window.rs:155
+#: src/app/widgets/application_window.rs:128
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
 msgstr "Impossibile inviare il pacchetto magico al dispositivo %s"
+
+#~ msgctxt "application-window.action.win.add-device.tooltip"
+#~ msgid "Add a new device"
+#~ msgstr "Aggiungi un nuovo dispositivo"
 
 #~ msgid "Sebastian Wiesner"
 #~ msgstr "Sebastian Wiesner"

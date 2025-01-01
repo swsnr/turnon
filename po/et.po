@@ -456,12 +456,18 @@ msgid "_Save"
 msgstr "_Salvesta"
 
 #: resources/ui/turnon-application-window.blp:20
-msgctxt "application-window.action.win.add-device.tooltip"
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Add a new device"
+msgctxt "application-window.action.app.add-device.tooltip"
 msgid "Add a new device"
 msgstr "Lisa uus seade"
 
 #: resources/ui/turnon-application-window.blp:27
-msgctxt "application-window.action.win.scan-network.tooltip"
+#, fuzzy
+#| msgctxt "application-window.action.win.scan-network.tooltip"
+#| msgid "Scan the network for devices"
+msgctxt "application-window.action.app.scan-network.tooltip"
 msgid "Scan the network for devices"
 msgstr "Otsi võrgust seadmeid"
 
@@ -495,7 +501,7 @@ msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr "R_akenduse teave: Lülita sisse"
 
-#: src/app.rs:68
+#: src/app.rs:51
 msgctxt "about-dialog.link.label"
 msgid "Translations"
 msgstr "Tõlked"
@@ -503,46 +509,46 @@ msgstr "Tõlked"
 #. Credits for the translator to the current language.
 #. Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
 #. Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
-#: src/app.rs:77
+#: src/app.rs:60
 msgid "translator-credits"
 msgstr "Priit Jõerüüt 2024"
 
-#: src/app.rs:82
+#: src/app.rs:65
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Help and inspiration"
 msgstr "Abiteave ja inspiratsioon"
 
-#: src/app.rs:95
+#: src/app.rs:78
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
 msgstr "Abiks olevad teenused"
 
-#: src/app.rs:219
+#: src/app.rs:255
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "Lisa uus seade"
 
-#: src/app.rs:230
+#: src/app.rs:266
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr "Lülita seade sisse nime alusel"
 
-#: src/app.rs:235
+#: src/app.rs:271
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr "NIMI"
 
-#: src/app.rs:246
+#: src/app.rs:282
 msgctxt "option.list-devices.description"
 msgid "List all devices and their status"
 msgstr "Näita seadmed ja nende olekud loendina"
 
-#: src/app.rs:258
+#: src/app.rs:294
 msgctxt "option.devices-file.description"
 msgid "Use the given file as storage for devices (for development only)"
 msgstr "Kasuta antud faili seadmete salvestamiseks (vajalik vaid arendamisel)"
 
-#: src/app.rs:270
+#: src/app.rs:306
 msgctxt "option.arp-cache-file.description"
 msgid "Use the given file as ARP cache source (for development only)"
 msgstr ""
@@ -565,7 +571,7 @@ msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
 msgstr "Nimele „%s“ vastavat seadet ei leidunud\n"
 
-#: src/app/model/device_discovery.rs:196
+#: src/app/model/device_discovery.rs:200
 msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr "Tuvastatud seadmed"
@@ -590,20 +596,24 @@ msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr "Imepärase võrgupaketi %2 seadme %1 aadressile saatmine ei õnnestunud."
 
-#: src/app/widgets/application_window.rs:117
+#: src/app/widgets/application_window.rs:90
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
 msgstr "Saadame imepärast võrgupaketti seadmele „%s“"
 
-#: src/app/widgets/application_window.rs:140
+#: src/app/widgets/application_window.rs:113
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr "Saatsime imepärase võrgupaketi seadmele „%s“"
 
-#: src/app/widgets/application_window.rs:155
+#: src/app/widgets/application_window.rs:128
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
 msgstr "Imepärase võrgupaketi saatmine seadmele „%s“ ei õnnestunud"
+
+#~ msgctxt "application-window.action.win.add-device.tooltip"
+#~ msgid "Add a new device"
+#~ msgstr "Lisa uus seade"
