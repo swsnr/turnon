@@ -52,6 +52,10 @@ mod imp {
 
     impl DeviceDiscovery {
         fn set_discovery_enabled(&self, enabled: bool) {
+            if self.discovery_enabled.get() == enabled {
+                // Do nothing if the discovery state is already up to date.
+                return;
+            }
             self.discovery_enabled.replace(enabled);
             self.obj().notify_discovery_enabled();
             if enabled {
