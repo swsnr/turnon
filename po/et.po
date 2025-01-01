@@ -2,15 +2,15 @@
 # Copyright (C) YEAR Sebastian Wiesner <sebastian@swsnr.de>
 # This file is distributed under the same license as the de.swsnr.turnon package.
 # Priit Jõerüüt <jrtcdbrg@users.noreply.translate.codeberg.org>, 2024.
+# Sebastian Wiesner <sebastian@swsnr.de>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-31 08:53+0000\n"
-"Last-Translator: Priit Jõerüüt <jrtcdbrg@users.noreply.translate.codeberg."
-"org>\n"
-"Language-Team: Estonian <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/et/>\n"
+"PO-Revision-Date: 2025-01-01 11:52+0000\n"
+"Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
+"Language-Team: Estonian <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -456,17 +456,11 @@ msgid "_Save"
 msgstr "_Salvesta"
 
 #: resources/ui/turnon-application-window.blp:20
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "application-window.action.app.add-device.tooltip"
 msgid "Add a new device"
 msgstr "Lisa uus seade"
 
 #: resources/ui/turnon-application-window.blp:27
-#, fuzzy
-#| msgctxt "application-window.action.win.scan-network.tooltip"
-#| msgid "Scan the network for devices"
 msgctxt "application-window.action.app.scan-network.tooltip"
 msgid "Scan the network for devices"
 msgstr "Otsi võrgust seadmeid"
