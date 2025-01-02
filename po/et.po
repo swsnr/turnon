@@ -1,14 +1,15 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Sebastian Wiesner <sebastian@swsnr.de>
 # This file is distributed under the same license as the de.swsnr.turnon package.
-# Priit Jõerüüt <jrtcdbrg@users.noreply.translate.codeberg.org>, 2024.
+# Priit Jõerüüt <jrtcdbrg@users.noreply.translate.codeberg.org>, 2024, 2025.
 # Sebastian Wiesner <sebastian@swsnr.de>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-01 11:52+0000\n"
-"Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
+"PO-Revision-Date: 2025-01-02 16:14+0000\n"
+"Last-Translator: Priit Jõerüüt "
+"<jrtcdbrg@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Estonian <https://translate.codeberg.org/projects/"
 "de-swsnr-turnon/de-swsnr-turnon/et/>\n"
 "Language: et\n"
@@ -31,8 +32,9 @@ msgstr "Lülita seadmed oma võrgus sisse"
 #: de.swsnr.turnon.desktop.in:11
 msgid "Gnome;GTK;WakeOnLan;"
 msgstr ""
-"Gnome;GTK;WakeOnLan;wol;ärata;lülita sisse;arvuti;arvutid;seade;seadmed;"
-"kohtvõrk;kohtvõrgus;"
+"Gnome;GTK;WakeOnLan;wol;ärata;lülita "
+"sisse;arvuti;arvutid;seade;seadmed;kohtvõrk;kohtvõrgus;turn on;switch on;"
+"wake on lan;"
 
 #: de.swsnr.turnon.desktop.in:18
 msgid "Add new device"
