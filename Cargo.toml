@@ -5,6 +5,17 @@ homepage = "https://github.com/swsnr/turnon"
 repository = "https://github.com/swsnr/turnon"
 license = "MPL-2.0"
 authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
+# Our version number.  Since semver doesn't make much sense for UI applications
+# which have no API we repurpose the version numer as follows:
+#
+# - major: Major new features or major changes to the UI, which may break the app for some users.
+# - minor: User-visible features or bugfixes.
+# - patch: Translation updates.
+#
+# Major and minor releases get release notes, but patch releases do not; this
+# enables us to ship updates to translations whenever translators contributed
+# new languages or made major updates, while still providing meaningful release
+# notes for the last functional changes.
 version = "2.1.0"
 edition = "2021"
 publish = false
@@ -22,6 +33,7 @@ serde = { version = "1.0.210", features = ["derive"] }
 serde_json = "1.0.128"
 socket2 = "0.5.7"
 bitflags = "2.6.0"
+semver = "1.0.24"
 
 [build-dependencies]
 glob = "0.3.1"

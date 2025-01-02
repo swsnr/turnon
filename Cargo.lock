@@ -760,6 +760,7 @@ dependencies = [
  "libadwaita",
  "log",
  "macaddr",
+ "semver",
  "serde",
  "serde_json",
  "socket2",
