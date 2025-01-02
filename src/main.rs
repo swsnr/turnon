@@ -48,6 +48,6 @@ fn main() -> glib::ExitCode {
     glib::set_application_name("Turn On");
 
     let app = TurnOnApplication::default();
-    app.set_version(config::VERSION);
+    app.set_version(config::CARGO_PKG_VERSION);
     app.run()
 }

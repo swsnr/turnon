@@ -119,7 +119,7 @@ impl DebugInfo {
         .unwrap();
         DebugInfo {
             app_id: config::APP_ID,
-            version: config::VERSION,
+            version: config::CARGO_PKG_VERSION,
             flatpak: config::running_in_flatpak(),
             connectivity,
             ping_results,

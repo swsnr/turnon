@@ -35,7 +35,6 @@
             <description>
                 <p>Save and restore main window state.</p>
                 <p>Define additional shortcuts.</p>
-                <p>Update translations.</p>
             </description>
             <issues>
                 <issue url="https://github.com/swsnr/turnon/issues/62">GH-62</issue>

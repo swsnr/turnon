@@ -3,17 +3,17 @@
 # This file is distributed under the same license as the de.swsnr.turnon package.
 # ALBANO BATTISTELLA <ALBANOBATTISTELLA@GMAIL.COM>, 2024.
 # swsnr <swsnr@users.noreply.translate.codeberg.org>, 2024.
-# albanobattistella <albanobattistella@users.noreply.translate.codeberg.org>, 2024.
+# albanobattistella <albanobattistella@users.noreply.translate.codeberg.org>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2024-12-23 23:53+0000\n"
-"Last-Translator: albanobattistella <albanobattistella@users.noreply."
-"translate.codeberg.org>\n"
-"Language-Team: Italian <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/it/>\n"
+"PO-Revision-Date: 2025-01-02 16:14+0000\n"
+"Last-Translator: albanobattistella "
+"<albanobattistella@users.noreply.translate.codeberg.org>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -77,11 +77,11 @@ msgstr "Accendi i dispositivi dalla riga di comando."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:36
 msgid "Save and restore main window state."
-msgstr ""
+msgstr "Salva e ripristina lo stato della finestra principale."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:37
 msgid "Define additional shortcuts."
-msgstr ""
+msgstr "Definire scorciatoie aggiuntive."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:38
 #: resources/de.swsnr.turnon.metainfo.xml.in:67
@@ -295,12 +295,9 @@ msgstr ""
 "aggiungere un nuovo dispositivo"
 
 #: resources/gtk/help-overlay.blp:21
-#, fuzzy
-#| msgctxt "application-window.status-page.title"
-#| msgid "No devices"
 msgctxt "shortcuts group"
 msgid "Devices"
-msgstr "Nessun dispositivo"
+msgstr "Dispositivi"
 
 #: resources/gtk/help-overlay.blp:24
 msgctxt "shortcut description"
@@ -310,73 +307,52 @@ msgstr "Aggiungi un nuovo dispositivo"
 #: resources/gtk/help-overlay.blp:29
 msgctxt "shortcut description"
 msgid "Toggle network scanning"
-msgstr ""
+msgstr "Attiva scansione di rete"
 
 #: resources/gtk/help-overlay.blp:35
-#, fuzzy
-#| msgid "Add new device"
 msgctxt "shortcuts group"
 msgid "Single device"
-msgstr "Aggiungi nuovo dispositivo"
+msgstr "Dispositivo singolo"
 
 #: resources/gtk/help-overlay.blp:38
-#, fuzzy
-#| msgctxt "application-window.status-page.title"
-#| msgid "No devices"
 msgctxt "shortcut description"
 msgid "Turn on device"
-msgstr "Nessun dispositivo"
+msgstr "Accendi il dispositivo"
 
 #: resources/gtk/help-overlay.blp:43
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcut description"
 msgid "Edit device"
 msgstr "Modifica dispositivo"
 
 #: resources/gtk/help-overlay.blp:48
-#, fuzzy
-#| msgctxt "device-row.action.row.ask-delete.tooltip"
-#| msgid "Delete this device?"
 msgctxt "shortcut description"
 msgid "Ask to delete device"
-msgstr "Eliminare questo dispositivo?"
+msgstr "Chiedi di eliminare il dispositivo"
 
 #: resources/gtk/help-overlay.blp:53
 msgctxt "shortcut description"
 msgid "Immediately delete device without confirmation"
-msgstr ""
+msgstr "Elimina immediatamente il dispositivo senza conferma"
 
 #: resources/gtk/help-overlay.blp:59
-#, fuzzy
-#| msgctxt "discovered-device.label"
-#| msgid "Discovered device"
 msgctxt "shortcuts group"
 msgid "Discovered device"
-msgstr "Dispositivo rilevato"
+msgstr "Trovato dispositivo"
 
 #: resources/gtk/help-overlay.blp:62
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "shortcut description"
 msgid "Add as a new device"
-msgstr "Aggiungi un nuovo dispositivo"
+msgstr "Aggiungi come nuovo dispositivo"
 
 #: resources/gtk/help-overlay.blp:68
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcuts group"
 msgid "Edit device"
 msgstr "Modifica dispositivo"
 
 #: resources/gtk/help-overlay.blp:71
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "shortcut description"
 msgid "Save device"
-msgstr "Aggiungi un nuovo dispositivo"
+msgstr "Salva dispositivo"
 
 #: resources/gtk/help-overlay.blp:77
 msgctxt "shortcuts group"
@@ -499,20 +475,14 @@ msgid "_Save"
 msgstr "_Salva"
 
 #: resources/ui/turnon-application-window.blp:20
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "application-window.action.app.add-device.tooltip"
 msgid "Add a new device"
 msgstr "Aggiungi un nuovo dispositivo"
 
 #: resources/ui/turnon-application-window.blp:27
-#, fuzzy
-#| msgctxt "application-window.action.win.scan-network.tooltip"
-#| msgid "Scan the network for devices"
 msgctxt "application-window.action.app.scan-network.tooltip"
 msgid "Scan the network for devices"
-msgstr "Esegui la scansione della rete per trovare i dispositivi"
+msgstr "Scansiona la rete per i dispositivi"
 
 #: resources/ui/turnon-application-window.blp:55
 msgctxt "application-window.status-page.title"

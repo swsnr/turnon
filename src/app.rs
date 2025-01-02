@@ -31,9 +31,9 @@ impl TurnOnApplication {
     fn show_about_dialog(&self) {
         let dialog = adw::AboutDialog::from_appdata(
             "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
-            Some(crate::config::VERSION),
+            Some(&crate::config::release_notes_version()),
         );
-        dialog.set_version(crate::config::VERSION);
+        dialog.set_version(crate::config::CARGO_PKG_VERSION);
 
         glib::spawn_future_local(glib::clone!(
             #[strong(rename_to = devices)]

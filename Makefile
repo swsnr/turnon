@@ -10,7 +10,7 @@ DESTPREFIX = /app
 # Installation directory for locale files.
 LOCALEDIR = $(DESTPREFIX)/share/locale/
 
-GIT_DESCRIBE = $(shell git describe | tail -c+2)
+GIT_DESCRIBE = $(shell git describe)
 
 BLUEPRINTS = $(wildcard ui/*.blp)
 UIDEFS = $(addsuffix .ui,$(basename $(BLUEPRINTS)))
@@ -78,7 +78,7 @@ install: install-locale
 # Patch the current git describe version into Turn On.
 .PHONY: patch-git-version
 patch-git-version:
-	sed -i 's/^version = .*/version = "$(GIT_DESCRIBE)"/' Cargo.toml
+	sed -Ei 's/^version = "([^"]+)"/version = "\1+$(GIT_DESCRIBE)"/' Cargo.toml
 	cargo update -p turnon
 
 # Patch the app ID to use APPID in various files
