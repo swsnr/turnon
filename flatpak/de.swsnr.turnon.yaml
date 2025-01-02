@@ -27,18 +27,7 @@ modules:
     build-commands:
       # Point cargo to vendored sources downloaded by flatpak builder
       - install -Dm0644 cargo/config .cargo/config.toml
-      # Build optimized binary
       - cargo build --frozen --release --verbose
-      # Install locales
-      - make LOCALEDIR=/app/share/locale/ install-locale
-      # Install binary, app icon, desktop file, and appstream metadata
-      - install -Dm0755 target/release/turnon /app/bin/de.swsnr.turnon
-      - install -Dm0644 -t /app/share/icons/hicolor/scalable/apps/ resources/icons/scalable/apps/de.swsnr.turnon.svg
-      - install -Dm0644 -t /app/share/icons/hicolor/symbolic/apps/ resources/icons/symbolic/apps/de.swsnr.turnon-symbolic.svg
-      - install -Dm0644 -t /app/share/applications/ de.swsnr.turnon.desktop
-      - install -Dm0644 -t /app/share/metainfo/ resources/de.swsnr.turnon.metainfo.xml
-      - install -Dm0644 -t /app/share/dbus-1/services/ dbus-1/de.swsnr.turnon.service
-      - install -Dm0644 -t /app/share/gnome-shell/search-providers/ de.swsnr.turnon.search-provider.ini
-      # Install settings and compile them
-      - install -Dm0644 -t /app/share/glib-2.0/schemas/ schemas/de.swsnr.turnon.gschema.xml
+      - make DESTPREFIX=/app install
+      # Compile settings schemas
       - glib-compile-schemas --strict /app/share/glib-2.0/schemas
