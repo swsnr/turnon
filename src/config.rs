@@ -4,7 +4,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use std::{borrow::Cow, path::PathBuf};
+use std::path::PathBuf;
 
 use glib::{gstr, GStr};
 use gtk::gio;
@@ -17,6 +17,11 @@ pub static APP_ID: &GStr = gstr!("de.swsnr.turnon");
 /// This provides the full version from `Cargo.toml`.
 pub static CARGO_PKG_VERSION: &str = env!("CARGO_PKG_VERSION");
 
+/// Get [`CARGO_PKG_VERSION`] parsed.
+fn cargo_pkg_version() -> semver::Version {
+    semver::Version::parse(CARGO_PKG_VERSION).unwrap()
+}
+
 /// The version to use for release notes.
 ///
 /// For nightly builds (see [`is_development`]) this returns `next`, otherwise
@@ -25,16 +30,12 @@ pub static CARGO_PKG_VERSION: &str = env!("CARGO_PKG_VERSION");
 ///
 /// This follows our versioning policy which uses patch releases only for
 /// translation updates.
-pub fn release_notes_version() -> Cow<'static, str> {
-    if is_development() {
-        Cow::Borrowed("next")
-    } else {
-        let mut version = semver::Version::parse(CARGO_PKG_VERSION).unwrap();
-        version.patch = 0;
-        version.pre = semver::Prerelease::EMPTY;
-        version.build = semver::BuildMetadata::EMPTY;
-        version.to_string().into()
-    }
+pub fn release_notes_version() -> semver::Version {
+    let mut version = cargo_pkg_version();
+    version.patch = 0;
+    version.pre = semver::Prerelease::EMPTY;
+    version.build = semver::BuildMetadata::EMPTY;
+    version
 }
 
 pub const G_LOG_DOMAIN: &str = "TurnOn";
@@ -79,5 +80,44 @@ pub fn locale_directory() -> PathBuf {
         "/app/share/locale".into()
     } else {
         "/usr/share/locale".into()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+
+    #[test]
+    fn release_notes_version_only_has_major_and_minor() {
+        let version = super::release_notes_version();
+        assert_eq!(version.major, super::cargo_pkg_version().major);
+        assert_eq!(version.minor, super::cargo_pkg_version().minor);
+        assert_eq!(version.patch, 0);
+        assert!(version.pre.is_empty());
+        assert!(version.build.is_empty());
+    }
+    #[test]
+    fn release_notes_for_release_notes_version() {
+        let metadata = std::fs::read_to_string(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/resources/de.swsnr.turnon.metainfo.xml.in"
+        ))
+        .unwrap();
+        assert!(metadata.contains(&format!(
+            "<release version=\"{}\"",
+            super::release_notes_version()
+        )));
+    }
+
+    #[test]
+    fn no_release_notes_for_cargo_pkg_version() {
+        let version = super::cargo_pkg_version();
+        if version != super::release_notes_version() {
+            let metadata = std::fs::read_to_string(concat!(
+                env!("CARGO_MANIFEST_DIR"),
+                "/resources/de.swsnr.turnon.metainfo.xml.in"
+            ))
+            .unwrap();
+            assert!(!metadata.contains(&format!("version=\"{version}\"")));
+        }
     }
 }

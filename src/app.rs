@@ -31,7 +31,7 @@ impl TurnOnApplication {
     fn show_about_dialog(&self) {
         let dialog = adw::AboutDialog::from_appdata(
             "/de/swsnr/turnon/de.swsnr.turnon.metainfo.xml",
-            Some(&crate::config::release_notes_version()),
+            Some(&crate::config::release_notes_version().to_string()),
         );
         dialog.set_version(crate::config::CARGO_PKG_VERSION);
 
