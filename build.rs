@@ -4,89 +4,75 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use std::{
-    path::{Path, PathBuf},
-    process::Command,
-};
+use std::io::{Error, ErrorKind, Result};
+use std::path::{Path, PathBuf};
+use std::process::{Command, Stdio};
+
+fn glob_io(pattern: &str) -> Result<Vec<PathBuf>> {
+    glob::glob(pattern)
+        .map_err(|err| Error::new(ErrorKind::Other, err))?
+        .map(|item| item.map_err(|err| Error::new(ErrorKind::Other, err)))
+        .collect::<Result<Vec<PathBuf>>>()
+}
+
+trait CommandExt {
+    fn checked(&mut self);
+}
+
+impl CommandExt for Command {
+    fn checked(&mut self) {
+        let status = self.status().unwrap();
+        if !status.success() {
+            panic!("Command {:?} failed with status {status}", self);
+        }
+    }
+}
 
 /// Compile all blueprint files.
-fn compile_blueprint() {
-    let blueprint_files: Vec<PathBuf> = glob::glob("resources/**/*.blp")
-        .unwrap()
-        .collect::<Result<_, _>>()
-        .unwrap();
-    for blueprint_file in &blueprint_files {
-        println!("cargo:rerun-if-changed={}", blueprint_file.display());
-    }
-
+fn compile_blueprint() -> Vec<PathBuf> {
+    let blueprint_files = glob_io("resources/**/*.blp").unwrap();
     if let Some("1") | Some("true") = std::env::var("SKIP_BLUEPRINT").ok().as_deref() {
         println!("cargo::warning=Skipping blueprint compilation, falling back to committed files.");
-        return;
+    } else {
+        Command::new("blueprint-compiler")
+            .args(["batch-compile", "resources", "resources"])
+            .args(&blueprint_files)
+            .checked();
     }
-
-    let output = Command::new("blueprint-compiler")
-        .args(["batch-compile", "resources", "resources"])
-        .args(&blueprint_files)
-        .output()
-        .unwrap();
-
-    assert!(
-        output.status.success(),
-        "blueprint-compiler failed with exit status {} and stdout\n{}\n\n and stderr:\n{}",
-        output.status,
-        String::from_utf8_lossy(&output.stdout),
-        String::from_utf8_lossy(&output.stderr)
-    );
+    blueprint_files
 }
 
 /// Run `msgfmt` over a template file to merge translations with the template.
 fn msgfmt_template<P: AsRef<Path>>(template: P) {
     let target = template.as_ref().with_extension("");
-    println!("cargo:rerun-if-changed={}", template.as_ref().display());
-
     let mode = match target.extension().and_then(|e| e.to_str()) {
         Some("desktop") => "--desktop",
         Some("xml") => "--xml",
         other => panic!("Unsupported template extension: {:?}", other),
     };
 
-    let output = Command::new("msgfmt")
+    Command::new("msgfmt")
         .args([mode, "--template"])
         .arg(template.as_ref())
         .args(["-d", "po", "--output"])
         .arg(target)
-        .output()
-        .unwrap();
-
-    assert!(
-        output.status.success(),
-        "msgfmt of {} failed with exit status {} and stdout\n{}\n\n and stderr:\n{}",
-        template.as_ref().display(),
-        output.status,
-        String::from_utf8_lossy(&output.stdout),
-        String::from_utf8_lossy(&output.stderr)
-    );
+        .checked();
 }
 
-fn msgfmt() {
+fn msgfmt() -> Vec<PathBuf> {
     let po_files: Vec<PathBuf> = glob::glob("po/*.po")
         .unwrap()
-        .collect::<Result<_, _>>()
+        .collect::<std::result::Result<_, _>>()
         .unwrap();
-
-    for po_file in &po_files {
-        println!("cargo:rerun-if-changed={}", po_file.display());
-    }
-    println!("cargo:rerun-if-changed=po/LINGUAS");
 
     let msgfmt_exists = Command::new("msgfmt")
         .arg("--version")
-        .output()
-        .is_ok_and(|output| output.status.success());
+        .status()
+        .is_ok_and(|status| status.success());
 
-    let templates = [
-        "resources/de.swsnr.turnon.metainfo.xml.in",
-        "de.swsnr.turnon.desktop.in",
+    let templates = &[
+        Path::new("resources/de.swsnr.turnon.metainfo.xml.in").to_owned(),
+        Path::new("de.swsnr.turnon.desktop.in").to_owned(),
     ];
     if msgfmt_exists {
         for file in templates {
@@ -95,12 +81,21 @@ fn msgfmt() {
     } else {
         println!("cargo::warning=msgfmt not found; using untranslated desktop and metainfo file.");
         for file in templates {
-            std::fs::copy(file, Path::new(file).with_extension("")).unwrap();
+            std::fs::copy(file, file.with_extension("")).unwrap();
         }
     }
+
+    let mut sources = po_files;
+    sources.push("po/LINGUAS".into());
+    sources.extend_from_slice(templates);
+    sources
 }
 
-pub fn compile_resources<P: AsRef<Path>>(source_dirs: &[P], gresource: &str, target: &str) {
+pub fn compile_resources<P: AsRef<Path>>(
+    source_dirs: &[P],
+    gresource: &str,
+    target: &str,
+) -> Vec<PathBuf> {
     let out_dir = std::env::var("OUT_DIR").unwrap();
     let out_dir = Path::new(&out_dir);
 
@@ -110,23 +105,13 @@ pub fn compile_resources<P: AsRef<Path>>(source_dirs: &[P], gresource: &str, tar
         command.arg("--sourcedir").arg(source_dir.as_ref());
     }
 
-    let output = command
+    command
         .arg("--target")
         .arg(out_dir.join(target))
         .arg(gresource)
-        .output()
-        .unwrap();
+        .checked();
 
-    assert!(
-        output.status.success(),
-        "glib-compile-resources failed with exit status {} and stderr:\n{}",
-        output.status,
-        String::from_utf8_lossy(&output.stderr)
-    );
-
-    println!("cargo:rerun-if-changed={gresource}");
     let mut command = Command::new("glib-compile-resources");
-
     for source_dir in source_dirs {
         command.arg("--sourcedir").arg(source_dir.as_ref());
     }
@@ -134,56 +119,57 @@ pub fn compile_resources<P: AsRef<Path>>(source_dirs: &[P], gresource: &str, tar
     let output = command
         .arg("--generate-dependencies")
         .arg(gresource)
+        .stderr(Stdio::inherit())
         .output()
         .unwrap()
         .stdout;
+
+    let mut sources = vec![Path::new(gresource).into()];
+
     for line in String::from_utf8(output).unwrap().lines() {
         if line.ends_with(".ui") {
             // We build UI files from blueprint, so adapt the dependency
-            println!(
-                "cargo:rerun-if-changed={}",
-                Path::new(line).with_extension("blp").display()
-            );
+            sources.push(Path::new(line).with_extension("blp"))
         } else if line.ends_with(".metainfo.xml") {
-            // We build the metainfo file from the template
-            println!("cargo:rerun-if-changed={line}.in",);
+            sources.push(Path::new(line).with_extension("xml.in"));
         } else {
-            println!("cargo:rerun-if-changed={line}",);
+            sources.push(line.into());
         }
     }
+
+    sources
 }
 
-fn compile_schemas() {
-    let schemas: Vec<PathBuf> = glob::glob("schemas/*.gschema.xml")
-        .unwrap()
-        .collect::<Result<_, _>>()
-        .unwrap();
-    for schema in schemas {
-        println!("cargo:rerun-if-changed={}", schema.display());
-    }
-
-    let output = Command::new("glib-compile-schemas")
+fn glib_compile_schemas() -> Vec<PathBuf> {
+    let schemas = glob_io("schemas/*.gschema.xml").unwrap();
+    Command::new("glib-compile-schemas")
         .args(["--strict", "schemas"])
-        .output()
-        .unwrap();
-
-    assert!(
-        output.status.success(),
-        "glib-compile-schemas failed with exit status {} and stderr:\n{}",
-        output.status,
-        String::from_utf8_lossy(&output.stderr)
-    );
+        .checked();
+    schemas
 }
 
 fn main() {
-    // Compile blueprints and msgfmt our metainfo template first, as these are
-    // inputs to resource compilation.
-    compile_blueprint();
-    msgfmt();
-    compile_schemas();
-    compile_resources(
-        &["resources"],
-        "resources/resources.gresource.xml",
-        "turnon.gresource",
+    let tasks = [
+        std::thread::spawn(compile_blueprint),
+        std::thread::spawn(glib_compile_schemas),
+        std::thread::spawn(msgfmt),
+    ];
+
+    let mut sources = tasks
+        .into_iter()
+        .flat_map(|task| task.join().unwrap())
+        .collect::<Vec<_>>();
+
+    sources.extend_from_slice(
+        compile_resources(
+            &["resources"],
+            "resources/resources.gresource.xml",
+            "turnon.gresource",
+        )
+        .as_slice(),
     );
+
+    for source in sources {
+        println!("cargo:rerun-if-changed={}", source.display());
+    }
 }
