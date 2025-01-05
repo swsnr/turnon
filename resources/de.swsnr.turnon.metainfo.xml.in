@@ -31,14 +31,14 @@
     <url type="contribute">https://github.com/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
-        <release version="next" date="9999-01-01">
+        <release version="2.2.0" date="2025-01-05">
             <description>
                 <p>Refine application icon to make it sharper at smaller sizes, and redesign symbolic icon.</p>
             </description>
             <issues>
                 <issue url="https://github.com/swsnr/turnon/pull/80">GH-80</issue>
             </issues>
-            <url>https://github.com/swsnr/turnon/releases/tag/next</url>
+            <url>https://github.com/swsnr/turnon/releases/tag/v2.2.0</url>
         </release>
         <release version="2.1.0" date="2025-01-01">
             <description>
