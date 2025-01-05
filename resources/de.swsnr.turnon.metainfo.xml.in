@@ -34,10 +34,10 @@
         <release version="next" date="9999-01-01">
             <description>
                 <p>Refine application icon to make it sharper at smaller sizes, and redesign symbolic icon.</p>
-                <issues>
-                    <issue url="https://github.com/swsnr/turnon/pull/80">GH-80</issue>
-                </issues>
             </description>
+            <issues>
+                <issue url="https://github.com/swsnr/turnon/pull/80">GH-80</issue>
+            </issues>
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>
         <release version="2.1.0" date="2025-01-01">
