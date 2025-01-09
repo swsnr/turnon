@@ -71,7 +71,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                                 <child>
                                   <object class="GtkButton">
                                     <property name="label" translatable="yes" context="application-window.status-page.button.label">Add new device</property>
-                                    <property name="action-name">win.add-device</property>
+                                    <property name="action-name">app.add-device</property>
                                     <style>
                                       <class name="pill"/>
                                       <class name="suggested-action"/>
