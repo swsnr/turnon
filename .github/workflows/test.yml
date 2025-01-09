@@ -70,7 +70,7 @@ jobs:
       - run: blueprint-compiler format resources/**/*.blp
         # Make the glob work
         shell: bash
-      - run: cargo build --all-features
+      - run: cargo build
       - run: cargo clippy --all-targets
       - run: cargo test
       - name: cargo deny check
