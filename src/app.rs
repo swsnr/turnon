@@ -187,7 +187,7 @@ mod imp {
     }
 
     /// Save `model` to `storage` whenever `device` changed.
-    fn save_device_automatically(storage: StorageServiceClient, model: ListStore, device: Device) {
+    fn save_device_automatically(storage: StorageServiceClient, model: ListStore, device: &Device) {
         device.connect_notify_local(None, move |device, _| {
             glib::debug!("Device {} was changed, saving devices", device.label());
             storage.request_save_device_store(&model);
@@ -237,7 +237,7 @@ mod imp {
                 save_device_automatically(
                     storage.clone(),
                     self.devices.registered_devices(),
-                    device.unwrap().downcast().unwrap(),
+                    &device.unwrap().downcast().unwrap(),
                 );
             }
             // Monitor any newly added device for changes
@@ -249,7 +249,7 @@ mod imp {
                         save_device_automatically(
                             storage.clone(),
                             model.clone(),
-                            model.item(n).unwrap().downcast().unwrap(),
+                            &model.item(n).unwrap().downcast().unwrap(),
                         );
                     }
                 },
@@ -397,7 +397,7 @@ mod imp {
 
             glib::info!("Registering search provider");
             self.registered_search_provider
-                .replace(register_app_search_provider(app.clone()));
+                .replace(register_app_search_provider(&app));
         }
 
         /// Activate the application.
@@ -459,7 +459,7 @@ mod imp {
                 self.obj().activate_action("add-device", None);
                 glib::ExitCode::SUCCESS
             } else if let Ok(Some(label)) = options.lookup::<String>("turn-on-device") {
-                commandline::turn_on_device_by_label(&self.obj(), command_line, label)
+                commandline::turn_on_device_by_label(&self.obj(), command_line, &label)
             } else {
                 self.obj().activate();
                 glib::ExitCode::SUCCESS

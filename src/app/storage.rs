@@ -79,7 +79,7 @@ fn read_devices(target: &Path) -> Result<Vec<StoredDevice>> {
     })
 }
 
-fn write_devices(target: &Path, devices: Vec<StoredDevice>) -> Result<()> {
+fn write_devices(target: &Path, devices: &[StoredDevice]) -> Result<()> {
     let target_directory = target.parent().ok_or(std::io::Error::new(
         ErrorKind::InvalidData,
         format!("Path {} must be absolute, but wasn't!", target.display()),
@@ -99,7 +99,8 @@ async fn handle_save_requests(data_file: PathBuf, rx: Receiver<Vec<StoredDevice>
             // then wait for the result of saving the file before processing
             // the next storage request, to avoid writing to the same file
             // in parallel.
-            let result = gtk::gio::spawn_blocking(move || write_devices(&target, devices)).await;
+            let result =
+                gtk::gio::spawn_blocking(move || write_devices(&target, devices.as_slice())).await;
             match result {
                 Err(payload) => {
                     resume_unwind(payload);

@@ -121,7 +121,7 @@ async fn activate_result(
     }
 }
 
-fn get_result_metas(app: &TurnOnApplication, call: GetResultMetas) -> Option<Variant> {
+fn get_result_metas(app: &TurnOnApplication, call: &GetResultMetas) -> Option<Variant> {
     let metas: Vec<VariantDict> = call
         .identifiers
         .iter()
@@ -161,7 +161,7 @@ async fn dispatch_method_call(
             // We just search fresh again, since our model is neither that big nor that complicated
             Ok(Some(get_result_set(&app, c.terms.as_slice())))
         }
-        GetResultMetas(c) => Ok(get_result_metas(&app, c)),
+        GetResultMetas(c) => Ok(get_result_metas(&app, &c)),
         ActivateResult(c) => activate_result(&app, c).await,
         LaunchSearch(c) => {
             glib::debug!("Launching search for terms {:?}", &c.terms);
@@ -177,7 +177,7 @@ async fn dispatch_method_call(
 /// Register a search provider for devices on the DBus connection of `app`.
 /// The search provider exposes devices from the `app` model to GNOME Shell,
 /// and allows to turn on devices directly from the shell overview.
-pub fn register_app_search_provider(app: TurnOnApplication) -> Option<RegistrationId> {
+pub fn register_app_search_provider(app: &TurnOnApplication) -> Option<RegistrationId> {
     if let Some(connection) = app.dbus_connection() {
         let interface_info = searchprovider2::interface();
         let registration_id = connection

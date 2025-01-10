@@ -174,7 +174,7 @@ mod imp {
         }
 
         #[template_callback]
-        fn move_to_next_entry(entry: adw::EntryRow) {
+        fn move_to_next_entry(entry: &adw::EntryRow) {
             entry.emit_move_focus(gtk::DirectionType::TabForward);
         }
     }

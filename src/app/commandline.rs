@@ -52,7 +52,7 @@ async fn turn_on_device(
 pub fn turn_on_device_by_label(
     app: &TurnOnApplication,
     command_line: &gio::ApplicationCommandLine,
-    label: String,
+    label: &str,
 ) -> glib::ExitCode {
     let guard = app.hold();
     glib::debug!("Turning on device in response to command line argument");
@@ -84,7 +84,7 @@ pub fn turn_on_device_by_label(
                 "option.turn-on-device.error",
                 "No device found for label %s\n",
             )
-            .replace("%s", &label),
+            .replace("%s", label),
         );
         glib::ExitCode::FAILURE
     }
