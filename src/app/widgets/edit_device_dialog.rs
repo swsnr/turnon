@@ -40,7 +40,13 @@ impl EditDeviceDialog {
                 &self,
                 #[upgrade_or_default]
                 move |args| {
-                    let device = &args[1].get().expect("No device passed as signal argument?");
+                    let device = args
+                        .get(1)
+                        .expect("'saved' signal expects one argument but got none?")
+                        .get()
+                        .unwrap_or_else(|error| {
+                            panic!("'saved' signal expected Device as first argument: {error}");
+                        });
                     callback(&dialog, device);
                     None
                 }

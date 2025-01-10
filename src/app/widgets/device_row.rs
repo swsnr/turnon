@@ -35,7 +35,13 @@ impl DeviceRow {
                 &self,
                 #[upgrade_or_default]
                 move |args| {
-                    let device = &args[1].get().expect("No device passed as signal argument?");
+                    let device = args
+                        .get(1)
+                        .expect("'deleted' signal expected one argument but got none!")
+                        .get()
+                        .unwrap_or_else(|error| {
+                            panic!("'deleted' signal expected Device as first argument: {error}");
+                        });
                     callback(&row, device);
                     None
                 }
@@ -55,7 +61,13 @@ impl DeviceRow {
                 &self,
                 #[upgrade_or_default]
                 move |args| {
-                    let device = &args[1].get().expect("No device passed as signal argument?");
+                    let device = args
+                        .get(1)
+                        .expect("'added' signal expects one argument but got none?")
+                        .get()
+                        .unwrap_or_else(|error| {
+                            panic!("'added' signal expected Device as first argument: {error}");
+                        });
                     callback(&row, device);
                     None
                 }
@@ -75,10 +87,22 @@ impl DeviceRow {
                 &self,
                 #[upgrade_or_default]
                 move |args| {
-                    let device = &args[1].get().expect("No device passed as signal argument?");
-                    let direction = args[2]
+                    let device = args
+                        .get(1)
+                        .expect("'moved' signal expected two arguments but got none")
                         .get()
-                        .expect("No direction passed as signal argument?");
+                        .unwrap_or_else(|error| {
+                            panic!("'moved' signal expected Device as first argument: {error}");
+                        });
+                    let direction = args
+                        .get(2)
+                        .expect("'moved' signal expected two arguments but got only one")
+                        .get()
+                        .unwrap_or_else(|error| {
+                            panic!(
+                                "'moved' signal expected MoveDirection as second argument: {error}"
+                            );
+                        });
                     callback(&row, device, direction);
                     None
                 }
