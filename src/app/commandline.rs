@@ -133,8 +133,8 @@ pub fn list_devices(
                         hw.max(device.host().chars().count()),
                     )
                 });
-            for (device, _result) in pinged_devices {
-                let (color, indicator) = match _result {
+            for (device, result) in pinged_devices {
+                let (color, indicator) = match result {
                     Ok(duration) => (
                         "\x1b[1;32m",
                         Cow::Owned(format!("{:3}ms", duration.as_millis())),
