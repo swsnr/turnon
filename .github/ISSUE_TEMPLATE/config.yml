@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support
+    url: https://github.com/swsnr/turnon/discussions/categories/q-a
+    about: Please ask and answer questions here.
+  - name: Ideas and Issues
+    url: https://github.com/swsnr/turnon/discussions/categories/ideas-issues
+    about: Please report bugs, issues, and feature reports here.
