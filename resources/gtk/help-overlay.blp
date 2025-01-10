@@ -46,6 +46,24 @@ Gtk.ShortcutsWindow help_overlay {
     }
 
     Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "Discovered device");
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Add as a new device");
+        accelerator: "<Ctrl>N";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "Edit device");
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Save device");
+        accelerator: "<Ctrl>S";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
       title: C_("shortcuts group", "Single device");
 
       Gtk.ShortcutsShortcut {
@@ -76,24 +94,6 @@ Gtk.ShortcutsWindow help_overlay {
       Gtk.ShortcutsShortcut {
         title: C_("shortcut description", "Move device downwards");
         accelerator: "<Alt>Down";
-      }
-    }
-
-    Gtk.ShortcutsGroup {
-      title: C_("shortcuts group", "Discovered device");
-
-      Gtk.ShortcutsShortcut {
-        title: C_("shortcut description", "Add as a new device");
-        accelerator: "<Ctrl>N";
-      }
-    }
-
-    Gtk.ShortcutsGroup {
-      title: C_("shortcuts group", "Edit device");
-
-      Gtk.ShortcutsShortcut {
-        title: C_("shortcut description", "Save device");
-        accelerator: "<Ctrl>S";
       }
     }
   }
