@@ -234,8 +234,8 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                device: Default::default(),
-                is_device_online: Default::default(),
+                device: RefCell::default(),
+                is_device_online: Cell::default(),
                 suffix_mode: RefCell::new("buttons".into()),
             }
         }

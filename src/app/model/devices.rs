@@ -46,7 +46,7 @@ mod imp {
         fn new() -> Self {
             Self {
                 registered_devices: gio::ListStore::with_type(Device::static_type()),
-                discovered_devices: Default::default(),
+                discovered_devices: DeviceDiscovery::default(),
             }
         }
     }

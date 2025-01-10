@@ -189,12 +189,12 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                device: Default::default(),
-                label: Default::default(),
-                label_valid: Default::default(),
-                mac_address: Default::default(),
-                mac_address_valid: Default::default(),
-                host: Default::default(),
+                device: RefCell::default(),
+                label: RefCell::default(),
+                label_valid: Cell::default(),
+                mac_address: RefCell::default(),
+                mac_address_valid: Cell::default(),
+                host: RefCell::default(),
                 host_indicator: RefCell::new("invalid-empty".to_string()),
                 is_valid: (),
             }

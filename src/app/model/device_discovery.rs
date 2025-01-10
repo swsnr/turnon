@@ -124,9 +124,9 @@ mod imp {
 
         fn new() -> Self {
             Self {
-                discovery_enabled: Default::default(),
+                discovery_enabled: Cell::default(),
                 arp_cache_file: RefCell::new(default_arp_cache_path().into()),
-                discovered_devices: Default::default(),
+                discovered_devices: RefCell::default(),
             }
         }
     }

@@ -24,7 +24,7 @@ pub fn monitor(
     destination: PingDestination,
     interval: Duration,
 ) -> impl Stream<Item = Result<Duration, glib::Error>> {
-    let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Default::default();
+    let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Rc::default();
     let timeout = interval / 2;
     futures_util::stream::iter(vec![()])
         .chain(glib::interval_stream(interval))
