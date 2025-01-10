@@ -29,7 +29,7 @@ pub fn monitor(
     futures_util::stream::iter(vec![()])
         .chain(glib::interval_stream(interval))
         .enumerate()
-        .map(|(seqnr, ())| (seqnr % (u16::MAX as usize)) as u16)
+        .map(|(seqnr, ())| u16::try_from(seqnr % (u16::MAX as usize)).unwrap())
         .scan(cached_ip_address, move |state, seqnr| {
             let destination = destination.clone();
             let state = state.clone();

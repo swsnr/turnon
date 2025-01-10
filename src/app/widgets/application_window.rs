@@ -197,14 +197,16 @@ mod imp {
                 move |_, device, direction| {
                     let devices = devices.registered_devices();
                     if let Some(current_index) = devices.find(device) {
-                        let swap_index = current_index as i64 + direction as i64;
-                        if 0 <= swap_index && swap_index < devices.n_items() as i64 {
-                            if let Some(device_swapped) = devices.item(swap_index as u32) {
+                        let swap_index = i64::from(current_index) + i64::from(direction);
+                        if 0 <= swap_index && swap_index < i64::from(devices.n_items()) {
+                            if let Some(device_swapped) =
+                                devices.item(u32::try_from(swap_index).unwrap())
+                            {
                                 // We remove the other device, not the device being moved; this
                                 // retains the widget for the device being moved in views consuming
                                 // the model, meaning it remains focused, and we can repeatedly
                                 // move the same device to rearrange it.
-                                devices.remove(swap_index as u32);
+                                devices.remove(u32::try_from(swap_index).unwrap());
                                 devices.insert(current_index, &device_swapped);
                             }
                         }
