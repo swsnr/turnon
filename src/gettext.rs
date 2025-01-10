@@ -13,6 +13,9 @@ use glib::GStr;
 
 pub fn bindtextdomain(domainname: &GStr, locale_dir: PathBuf) -> Result<()> {
     let locale_dir = CString::new(locale_dir.into_os_string().into_vec()).unwrap();
+    // SAFETY: domainname, being a GStr, is nul-terminated, and we explicitly convert locale_dir to a nul-terminated.
+    // string. bindtextdomain does not take ownership of these pointers so we need not copy.  We ignore the returned
+    // pointer, other than checking for NULL.
     let new_dir = unsafe { native::bindtextdomain(domainname.as_ptr(), locale_dir.as_ptr()) };
     if new_dir.is_null() {
         Err(std::io::Error::last_os_error())
@@ -22,6 +25,8 @@ pub fn bindtextdomain(domainname: &GStr, locale_dir: PathBuf) -> Result<()> {
 }
 
 pub fn textdomain(domainname: &GStr) -> Result<()> {
+    // SAFETY: domainname, being a GStr, is nul-terminated. textdomain does not take ownership of this pointer so we
+    // need not copy.  We ignore the returned pointer, other than checking for NULL.
     let new_domain = unsafe { native::textdomain(domainname.as_ptr()) };
     if new_domain.is_null() {
         Err(std::io::Error::last_os_error())
@@ -31,6 +36,8 @@ pub fn textdomain(domainname: &GStr) -> Result<()> {
 }
 
 pub fn bind_textdomain_codeset(domainname: &GStr, codeset: &GStr) -> Result<()> {
+    // SAFETY: domainname and codeset, being GStrs, are nul-terminated already. bind_textdomain_codeset does not take
+    // ownership of these pointers so we need not copy.  We ignore the returned pointer, other than checking for NULL.
     let new_codeset =
         unsafe { native::bind_textdomain_codeset(domainname.as_ptr(), codeset.as_ptr()) };
     if new_codeset.is_null() {
@@ -41,6 +48,8 @@ pub fn bind_textdomain_codeset(domainname: &GStr, codeset: &GStr) -> Result<()> 
 }
 
 pub fn setlocale(category: c_int, locale: &GStr) -> Result<()> {
+    // SAFETY: locale, being a GStr, is nul-terminated already.  setlocale does not take ownership of this pointer so
+    // we need not copy.  We ignore the returned pointer, other than checking for NULL.
     let current_locale = unsafe { native::setlocale(category, locale.as_ptr()) };
     if current_locale.is_null() {
         Err(std::io::Error::last_os_error())
