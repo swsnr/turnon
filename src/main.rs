@@ -55,15 +55,15 @@ mod net;
 use config::G_LOG_DOMAIN;
 
 fn main() -> glib::ExitCode {
+    static GLIB_LOGGER: glib::GlibLogger = glib::GlibLogger::new(
+        glib::GlibLoggerFormat::Structured,
+        glib::GlibLoggerDomain::CrateTarget,
+    );
     let max_level = if std::env::var_os("G_MESSAGES_DEBUG").is_some() {
         log::LevelFilter::Trace
     } else {
         log::LevelFilter::Warn
     };
-    static GLIB_LOGGER: glib::GlibLogger = glib::GlibLogger::new(
-        glib::GlibLoggerFormat::Structured,
-        glib::GlibLoggerDomain::CrateTarget,
-    );
     log::set_max_level(max_level);
     log::set_logger(&GLIB_LOGGER).unwrap();
 
