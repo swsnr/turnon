@@ -26,7 +26,7 @@ fn write_magic_packet<W: Write>(sink: &mut W, mac_address: MacAddr6) -> std::io:
 
 /// Send a magic Wake On LAN packet to the given `mac_address`.
 ///
-/// Sends the WoL package as UDP package to port 9 on the IPv4 broadcast address.
+/// Sends the magic package as UDP package to port 9 on the IPv4 broadcast address.
 pub async fn wol(mac_address: MacAddr6) -> Result<(), glib::Error> {
     let socket = gio::Socket::new(
         gio::SocketFamily::Ipv4,

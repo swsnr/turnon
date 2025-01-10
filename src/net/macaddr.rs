@@ -7,7 +7,7 @@
 //! Simple MAC address type on top of [`glib::Bytes`].
 //!
 //! While this is not the most efficient approach it allows storing the MAC
-//! address as a GLib property.
+//! address as a glib property.
 
 use std::fmt::Display;
 use std::ops::Deref;
@@ -17,7 +17,7 @@ use macaddr::MacAddr6;
 
 /// Boxed [`MacAddr6`].
 ///
-/// Define a MAC address type for GLib, by boxing a [`MacAdd6`].
+/// Define a MAC address type for glib, by boxing a [`MacAdd6`].
 #[derive(Default, Debug, Copy, Clone, Eq, PartialEq, PartialOrd, Ord, glib::Boxed)]
 #[boxed_type(name = "MacAdd6")]
 pub struct MacAddr6Boxed(MacAddr6);

@@ -174,7 +174,7 @@ async fn dispatch_method_call(
 
 /// Register the Turn On search provider for `app`.
 ///
-/// Register a search provider for devices on the DBus connection of `app`.
+/// Register a search provider for devices on the D-Bus connection of `app`.
 /// The search provider exposes devices from the `app` model to GNOME Shell,
 /// and allows to turn on devices directly from the shell overview.
 pub fn register_app_search_provider(app: &TurnOnApplication) -> Option<RegistrationId> {

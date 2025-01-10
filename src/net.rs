@@ -4,10 +4,10 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-//! Networking for TurnOn.
+//! Networking for Turn On.
 //!
-//! This module provides various utilities around networking required by TurnOn.
-//! Specifically, it has a user-space ping implementation, a WakeOnLan
+//! This module provides various utilities around networking required by Turn On.
+//! Specifically, it has a user-space ping implementation, a Wake-On-Lan
 //! implementation, some helper types, and various tools for network scanning.
 
 pub mod arpcache;

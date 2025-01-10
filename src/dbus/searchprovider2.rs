@@ -18,7 +18,7 @@ static XML: &str = include_str!("../../dbus-1/org.gnome.ShellSearchProvider2.xml
 /// The name of the interface.
 pub static INTERFACE_NAME: &str = "org.gnome.Shell.SearchProvider2";
 
-/// Get the DBus interface info for the search provider interface.
+/// Get the D-Bus interface info for the search provider interface.
 pub fn interface() -> DBusInterfaceInfo {
     // We unwrap here since we know that the XML is valid and contains the
     // desired interface, so none of this can realistically fail.

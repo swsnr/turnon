@@ -24,7 +24,7 @@ use macaddr::MacAddr6;
 /// for known hardware types as of Linux 6.12.
 ///
 /// We do not represent all hardware types, but only those we're interested in
-/// with regards to TurnOn.
+/// with regards to Turn On.
 #[derive(Debug, PartialEq, Eq)]
 #[repr(u16)]
 pub enum ArpKnownHardwareType {
