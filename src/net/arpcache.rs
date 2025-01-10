@@ -133,8 +133,8 @@ impl std::error::Error for ArpCacheParseError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
             ArpCacheParseError::InvalidIpAddress(addr_parse_error) => Some(addr_parse_error),
-            ArpCacheParseError::InvalidHardwareType(parse_int_error) => Some(parse_int_error),
-            ArpCacheParseError::InvalidFlags(parse_int_error) => Some(parse_int_error),
+            ArpCacheParseError::InvalidHardwareType(parse_int_error)
+            | ArpCacheParseError::InvalidFlags(parse_int_error) => Some(parse_int_error),
             _ => None,
         }
     }
