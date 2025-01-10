@@ -39,7 +39,7 @@ mod imp {
     use std::time::Duration;
 
     use adw::subclass::prelude::*;
-    use adw::{prelude::*, ToastOverlay};
+    use adw::{prelude::*, Toast, ToastOverlay};
     use futures_util::{stream, StreamExt, TryStreamExt};
     use glib::dpgettext2;
     use gtk::gdk::{Key, ModifierType};
@@ -101,7 +101,7 @@ mod imp {
                 toast_sending,
                 async move {
                     if let Ok(()) = device.wol().await {
-                        toast_sending.inspect(|t| t.dismiss());
+                        toast_sending.inspect(Toast::dismiss);
 
                         let toast = adw::Toast::builder()
                             .title(
@@ -116,7 +116,7 @@ mod imp {
                             .build();
                         window.imp().feedback.add_toast(toast);
                     } else {
-                        toast_sending.inspect(|t| t.dismiss());
+                        toast_sending.inspect(Toast::dismiss);
                         let toast = adw::Toast::builder()
                             .title(
                                 dpgettext2(

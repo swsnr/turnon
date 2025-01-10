@@ -112,8 +112,7 @@ impl DebugInfo {
                 .await
                 .unwrap();
         let parsed_arp_cache = gio::spawn_blocking(|| {
-            read_arp_cache_from_path(default_arp_cache_path())
-                .and_then(|result| result.collect::<std::io::Result<Vec<_>>>())
+            read_arp_cache_from_path(default_arp_cache_path()).and_then(Iterator::collect)
         })
         .await
         .unwrap();
@@ -161,7 +160,7 @@ impl Display for DebugInfo {
                                     result
                                         .as_ref()
                                         .map(|d| format!("{}ms", d.as_millis()))
-                                        .unwrap_or_else(|error| error.to_string())
+                                        .unwrap_or_else(ToString::to_string)
                                 )
                             })
                             .collect::<Vec<_>>()
