@@ -146,7 +146,7 @@ mod imp {
         fn item(&self, position: u32) -> Option<glib::Object> {
             self.discovered_devices
                 .borrow()
-                .get(usize::try_from(position).unwrap())
+                .get(position as usize)
                 .map(|d| d.clone().upcast())
         }
     }
