@@ -22,6 +22,10 @@ use socket2::{Domain, Protocol, Type};
 
 use crate::config::G_LOG_DOMAIN;
 
+#[allow(
+    clippy::needless_pass_by_value,
+    reason = "Taking error by value is more ergonomic with map_err"
+)]
 fn to_glib_error(error: std::io::Error) -> glib::Error {
     let io_error = error
         .raw_os_error()

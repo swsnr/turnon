@@ -57,6 +57,10 @@ mod mac_addr6_as_string {
     use macaddr::MacAddr6;
     use serde::{Deserialize, Deserializer, Serializer};
 
+    #[allow(
+        clippy::trivially_copy_pass_by_ref,
+        reason = "serde's with requires a &T type here"
+    )]
     pub fn serialize<S>(addr: &MacAddr6, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
