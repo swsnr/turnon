@@ -4,7 +4,7 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-#![deny(warnings, clippy::all,
+#![deny(warnings, clippy::all, clippy::pedantic,
     // Do cfg(test) right
     clippy::cfg_not_test,
     clippy::tests_outside_test_module,
@@ -39,6 +39,7 @@
     clippy::pathbuf_init_then_push,
     clippy::unreachable,
 )]
+#![allow(clippy::enum_glob_use, clippy::module_name_repetitions)]
 
 use adw::prelude::*;
 use app::TurnOnApplication;
