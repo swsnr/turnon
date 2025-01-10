@@ -141,35 +141,35 @@ impl Display for DebugInfo {
             gio::NetworkConnectivity::Full => "Full".into(),
             other => format!("Other {other:?}").into(),
         };
-        let pings = self
-            .ping_results
-            .iter()
-            .map(|(d, r)| match r {
-                DevicePingResult::ResolveFailed(error) => {
-                    format!("Host {}\n    Failed to resolve: {error}", d.host())
-                }
-                DevicePingResult::Pinged(addresses) => {
-                    format!(
-                        "Host {}:\n{}",
-                        d.host(),
-                        addresses
-                            .iter()
-                            .map(|(addr, result)| {
-                                format!(
-                                    "    {addr}: {}",
-                                    result
-                                        .as_ref()
-                                        .map(|d| format!("{}ms", d.as_millis()))
-                                        .unwrap_or_else(ToString::to_string)
-                                )
-                            })
-                            .collect::<Vec<_>>()
-                            .join("\n")
-                    )
-                }
-            })
-            .collect::<Vec<_>>()
-            .join("\n");
+        let pings =
+            self.ping_results
+                .iter()
+                .map(|(d, r)| match r {
+                    DevicePingResult::ResolveFailed(error) => {
+                        format!("Host {}\n    Failed to resolve: {error}", d.host())
+                    }
+                    DevicePingResult::Pinged(addresses) => {
+                        format!(
+                            "Host {}:\n{}",
+                            d.host(),
+                            addresses
+                                .iter()
+                                .map(|(addr, result)| {
+                                    format!(
+                                        "    {addr}: {}",
+                                        result.as_ref().map_or_else(
+                                            ToString::to_string,
+                                            |d| format!("{}ms", d.as_millis())
+                                        )
+                                    )
+                                })
+                                .collect::<Vec<_>>()
+                                .join("\n")
+                        )
+                    }
+                })
+                .collect::<Vec<_>>()
+                .join("\n");
         let arp_cache_contents = match &self.arp_cache_contents {
             Ok(contents) => Cow::Borrowed(contents),
             Err(error) => Cow::Owned(format!("Failed: {error}")),
