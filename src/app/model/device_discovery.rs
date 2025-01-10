@@ -11,7 +11,9 @@ use gtk::gio;
 use gtk::gio::prelude::*;
 
 use crate::config::G_LOG_DOMAIN;
-use crate::net::arpcache::*;
+use crate::net::arpcache::{
+    read_arp_cache_from_path, ArpCacheEntryFlags, ArpHardwareType, ArpKnownHardwareType,
+};
 
 use super::Device;
 

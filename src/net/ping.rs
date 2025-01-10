@@ -18,7 +18,7 @@ use glib::IOCondition;
 use gtk::gio::prelude::{ResolverExt, SocketExtManual};
 use gtk::gio::Cancellable;
 use gtk::gio::{self, IOErrorEnum};
-use socket2::*;
+use socket2::{Domain, Protocol, Type};
 
 use crate::config::G_LOG_DOMAIN;
 
