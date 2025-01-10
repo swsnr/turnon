@@ -39,7 +39,6 @@ pub async fn wol(mac_address: MacAddr6) -> Result<(), glib::Error> {
         .create_source_future(IOCondition::OUT, Cancellable::NONE, glib::Priority::DEFAULT)
         .await;
     if condition != glib::IOCondition::OUT {
-        socket.close().ok();
         return Err(glib::Error::new(
             IOErrorEnum::BrokenPipe,
             &format!("Socket for waking {mac_address} not ready to write"),
@@ -55,7 +54,6 @@ pub async fn wol(mac_address: MacAddr6) -> Result<(), glib::Error> {
         Cancellable::NONE,
     )?;
     assert!(bytes_sent == 102);
-    socket.close().ok();
     Ok(())
 }
 

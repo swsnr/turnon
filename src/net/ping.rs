@@ -15,7 +15,7 @@ use std::time::{Duration, Instant};
 use futures_util::stream::FuturesUnordered;
 use futures_util::{future, select_biased, FutureExt, StreamExt};
 use glib::IOCondition;
-use gtk::gio::prelude::{ResolverExt, SocketExt, SocketExtManual};
+use gtk::gio::prelude::{ResolverExt, SocketExtManual};
 use gtk::gio::Cancellable;
 use gtk::gio::{self, IOErrorEnum};
 use socket2::*;
@@ -72,7 +72,6 @@ pub async fn ping_address(
         .create_source_future(IOCondition::OUT, Cancellable::NONE, glib::Priority::DEFAULT)
         .await;
     if condition != glib::IOCondition::OUT {
-        socket.close().ok();
         return Err(glib::Error::new(
             IOErrorEnum::BrokenPipe,
             &format!("Socket for {ip_address} not ready to write"),
@@ -113,7 +112,6 @@ pub async fn ping_address(
         ));
     }
     if condition.await != glib::IOCondition::IN {
-        socket.close().ok();
         return Err(glib::Error::new(
             IOErrorEnum::BrokenPipe,
             &format!("Socket for {ip_address} not ready to read"),
@@ -126,7 +124,6 @@ pub async fn ping_address(
     // Sanity check in case we got the array length wrong!
     assert!(response.len() == echo_request.len());
     let (bytes_received, _) = socket.receive_from(&mut response, Cancellable::NONE)?;
-    socket.close().ok();
     let end = Instant::now();
     if bytes_received != response.len() {
         return Err(glib::Error::new(
