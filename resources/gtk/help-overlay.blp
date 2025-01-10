@@ -18,6 +18,20 @@ Gtk.ShortcutsWindow help_overlay {
     section-name: "shortcuts";
 
     Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "General");
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Show shortcuts");
+        action-name: "win.show-help-overlay";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Quit");
+        action-name: "app.quit";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
       title: C_("shortcuts group", "Devices");
 
       Gtk.ShortcutsShortcut {
@@ -28,6 +42,24 @@ Gtk.ShortcutsWindow help_overlay {
       Gtk.ShortcutsShortcut {
         title: C_("shortcut description", "Toggle network scanning");
         action-name: "app.scan-network";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "Discovered device");
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Add as a new device");
+        accelerator: "<Ctrl>N";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "Edit device");
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Save device");
+        accelerator: "<Ctrl>S";
       }
     }
 
@@ -53,37 +85,15 @@ Gtk.ShortcutsWindow help_overlay {
         title: C_("shortcut description", "Immediately delete device without confirmation");
         accelerator: "<Ctrl>Delete";
       }
-    }
-
-    Gtk.ShortcutsGroup {
-      title: C_("shortcuts group", "Discovered device");
 
       Gtk.ShortcutsShortcut {
-        title: C_("shortcut description", "Add as a new device");
-        accelerator: "<Ctrl>N";
-      }
-    }
-
-    Gtk.ShortcutsGroup {
-      title: C_("shortcuts group", "Edit device");
-
-      Gtk.ShortcutsShortcut {
-        title: C_("shortcut description", "Save device");
-        accelerator: "<Ctrl>S";
-      }
-    }
-
-    Gtk.ShortcutsGroup {
-      title: C_("shortcuts group", "General");
-
-      Gtk.ShortcutsShortcut {
-        title: C_("shortcut description", "Show shortcuts");
-        action-name: "win.show-help-overlay";
+        title: C_("shortcut description", "Move device upwards");
+        accelerator: "<Alt>Up";
       }
 
       Gtk.ShortcutsShortcut {
-        title: C_("shortcut description", "Quit");
-        action-name: "app.quit";
+        title: C_("shortcut description", "Move device downwards");
+        accelerator: "<Alt>Down";
       }
     }
   }
