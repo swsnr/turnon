@@ -166,7 +166,7 @@ pub async fn ping_address_with_timeout(
 ) -> Result<Duration, glib::Error> {
     select_biased! {
         r = ping_address(address, sequence_number).fuse() => r,
-        _ = glib::timeout_future(timeout).fuse() => Err(
+        () = glib::timeout_future(timeout).fuse() => Err(
             glib::Error::new(
                 IOErrorEnum::TimedOut,
                 &format!("Timeout after {}ms", timeout.as_millis()),
@@ -256,7 +256,7 @@ impl PingDestination {
     ) -> Result<(IpAddr, Duration), glib::Error> {
         select_biased! {
             r = self.ping(sequence_number).fuse() => r,
-            _ = glib::timeout_future(timeout).fuse() => Err(
+            () = glib::timeout_future(timeout).fuse() => Err(
                 glib::Error::new(
                     IOErrorEnum::TimedOut,
                     &format!("Timeout after {}ms", timeout.as_millis()),

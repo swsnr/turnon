@@ -113,7 +113,7 @@ async fn handle_save_requests(data_file: PathBuf, rx: Receiver<Vec<StoredDevice>
                             error
                         );
                     }
-                    Ok(Ok(_)) => {
+                    Ok(Ok(())) => {
                         glib::info!("Saved devices to {}", data_file.display());
                     }
                 }

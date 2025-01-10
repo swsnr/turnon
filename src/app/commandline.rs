@@ -22,7 +22,7 @@ async fn turn_on_device(
     device: &Device,
 ) -> glib::ExitCode {
     match device.wol().await {
-        Ok(_) => {
+        Ok(()) => {
             command_line.print_literal(
                 &dpgettext2(
                     None,

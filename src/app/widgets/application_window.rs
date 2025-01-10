@@ -101,7 +101,7 @@ mod imp {
                 toast_sending,
                 async move {
                     match device.wol().await {
-                        Ok(_) => {
+                        Ok(()) => {
                             toast_sending.inspect(|t| t.dismiss());
 
                             let toast = adw::Toast::builder()

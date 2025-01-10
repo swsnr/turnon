@@ -36,13 +36,13 @@ impl Device {
         let wol_timeout = Duration::from_secs(5);
         let result = select_biased! {
             result = wol(*mac_address).fuse() => result,
-            _ = glib::timeout_future(wol_timeout).fuse() => {
+            () = glib::timeout_future(wol_timeout).fuse() => {
                 let message = &format!("Failed to send magic packet within {wol_timeout:#?}");
                 Err(glib::Error::new(IOErrorEnum::TimedOut, message))
             }
         };
         result
-            .inspect(|_| {
+            .inspect(|()| {
                 glib::info!(
                     "Sent magic packet to {mac_address} of device {}",
                     self.label()

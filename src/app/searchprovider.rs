@@ -69,7 +69,7 @@ async fn activate_result(
         }
         Some(device) => {
             match device.wol().await {
-                Ok(_) => {
+                Ok(()) => {
                     let notification = Notification::new(&dpgettext2(
                         None,
                         "search-provider.notification.title",

@@ -42,7 +42,7 @@ async fn ping_device(device: Device) -> (Device, DevicePingResult) {
     let timeout = Duration::from_millis(500);
     let addresses = select_biased! {
         addresses = PingDestination::from(device.host()).resolve().fuse() => addresses,
-        _ = glib::timeout_future(timeout).fuse() => Err(timeout_err(timeout)),
+        () = glib::timeout_future(timeout).fuse() => Err(timeout_err(timeout)),
     };
 
     match addresses {
@@ -90,7 +90,7 @@ impl DebugInfo {
         let (connectivity, ping_results) = futures_util::future::join(
             // Give network monitor time to actually figure out what the state of the network is,
             // especially inside a flatpak sandbox, see https://gitlab.gnome.org/GNOME/glib/-/issues/1718
-            glib::timeout_future(Duration::from_millis(500)).map(|_| monitor.connectivity()),
+            glib::timeout_future(Duration::from_millis(500)).map(|()| monitor.connectivity()),
             std::iter::once(Device::new(
                 "localhost",
                 MacAddr6::nil().into(),
