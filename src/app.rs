@@ -476,7 +476,11 @@ mod imp {
             self.parent_shutdown();
             if let Some(registration_id) = self.registered_search_provider.replace(None) {
                 if let Some(connection) = self.obj().dbus_connection() {
-                    connection.unregister_object(registration_id).ok();
+                    if let Err(error) = connection.unregister_object(registration_id) {
+                        glib::warn!(
+                            "Failed to unregister the search provider DBUS interface: {error}"
+                        );
+                    }
                 }
             }
         }
