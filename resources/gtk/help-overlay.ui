@@ -13,6 +13,23 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
         <property name="section-name">shortcuts</property>
         <child>
           <object class="GtkShortcutsGroup">
+            <property name="title" translatable="yes" context="shortcuts group">General</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Show shortcuts</property>
+                <property name="action-name">win.show-help-overlay</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Quit</property>
+                <property name="action-name">app.quit</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
             <property name="title" translatable="yes" context="shortcuts group">Devices</property>
             <child>
               <object class="GtkShortcutsShortcut">
@@ -55,6 +72,18 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                 <property name="accelerator">&lt;Ctrl&gt;Delete</property>
               </object>
             </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Move device upwards</property>
+                <property name="accelerator">&lt;Alt&gt;Up</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut description">Move device downwards</property>
+                <property name="accelerator">&lt;Alt&gt;Down</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>
@@ -75,23 +104,6 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
               <object class="GtkShortcutsShortcut">
                 <property name="title" translatable="yes" context="shortcut description">Save device</property>
                 <property name="accelerator">&lt;Ctrl&gt;S</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkShortcutsGroup">
-            <property name="title" translatable="yes" context="shortcuts group">General</property>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut description">Show shortcuts</property>
-                <property name="action-name">win.show-help-overlay</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkShortcutsShortcut">
-                <property name="title" translatable="yes" context="shortcut description">Quit</property>
-                <property name="action-name">app.quit</property>
               </object>
             </child>
           </object>

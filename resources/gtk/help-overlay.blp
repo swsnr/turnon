@@ -18,6 +18,20 @@ Gtk.ShortcutsWindow help_overlay {
     section-name: "shortcuts";
 
     Gtk.ShortcutsGroup {
+      title: C_("shortcuts group", "General");
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Show shortcuts");
+        action-name: "win.show-help-overlay";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Quit");
+        action-name: "app.quit";
+      }
+    }
+
+    Gtk.ShortcutsGroup {
       title: C_("shortcuts group", "Devices");
 
       Gtk.ShortcutsShortcut {
@@ -53,6 +67,16 @@ Gtk.ShortcutsWindow help_overlay {
         title: C_("shortcut description", "Immediately delete device without confirmation");
         accelerator: "<Ctrl>Delete";
       }
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Move device upwards");
+        accelerator: "<Alt>Up";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: C_("shortcut description", "Move device downwards");
+        accelerator: "<Alt>Down";
+      }
     }
 
     Gtk.ShortcutsGroup {
@@ -70,20 +94,6 @@ Gtk.ShortcutsWindow help_overlay {
       Gtk.ShortcutsShortcut {
         title: C_("shortcut description", "Save device");
         accelerator: "<Ctrl>S";
-      }
-    }
-
-    Gtk.ShortcutsGroup {
-      title: C_("shortcuts group", "General");
-
-      Gtk.ShortcutsShortcut {
-        title: C_("shortcut description", "Show shortcuts");
-        action-name: "win.show-help-overlay";
-      }
-
-      Gtk.ShortcutsShortcut {
-        title: C_("shortcut description", "Quit");
-        action-name: "app.quit";
       }
     }
   }

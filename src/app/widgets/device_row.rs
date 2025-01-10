@@ -62,6 +62,29 @@ impl DeviceRow {
             ),
         )
     }
+
+    pub fn connect_moved<F>(&self, callback: F) -> glib::SignalHandlerId
+    where
+        F: Fn(&Self, &Device, i32) + 'static,
+    {
+        self.connect_local(
+            "moved",
+            false,
+            glib::clone!(
+                #[weak(rename_to=row)]
+                &self,
+                #[upgrade_or_default]
+                move |args| {
+                    let device = &args[1].get().expect("No device passed as signal argument?");
+                    let direction = args[2]
+                        .get()
+                        .expect("No direction passed as signal argument?");
+                    callback(&row, device, direction);
+                    None
+                }
+            ),
+        )
+    }
 }
 
 impl Default for DeviceRow {
@@ -131,6 +154,14 @@ mod imp {
             klass.bind_template();
             klass.bind_template_callbacks();
 
+            klass.install_action("row.move-up", None, |row, _, _| {
+                let direction: i32 = -1;
+                row.emit_by_name::<()>("moved", &[&row.device(), &direction]);
+            });
+            klass.install_action("row.move-down", None, |row, _, _| {
+                let direction: i32 = 1;
+                row.emit_by_name::<()>("moved", &[&row.device(), &direction]);
+            });
             klass.install_action("row.ask-delete", None, |row, _, _| {
                 row.imp().set_suffix_mode("confirm-delete");
             });
@@ -161,6 +192,8 @@ mod imp {
                 dialog.present(Some(row));
             });
 
+            klass.add_binding_action(Key::Up, ModifierType::ALT_MASK, "row.move-up");
+            klass.add_binding_action(Key::Down, ModifierType::ALT_MASK, "row.move-down");
             klass.add_binding_action(Key::Return, ModifierType::ALT_MASK, "row.edit");
             klass.add_binding_action(Key::N, ModifierType::CONTROL_MASK, "row.add");
             klass.add_binding_action(
@@ -196,6 +229,10 @@ mod imp {
                     Signal::builder("added")
                         .action()
                         .param_types([Device::static_type()])
+                        .build(),
+                    Signal::builder("moved")
+                        .action()
+                        .param_types([Device::static_type(), i32::static_type()])
                         .build(),
                 ]
             });
