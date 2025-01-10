@@ -57,39 +57,36 @@ pub fn turn_on_device_by_label(
     let guard = app.hold();
     glib::debug!("Turning on device in response to command line argument");
     let registered_devices = app.devices().registered_devices();
-    match registered_devices
+    let device = registered_devices
         .find_with_equal_func(|o| {
             o.downcast_ref::<Device>()
                 .filter(|d| d.label() == label)
                 .is_some()
         })
         .and_then(|position| registered_devices.item(position))
-        .and_then(|o| o.downcast::<Device>().ok())
-    {
-        Some(device) => {
-            glib::spawn_future_local(glib::clone!(
-                #[strong]
-                command_line,
-                async move {
-                    let exit_code = turn_on_device(&command_line, &device).await;
-                    command_line.set_exit_status(exit_code.value());
-                    command_line.done();
-                    drop(guard);
-                }
-            ));
-            glib::ExitCode::SUCCESS
-        }
-        None => {
-            command_line.printerr_literal(
-                &dpgettext2(
-                    None,
-                    "option.turn-on-device.error",
-                    "No device found for label %s\n",
-                )
-                .replace("%s", &label),
-            );
-            glib::ExitCode::FAILURE
-        }
+        .and_then(|o| o.downcast::<Device>().ok());
+    if let Some(device) = device {
+        glib::spawn_future_local(glib::clone!(
+            #[strong]
+            command_line,
+            async move {
+                let exit_code = turn_on_device(&command_line, &device).await;
+                command_line.set_exit_status(exit_code.value());
+                command_line.done();
+                drop(guard);
+            }
+        ));
+        glib::ExitCode::SUCCESS
+    } else {
+        command_line.printerr_literal(
+            &dpgettext2(
+                None,
+                "option.turn-on-device.error",
+                "No device found for label %s\n",
+            )
+            .replace("%s", &label),
+        );
+        glib::ExitCode::FAILURE
     }
 }
 

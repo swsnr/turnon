@@ -409,17 +409,14 @@ mod imp {
             glib::debug!("Activating application");
             self.parent_activate();
             let app = &*self.obj();
-            match app.active_window() {
-                Some(window) => {
-                    glib::debug!("Representing existing application window");
-                    window.present()
-                }
-                None => {
-                    glib::debug!("Creating new application window");
+            if let Some(window) = app.active_window() {
+                glib::debug!("Representing existing application window");
+                window.present();
+            } else {
+                glib::debug!("Creating new application window");
 
-                    let window = self.create_application_window();
-                    window.present();
-                }
+                let window = self.create_application_window();
+                window.present();
             }
         }
 

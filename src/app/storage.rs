@@ -93,35 +93,31 @@ fn write_devices(target: &Path, devices: Vec<StoredDevice>) -> Result<()> {
 
 async fn handle_save_requests(data_file: PathBuf, rx: Receiver<Vec<StoredDevice>>) {
     loop {
-        match rx.recv().await {
-            Ok(devices) => {
-                let target = data_file.clone();
-                // Off-load serialization and writing to gio's blocking pool. We
-                // then wait for the result of saving the file before processing
-                // the next storage request, to avoid writing to the same file
-                // in parallel.
-                let result =
-                    gtk::gio::spawn_blocking(move || write_devices(&target, devices)).await;
-                match result {
-                    Err(payload) => {
-                        resume_unwind(payload);
-                    }
-                    Ok(Err(error)) => {
-                        glib::error!(
-                            "Failed to save devices to {}: {}",
-                            data_file.display(),
-                            error
-                        );
-                    }
-                    Ok(Ok(())) => {
-                        glib::info!("Saved devices to {}", data_file.display());
-                    }
+        if let Ok(devices) = rx.recv().await {
+            let target = data_file.clone();
+            // Off-load serialization and writing to gio's blocking pool. We
+            // then wait for the result of saving the file before processing
+            // the next storage request, to avoid writing to the same file
+            // in parallel.
+            let result = gtk::gio::spawn_blocking(move || write_devices(&target, devices)).await;
+            match result {
+                Err(payload) => {
+                    resume_unwind(payload);
+                }
+                Ok(Err(error)) => {
+                    glib::error!(
+                        "Failed to save devices to {}: {}",
+                        data_file.display(),
+                        error
+                    );
+                }
+                Ok(Ok(())) => {
+                    glib::info!("Saved devices to {}", data_file.display());
                 }
             }
-            Err(_) => {
-                glib::warn!("Channel closed");
-                break;
-            }
+        } else {
+            glib::warn!("Channel closed");
+            break;
         }
     }
 }

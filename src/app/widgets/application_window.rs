@@ -100,38 +100,35 @@ mod imp {
                 #[weak_allow_none]
                 toast_sending,
                 async move {
-                    match device.wol().await {
-                        Ok(()) => {
-                            toast_sending.inspect(|t| t.dismiss());
+                    if let Ok(()) = device.wol().await {
+                        toast_sending.inspect(|t| t.dismiss());
 
-                            let toast = adw::Toast::builder()
-                                .title(
-                                    dpgettext2(
-                                        None,
-                                        "application-window.feedback.toast",
-                                        "Sent magic packet to device %s",
-                                    )
-                                    .replace("%s", &device.label()),
+                        let toast = adw::Toast::builder()
+                            .title(
+                                dpgettext2(
+                                    None,
+                                    "application-window.feedback.toast",
+                                    "Sent magic packet to device %s",
                                 )
-                                .timeout(3)
-                                .build();
-                            window.imp().feedback.add_toast(toast);
-                        }
-                        Err(_) => {
-                            toast_sending.inspect(|t| t.dismiss());
-                            let toast = adw::Toast::builder()
-                                .title(
-                                    dpgettext2(
-                                        None,
-                                        "application-window.feedback.toast",
-                                        "Failed to send magic packet to device %s",
-                                    )
-                                    .replace("%s", &device.label()),
+                                .replace("%s", &device.label()),
+                            )
+                            .timeout(3)
+                            .build();
+                        window.imp().feedback.add_toast(toast);
+                    } else {
+                        toast_sending.inspect(|t| t.dismiss());
+                        let toast = adw::Toast::builder()
+                            .title(
+                                dpgettext2(
+                                    None,
+                                    "application-window.feedback.toast",
+                                    "Failed to send magic packet to device %s",
                                 )
-                                .timeout(10)
-                                .build();
-                            window.imp().feedback.add_toast(toast);
-                        }
+                                .replace("%s", &device.label()),
+                            )
+                            .timeout(10)
+                            .build();
+                        window.imp().feedback.add_toast(toast);
                     }
                 }
             ));
