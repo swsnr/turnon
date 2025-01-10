@@ -83,7 +83,7 @@ mod imp {
 
     /// Whether `s` looks as if it's a host and port, e.g. `localhost:1245`.
     fn is_host_and_port(s: &str) -> bool {
-        if let Some((_, port)) = s.rsplit_once(":") {
+        if let Some((_, port)) = s.rsplit_once(':') {
             port.chars().all(|c| c.is_ascii_digit())
         } else {
             false
