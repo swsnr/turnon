@@ -121,7 +121,7 @@ async fn activate_result(
     }
 }
 
-fn get_result_metas(app: &TurnOnApplication, call: &GetResultMetas) -> Option<Variant> {
+fn get_result_metas(app: &TurnOnApplication, call: &GetResultMetas) -> Variant {
     let metas: Vec<VariantDict> = call
         .identifiers
         .iter()
@@ -139,7 +139,7 @@ fn get_result_metas(app: &TurnOnApplication, call: &GetResultMetas) -> Option<Va
                 })
         })
         .collect::<Vec<_>>();
-    Some((metas,).into())
+    (metas,).into()
 }
 
 async fn dispatch_method_call(
@@ -161,7 +161,7 @@ async fn dispatch_method_call(
             // We just search fresh again, since our model is neither that big nor that complicated
             Ok(Some(get_result_set(&app, c.terms.as_slice())))
         }
-        GetResultMetas(c) => Ok(get_result_metas(&app, &c)),
+        GetResultMetas(c) => Ok(Some(get_result_metas(&app, &c))),
         ActivateResult(c) => activate_result(&app, c).await,
         LaunchSearch(c) => {
             glib::debug!("Launching search for terms {:?}", &c.terms);
