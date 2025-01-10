@@ -139,7 +139,7 @@ impl Display for DebugInfo {
             gio::NetworkConnectivity::Limited => "Limited".into(),
             gio::NetworkConnectivity::Portal => "Portal".into(),
             gio::NetworkConnectivity::Full => "Full".into(),
-            other => format!("Other {:?}", other).into(),
+            other => format!("Other {other:?}").into(),
         };
         let pings = self
             .ping_results
