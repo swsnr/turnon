@@ -80,7 +80,11 @@ fn read_devices(target: &Path) -> Result<Vec<StoredDevice>> {
 }
 
 fn write_devices(target: &Path, devices: Vec<StoredDevice>) -> Result<()> {
-    std::fs::create_dir_all(target.parent().expect("Target path not absolute?")).ok();
+    let target_directory = target.parent().ok_or(std::io::Error::new(
+        ErrorKind::InvalidData,
+        format!("Path {} must be absolute, but wasn't!", target.display()),
+    ))?;
+    std::fs::create_dir_all(target_directory)?;
     File::create(target).and_then(|sink| {
         serde_json::to_writer_pretty(sink, &devices)
             .map_err(|err| std::io::Error::new(ErrorKind::InvalidData, err))
