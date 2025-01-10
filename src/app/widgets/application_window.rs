@@ -179,7 +179,7 @@ mod imp {
                 move |_, device| {
                     glib::info!("Deleting device {}", device.label());
                     if let Some(index) = devices.registered_devices().find(device) {
-                        devices.registered_devices().remove(index)
+                        devices.registered_devices().remove(index);
                     }
                 }
             ));

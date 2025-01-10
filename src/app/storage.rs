@@ -172,7 +172,7 @@ impl StorageService {
     /// After spawning no further clients can be created from the service.  You
     /// must create a client first, and then clone that client.
     pub async fn spawn(self) {
-        handle_save_requests(self.target, self.rx).await
+        handle_save_requests(self.target, self.rx).await;
     }
 }
 
@@ -193,7 +193,7 @@ impl StorageServiceClient {
                 .filter_map(|obj| obj.unwrap().downcast::<Device>().ok())
                 .map(StoredDevice::from)
                 .collect(),
-        )
+        );
     }
 
     /// Request that the service save the given `devices`.

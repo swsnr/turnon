@@ -193,7 +193,7 @@ mod imp {
                 row.imp().set_suffix_mode("buttons");
             });
             klass.install_action("row.delete", None, |row, _, _| {
-                row.emit_by_name::<()>("deleted", &[&row.device()])
+                row.emit_by_name::<()>("deleted", &[&row.device()]);
             });
             klass.install_action("row.edit", None, |obj, _, _| {
                 let dialog = EditDeviceDialog::edit(obj.device());
