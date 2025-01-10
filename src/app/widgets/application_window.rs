@@ -198,7 +198,6 @@ mod imp {
                 #[strong]
                 devices,
                 move |_, device, direction| {
-                    println!("Would swap {} with {direction}", device.label());
                     let devices = devices.registered_devices();
                     if let Some(current_index) = devices.find(device) {
                         let swap_index = current_index as i64 + direction as i64;
