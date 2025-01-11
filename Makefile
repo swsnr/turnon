@@ -90,10 +90,11 @@ patch-appid:
 		dbus-1/de.swsnr.turnon.service de.swsnr.turnon.search-provider.ini \
 		schemas/de.swsnr.turnon.gschema.xml
 
-# Remove compiled message catalogs and other generated files.
+# Remove compiled message catalogs and other generated files, and flatpak
+# things
 .PHONY: clean
 clean:
-	rm -f po/*.mo
+	rm -fr po/*.mo builddir repo .flatpak-builder
 
 # Build a development flatpak without sandbox.
 .PHONY: flatpak-devel
