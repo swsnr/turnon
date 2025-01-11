@@ -38,6 +38,8 @@
     clippy::partial_pub_fields,
     clippy::pathbuf_init_then_push,
     clippy::unreachable,
+    // Disable as casts
+    clippy::as_conversions,
 )]
 #![allow(clippy::enum_glob_use, clippy::module_name_repetitions)]
 
