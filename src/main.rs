@@ -29,15 +29,11 @@
     // Do not carelessly ignore errors
     clippy::let_underscore_must_use,
     clippy::let_underscore_untyped,
-    // Code smeels
-    clippy::field_scoped_visibility_modifiers,
+    // Code smells
     clippy::float_cmp_const,
     clippy::string_to_string,
     clippy::if_then_some_else_none,
     clippy::large_include_file,
-    clippy::partial_pub_fields,
-    clippy::pathbuf_init_then_push,
-    clippy::unreachable,
     // Disable as casts
     clippy::as_conversions,
 )]
