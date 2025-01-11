@@ -47,6 +47,7 @@ mod imp {
     use gtk::CompositeTemplate;
 
     use crate::app::model::{Device, Devices};
+    use crate::app::widgets::MoveDirection;
     use crate::config::G_LOG_DOMAIN;
     use crate::net;
 
@@ -196,8 +197,12 @@ mod imp {
                 devices,
                 move |_, device, direction| {
                     let devices = devices.registered_devices();
+                    let offset = match direction {
+                        MoveDirection::Upwards => -1,
+                        MoveDirection::Downwards => 1,
+                    };
                     if let Some(current_index) = devices.find(device) {
-                        let swap_index = i64::from(current_index) + i64::from(direction);
+                        let swap_index = i64::from(current_index) + offset;
                         if 0 <= swap_index && swap_index < i64::from(devices.n_items()) {
                             if let Some(device_swapped) =
                                 devices.item(u32::try_from(swap_index).unwrap())

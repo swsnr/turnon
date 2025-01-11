@@ -7,7 +7,21 @@
 use glib::object::ObjectExt;
 use gtk::glib;
 
+pub use self::r#enum::MoveDirection;
 use super::super::model::Device;
+
+#[allow(clippy::as_conversions, reason = "Comes from glib::Enum")]
+mod r#enum {
+    /// The direction a device was moved into.
+    #[derive(Debug, Clone, Copy, Eq, PartialEq, glib::Enum)]
+    #[enum_type(name = "DeviceMoveDirection")]
+    pub enum MoveDirection {
+        /// The device was moved upwards.
+        Upwards,
+        /// The device was moved downwards.
+        Downwards,
+    }
+}
 
 glib::wrapper! {
     pub struct DeviceRow(ObjectSubclass<imp::DeviceRow>)
@@ -77,7 +91,7 @@ impl DeviceRow {
 
     pub fn connect_moved<F>(&self, callback: F) -> glib::SignalHandlerId
     where
-        F: Fn(&Self, &Device, i32) + 'static,
+        F: Fn(&Self, &Device, MoveDirection) + 'static,
     {
         self.connect_local(
             "moved",
@@ -131,6 +145,7 @@ mod imp {
     use crate::app::model::Device;
 
     use super::super::EditDeviceDialog;
+    use super::MoveDirection;
 
     #[derive(CompositeTemplate, Properties)]
     #[properties(wrapper_type = super::DeviceRow)]
@@ -179,12 +194,10 @@ mod imp {
             klass.bind_template_callbacks();
 
             klass.install_action("row.move-up", None, |row, _, _| {
-                let direction: i32 = -1;
-                row.emit_by_name::<()>("moved", &[&row.device(), &direction]);
+                row.emit_by_name::<()>("moved", &[&row.device(), &MoveDirection::Upwards]);
             });
             klass.install_action("row.move-down", None, |row, _, _| {
-                let direction: i32 = 1;
-                row.emit_by_name::<()>("moved", &[&row.device(), &direction]);
+                row.emit_by_name::<()>("moved", &[&row.device(), &MoveDirection::Downwards]);
             });
             klass.install_action("row.ask-delete", None, |row, _, _| {
                 row.imp().set_suffix_mode("confirm-delete");
@@ -256,7 +269,7 @@ mod imp {
                         .build(),
                     Signal::builder("moved")
                         .action()
-                        .param_types([Device::static_type(), i32::static_type()])
+                        .param_types([Device::static_type(), MoveDirection::static_type()])
                         .build(),
                 ]
             });
