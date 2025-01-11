@@ -9,7 +9,7 @@
 use std::fmt::Display;
 use std::future::Future;
 use std::net::{IpAddr, SocketAddr};
-use std::os::fd::{AsRawFd, OwnedFd};
+use std::os::fd::{AsRawFd, FromRawFd, OwnedFd};
 use std::time::{Duration, Instant};
 
 use futures_util::stream::FuturesUnordered;
@@ -18,7 +18,7 @@ use glib::IOCondition;
 use gtk::gio::prelude::{ResolverExt, SocketExtManual};
 use gtk::gio::Cancellable;
 use gtk::gio::{self, IOErrorEnum};
-use socket2::{Domain, Protocol, Type};
+use gtk::prelude::SocketExt;
 
 use crate::config::G_LOG_DOMAIN;
 
@@ -33,24 +33,34 @@ fn to_glib_error(error: std::io::Error) -> glib::Error {
     glib::Error::new(io_error, &error.to_string())
 }
 
-fn create_dgram_socket(domain: Domain, protocol: Protocol) -> Result<gio::Socket, glib::Error> {
-    let socket =
-        socket2::Socket::new_raw(domain, Type::DGRAM, Some(protocol)).map_err(to_glib_error)?;
-    socket.set_nonblocking(true).map_err(to_glib_error)?;
-    socket
-        .set_read_timeout(Some(Duration::from_secs(10)))
-        .map_err(to_glib_error)?;
-    let fd = OwnedFd::from(socket);
-    // SAFETY: from_fd has unfortunate ownership semantics: It claims the fd on
-    // success, but on error the caller retains ownership of the fd.  Hence, we
-    // do _not_ move out of `fd` here, but instead pass the raw fd.  In case of
-    // error Rust will then just drop our owned fd as usual.  In case of success
-    // the fd now belongs to the GIO socket, so we explicitly forget the
-    // borrowed fd.
-    let gio_socket = unsafe { gio::Socket::from_fd(fd.as_raw_fd()) }?;
-    // Do not drop our fd because it is now owned by gio_socket
-    std::mem::forget(fd);
-    Ok(gio_socket)
+fn icmp_socket_for_address(address: IpAddr) -> Result<gio::Socket, glib::Error> {
+    let (domain, proto) = match address {
+        IpAddr::V4(_) => (libc::AF_INET, libc::IPPROTO_ICMP),
+        IpAddr::V6(_) => (libc::AF_INET6, libc::IPPROTO_ICMPV6),
+    };
+    // SAFETY: We only pass integer constants here, and check for error return immediately.
+    let socket = unsafe { libc::socket(domain, libc::SOCK_DGRAM, proto) };
+    if socket < 0 {
+        Err(to_glib_error(std::io::Error::last_os_error()))
+    } else {
+        // SAFETY: socket returns a new FD on success which the caller now owns.
+        let socket = unsafe { OwnedFd::from_raw_fd(socket) };
+        // SAFETY: from_fd has unfortunate ownership semantics: It claims the fd on
+        // success, but on error the caller retains ownership of the fd.  Hence, we
+        // do _not_ move out of `fd` here, but instead pass the raw fd.  In case of
+        // error Rust will then just drop our owned fd as usual.  In case of success
+        // the fd now belongs to the GIO socket, so we explicitly forget the
+        // borrowed fd.
+        let gio_socket = unsafe { gio::Socket::from_fd(socket.as_raw_fd()) }?;
+        // Do not drop our fd because it is now owned by gio_socket.
+        std::mem::forget(socket);
+        // Make the socket non-blocking and add a reasonable timeout.
+        // set_timeout takes a timeout in seconds; we go through a Duration value
+        // to make this explicit.
+        gio_socket.set_blocking(false);
+        gio_socket.set_timeout(u32::try_from(Duration::from_secs(10).as_secs()).unwrap());
+        Ok(gio_socket)
+    }
 }
 
 /// Send a single ping to `ip_address`.
@@ -66,12 +76,8 @@ pub async fn ping_address(
     sequence_number: u16,
 ) -> Result<Duration, glib::Error> {
     glib::trace!("Sending ICMP echo request to {ip_address}");
-    let (domain, protocol) = match ip_address {
-        IpAddr::V4(_) => (Domain::IPV4, Protocol::ICMPV4),
-        IpAddr::V6(_) => (Domain::IPV6, Protocol::ICMPV6),
-    };
     let start = Instant::now();
-    let socket = create_dgram_socket(domain, protocol)?;
+    let socket = icmp_socket_for_address(ip_address)?;
     let condition = socket
         .create_source_future(IOCondition::OUT, Cancellable::NONE, glib::Priority::DEFAULT)
         .await;

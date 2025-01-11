@@ -274,13 +274,6 @@ user-login = "epage"
 user-name = "Ed Page"
 
 [[publisher.windows-sys]]
-version = "0.52.0"
-when = "2023-11-15"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows-sys]]
 version = "0.59.0"
 when = "2024-07-30"
 user-id = 64539
@@ -379,11 +372,6 @@ who = "Alex Crichton <alex@alexcrichton.com>"
 criteria = "safe-to-deploy"
 delta = "0.8.0 -> 0.9.0"
 notes = "No major changes in the crate, mostly updates to use new nightly Rust features."
-
-[[audits.bytecode-alliance.audits.socket2]]
-who = "Alex Crichton <alex@alexcrichton.com>"
-criteria = "safe-to-deploy"
-delta = "0.4.9 -> 0.4.4"
 
 [[audits.embark-studios.wildcard-audits.cfg-expr]]
 who = "Jake Shadle <opensource@embark-studios.com>"
@@ -837,19 +825,6 @@ criteria = "safe-to-run"
 delta = "1.0.133 -> 1.0.134"
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
-[[audits.google.audits.socket2]]
-who = "Vovo Yang <vovoy@google.com>"
-criteria = "safe-to-run"
-version = "0.4.9"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.socket2]]
-who = "David Koloski <dkoloski@google.com>"
-criteria = "safe-to-deploy"
-delta = "0.4.4 -> 0.5.5"
-notes = "Reviewed at https://fxrev.dev/946307"
-aggregated-from = "https://fuchsia.googlesource.com/fuchsia/+/refs/heads/main/third_party/rust_crates/supply-chain/audits.toml?format=TEXT"
-
 [[audits.google.audits.toml]]
 who = "George Burgess IV <gbiv@google.com>"
 criteria = "safe-to-run"
@@ -908,12 +883,6 @@ aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-ch
 who = "Mike Hommey <mh+mozilla@glandium.org>"
 criteria = "safe-to-deploy"
 delta = "0.2.13 -> 0.2.14"
-aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
-
-[[audits.mozilla.audits.socket2]]
-who = "Kershaw Chang <kershaw@mozilla.com>"
-criteria = "safe-to-deploy"
-delta = "0.5.5 -> 0.5.7"
 aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
 
 [[audits.swsnr.audits.cfg-expr]]
