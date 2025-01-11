@@ -540,38 +540,38 @@ msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
 msgstr ""
 
-#: src/app/commandline.rs:87
+#: src/app/commandline.rs:85
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
 msgstr ""
 
-#: src/app/model/device_discovery.rs:200
+#: src/app/model/device_discovery.rs:202
 msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr ""
 
-#: src/app/searchprovider.rs:76
+#: src/app/searchprovider.rs:75
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
 msgstr ""
 
-#: src/app/searchprovider.rs:82
+#: src/app/searchprovider.rs:81
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
 msgstr ""
 
-#: src/app/searchprovider.rs:107
+#: src/app/searchprovider.rs:105
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
 msgstr ""
 
-#: src/app/searchprovider.rs:113
+#: src/app/searchprovider.rs:111
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr ""
 
-#: src/app/widgets/application_window.rs:89
+#: src/app/widgets/application_window.rs:90
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
@@ -583,7 +583,7 @@ msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr ""
 
-#: src/app/widgets/application_window.rs:127
+#: src/app/widgets/application_window.rs:126
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
