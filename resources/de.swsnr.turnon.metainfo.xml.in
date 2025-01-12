@@ -48,7 +48,6 @@
             <issues>
                 <issue url="https://github.com/swsnr/turnon/issues/2">GH-2</issue>
             </issues>
-            <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>
         <release version="2.2.0" date="2025-01-05">
             <description>
