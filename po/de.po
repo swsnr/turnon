@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2025-01-05 18:10+0000\n"
+"PO-Revision-Date: 2025-01-11 09:07+0000\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
 "Language-Team: German <https://translate.codeberg.org/projects/"
 "de-swsnr-turnon/de-swsnr-turnon/de/>\n"
@@ -73,7 +73,13 @@ msgstr "Geräte aus der GNOME-Suche heraus anschalten."
 msgid "Turn on devices from the command line."
 msgstr "Geräte über die Kommandozeile anschalten."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:36
+#: resources/de.swsnr.turnon.metainfo.xml.in:46
+msgid "Reorder devices with Alt+Up and Alt+Down"
+msgstr ""
+"Geräte können mit Alt+Pfeil nach oben und Alt+Pfeil nach unten neu "
+"angeordnet werden"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:55
 msgid ""
 "Refine application icon to make it sharper at smaller sizes, and redesign "
 "symbolic icon."
@@ -81,15 +87,15 @@ msgstr ""
 "Das Anwendungssymbol wurde verbessert, und das stilisierte Symbol wurde neu "
 "entworfen."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:45
+#: resources/de.swsnr.turnon.metainfo.xml.in:64
 msgid "Save and restore main window state."
 msgstr "Der Zustand des Hauptfensters wird gespeichert und wiederhergestellt."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:46
+#: resources/de.swsnr.turnon.metainfo.xml.in:65
 msgid "Define additional shortcuts."
 msgstr "Zusätzliche Tastenkürzel wurden hinzugefügt."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:55
+#: resources/de.swsnr.turnon.metainfo.xml.in:74
 msgid ""
 "Add new toolbar and start page buttons to enable network scanning. When "
 "network scanning is on show devices discovered in the local network in the "
@@ -100,14 +106,14 @@ msgstr ""
 "werden Geräte, die im lokalen Netzwerk gefunden wurden, in der Liste der "
 "Geräte angezeigt."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:59
+#: resources/de.swsnr.turnon.metainfo.xml.in:78
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr ""
 "Das Anwendungssymbol wurde überarbeitet, um den Kontrast auf dunklen "
 "Hintergründen zu verbessern."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:73
+#: resources/de.swsnr.turnon.metainfo.xml.in:92
 msgid ""
 "The dialog to add a new device now uses success and error styles for the "
 "validity indicators."
@@ -115,7 +121,7 @@ msgstr ""
 "Im Dialog zum Hinzufügen eines neuen Geräts werden jetzt entsprechende "
 "Erfolg- und Fehlerstile für die Gültigkeitsanzeige benutzt."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:74
+#: resources/de.swsnr.turnon.metainfo.xml.in:93
 msgid ""
 "Refuse to add a new device if the host name contains a port which is not "
 "permitted at this place."
@@ -123,19 +129,19 @@ msgstr ""
 "Ein Gerät kann nicht länger hinzugefügt werden, wenn der Hostname eine "
 "Portnummer enthält, deren Angabe an dieser Stelle nicht erlaubt ist."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:75
-#: resources/de.swsnr.turnon.metainfo.xml.in:84
-#: resources/de.swsnr.turnon.metainfo.xml.in:92
+#: resources/de.swsnr.turnon.metainfo.xml.in:94
+#: resources/de.swsnr.turnon.metainfo.xml.in:103
+#: resources/de.swsnr.turnon.metainfo.xml.in:111
 msgid "Update translations."
 msgstr "Übersetzungen aktualisiert."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:90
+#: resources/de.swsnr.turnon.metainfo.xml.in:109
 msgid "Searching for devices via GNOME Shell now ignores case."
 msgstr ""
 "Groß- und Kleinschreibung wird bei der Suche nach Geräten über GNOME Shell "
 "nicht mehr berücksichtigt."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:91
+#: resources/de.swsnr.turnon.metainfo.xml.in:110
 msgid ""
 "Add \"--list-devices\" command line argument to list all devices and their "
 "status."
@@ -143,7 +149,7 @@ msgstr ""
 "Eine Kommandozeile-Option \"--list-devices\" zum Auflisten aller Geräte "
 "sowie deren Status wurde hinzugefügt."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:102
+#: resources/de.swsnr.turnon.metainfo.xml.in:121
 msgid ""
 "The link to translations in application metadata and on Flathub is more "
 "helpful now."
@@ -151,35 +157,35 @@ msgstr ""
 "Der Link zu den Übersetzungen in den Metadaten und auf Flathub führt jetzt "
 "auf eine hilfreichere Seite."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:108
+#: resources/de.swsnr.turnon.metainfo.xml.in:127
 msgid "Add Dutch translation, and update existing translations."
 msgstr ""
 "Niederländische Übersetzung hinzugefügt, und vorhandene Übersetzung "
 "aktualisiert."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:109
+#: resources/de.swsnr.turnon.metainfo.xml.in:128
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr ""
 "Anschalten speichert die Liste der Geräte jetzt korrekt ab, wenn ein Gerät "
 "bearbeitet wurde."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:110
+#: resources/de.swsnr.turnon.metainfo.xml.in:129
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr ""
 "Der Dialog \"Info zu Anschalten\" stellt nun einen Debug-Bericht zur "
 "Fehleranalyse bereit."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:119
+#: resources/de.swsnr.turnon.metainfo.xml.in:138
 msgid "Add Hebrew translation."
 msgstr "Hebräische Übersetzung hinzugefügt."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:125
+#: resources/de.swsnr.turnon.metainfo.xml.in:144
 msgid "Add Italian translation, and update German translation."
 msgstr ""
 "Italienische Übersetzung hinzugefügt, und deutsche Übersetzung aktualisiert."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:131
+#: resources/de.swsnr.turnon.metainfo.xml.in:150
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
@@ -187,14 +193,14 @@ msgstr ""
 "Anschalten ist jetzt in die GNOME-Suche integriert und kann Geräte direkt "
 "aus der Suche heraus anschalten."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:132
+#: resources/de.swsnr.turnon.metainfo.xml.in:151
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr ""
 "Geräte können jetzt über das Kontext-Menü des Anwendungssymbols von "
 "Anschalten hinzugefügt werden."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:133
+#: resources/de.swsnr.turnon.metainfo.xml.in:152
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -203,20 +209,20 @@ msgstr ""
 "insbesondere kann mit der Option --turn-on-device ein Gerät direkt über "
 "dessen Bezeichnung angeschaltet werden."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:143
+#: resources/de.swsnr.turnon.metainfo.xml.in:162
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "Anschalten stürzt nicht mehr ab, wenn das letzte Gerät entfernt wird."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:144
+#: resources/de.swsnr.turnon.metainfo.xml.in:163
 msgid "Add German translation, and update application metadata."
 msgstr ""
 "Deutsche Übersetzung hinzugefügt, und Metadaten der Anwendung aktualisiert."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:150
+#: resources/de.swsnr.turnon.metainfo.xml.in:169
 msgid "Shorten summary in metadata."
 msgstr "Zusammenfassung in den Metadaten gekürzt."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:156
+#: resources/de.swsnr.turnon.metainfo.xml.in:175
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -228,11 +234,11 @@ msgstr ""
 "Geräten einfacher per Tastatur zu nutzen (Enter springt zum nächsten "
 "Eingabefeld, und speichert das Gerät zum Schluss)."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:168
+#: resources/de.swsnr.turnon.metainfo.xml.in:187
 msgid "Refined app icon."
 msgstr "Anwendungssymbol verbessert."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:174
+#: resources/de.swsnr.turnon.metainfo.xml.in:193
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
@@ -240,35 +246,35 @@ msgstr ""
 "Die erste Veröffentlichung. In dieser Version unterstützt die Anwendung "
 "folgende Funktionalität:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:176
+#: resources/de.swsnr.turnon.metainfo.xml.in:195
 msgid "Add new devices"
 msgstr "Neue Geräte hinzufügen"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:177
+#: resources/de.swsnr.turnon.metainfo.xml.in:196
 msgid "Monitor whether devices are turned on"
 msgstr "Überwachen, welche Geräte eingeschaltet sind"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:178
+#: resources/de.swsnr.turnon.metainfo.xml.in:197
 msgid "Turn on devices with Wake On LAN"
 msgstr "Geräte mittels Wake-On-LAN einschalten"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:180
+#: resources/de.swsnr.turnon.metainfo.xml.in:199
 msgid "This release is missing the following features:"
 msgstr "In dieser Version fehlt folgende Funktionalität:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:182
+#: resources/de.swsnr.turnon.metainfo.xml.in:201
 msgid "Devices can not be edited or removed."
 msgstr "Geräte können weder bearbeitet noch entfernt werden."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:183
+#: resources/de.swsnr.turnon.metainfo.xml.in:202
 msgid "The order of devices cannot be changed."
 msgstr "Die Reihenfolge der Geräte kann nicht verändert werden."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:184
+#: resources/de.swsnr.turnon.metainfo.xml.in:203
 msgid "Languages other than English are not supported."
 msgstr "Sprachen außer Englisch werden nicht unterstützt."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:197
+#: resources/de.swsnr.turnon.metainfo.xml.in:216
 msgid ""
 "Two devices, one of them on, and the other off, and two devices discovered "
 "in the network"
@@ -276,7 +282,7 @@ msgstr ""
 "Zwei Geräte, eines davon angeschaltet, das andere ausgeschaltet, und zwei "
 "Geräte, die im Netzwerk gefunden wurden"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:201
+#: resources/de.swsnr.turnon.metainfo.xml.in:220
 msgid ""
 "Two devices, one of them on, and the other off, with network discovery not "
 "enabled"
@@ -284,7 +290,7 @@ msgstr ""
 "Zwei Geräte, eines davon angeschaltet, das andere ausgeschaltet, mit "
 "abgeschalteter Netzwerksuche"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:205
+#: resources/de.swsnr.turnon.metainfo.xml.in:224
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
@@ -292,7 +298,7 @@ msgstr ""
 "Ein Gerät bearbeiten mit Bezeichnung, MAC-Adresse, und einer IP-Adresse zur "
 "Überprüfung des Status"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:209
+#: resources/de.swsnr.turnon.metainfo.xml.in:228
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
@@ -302,78 +308,88 @@ msgstr ""
 
 #: resources/gtk/help-overlay.blp:21
 msgctxt "shortcuts group"
-msgid "Devices"
-msgstr "Geräte"
-
-#: resources/gtk/help-overlay.blp:24
-msgctxt "shortcut description"
-msgid "Add a new device"
-msgstr "Ein neues Gerät hinzufügen"
-
-#: resources/gtk/help-overlay.blp:29
-msgctxt "shortcut description"
-msgid "Toggle network scanning"
-msgstr "Netzwerksuche umschalten"
-
-#: resources/gtk/help-overlay.blp:35
-msgctxt "shortcuts group"
-msgid "Single device"
-msgstr "Einzelnes Gerät"
-
-#: resources/gtk/help-overlay.blp:38
-msgctxt "shortcut description"
-msgid "Turn on device"
-msgstr "Gerät anschalten"
-
-#: resources/gtk/help-overlay.blp:43
-msgctxt "shortcut description"
-msgid "Edit device"
-msgstr "Gerät bearbeiten"
-
-#: resources/gtk/help-overlay.blp:48
-msgctxt "shortcut description"
-msgid "Ask to delete device"
-msgstr "Gerät nach Bestätigung löschen"
-
-#: resources/gtk/help-overlay.blp:53
-msgctxt "shortcut description"
-msgid "Immediately delete device without confirmation"
-msgstr "Gerät sofort ohne Bestätigung löschen"
-
-#: resources/gtk/help-overlay.blp:59
-msgctxt "shortcuts group"
-msgid "Discovered device"
-msgstr "Gefundenes Gerät"
-
-#: resources/gtk/help-overlay.blp:62
-msgctxt "shortcut description"
-msgid "Add as a new device"
-msgstr "Als neues Gerät hinzufügen"
-
-#: resources/gtk/help-overlay.blp:68
-msgctxt "shortcuts group"
-msgid "Edit device"
-msgstr "Gerät bearbeiten"
-
-#: resources/gtk/help-overlay.blp:71
-msgctxt "shortcut description"
-msgid "Save device"
-msgstr "Gerät speichern"
-
-#: resources/gtk/help-overlay.blp:77
-msgctxt "shortcuts group"
 msgid "General"
 msgstr "Allgemein"
 
-#: resources/gtk/help-overlay.blp:80
+#: resources/gtk/help-overlay.blp:24
 msgctxt "shortcut description"
 msgid "Show shortcuts"
 msgstr "Tastenkürzel anzeigen"
 
-#: resources/gtk/help-overlay.blp:85
+#: resources/gtk/help-overlay.blp:29
 msgctxt "shortcut description"
 msgid "Quit"
 msgstr "Beenden"
+
+#: resources/gtk/help-overlay.blp:35
+msgctxt "shortcuts group"
+msgid "Devices"
+msgstr "Geräte"
+
+#: resources/gtk/help-overlay.blp:38
+msgctxt "shortcut description"
+msgid "Add a new device"
+msgstr "Ein neues Gerät hinzufügen"
+
+#: resources/gtk/help-overlay.blp:43
+msgctxt "shortcut description"
+msgid "Toggle network scanning"
+msgstr "Netzwerksuche umschalten"
+
+#: resources/gtk/help-overlay.blp:49
+msgctxt "shortcuts group"
+msgid "Discovered device"
+msgstr "Gefundenes Gerät"
+
+#: resources/gtk/help-overlay.blp:52
+msgctxt "shortcut description"
+msgid "Add as a new device"
+msgstr "Als neues Gerät hinzufügen"
+
+#: resources/gtk/help-overlay.blp:58
+msgctxt "shortcuts group"
+msgid "Edit device"
+msgstr "Gerät bearbeiten"
+
+#: resources/gtk/help-overlay.blp:61
+msgctxt "shortcut description"
+msgid "Save device"
+msgstr "Gerät speichern"
+
+#: resources/gtk/help-overlay.blp:67
+msgctxt "shortcuts group"
+msgid "Single device"
+msgstr "Einzelnes Gerät"
+
+#: resources/gtk/help-overlay.blp:70
+msgctxt "shortcut description"
+msgid "Turn on device"
+msgstr "Gerät anschalten"
+
+#: resources/gtk/help-overlay.blp:75
+msgctxt "shortcut description"
+msgid "Edit device"
+msgstr "Gerät bearbeiten"
+
+#: resources/gtk/help-overlay.blp:80
+msgctxt "shortcut description"
+msgid "Ask to delete device"
+msgstr "Gerät nach Bestätigung löschen"
+
+#: resources/gtk/help-overlay.blp:85
+msgctxt "shortcut description"
+msgid "Immediately delete device without confirmation"
+msgstr "Gerät sofort ohne Bestätigung löschen"
+
+#: resources/gtk/help-overlay.blp:90
+msgctxt "shortcut description"
+msgid "Move device upwards"
+msgstr "Gerät nach oben verschieben"
+
+#: resources/gtk/help-overlay.blp:95
+msgctxt "shortcut description"
+msgid "Move device downwards"
+msgstr "Gerät nach unten verschieben"
 
 #: resources/ui/device-row.blp:69
 msgctxt "device-row.action.row.add.tooltip"
@@ -582,40 +598,40 @@ msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
 msgstr "Gerät %1 konnte nicht angeschaltet werden: %2\n"
 
-#: src/app/commandline.rs:87
+#: src/app/commandline.rs:85
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
 msgstr "Kein Gerät mit der Bezeichnung %s gefunden\n"
 
-#: src/app/model/device_discovery.rs:200
+#: src/app/model/device_discovery.rs:202
 msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr "Gefundenes Gerät"
 
-#: src/app/searchprovider.rs:76
+#: src/app/searchprovider.rs:75
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
 msgstr "Magisches Paket wurde gesendet"
 
-#: src/app/searchprovider.rs:82
+#: src/app/searchprovider.rs:81
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
 msgstr "Magisches Paket wurde an die MAC-Adresse %1 des Geräts %2 gesendet."
 
-#: src/app/searchprovider.rs:107
+#: src/app/searchprovider.rs:105
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
 msgstr "Magisches Paket konnte nicht gesendet werden"
 
-#: src/app/searchprovider.rs:113
+#: src/app/searchprovider.rs:111
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr ""
 "Magisches Paket konnte nicht an die MAC-Adresse %1 des Geräts %2 gesendet "
 "werden."
 
-#: src/app/widgets/application_window.rs:89
+#: src/app/widgets/application_window.rs:90
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
@@ -627,7 +643,7 @@ msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr "Magisches Paket wurde an Gerät %s gesendet"
 
-#: src/app/widgets/application_window.rs:127
+#: src/app/widgets/application_window.rs:126
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"

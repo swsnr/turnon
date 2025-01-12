@@ -77,103 +77,107 @@ msgstr ""
 msgid "Turn on devices from the command line."
 msgstr "הדלקת התקנים דרך השכמה דרך הרשת המקומית - Wake On LAN"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:36
+#: resources/de.swsnr.turnon.metainfo.xml.in:46
+msgid "Reorder devices with Alt+Up and Alt+Down"
+msgstr ""
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:55
 msgid ""
 "Refine application icon to make it sharper at smaller sizes, and redesign "
 "symbolic icon."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:45
+#: resources/de.swsnr.turnon.metainfo.xml.in:64
 msgid "Save and restore main window state."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:46
+#: resources/de.swsnr.turnon.metainfo.xml.in:65
 msgid "Define additional shortcuts."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:55
+#: resources/de.swsnr.turnon.metainfo.xml.in:74
 msgid ""
 "Add new toolbar and start page buttons to enable network scanning. When "
 "network scanning is on show devices discovered in the local network in the "
 "list of devices."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:59
+#: resources/de.swsnr.turnon.metainfo.xml.in:78
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:73
+#: resources/de.swsnr.turnon.metainfo.xml.in:92
 msgid ""
 "The dialog to add a new device now uses success and error styles for the "
 "validity indicators."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:74
+#: resources/de.swsnr.turnon.metainfo.xml.in:93
 msgid ""
 "Refuse to add a new device if the host name contains a port which is not "
 "permitted at this place."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:75
-#: resources/de.swsnr.turnon.metainfo.xml.in:84
-#: resources/de.swsnr.turnon.metainfo.xml.in:92
+#: resources/de.swsnr.turnon.metainfo.xml.in:94
+#: resources/de.swsnr.turnon.metainfo.xml.in:103
+#: resources/de.swsnr.turnon.metainfo.xml.in:111
 msgid "Update translations."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:90
+#: resources/de.swsnr.turnon.metainfo.xml.in:109
 msgid "Searching for devices via GNOME Shell now ignores case."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:91
+#: resources/de.swsnr.turnon.metainfo.xml.in:110
 msgid ""
 "Add \"--list-devices\" command line argument to list all devices and their "
 "status."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:102
+#: resources/de.swsnr.turnon.metainfo.xml.in:121
 msgid ""
 "The link to translations in application metadata and on Flathub is more "
 "helpful now."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:108
+#: resources/de.swsnr.turnon.metainfo.xml.in:127
 #, fuzzy
 #| msgid "Add Italian translation, and update German translation."
 msgid "Add Dutch translation, and update existing translations."
 msgstr "נוסף תרגום לאיטלקית והתרגום לגרמנית עודכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:109
+#: resources/de.swsnr.turnon.metainfo.xml.in:128
 #, fuzzy
 #| msgid "Turn On no longer crashes when removing the last device."
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr "הדלקה לא קורס עוד בעת הסרת ההתקן האחרון."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:110
+#: resources/de.swsnr.turnon.metainfo.xml.in:129
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:119
+#: resources/de.swsnr.turnon.metainfo.xml.in:138
 msgid "Add Hebrew translation."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:125
+#: resources/de.swsnr.turnon.metainfo.xml.in:144
 msgid "Add Italian translation, and update German translation."
 msgstr "נוסף תרגום לאיטלקית והתרגום לגרמנית עודכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:131
+#: resources/de.swsnr.turnon.metainfo.xml.in:150
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr "הדלקה משתלבת לתוך החיפוש של GNOME ומציעה להדליק התקנים ישירות מהחיפוש."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:132
+#: resources/de.swsnr.turnon.metainfo.xml.in:151
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr "משגר הדלקה מציע להוסיף התקן חדש בתפריט ההקשר."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:133
+#: resources/de.swsnr.turnon.metainfo.xml.in:152
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -181,19 +185,19 @@ msgstr ""
 "הדלקה מספקת ממשק שורת פקידה בסיסי, במיוחד עם האפשרות ‎--turn-on-device "
 "שמפעילה מעתה התקנים לפי התוויות שלהם."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:143
+#: resources/de.swsnr.turnon.metainfo.xml.in:162
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "הדלקה לא קורס עוד בעת הסרת ההתקן האחרון."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:144
+#: resources/de.swsnr.turnon.metainfo.xml.in:163
 msgid "Add German translation, and update application metadata."
 msgstr "הוספת תרגום לגרמנית ועדכון נתוני העל של היישום."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:150
+#: resources/de.swsnr.turnon.metainfo.xml.in:169
 msgid "Shorten summary in metadata."
 msgstr "קוצר ההסבר בנתוני העל."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:156
+#: resources/de.swsnr.turnon.metainfo.xml.in:175
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -204,45 +208,45 @@ msgstr ""
 "התקן ופישוט חלונית עריכת ההתקנים באמצעות המקלדת (לחיצה אל Enter מנווטת "
 "לרשומה הבאה ובסופו של דבר מוסיפה את ההתקן)."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:168
+#: resources/de.swsnr.turnon.metainfo.xml.in:187
 msgid "Refined app icon."
 msgstr "הסגנון של סמל היישום התעדכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:174
+#: resources/de.swsnr.turnon.metainfo.xml.in:193
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr "זאת המהדורה הראשונית. היישום תומך ביכולות האלה בגרסה הזאת:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:176
+#: resources/de.swsnr.turnon.metainfo.xml.in:195
 msgid "Add new devices"
 msgstr "הוספת התקנים חדשים"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:177
+#: resources/de.swsnr.turnon.metainfo.xml.in:196
 msgid "Monitor whether devices are turned on"
 msgstr "מעקב אחר האם ההתקנים דולקים"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:178
+#: resources/de.swsnr.turnon.metainfo.xml.in:197
 msgid "Turn on devices with Wake On LAN"
 msgstr "הדלקת התקנים דרך השכמה דרך הרשת המקומית - Wake On LAN"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:180
+#: resources/de.swsnr.turnon.metainfo.xml.in:199
 msgid "This release is missing the following features:"
 msgstr "במהדורה הזאת חסרות היכולות הבאות:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:182
+#: resources/de.swsnr.turnon.metainfo.xml.in:201
 msgid "Devices can not be edited or removed."
 msgstr "אי אפשר לערוך או להסיר התקנים."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:183
+#: resources/de.swsnr.turnon.metainfo.xml.in:202
 msgid "The order of devices cannot be changed."
 msgstr "אי אפשר לשנות את סדר ההתקנים."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:184
+#: resources/de.swsnr.turnon.metainfo.xml.in:203
 msgid "Languages other than English are not supported."
 msgstr "אין תמיכה בשפות מלבד אנגלית."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:197
+#: resources/de.swsnr.turnon.metainfo.xml.in:216
 #, fuzzy
 #| msgid "Two devices, one of them on, and the other off"
 msgid ""
@@ -250,7 +254,7 @@ msgid ""
 "in the network"
 msgstr "שני התקנים, אחד מהם דולק, השני כבוי"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:201
+#: resources/de.swsnr.turnon.metainfo.xml.in:220
 #, fuzzy
 #| msgid "Two devices, one of them on, and the other off"
 msgid ""
@@ -258,19 +262,34 @@ msgid ""
 "enabled"
 msgstr "שני התקנים, אחד מהם דולק, השני כבוי"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:205
+#: resources/de.swsnr.turnon.metainfo.xml.in:224
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr "עריכת התקן עם שם, כתובת חומרה (MAC), וכתובת IP כדי לבדוק מולו את המצב"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:209
+#: resources/de.swsnr.turnon.metainfo.xml.in:228
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
 msgstr "עמוד קבלת הפנים הריק עם סמל היישום וכפתור להוספת התקן חדש"
 
 #: resources/gtk/help-overlay.blp:21
+msgctxt "shortcuts group"
+msgid "General"
+msgstr "כללי"
+
+#: resources/gtk/help-overlay.blp:24
+msgctxt "shortcut description"
+msgid "Show shortcuts"
+msgstr "הצגת קיצורי דרך"
+
+#: resources/gtk/help-overlay.blp:29
+msgctxt "shortcut description"
+msgid "Quit"
+msgstr "יציאה"
+
+#: resources/gtk/help-overlay.blp:35
 #, fuzzy
 #| msgctxt "application-window.status-page.title"
 #| msgid "No devices"
@@ -278,57 +297,22 @@ msgctxt "shortcuts group"
 msgid "Devices"
 msgstr "אין התקנים"
 
-#: resources/gtk/help-overlay.blp:24
+#: resources/gtk/help-overlay.blp:38
 msgctxt "shortcut description"
 msgid "Add a new device"
 msgstr "הוספת התקן חדש"
 
-#: resources/gtk/help-overlay.blp:29
+#: resources/gtk/help-overlay.blp:43
 msgctxt "shortcut description"
 msgid "Toggle network scanning"
 msgstr ""
 
-#: resources/gtk/help-overlay.blp:35
-#, fuzzy
-#| msgid "Add new device"
-msgctxt "shortcuts group"
-msgid "Single device"
-msgstr "הוספת התקן חדש"
-
-#: resources/gtk/help-overlay.blp:38
-#, fuzzy
-#| msgctxt "application-window.status-page.title"
-#| msgid "No devices"
-msgctxt "shortcut description"
-msgid "Turn on device"
-msgstr "אין התקנים"
-
-#: resources/gtk/help-overlay.blp:43
-#, fuzzy
-#| msgid "Edit device"
-msgctxt "shortcut description"
-msgid "Edit device"
-msgstr "עריכת התקן"
-
-#: resources/gtk/help-overlay.blp:48
-#, fuzzy
-#| msgctxt "device-row.action.row.ask-delete.tooltip"
-#| msgid "Delete this device?"
-msgctxt "shortcut description"
-msgid "Ask to delete device"
-msgstr "למחוק את ההתקן הזה?"
-
-#: resources/gtk/help-overlay.blp:53
-msgctxt "shortcut description"
-msgid "Immediately delete device without confirmation"
-msgstr ""
-
-#: resources/gtk/help-overlay.blp:59
+#: resources/gtk/help-overlay.blp:49
 msgctxt "shortcuts group"
 msgid "Discovered device"
 msgstr ""
 
-#: resources/gtk/help-overlay.blp:62
+#: resources/gtk/help-overlay.blp:52
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Add a new device"
@@ -336,14 +320,14 @@ msgctxt "shortcut description"
 msgid "Add as a new device"
 msgstr "הוספת התקן חדש"
 
-#: resources/gtk/help-overlay.blp:68
+#: resources/gtk/help-overlay.blp:58
 #, fuzzy
 #| msgid "Edit device"
 msgctxt "shortcuts group"
 msgid "Edit device"
 msgstr "עריכת התקן"
 
-#: resources/gtk/help-overlay.blp:71
+#: resources/gtk/help-overlay.blp:61
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Add a new device"
@@ -351,20 +335,53 @@ msgctxt "shortcut description"
 msgid "Save device"
 msgstr "הוספת התקן חדש"
 
-#: resources/gtk/help-overlay.blp:77
+#: resources/gtk/help-overlay.blp:67
+#, fuzzy
+#| msgid "Add new device"
 msgctxt "shortcuts group"
-msgid "General"
-msgstr "כללי"
+msgid "Single device"
+msgstr "הוספת התקן חדש"
+
+#: resources/gtk/help-overlay.blp:70
+#, fuzzy
+#| msgctxt "application-window.status-page.title"
+#| msgid "No devices"
+msgctxt "shortcut description"
+msgid "Turn on device"
+msgstr "אין התקנים"
+
+#: resources/gtk/help-overlay.blp:75
+#, fuzzy
+#| msgid "Edit device"
+msgctxt "shortcut description"
+msgid "Edit device"
+msgstr "עריכת התקן"
 
 #: resources/gtk/help-overlay.blp:80
+#, fuzzy
+#| msgctxt "device-row.action.row.ask-delete.tooltip"
+#| msgid "Delete this device?"
 msgctxt "shortcut description"
-msgid "Show shortcuts"
-msgstr "הצגת קיצורי דרך"
+msgid "Ask to delete device"
+msgstr "למחוק את ההתקן הזה?"
 
 #: resources/gtk/help-overlay.blp:85
 msgctxt "shortcut description"
-msgid "Quit"
-msgstr "יציאה"
+msgid "Immediately delete device without confirmation"
+msgstr ""
+
+#: resources/gtk/help-overlay.blp:90
+#, fuzzy
+#| msgctxt "application-window.status-page.title"
+#| msgid "No devices"
+msgctxt "shortcut description"
+msgid "Move device upwards"
+msgstr "אין התקנים"
+
+#: resources/gtk/help-overlay.blp:95
+msgctxt "shortcut description"
+msgid "Move device downwards"
+msgstr ""
 
 #: resources/ui/device-row.blp:69
 #, fuzzy
@@ -575,38 +592,38 @@ msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device %1: %2\n"
 msgstr "הדלקת ההתקן %1 נכשלה: %2\n"
 
-#: src/app/commandline.rs:87
+#: src/app/commandline.rs:85
 #, c-format
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label %s\n"
 msgstr "לא נמצא התקן לתווית %s\n"
 
-#: src/app/model/device_discovery.rs:200
+#: src/app/model/device_discovery.rs:202
 msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr ""
 
-#: src/app/searchprovider.rs:76
+#: src/app/searchprovider.rs:75
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
 msgstr "נשלחה מנת נתונים קסומה"
 
-#: src/app/searchprovider.rs:82
+#: src/app/searchprovider.rs:81
 msgctxt "search-provider.notification.body"
 msgid "Sent magic packet to mac address %1 of device %2."
 msgstr "נשלחה מנת נתונים קסומה לכתובת החומרה %1 של ההתקן %2."
 
-#: src/app/searchprovider.rs:107
+#: src/app/searchprovider.rs:105
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
 msgstr "שליחת מנת הנתונים הקסומה נכשלה"
 
-#: src/app/searchprovider.rs:113
+#: src/app/searchprovider.rs:111
 msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr "שליחת מנת הנתונים הקסומה לכתובת החומרה %1 של ההתקן %2 נכשלה."
 
-#: src/app/widgets/application_window.rs:89
+#: src/app/widgets/application_window.rs:90
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
@@ -618,7 +635,7 @@ msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr "נשלחה מנת נתונים קסומה להתקן %s"
 
-#: src/app/widgets/application_window.rs:127
+#: src/app/widgets/application_window.rs:126
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
