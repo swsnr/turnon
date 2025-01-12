@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <component type="desktop-application">
     <id>de.swsnr.turnon</id>
     <metadata_license>CC0-1.0</metadata_license>
@@ -41,13 +41,14 @@
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>
         -->
-        <release version="next" date="9999-01-01">
+        <release version="2.3.0" date="2025-01-12">
             <description>
                 <p>Reorder devices with Alt+Up and Alt+Down</p>
             </description>
             <issues>
                 <issue url="https://github.com/swsnr/turnon/issues/2">GH-2</issue>
             </issues>
+            <url>https://github.com/swsnr/turnon/releases/tag/v2.3.0</url>
         </release>
         <release version="2.2.0" date="2025-01-05">
             <description>
