@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2025-01-05 18:10+0000\n"
+"PO-Revision-Date: 2025-01-11 09:07+0000\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/de/>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,6 +76,8 @@ msgstr "Geräte über die Kommandozeile anschalten."
 #: resources/de.swsnr.turnon.metainfo.xml.in:46
 msgid "Reorder devices with Alt+Up and Alt+Down"
 msgstr ""
+"Geräte können mit Alt+Pfeil nach oben und Alt+Pfeil nach unten neu "
+"angeordnet werden"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:55
 msgid ""
@@ -380,17 +382,14 @@ msgid "Immediately delete device without confirmation"
 msgstr "Gerät sofort ohne Bestätigung löschen"
 
 #: resources/gtk/help-overlay.blp:90
-#, fuzzy
-#| msgctxt "application-window.status-page.title"
-#| msgid "No devices"
 msgctxt "shortcut description"
 msgid "Move device upwards"
-msgstr "Keine Geräte vorhanden"
+msgstr "Gerät nach oben verschieben"
 
 #: resources/gtk/help-overlay.blp:95
 msgctxt "shortcut description"
 msgid "Move device downwards"
-msgstr ""
+msgstr "Gerät nach unten verschieben"
 
 #: resources/ui/device-row.blp:69
 msgctxt "device-row.action.row.add.tooltip"
