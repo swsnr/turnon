@@ -204,6 +204,7 @@ mod imp {
 
         /// Create and return a new application window.
         fn create_application_window(&self) -> TurnOnApplicationWindow {
+            glib::debug!("Creating new application window");
             let window = TurnOnApplicationWindow::new(&*self.obj(), crate::config::APP_ID);
             if crate::config::is_development() {
                 window.add_css_class("devel");
@@ -408,16 +409,11 @@ mod imp {
         fn activate(&self) {
             glib::debug!("Activating application");
             self.parent_activate();
-            let app = &*self.obj();
-            if let Some(window) = app.active_window() {
-                glib::debug!("Representing existing application window");
-                window.present();
-            } else {
-                glib::debug!("Creating new application window");
-
-                let window = self.create_application_window();
-                window.present();
-            }
+            let window = self
+                .obj()
+                .active_window()
+                .unwrap_or_else(|| self.create_application_window().upcast());
+            window.present();
         }
 
         fn handle_local_options(&self, options: &glib::VariantDict) -> glib::ExitCode {
