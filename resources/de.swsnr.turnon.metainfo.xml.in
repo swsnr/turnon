@@ -236,8 +236,10 @@
     </branding>
     <requires>
         <display_length compare="ge">360</display_length>
-        <internet>always</internet>
     </requires>
+    <recommends>
+        <display_length compare="ge">480</display_length>
+    </recommends>
     <supports>
         <control>keyboard</control>
         <control>pointing</control>
