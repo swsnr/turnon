@@ -13,7 +13,6 @@ LOCALEDIR = $(DESTPREFIX)/share/locale/
 GIT_DESCRIBE = $(shell git describe)
 
 BLUEPRINTS = $(wildcard ui/*.blp)
-UIDEFS = $(addsuffix .ui,$(basename $(BLUEPRINTS)))
 CATALOGS = $(wildcard po/*.po)
 
 XGETTEXT_OPTS = \
