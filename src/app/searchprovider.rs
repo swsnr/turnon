@@ -7,7 +7,7 @@
 //! Utilities for the search provider of Turn On.
 
 use glib::{dpgettext2, ControlFlow, Variant, VariantDict};
-use gtk::gio::{ListStore, Notification, NotificationPriority, RegistrationId};
+use gtk::gio::{DBusError, ListStore, Notification, NotificationPriority, RegistrationId};
 use gtk::prelude::*;
 
 use crate::app::TurnOnApplication;
@@ -143,10 +143,12 @@ fn get_result_metas(app: &TurnOnApplication, call: &GetResultMetas) -> Variant {
 }
 
 async fn dispatch_method_call(
-    app: TurnOnApplication,
+    app: Option<TurnOnApplication>,
     call: MethodCall,
 ) -> Result<Option<Variant>, glib::Error> {
     use MethodCall::*;
+    let app =
+        app.ok_or_else(|| glib::Error::new(DBusError::Disconnected, "Application is gone"))?;
     match call {
         GetInitialResultSet(c) => {
             glib::trace!("Initial search for terms {:?}", c.terms);
@@ -184,7 +186,7 @@ pub fn register_app_search_provider(app: &TurnOnApplication) -> Option<Registrat
             .register_object("/de/swsnr/turnon/search", &interface_info)
             .typed_method_call::<searchprovider2::MethodCall>()
             .invoke_and_return_future_local(glib::clone!(
-                #[strong]
+                #[weak_allow_none]
                 app,
                 move |_, sender, call| {
                     glib::debug!("Sender {sender:?} called method {call:?}");
