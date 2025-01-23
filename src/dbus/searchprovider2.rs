@@ -8,7 +8,7 @@
 
 use glib::Variant;
 use gtk::{
-    gio::{DBusInterfaceInfo, DBusNodeInfo, IOErrorEnum},
+    gio::{DBusError, DBusInterfaceInfo, DBusNodeInfo},
     prelude::DBusMethodCall,
 };
 
@@ -68,10 +68,7 @@ pub enum MethodCall {
 }
 
 fn invalid_parameters() -> glib::Error {
-    glib::Error::new(
-        IOErrorEnum::InvalidArgument,
-        "Invalid parameters for method",
-    )
+    glib::Error::new(DBusError::InvalidArgs, "Invalid parameters for method")
 }
 
 impl DBusMethodCall for MethodCall {
@@ -83,7 +80,7 @@ impl DBusMethodCall for MethodCall {
     ) -> Result<Self, glib::Error> {
         if interface != Some(INTERFACE_NAME) {
             return Err(glib::Error::new(
-                IOErrorEnum::InvalidArgument,
+                DBusError::UnknownInterface,
                 "Unexpected interface",
             ));
         }
@@ -109,7 +106,7 @@ impl DBusMethodCall for MethodCall {
                 .map(MethodCall::LaunchSearch)
                 .ok_or_else(invalid_parameters),
             _ => Err(glib::Error::new(
-                IOErrorEnum::InvalidArgument,
+                DBusError::UnknownMethod,
                 "Unexpected method",
             )),
         }
