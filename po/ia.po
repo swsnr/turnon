@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Sebastian Wiesner <sebastian@swsnr.de>
 # This file is distributed under the same license as the de.swsnr.turnon package.
-# yakushabb <yakushabb@gmail.com>, 2025.
+# softinterlingua <softinterlingua@users.noreply.translate.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
@@ -9,7 +9,7 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
-"Language: tr\n"
+"Language: ia\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
