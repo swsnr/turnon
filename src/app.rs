@@ -396,6 +396,8 @@ mod imp {
             self.save_automatically(storage.client());
             glib::spawn_future_local(storage.spawn());
 
+            // TODO: We need to do this in dbus_register, pending changes to gio
+            // See https://github.com/gtk-rs/gtk-rs-core/pull/1634
             glib::info!("Registering search provider");
             self.registered_search_provider
                 .replace(register_app_search_provider(&app));
@@ -467,6 +469,8 @@ mod imp {
         /// Deregister the search provider interface.
         fn shutdown(&self) {
             self.parent_shutdown();
+            // TODO: We should to do this in dbus_unregister, pending changes to gio
+            // See https://github.com/gtk-rs/gtk-rs-core/pull/1634
             if let Some(registration_id) = self.registered_search_provider.replace(None) {
                 if let Some(connection) = self.obj().dbus_connection() {
                     if let Err(error) = connection.unregister_object(registration_id) {
