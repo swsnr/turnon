@@ -43,6 +43,7 @@ pre-release-commit-message = "Release {{version}}"
 tag-message = "Turn On {{tag_name}}"
 publish = false
 verify = false
+push = false
 sign-tag = true
 sign-commit = true
 pre-release-hook = ["scripts/prerelease.py", "{{tag_name}}", "{{date}}"]
