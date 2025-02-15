@@ -106,7 +106,7 @@ jobs:
           path: ./artifacts
           merge-multiple: false
       - run: echo ARCHIVE_SHA512="$(sha512sum artifacts/turnon-${{ github.ref_name }}.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
-      - run: echo ARCHIVE_SHA512="$(sha512sum artifacts/vendor.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      - run: echo VENDOR_SHA512="$(sha512sum artifacts/vendor.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
       - run: rm -rf artifacts
       - name: Replace git archive url
         uses: mikefarah/yq@master
