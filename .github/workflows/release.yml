@@ -1,10 +1,7 @@
 name: Release
 
-# We run the workflow on the main branch, too, to make sure release notes
-# processing works.
 on:
   push:
-    branches: [main]
     tags: v*
 
 permissions: read-all
@@ -83,8 +80,6 @@ jobs:
     needs: [prepare-release-notes, git-archive, vendor-dependencies]
     permissions:
       contents: write
-    # Only create the actual release when we push to a tag.
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
     steps:
       - uses: actions/download-artifact@v4
         with:
