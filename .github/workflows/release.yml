@@ -84,10 +84,10 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           path: ./artifacts
-          merge-multiple: false
+          merge-multiple: true
       - uses: softprops/action-gh-release@v2
         with:
           body_path: ./artifacts/relnotes.md
           make_latest: true
           files: |
-            ./artifacts/**/*.tar.*
+            ./artifacts/*.tar.*
