@@ -91,3 +91,57 @@ jobs:
           make_latest: true
           files: |
             ./artifacts/*.tar.*
+
+  # Update flatpak manifest
+  update-manifest:
+    runs-on: ubuntu-latest
+    needs: [git-archive, vendor-dependencies]
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+          merge-multiple: false
+      - run: echo ARCHIVE_SHA512="$(sha512sum artifacts/turnon-${{ github.ref_name }}.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      - run: echo ARCHIVE_SHA512="$(sha512sum artifacts/vendor.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      - run: rm -rf artifacts
+      - name: Replace git archive url
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq eval -i '.modules.[0].sources.[0].url = "https://github.com/swsnr/turnon/releases/download/$GITHUB_REF_NAME/turnon-$GITHUB_REF_NAME.tar.zst"' flatpak/de.swsnr.turnon.yaml
+      - name: Replace git archive sha512sum
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq eval -i '.modules.[0].sources.[0].sha512 = "$ARCHIVE_SHA512"' flatpak/de.swsnr.turnon.yaml
+      - name: Replace vendor bundle url
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq eval -i '.modules.[0].sources.[1].url = "https://github.com/swsnr/turnon/releases/download/$GITHUB_REF_NAME/vendor.tar.zst"' flatpak/de.swsnr.turnon.yaml
+      - name: Replace vendor sha512sum
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq eval -i '.modules.[0].sources.[1].sha512 = "$VENDOR_SHA512"' flatpak/de.swsnr.turnon.yaml
+      - name: Substitute environment variables
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
+      # A little sanity check
+      - run: git diff
+      # Create a pull request to update the manifest on main
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "Update flatpak manifest for ${{ github.ref_name }}"
+          branch: workflow/update-flatpak-manifest
+          base: main
+          sign-commits: true
+          delete-branch: true
+          title: "Update flatpak manifest for ${{ github.ref_name }}"
+          body: |
+            Update flatpak manifest for release ${{ github.ref_name }}.
+
+            After merging, manually dispatch the [sync workflow in the flathub repo](https://github.com/flathub/de.swsnr.turnon/actions/workflows/sync.yaml) to update the flathub manifest.
+          assignees: swsnr
+          draft: always-true
