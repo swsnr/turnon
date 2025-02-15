@@ -1,6 +1,11 @@
 
 # cargo-vet audits file
 
+[[audits.async-channel]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.8.0 -> 2.3.1"
+
 [[audits.cfg-expr]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -21,6 +26,17 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-deploy"
 delta = "0.8.20 -> 0.8.21"
 notes = "Only changes cfg and lint annotations, no other code change"
+
+[[audits.equivalent]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-deploy"
+delta = "1.0.1 -> 1.0.2"
+notes = "No actual code changes"
+
+[[audits.event-listener]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "5.3.1 -> 5.4.0"
 
 [[audits.event-listener-strategy]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -108,10 +124,20 @@ criteria = "safe-to-deploy"
 delta = "7.0.2 -> 7.0.3"
 notes = "The diff just updates a dependency version, and does not involve a code change."
 
+[[audits.toml]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.8.19 -> 0.8.20"
+
 [[audits.unicode-ident]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-deploy"
 delta = "1.0.15 -> 1.0.16"
+
+[[audits.version-compare]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.1.1 -> 0.2.0"
 
 [[trusted.aho-corasick]]
 criteria = "safe-to-run"

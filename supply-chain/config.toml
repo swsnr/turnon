@@ -10,9 +10,6 @@ url = "https://raw.githubusercontent.com/bytecodealliance/wasmtime/main/supply-c
 [imports.embark-studios]
 url = "https://raw.githubusercontent.com/EmbarkStudios/rust-ecosystem/main/audits.toml"
 
-[imports.gnome-releng]
-url = "https://gitlab.gnome.org/Teams/Releng/rust-supply-chain/-/raw/main/gnome-audited/audits.toml"
-
 [imports.google]
 url = "https://raw.githubusercontent.com/google/supply-chain/main/audits.toml"
 
@@ -23,10 +20,6 @@ url = "https://raw.githubusercontent.com/mozilla/supply-chain/main/audits.toml"
 url = "https://raw.githubusercontent.com/swsnr/rust-supply-chain/refs/heads/main/audits.toml"
 
 [policy.turnon]
-criteria = "safe-to-run"
-
-[[exemptions.async-channel]]
-version = "2.3.1"
 criteria = "safe-to-run"
 
 [[exemptions.concurrent-queue]]
