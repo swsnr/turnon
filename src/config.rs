@@ -24,8 +24,7 @@ fn cargo_pkg_version() -> semver::Version {
 
 /// The version to use for release notes.
 ///
-/// For nightly builds (see [`is_development`]) this returns `next`, otherwise
-/// it returns [`CARGO_PKG_VERSION`] but with patch set to 0, and all pre and
+/// Returns [`CARGO_PKG_VERSION`] but with patch set to 0, and all pre and
 /// build parts emptied.
 ///
 /// This follows our versioning policy which uses patch releases only for
