@@ -29,8 +29,8 @@ user-id = 52553
 user-login = "embark-studios"
 
 [[publisher.gdk-pixbuf]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.9"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -43,29 +43,29 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4]]
-version = "0.9.5"
-when = "2024-12-19"
+version = "0.9.6"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-sys]]
-version = "0.9.5"
-when = "2024-12-19"
+version = "0.9.6"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.9"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio-sys]]
-version = "0.20.8"
-when = "2024-12-17"
+version = "0.20.9"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -85,22 +85,22 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-sys]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.9"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gobject-sys]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.9"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.graphene-rs]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.9"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -113,15 +113,15 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gsk4]]
-version = "0.9.5"
-when = "2024-12-19"
+version = "0.9.6"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gsk4-sys]]
-version = "0.9.5"
-when = "2024-12-19"
+version = "0.9.6"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -141,8 +141,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gtk4-sys]]
-version = "0.9.5"
-when = "2024-12-19"
+version = "0.9.6"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -190,15 +190,15 @@ user-login = "BurntSushi"
 user-name = "Andrew Gallant"
 
 [[publisher.pango]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.9"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.pango-sys]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.9"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
