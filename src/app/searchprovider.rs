@@ -7,7 +7,9 @@
 //! Utilities for the search provider of Turn On.
 
 use glib::{dpgettext2, ControlFlow, Variant, VariantDict};
-use gtk::gio::{DBusError, ListStore, Notification, NotificationPriority, RegistrationId};
+use gtk::gio::{
+    DBusConnection, DBusError, ListStore, Notification, NotificationPriority, RegistrationId,
+};
 use gtk::prelude::*;
 
 use crate::app::TurnOnApplication;
@@ -179,26 +181,24 @@ async fn dispatch_method_call(
 /// Register a search provider for devices on the D-Bus connection of `app`.
 /// The search provider exposes devices from the `app` model to GNOME Shell,
 /// and allows to turn on devices directly from the shell overview.
-pub fn register_app_search_provider(app: &TurnOnApplication) -> Option<RegistrationId> {
-    if let Some(connection) = app.dbus_connection() {
-        let interface_info = searchprovider2::interface();
-        let registration_id = connection
-            .register_object("/de/swsnr/turnon/search", &interface_info)
-            .typed_method_call::<searchprovider2::MethodCall>()
-            .invoke_and_return_future_local(glib::clone!(
-                #[weak_allow_none]
-                app,
-                move |_, sender, call| {
-                    glib::debug!("Sender {sender:?} called method {call:?}");
-                    dispatch_method_call(app.clone(), call)
-                }
-            ))
-            .build()
-            .unwrap();
-        Some(registration_id)
-    } else {
-        None
-    }
+pub fn register_app_search_provider(
+    connection: &DBusConnection,
+    app: &TurnOnApplication,
+) -> Result<RegistrationId, glib::Error> {
+    let interface_info = searchprovider2::interface();
+    let registration_id = connection
+        .register_object("/de/swsnr/turnon/search", &interface_info)
+        .typed_method_call::<searchprovider2::MethodCall>()
+        .invoke_and_return_future_local(glib::clone!(
+            #[weak_allow_none]
+            app,
+            move |_, sender, call| {
+                glib::debug!("Sender {sender:?} called method {call:?}");
+                dispatch_method_call(app.clone(), call)
+            }
+        ))
+        .build()?;
+    Ok(registration_id)
 }
 
 #[cfg(test)]

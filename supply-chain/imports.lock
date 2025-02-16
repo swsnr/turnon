@@ -71,8 +71,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.9"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -127,8 +127,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gtk4]]
-version = "0.9.5"
-when = "2024-12-19"
+version = "0.9.6"
+when = "2025-02-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -272,6 +272,76 @@ when = "2025-02-10"
 user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
+
+[[publisher.windows-sys]]
+version = "0.59.0"
+when = "2024-07-30"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows-targets]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_aarch64_gnullvm]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_aarch64_msvc]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_i686_gnu]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_i686_gnullvm]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_i686_msvc]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_x86_64_gnu]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_x86_64_gnullvm]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_x86_64_msvc]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
 
 [[publisher.winnow]]
 version = "0.7.2"

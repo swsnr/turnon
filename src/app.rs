@@ -165,7 +165,7 @@ mod imp {
     use adw::prelude::*;
     use adw::subclass::prelude::*;
     use glib::{dpgettext2, OptionArg, OptionFlags};
-    use gtk::gio::{ListStore, RegistrationId, Settings, SettingsBackend};
+    use gtk::gio::{DBusConnection, ListStore, RegistrationId, Settings, SettingsBackend};
 
     use crate::config::G_LOG_DOMAIN;
 
@@ -337,6 +337,37 @@ mod imp {
     }
 
     impl ApplicationImpl for TurnOnApplication {
+        /// Register the app on D-Bus.
+        ///
+        /// Register the standard D-Bus API of a Gtk application, and our own
+        /// search provider.
+        fn dbus_register(
+            &self,
+            connection: &DBusConnection,
+            object_path: &str,
+        ) -> Result<(), glib::Error> {
+            self.parent_dbus_register(connection, object_path)?;
+
+            glib::info!("Registering search provider");
+            self.registered_search_provider
+                .replace(Some(register_app_search_provider(connection, &self.obj())?));
+            Ok(())
+        }
+
+        /// Unregister the app from D-Bus.
+        ///
+        /// Unregister the standard D-Bus API of a Gtk application, and then
+        /// unregister our own search provider.
+        fn dbus_unregister(&self, connection: &DBusConnection, object_path: &str) {
+            self.parent_dbus_unregister(connection, object_path);
+            glib::info!("Unregistering search provider");
+            if let Some(registration_id) = self.registered_search_provider.replace(None) {
+                if let Err(error) = connection.unregister_object(registration_id) {
+                    glib::warn!("Failed to unregister the search provider DBUS interface: {error}");
+                }
+            }
+        }
+
         /// Start the application.
         ///
         /// Set the default icon name for all Gtk windows, and setup all actions
@@ -395,12 +426,6 @@ mod imp {
                 .extend_from_slice(devices.as_slice());
             self.save_automatically(storage.client());
             glib::spawn_future_local(storage.spawn());
-
-            // TODO: We need to do this in dbus_register, pending changes to gio
-            // See https://github.com/gtk-rs/gtk-rs-core/pull/1634
-            glib::info!("Registering search provider");
-            self.registered_search_provider
-                .replace(register_app_search_provider(&app));
         }
 
         /// Activate the application.
@@ -461,24 +486,6 @@ mod imp {
             } else {
                 self.obj().activate();
                 glib::ExitCode::SUCCESS
-            }
-        }
-
-        /// Shutdown the application.
-        ///
-        /// Deregister the search provider interface.
-        fn shutdown(&self) {
-            self.parent_shutdown();
-            // TODO: We should to do this in dbus_unregister, pending changes to gio
-            // See https://github.com/gtk-rs/gtk-rs-core/pull/1634
-            if let Some(registration_id) = self.registered_search_provider.replace(None) {
-                if let Some(connection) = self.obj().dbus_connection() {
-                    if let Err(error) = connection.unregister_object(registration_id) {
-                        glib::warn!(
-                            "Failed to unregister the search provider DBUS interface: {error}"
-                        );
-                    }
-                }
             }
         }
     }
