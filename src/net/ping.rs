@@ -303,67 +303,61 @@ mod tests {
 
     use super::PingDestination;
 
-    #[test]
-    fn ping_loopback_ipv4() {
-        glib::MainContext::new().block_on(async move {
-            let duration = super::ping_address(Ipv4Addr::LOCALHOST.into(), 4)
-                .await
-                .unwrap();
-            // A reasonable sanity test
-            assert!(duration < Duration::from_secs(5));
-        });
-    }
-
-    #[test]
-    fn ping_loopback_ipv6() {
-        glib::MainContext::new().block_on(async move {
-            let duration = super::ping_address(Ipv6Addr::LOCALHOST.into(), 4)
-                .await
-                .unwrap();
-            // A reasonable sanity test
-            assert!(duration < Duration::from_secs(5));
-        });
-    }
-
-    #[test]
-    fn ping_with_timeout_unroutable() {
-        glib::MainContext::new().block_on(async move {
-            let error = super::ping_address_with_timeout(
-                Ipv4Addr::from_str("192.0.2.42").unwrap().into(),
-                4,
-                Duration::from_secs(1),
-            )
+    #[glib::async_test]
+    async fn ping_loopback_ipv4() {
+        let duration = super::ping_address(Ipv4Addr::LOCALHOST.into(), 4)
             .await
-            .unwrap_err();
-            assert!(error.matches(IOErrorEnum::TimedOut));
-            assert_eq!(error.message(), "Timeout after 1000ms");
-        });
+            .unwrap();
+        // A reasonable sanity test
+        assert!(duration < Duration::from_secs(5));
     }
 
-    #[test]
-    fn ping_destination_resolve() {
-        glib::MainContext::new().block_on(async move {
-            assert_eq!(
-                PingDestination::Addr(Ipv4Addr::LOCALHOST.into())
-                    .resolve()
-                    .await
-                    .unwrap(),
-                vec![IpAddr::V4(Ipv4Addr::LOCALHOST)]
-            );
-            assert_eq!(
-                PingDestination::Addr(Ipv6Addr::LOCALHOST.into())
-                    .resolve()
-                    .await
-                    .unwrap(),
-                vec![IpAddr::V6(Ipv6Addr::LOCALHOST)]
-            );
-            let addresses = PingDestination::Dns("localhost".into())
+    #[glib::async_test]
+
+    async fn ping_loopback_ipv6() {
+        let duration = super::ping_address(Ipv6Addr::LOCALHOST.into(), 4)
+            .await
+            .unwrap();
+        // A reasonable sanity test
+        assert!(duration < Duration::from_secs(5));
+    }
+
+    #[glib::async_test]
+
+    async fn ping_with_timeout_unroutable() {
+        let error = super::ping_address_with_timeout(
+            Ipv4Addr::from_str("192.0.2.42").unwrap().into(),
+            4,
+            Duration::from_secs(1),
+        )
+        .await
+        .unwrap_err();
+        assert!(error.matches(IOErrorEnum::TimedOut));
+        assert_eq!(error.message(), "Timeout after 1000ms");
+    }
+
+    #[glib::async_test]
+    async fn ping_destination_resolve() {
+        assert_eq!(
+            PingDestination::Addr(Ipv4Addr::LOCALHOST.into())
                 .resolve()
                 .await
-                .unwrap();
-            assert!(addresses.len() >= 2);
-            assert!(addresses.contains(&IpAddr::V4(Ipv4Addr::LOCALHOST)));
-            assert!(addresses.contains(&IpAddr::V6(Ipv6Addr::LOCALHOST)));
-        });
+                .unwrap(),
+            vec![IpAddr::V4(Ipv4Addr::LOCALHOST)]
+        );
+        assert_eq!(
+            PingDestination::Addr(Ipv6Addr::LOCALHOST.into())
+                .resolve()
+                .await
+                .unwrap(),
+            vec![IpAddr::V6(Ipv6Addr::LOCALHOST)]
+        );
+        let addresses = PingDestination::Dns("localhost".into())
+            .resolve()
+            .await
+            .unwrap();
+        assert!(addresses.len() >= 2);
+        assert!(addresses.contains(&IpAddr::V4(Ipv4Addr::LOCALHOST)));
+        assert!(addresses.contains(&IpAddr::V6(Ipv6Addr::LOCALHOST)));
     }
 }
