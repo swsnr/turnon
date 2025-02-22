@@ -19,7 +19,7 @@ use macaddr::MacAddr6;
 use crate::config;
 use crate::futures::future_with_timeout;
 use crate::net::arpcache::{default_arp_cache_path, read_arp_cache_from_path, ArpCacheEntry};
-use crate::net::{ping_address_with_timeout, PingDestination};
+use crate::net::{ping_address, PingDestination};
 
 use super::model::{Device, Devices};
 
@@ -40,7 +40,9 @@ async fn ping_device(device: Device) -> (Device, DevicePingResult) {
         Ok(addresses) => {
             let pings = addresses
                 .into_iter()
-                .map(|addr| ping_address_with_timeout(addr, 1, timeout).map(move |r| (addr, r)))
+                .map(|addr| {
+                    future_with_timeout(timeout, ping_address(addr, 1)).map(move |r| (addr, r))
+                })
                 .collect::<FuturesUnordered<_>>()
                 .collect::<Vec<_>>()
                 .await;

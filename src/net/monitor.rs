@@ -13,8 +13,9 @@ use std::{cell::RefCell, time::Duration};
 use futures_util::{Stream, StreamExt};
 
 use crate::config::G_LOG_DOMAIN;
+use crate::futures::future_with_timeout;
 
-use super::{ping_address_with_timeout, PingDestination};
+use super::{ping_address, PingDestination};
 
 /// Monitor a network `destination` with periodic pings at the given `interval`.
 ///
@@ -39,7 +40,7 @@ pub fn monitor(
                 let result = match state.take() {
                     // If we have a cached IP address, ping it, and cache it again
                     // if it's still reachable.
-                    Some(address) => ping_address_with_timeout(address, seqnr, timeout)
+                    Some(address) => future_with_timeout(timeout, ping_address(address, seqnr))
                         .await
                         .inspect(|duration| {
                             glib::trace!(

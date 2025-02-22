@@ -167,17 +167,6 @@ pub async fn ping_address(
     }
 }
 
-/// Like [`ping_address`] but with a timeout.
-///
-/// Return an error if no reply was received from `address` after `timeout`.
-pub async fn ping_address_with_timeout(
-    address: IpAddr,
-    sequence_number: u16,
-    timeout: Duration,
-) -> Result<Duration, glib::Error> {
-    future_with_timeout(timeout, ping_address(address, sequence_number)).await
-}
-
 /// A network destination which we can ping.
 #[derive(Debug, Clone)]
 pub enum PingDestination {
@@ -286,6 +275,8 @@ mod tests {
 
     use gtk::gio::IOErrorEnum;
 
+    use crate::futures::future_with_timeout;
+
     use super::PingDestination;
 
     #[glib::async_test]
@@ -310,10 +301,9 @@ mod tests {
     #[glib::async_test]
 
     async fn ping_with_timeout_unroutable() {
-        let error = super::ping_address_with_timeout(
-            Ipv4Addr::from_str("192.0.2.42").unwrap().into(),
-            4,
+        let error = future_with_timeout(
             Duration::from_secs(1),
+            super::ping_address(Ipv4Addr::from_str("192.0.2.42").unwrap().into(), 4),
         )
         .await
         .unwrap_err();
