@@ -176,11 +176,10 @@ user-login = "bilelmoussaoui"
 user-name = "Bilal Elmoussaoui"
 
 [[publisher.libc]]
-version = "0.2.153"
-when = "2024-01-31"
-user-id = 51017
-user-login = "JohnTitor"
-user-name = "Yuki Okushi"
+version = "0.2.169"
+when = "2024-12-19"
+user-id = 55123
+user-login = "rust-lang-owner"
 
 [[publisher.memchr]]
 version = "2.7.4"
@@ -218,15 +217,15 @@ user-login = "dtolnay"
 user-name = "David Tolnay"
 
 [[publisher.serde]]
-version = "1.0.217"
-when = "2024-12-27"
+version = "1.0.218"
+when = "2025-02-20"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
 
 [[publisher.serde_derive]]
-version = "1.0.217"
-when = "2024-12-27"
+version = "1.0.218"
+when = "2025-02-20"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
@@ -273,93 +272,12 @@ user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
 
-[[publisher.windows-sys]]
-version = "0.59.0"
-when = "2024-07-30"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows-targets]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_aarch64_gnullvm]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_aarch64_msvc]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_i686_gnu]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_i686_gnullvm]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_i686_msvc]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_x86_64_gnu]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_x86_64_gnullvm]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_x86_64_msvc]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
 [[publisher.winnow]]
-version = "0.7.2"
-when = "2025-02-10"
+version = "0.7.3"
+when = "2025-02-19"
 user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
-
-[[audits.bytecode-alliance.audits.libc]]
-who = "Alex Crichton <alex@alexcrichton.com>"
-criteria = "safe-to-deploy"
-delta = "0.2.153 -> 0.2.158"
-notes = "More platforms, more definitions, more headers, it's still just `libc`"
-
-[[audits.bytecode-alliance.audits.libc]]
-who = "Dan Gohman <dev@sunfishcode.online>"
-criteria = "safe-to-deploy"
-delta = "0.2.158 -> 0.2.161"
 
 [[audits.bytecode-alliance.audits.memoffset]]
 who = "Alex Crichton <alex@alexcrichton.com>"
@@ -932,6 +850,12 @@ criteria = "safe-to-run"
 delta = "0.17.0 -> 0.17.2"
 aggregated-from = "https://raw.githubusercontent.com/swsnr/gnome-search-providers-vscode/refs/heads/main/supply-chain/audits.toml"
 
+[[audits.swsnr.audits.log]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.4.25 -> 0.4.26"
+aggregated-from = "https://raw.githubusercontent.com/swsnr/git-gone/refs/heads/main/supply-chain/audits.toml"
+
 [[audits.swsnr.audits.pin-project-lite]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -943,3 +867,9 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "1.2.1 -> 3.2.0"
 aggregated-from = "https://raw.githubusercontent.com/swsnr/picture-of-the-day/refs/heads/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.unicode-ident]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.16 -> 1.0.17"
+aggregated-from = "https://raw.githubusercontent.com/swsnr/git-gone/refs/heads/main/supply-chain/audits.toml"
