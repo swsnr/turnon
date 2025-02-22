@@ -6,11 +6,10 @@
 
 use std::time::Duration;
 
-use futures_util::{select_biased, FutureExt};
-use gtk::gio::IOErrorEnum;
 use gtk::glib;
 
 use crate::config::G_LOG_DOMAIN;
+use crate::futures::future_with_timeout;
 use crate::net::{wol, MacAddr6Boxed};
 
 glib::wrapper! {
@@ -34,14 +33,8 @@ impl Device {
             self.label()
         );
         let wol_timeout = Duration::from_secs(5);
-        let result = select_biased! {
-            result = wol(*mac_address).fuse() => result,
-            () = glib::timeout_future(wol_timeout).fuse() => {
-                let message = &format!("Failed to send magic packet within {wol_timeout:#?}");
-                Err(glib::Error::new(IOErrorEnum::TimedOut, message))
-            }
-        };
-        result
+        future_with_timeout(wol_timeout, wol(*mac_address))
+            .await
             .inspect(|()| {
                 glib::info!(
                     "Sent magic packet to {mac_address} of device {}",

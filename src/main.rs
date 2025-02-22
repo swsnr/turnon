@@ -48,6 +48,7 @@ use gtk::glib;
 mod app;
 mod config;
 mod dbus;
+mod futures;
 mod gettext;
 mod net;
 

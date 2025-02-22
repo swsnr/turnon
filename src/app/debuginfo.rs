@@ -10,14 +10,14 @@ use std::net::IpAddr;
 use std::time::Duration;
 
 use futures_util::stream::{FuturesOrdered, FuturesUnordered};
+use futures_util::FutureExt;
 use futures_util::StreamExt;
-use futures_util::{select_biased, FutureExt};
 use gtk::gio;
-use gtk::gio::IOErrorEnum;
 use gtk::prelude::*;
 use macaddr::MacAddr6;
 
 use crate::config;
+use crate::futures::future_with_timeout;
 use crate::net::arpcache::{default_arp_cache_path, read_arp_cache_from_path, ArpCacheEntry};
 use crate::net::{ping_address_with_timeout, PingDestination};
 
@@ -29,23 +29,13 @@ pub enum DevicePingResult {
     Pinged(Vec<(IpAddr, Result<Duration, glib::Error>)>),
 }
 
-fn timeout_err(timeout: Duration) -> glib::Error {
-    glib::Error::new(
-        IOErrorEnum::TimedOut,
-        &format!("Timeout after {}ms", timeout.as_millis()),
-    )
-}
-
 async fn ping_device(device: Device) -> (Device, DevicePingResult) {
     // For debug info we use a very aggressive timeout for resolution and pings.
     // We expect everything to be in the local network anyways.
     let timeout = Duration::from_millis(500);
-    let addresses = select_biased! {
-        addresses = PingDestination::from(device.host()).resolve().fuse() => addresses,
-        () = glib::timeout_future(timeout).fuse() => Err(timeout_err(timeout)),
-    };
+    let destination = PingDestination::from(device.host());
 
-    match addresses {
+    match future_with_timeout(timeout, destination.resolve()).await {
         Err(error) => (device, DevicePingResult::ResolveFailed(error)),
         Ok(addresses) => {
             let pings = addresses

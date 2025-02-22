@@ -13,7 +13,7 @@ use std::os::fd::{AsRawFd, FromRawFd, OwnedFd};
 use std::time::{Duration, Instant};
 
 use futures_util::stream::FuturesUnordered;
-use futures_util::{future, select_biased, FutureExt, StreamExt};
+use futures_util::{future, FutureExt, StreamExt};
 use glib::IOCondition;
 use gtk::gio::prelude::{ResolverExt, SocketExtManual};
 use gtk::gio::Cancellable;
@@ -21,6 +21,7 @@ use gtk::gio::{self, IOErrorEnum};
 use gtk::prelude::SocketExt;
 
 use crate::config::G_LOG_DOMAIN;
+use crate::futures::future_with_timeout;
 
 #[allow(
     clippy::needless_pass_by_value,
@@ -174,15 +175,7 @@ pub async fn ping_address_with_timeout(
     sequence_number: u16,
     timeout: Duration,
 ) -> Result<Duration, glib::Error> {
-    select_biased! {
-        r = ping_address(address, sequence_number).fuse() => r,
-        () = glib::timeout_future(timeout).fuse() => Err(
-            glib::Error::new(
-                IOErrorEnum::TimedOut,
-                &format!("Timeout after {}ms", timeout.as_millis()),
-            )
-        )
-    }
+    future_with_timeout(timeout, ping_address(address, sequence_number)).await
 }
 
 /// A network destination which we can ping.
@@ -264,15 +257,7 @@ impl PingDestination {
         sequence_number: u16,
         timeout: Duration,
     ) -> Result<(IpAddr, Duration), glib::Error> {
-        select_biased! {
-            r = self.ping(sequence_number).fuse() => r,
-            () = glib::timeout_future(timeout).fuse() => Err(
-                glib::Error::new(
-                    IOErrorEnum::TimedOut,
-                    &format!("Timeout after {}ms", timeout.as_millis()),
-                )
-            )
-        }
+        future_with_timeout(timeout, self.ping(sequence_number)).await
     }
 }
 
