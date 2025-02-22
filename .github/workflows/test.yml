@@ -78,4 +78,6 @@ jobs:
       - run: cargo test
       - name: cargo deny check
         uses: EmbarkStudios/cargo-deny-action@v2
+        with:
+          rust-version: stable
       - run: appstreamcli validate --explain resources/de.swsnr.turnon.metainfo.xml
