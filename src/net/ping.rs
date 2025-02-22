@@ -13,10 +13,10 @@ use std::os::fd::{AsRawFd, FromRawFd, OwnedFd};
 use std::time::{Duration, Instant};
 
 use futures_util::stream::FuturesUnordered;
-use futures_util::{future, FutureExt, StreamExt};
+use futures_util::{FutureExt, StreamExt, future};
 use glib::IOCondition;
-use gtk::gio::prelude::{ResolverExt, SocketExtManual};
 use gtk::gio::Cancellable;
+use gtk::gio::prelude::{ResolverExt, SocketExtManual};
 use gtk::gio::{self, IOErrorEnum};
 use gtk::prelude::SocketExt;
 
@@ -155,7 +155,9 @@ pub async fn ping_address(
         } else {
             Err(glib::Error::new(
                 IOErrorEnum::InvalidData,
-                &format!("Received out of order sequence number {received_sequence_number}, expected {sequence_number}"),
+                &format!(
+                    "Received out of order sequence number {received_sequence_number}, expected {sequence_number}"
+                ),
             ))
         }
     } else {
@@ -184,7 +186,7 @@ impl PingDestination {
     pub fn resolve(&self) -> impl Future<Output = Result<Vec<IpAddr>, glib::Error>> {
         match self {
             PingDestination::Addr(address) => future::ready(Ok(vec![*address])).right_future(),
-            PingDestination::Dns(ref host) => {
+            PingDestination::Dns(host) => {
                 // The destination a DNS name so let's resolve it into a list of IP addresses.
                 glib::trace!("Resolving {host} to IP address");
                 gio::Resolver::default()

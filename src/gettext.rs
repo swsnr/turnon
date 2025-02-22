@@ -63,7 +63,7 @@ pub const LC_ALL: c_int = 6;
 mod native {
     use std::ffi::{c_char, c_int};
 
-    extern "C" {
+    unsafe extern "C" {
         pub fn bindtextdomain(domainname: *const c_char, dirname: *const c_char) -> *mut c_char;
 
         pub fn textdomain(domain_name: *const c_char) -> *mut c_char;

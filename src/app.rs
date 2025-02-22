@@ -6,7 +6,7 @@
 
 use adw::prelude::*;
 use adw::subclass::prelude::*;
-use glib::{dgettext, dpgettext2, Object};
+use glib::{Object, dgettext, dpgettext2};
 use gtk::gio::{ActionEntry, ApplicationFlags};
 
 use crate::config::G_LOG_DOMAIN;
@@ -164,7 +164,7 @@ mod imp {
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
-    use glib::{dpgettext2, OptionArg, OptionFlags};
+    use glib::{OptionArg, OptionFlags, dpgettext2};
     use gtk::gio::{DBusConnection, ListStore, RegistrationId, Settings, SettingsBackend};
 
     use crate::config::G_LOG_DOMAIN;

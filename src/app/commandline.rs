@@ -6,7 +6,7 @@
 
 use std::{borrow::Cow, future::Future, time::Duration};
 
-use futures_util::{stream::FuturesOrdered, StreamExt};
+use futures_util::{StreamExt, stream::FuturesOrdered};
 use gio::prelude::*;
 use glib::dpgettext2;
 use gtk::gio;

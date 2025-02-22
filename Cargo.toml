@@ -17,7 +17,7 @@ authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
 # new languages or made major updates, while still providing meaningful release
 # notes for the last functional changes.
 version = "2.3.4"
-edition = "2021"
+edition = "2024"
 publish = false
 build = "build.rs"
 
