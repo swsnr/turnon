@@ -6,13 +6,13 @@
 
 use std::path::Path;
 
-use glib::{dpgettext2, Object};
+use glib::{Object, dpgettext2};
 use gtk::gio;
 use gtk::gio::prelude::*;
 
 use crate::config::G_LOG_DOMAIN;
 use crate::net::arpcache::{
-    read_arp_cache_from_path, ArpCacheEntryFlags, ArpHardwareType, ArpKnownHardwareType,
+    ArpCacheEntryFlags, ArpHardwareType, ArpKnownHardwareType, read_arp_cache_from_path,
 };
 
 use super::Device;

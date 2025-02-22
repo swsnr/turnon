@@ -10,7 +10,7 @@ use gtk::glib;
 
 use crate::config::G_LOG_DOMAIN;
 use crate::futures::future_with_timeout;
-use crate::net::{wol, MacAddr6Boxed};
+use crate::net::{MacAddr6Boxed, wol};
 
 glib::wrapper! {
     pub struct Device(ObjectSubclass<imp::Device>);

@@ -39,12 +39,12 @@ mod imp {
     use std::time::Duration;
 
     use adw::subclass::prelude::*;
-    use adw::{prelude::*, Toast, ToastOverlay};
-    use futures_util::{stream, StreamExt, TryStreamExt};
+    use adw::{Toast, ToastOverlay, prelude::*};
+    use futures_util::{StreamExt, TryStreamExt, stream};
     use glib::dpgettext2;
+    use gtk::CompositeTemplate;
     use gtk::gdk::{Key, ModifierType};
     use gtk::glib::subclass::InitializingObject;
-    use gtk::CompositeTemplate;
 
     use crate::app::model::{Device, Devices};
     use crate::app::widgets::MoveDirection;

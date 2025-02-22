@@ -6,7 +6,7 @@
 
 use std::path::PathBuf;
 
-use glib::{gstr, GStr};
+use glib::{GStr, gstr};
 use gtk::gio;
 
 /// The app ID to use.

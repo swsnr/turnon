@@ -10,8 +10,8 @@ use std::io::Write;
 use std::net::{Ipv4Addr, SocketAddr};
 
 use glib::IOCondition;
-use gtk::gio::prelude::{SocketExt, SocketExtManual};
 use gtk::gio::Cancellable;
+use gtk::gio::prelude::{SocketExt, SocketExtManual};
 use gtk::gio::{self, IOErrorEnum};
 use macaddr::MacAddr6;
 

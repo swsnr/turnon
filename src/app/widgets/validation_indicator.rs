@@ -29,11 +29,11 @@ mod imp {
     use std::cell::{Cell, RefCell};
 
     use adw::subclass::prelude::*;
+    use gtk::CompositeTemplate;
     use gtk::glib;
+    use gtk::glib::Properties;
     use gtk::glib::prelude::*;
     use gtk::glib::subclass::InitializingObject;
-    use gtk::glib::Properties;
-    use gtk::CompositeTemplate;
 
     #[derive(CompositeTemplate, Default, Properties)]
     #[template(resource = "/de/swsnr/turnon/ui/validation-indicator.ui")]

@@ -18,5 +18,5 @@ mod wol;
 
 pub use macaddr::MacAddr6Boxed;
 pub use monitor::monitor;
-pub use ping::{ping_address, PingDestination};
+pub use ping::{PingDestination, ping_address};
 pub use wol::wol;

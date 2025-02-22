@@ -7,9 +7,9 @@
 //! Access the Linux ARP cache.
 
 use std::fmt::Display;
-use std::io::prelude::*;
 use std::io::BufReader;
 use std::io::ErrorKind;
+use std::io::prelude::*;
 use std::net::{AddrParseError, Ipv4Addr};
 use std::num::ParseIntError;
 use std::path::Path;

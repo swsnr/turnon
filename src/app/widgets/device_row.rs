@@ -137,10 +137,10 @@ mod imp {
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
-    use glib::subclass::{InitializingObject, Signal};
     use glib::Properties;
+    use glib::subclass::{InitializingObject, Signal};
     use gtk::gdk::{Key, ModifierType};
-    use gtk::{template_callbacks, CompositeTemplate};
+    use gtk::{CompositeTemplate, template_callbacks};
 
     use crate::app::model::Device;
 

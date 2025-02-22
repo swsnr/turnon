@@ -70,10 +70,10 @@ mod imp {
 
     use adw::prelude::*;
     use adw::subclass::prelude::*;
-    use gtk::gdk::{Key, ModifierType};
-    use gtk::glib::subclass::{InitializingObject, Signal};
-    use gtk::glib::Properties;
     use gtk::CompositeTemplate;
+    use gtk::gdk::{Key, ModifierType};
+    use gtk::glib::Properties;
+    use gtk::glib::subclass::{InitializingObject, Signal};
     use gtk::{glib, template_callbacks};
 
     use crate::app::model::Device;
@@ -241,10 +241,12 @@ mod imp {
     impl ObjectImpl for EditDeviceDialog {
         fn signals() -> &'static [Signal] {
             static SIGNALS: LazyLock<Vec<Signal>> = LazyLock::new(|| {
-                vec![Signal::builder("saved")
-                    .action()
-                    .param_types([Device::static_type()])
-                    .build()]
+                vec![
+                    Signal::builder("saved")
+                        .action()
+                        .param_types([Device::static_type()])
+                        .build(),
+                ]
             });
             SIGNALS.as_ref()
         }

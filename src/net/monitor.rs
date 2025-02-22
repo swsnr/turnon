@@ -15,7 +15,7 @@ use futures_util::{Stream, StreamExt};
 use crate::config::G_LOG_DOMAIN;
 use crate::futures::future_with_timeout;
 
-use super::{ping_address, PingDestination};
+use super::{PingDestination, ping_address};
 
 /// Monitor a network `destination` with periodic pings at the given `interval`.
 ///

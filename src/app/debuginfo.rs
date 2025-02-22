@@ -9,17 +9,17 @@ use std::fmt::Display;
 use std::net::IpAddr;
 use std::time::Duration;
 
-use futures_util::stream::{FuturesOrdered, FuturesUnordered};
 use futures_util::FutureExt;
 use futures_util::StreamExt;
+use futures_util::stream::{FuturesOrdered, FuturesUnordered};
 use gtk::gio;
 use gtk::prelude::*;
 use macaddr::MacAddr6;
 
 use crate::config;
 use crate::futures::future_with_timeout;
-use crate::net::arpcache::{default_arp_cache_path, read_arp_cache_from_path, ArpCacheEntry};
-use crate::net::{ping_address, PingDestination};
+use crate::net::arpcache::{ArpCacheEntry, default_arp_cache_path, read_arp_cache_from_path};
+use crate::net::{PingDestination, ping_address};
 
 use super::model::{Device, Devices};
 

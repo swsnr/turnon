@@ -6,7 +6,7 @@
 
 //! Utilities for the search provider of Turn On.
 
-use glib::{dpgettext2, ControlFlow, Variant, VariantDict};
+use glib::{ControlFlow, Variant, VariantDict, dpgettext2};
 use gtk::gio::{
     DBusConnection, DBusError, ListStore, Notification, NotificationPriority, RegistrationId,
 };
