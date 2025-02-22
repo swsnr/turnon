@@ -51,7 +51,7 @@ pub fn monitor(
                         }),
                     // If we have no cached IP address resolve the destination and ping all
                     // addresses it resolves to, then cache the first reachable address.
-                    None => destination.ping_with_timeout(seqnr, timeout)
+                    None => future_with_timeout(timeout, destination.ping(seqnr))
                         .await
                         .inspect(|(address, duration)| {
                             glib::trace!("{address} of {destination} replied after {}ms, caching", duration.as_millis());

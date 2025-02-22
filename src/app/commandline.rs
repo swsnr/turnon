@@ -13,6 +13,7 @@ use gtk::gio;
 
 use crate::app::TurnOnApplication;
 use crate::config::G_LOG_DOMAIN;
+use crate::futures::future_with_timeout;
 use crate::net::PingDestination;
 
 use super::model::Device;
@@ -92,9 +93,7 @@ pub fn turn_on_device_by_label(
 
 async fn ping_device(device: Device) -> (Device, Result<Duration, glib::Error>) {
     let destination = PingDestination::from(device.host());
-    let result = destination
-        .ping_with_timeout(1, Duration::from_millis(500))
-        .await;
+    let result = future_with_timeout(Duration::from_millis(500), destination.ping(1)).await;
     (device, result.map(|v| v.1))
 }
 

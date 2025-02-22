@@ -21,7 +21,6 @@ use gtk::gio::{self, IOErrorEnum};
 use gtk::prelude::SocketExt;
 
 use crate::config::G_LOG_DOMAIN;
-use crate::futures::future_with_timeout;
 
 #[allow(
     clippy::needless_pass_by_value,
@@ -233,20 +232,6 @@ impl PingDestination {
                 &format!("Target {self} had no reachable addresses"),
             )
         })
-    }
-
-    /// Like [`ping`] but with a timeout.
-    ///
-    /// If no address of this destination (see [`resolve`]) replied within the
-    /// given `timeout` return an error.  Otherwise return the first address
-    /// which replied, together with the approximate round trip time to that
-    /// address.
-    pub async fn ping_with_timeout(
-        &self,
-        sequence_number: u16,
-        timeout: Duration,
-    ) -> Result<(IpAddr, Duration), glib::Error> {
-        future_with_timeout(timeout, self.ping(sequence_number)).await
     }
 }
 
