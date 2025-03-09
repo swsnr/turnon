@@ -69,7 +69,7 @@ install: install-locale
 	install -Dm0644 resources/icons/symbolic/apps/de.swsnr.turnon-symbolic.svg \
 		$(DESTPREFIX)/share/icons/hicolor/symbolic/apps/$(APPID)-symbolic.svg
 	install -Dm0644 de.swsnr.turnon.desktop $(DESTPREFIX)/share/applications/$(APPID).desktop
-	install -Dm0644 resources/de.swsnr.turnon.metainfo.xml  $(DESTPREFIX)/share/metainfo/$(APPID).metainfo.xml
+	install -Dm0644 resources/de.swsnr.turnon.metainfo.xml $(DESTPREFIX)/share/metainfo/$(APPID).metainfo.xml
 	install -Dm0644 dbus-1/de.swsnr.turnon.service $(DESTPREFIX)/share/dbus-1/services/$(APPID).service
 	install -Dm0644 de.swsnr.turnon.search-provider.ini $(DESTPREFIX)/share/gnome-shell/search-providers/$(APPID).search-provider.ini
 	install -Dm0644 schemas/de.swsnr.turnon.gschema.xml $(DESTPREFIX)/share/glib-2.0/schemas/$(APPID).gschema.xml
