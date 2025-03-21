@@ -53,9 +53,12 @@ def update_releasenotes(new_version: Version, *, tag_name: str, date: str, dry_r
         raise ValueError("Doing a major or minor release but no release notes found!")
     next_release.attrib['version'] = str(new_version)
     next_release.attrib['date'] = date
-    next_release[-1].tail = next_release.text
-    url = etree.SubElement(next_release, 'url')
-    url.tail = next_release.tail
+    url = next_release.find('./url')
+    if url is None:
+        # Add new URL tag with appropriate space
+        next_release[-1].tail = next_release.text
+        url = etree.SubElement(next_release, 'url')
+        url.tail = next_release.tail
     url.text = f'https://github.com/swsnr/turnon/releases/tag/{tag_name}'
     if dry_run:
         etree.dump(tree)
