@@ -58,7 +58,7 @@ def update_releasenotes(new_version: Version, *, tag_name: str, date: str, dry_r
     url.tail = next_release.tail
     url.text = f'https://github.com/swsnr/turnon/releases/tag/{tag_name}'
     if dry_run:
-        etree.dump(next_release)
+        etree.dump(tree)
     else:
         tree.write(metadata_file, xml_declaration=True, encoding='utf-8')
 
