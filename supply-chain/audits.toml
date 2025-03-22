@@ -61,6 +61,16 @@ criteria = "safe-to-run"
 delta = "0.3.1 -> 0.3.2"
 notes = "A few slightly non-trivial changes around symlinks, but still safe-to-run"
 
+[[audits.libadwaita]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.7.1 -> 0.7.2"
+
+[[audits.libadwaita-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.7.1 -> 0.7.2"
+
 [[audits.macaddr]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -563,70 +573,70 @@ notes = "swsnr trusts epage"
 
 [[trusted.windows-sys]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2021-11-15"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.windows-targets]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2022-09-09"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.windows_aarch64_gnullvm]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2022-09-01"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.windows_aarch64_msvc]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2021-11-05"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.windows_i686_gnu]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2021-10-28"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.windows_i686_gnullvm]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2024-04-02"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.windows_i686_msvc]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2021-10-27"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.windows_x86_64_gnu]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2021-10-28"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.windows_x86_64_gnullvm]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2022-09-01"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.windows_x86_64_msvc]]
 criteria = "safe-to-run"
-user-id = 64539
+user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2021-10-27"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
