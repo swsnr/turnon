@@ -21,7 +21,7 @@ template $DeviceRow: Adw.ActionRow {
         icon-name: "sonar-symbolic";
 
         styles [
-          "error"
+          "error",
         ]
       };
     }
@@ -33,7 +33,7 @@ template $DeviceRow: Adw.ActionRow {
         icon-name: "sonar-symbolic";
 
         styles [
-          "success"
+          "success",
         ]
       };
     }
@@ -48,7 +48,7 @@ template $DeviceRow: Adw.ActionRow {
       label: bind (template.device as <$Device>).host;
 
       styles [
-        "title"
+        "title",
       ]
     }
 
@@ -72,7 +72,7 @@ template $DeviceRow: Adw.ActionRow {
             visible: bind add.sensitive;
 
             styles [
-              "flat"
+              "flat",
             ]
           }
 
@@ -84,7 +84,7 @@ template $DeviceRow: Adw.ActionRow {
             visible: bind edit.sensitive;
 
             styles [
-              "flat"
+              "flat",
             ]
           }
 
@@ -97,7 +97,7 @@ template $DeviceRow: Adw.ActionRow {
             visible: bind delete.sensitive;
 
             styles [
-              "flat"
+              "flat",
             ]
           }
         };
@@ -124,7 +124,7 @@ template $DeviceRow: Adw.ActionRow {
             action-name: "row.cancel-delete";
 
             styles [
-              "flat"
+              "flat",
             ]
           }
         };
