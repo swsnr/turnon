@@ -41,6 +41,12 @@
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>
         -->
+        <release version="next" date="9999-01-01">
+            <description>
+                <p>Update to GNOME 48</p>
+            </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/next</url>
+        </release>
         <release version="2.3.0" date="2025-01-12">
             <description>
                 <p>Reorder devices with Alt+Up and Alt+Down</p>
