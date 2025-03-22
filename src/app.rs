@@ -84,6 +84,12 @@ impl TurnOnApplication {
             ],
         );
 
+        dialog.add_other_app(
+            "de.swsnr.pictureoftheday",
+            "Picture Of The Day",
+            "Your daily wallpaper",
+        );
+
         dialog.present(self.active_window().as_ref());
     }
 
