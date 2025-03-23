@@ -7,17 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-12 12:29+0000\n"
-"Last-Translator: Priit Jõerüüt <jrtcdbrg@users.noreply.translate.codeberg."
-"org>\n"
-"Language-Team: Estonian <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/et/>\n"
+"PO-Revision-Date: 2025-03-23 21:21+0000\n"
+"Last-Translator: Priit Jõerüüt <jrtcdbrg@noreply.codeberg.org>\n"
+"Language-Team: Estonian <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/et/>\n"
 "Language: et\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop.in:4 resources/de.swsnr.turnon.metainfo.xml.in:5
@@ -31,12 +30,11 @@ msgstr "Lülita seadmed oma võrgus sisse"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: de.swsnr.turnon.desktop.in:11
-#, fuzzy
-#| msgid "Gnome;GTK;WakeOnLan;"
 msgid "GNOME;GTK;WakeOnLan;"
 msgstr ""
-"Gnome;GTK;WakeOnLan;wol;ärata;lülita sisse;arvuti;arvutid;seade;seadmed;"
-"kohtvõrk;kohtvõrgus;turn on;switch on;wake on lan;"
+"Gnome;GTK;WakeOnLan;wol;ärata;lülita "
+"sisse;arvuti;arvutid;seade;seadmed;kohtvõrk;kohtvõrgus;turn on;switch on;"
+"wake on lan;"
 
 #: de.swsnr.turnon.desktop.in:18
 msgid "Add new device"
@@ -80,7 +78,7 @@ msgstr "Lülita arvutid või seadmed sisse käsurealt."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:46
 msgid "Update to GNOME 48"
-msgstr ""
+msgstr "Uuendus kasutab nüüd GNOME 48 teeke"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:52
 msgid "Reorder devices with Alt+Up and Alt+Down"
