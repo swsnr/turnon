@@ -15,16 +15,10 @@ jobs:
         uses: docker://ghcr.io/gtk-rs/gtk4-rs/gtk4:latest
         with:
           args: appstreamcli metainfo-to-news resources/de.swsnr.turnon.metainfo.xml.in news.yaml
-      - name: yq eval-all '[.]' -oj news.yaml
-        id: news
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq eval-all '[.]' -oj news.yaml
-      - run: jq -nr --arg tag "${TAGNAME}" '$ENV.JSON | fromjson | .[] | select(.Version == ($tag | ltrimstr("v"))) | .Description | tostring' > relnotes.md
+      - run: yq eval-all '[.]' -oj news.yaml > news.json
+      - run: jq -r --arg tag "${TAGNAME}" '.[] | select(.Version == ($tag | ltrimstr("v"))) | .Description | tostring' > relnotes.md < news.json
         env:
-          JSON: ${{ steps.news.outputs.result }}
-          # Get release notes for the next release on the main branch, otherwise use the tag name
-          TAGNAME: ${{ !startsWith(github.ref, 'refs/tags/') && 'next' || github.ref_name }}
+          TAGNAME: '${{ github.ref_name }}'
       - run: cat relnotes.md
       - uses: actions/upload-artifact@v4
         with:
@@ -108,26 +102,11 @@ jobs:
       - run: echo ARCHIVE_SHA512="$(sha512sum artifacts/turnon-${{ github.ref_name }}.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
       - run: echo VENDOR_SHA512="$(sha512sum artifacts/vendor.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
       - run: rm -rf artifacts
-      - name: Replace git archive url
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq eval -i '.modules.[0].sources.[0].url = "https://github.com/swsnr/turnon/releases/download/$GITHUB_REF_NAME/turnon-$GITHUB_REF_NAME.tar.zst"' flatpak/de.swsnr.turnon.yaml
-      - name: Replace git archive sha512sum
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq eval -i '.modules.[0].sources.[0].sha512 = "$ARCHIVE_SHA512"' flatpak/de.swsnr.turnon.yaml
-      - name: Replace vendor bundle url
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq eval -i '.modules.[0].sources.[1].url = "https://github.com/swsnr/turnon/releases/download/$GITHUB_REF_NAME/vendor.tar.zst"' flatpak/de.swsnr.turnon.yaml
-      - name: Replace vendor sha512sum
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq eval -i '.modules.[0].sources.[1].sha512 = "$VENDOR_SHA512"' flatpak/de.swsnr.turnon.yaml
-      - name: Substitute environment variables
-        uses: mikefarah/yq@master
-        with:
-          cmd: yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
+      - run: yq eval -i '.modules.[0].sources.[0].url = "https://github.com/swsnr/turnon/releases/download/$GITHUB_REF_NAME/turnon-$GITHUB_REF_NAME.tar.zst"' flatpak/de.swsnr.turnon.yaml
+      - run: yq eval -i '.modules.[0].sources.[0].sha512 = "$ARCHIVE_SHA512"' flatpak/de.swsnr.turnon.yaml
+      - run: yq eval -i '.modules.[0].sources.[1].url = "https://github.com/swsnr/turnon/releases/download/$GITHUB_REF_NAME/vendor.tar.zst"' flatpak/de.swsnr.turnon.yaml
+      - run: yq eval -i '.modules.[0].sources.[1].sha512 = "$VENDOR_SHA512"' flatpak/de.swsnr.turnon.yaml
+      - run: yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
       # A little sanity check
       - run: git diff
       # Create a pull request to update the manifest on main
