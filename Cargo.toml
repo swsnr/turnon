@@ -28,7 +28,7 @@ futures-util = { version = "0.3.31" }
 glib = { version = "0.20.9", features = ["log", "log_macros", "v2_84"] }
 gtk = { package = "gtk4", version = "0.9.6", features = ["v4_18", "gnome_47"] }
 log = "0.4.22"
-macaddr = { version = "1.0.1", default-features = false }
+macaddr = "1.0.1"
 serde = { version = "1.0.210", features = ["derive"] }
 serde_json = "1.0.128"
 bitflags = "2.6.0"
