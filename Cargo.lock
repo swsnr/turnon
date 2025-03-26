@@ -754,6 +754,7 @@ dependencies = [
  "semver",
  "serde",
  "serde_json",
+ "wol",
 ]
 
 [[package]]
@@ -848,4 +849,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0e97b544156e9bebe1a0ffbc03484fc1ffe3100cbce3ffb17eac35f7cdd7ab36"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "wol"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6ce45d52d45685d365b22f0cf5457e3c17e110c86c78278567636d06ed6ebbbf"
+dependencies = [
+ "macaddr",
 ]
