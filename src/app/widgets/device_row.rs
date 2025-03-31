@@ -155,23 +155,38 @@ mod imp {
         device: RefCell<Device>,
         #[property(get, set)]
         is_device_online: Cell<bool>,
+        #[property(get, set, nullable)]
+        device_url: RefCell<Option<String>>,
         #[property(get)]
         suffix_mode: RefCell<String>,
     }
 
     #[template_callbacks]
     impl DeviceRow {
-        #[template_callback]
-        pub fn device_mac_address(_row: &super::DeviceRow, device: &Device) -> String {
+        #[template_callback(function)]
+        pub fn device_mac_address(device: &Device) -> String {
             device.mac_address().to_string()
         }
 
-        #[template_callback]
-        pub fn device_state_name(_row: &super::DeviceRow, is_device_online: bool) -> &'static str {
+        #[template_callback(function)]
+        pub fn device_state_name(is_device_online: bool) -> &'static str {
             if is_device_online {
                 "online"
             } else {
                 "offline"
+            }
+        }
+
+        #[template_callback(function)]
+        pub fn device_host(host: &str, url: Option<&str>) -> String {
+            if let Some(url) = url {
+                format!(
+                    "<a href=\"{}\">{}</a>",
+                    glib::markup_escape_text(url),
+                    glib::markup_escape_text(host)
+                )
+            } else {
+                glib::markup_escape_text(host).to_string()
             }
         }
 
@@ -249,6 +264,7 @@ mod imp {
             Self {
                 device: RefCell::default(),
                 is_device_online: Cell::default(),
+                device_url: RefCell::default(),
                 suffix_mode: RefCell::new("buttons".into()),
             }
         }

@@ -11,11 +11,13 @@
 //! implementation, some helper types, and various tools for network scanning.
 
 pub mod arpcache;
+mod http;
 mod macaddr;
 mod monitor;
 mod ping;
 mod wol;
 
+pub use http::probe_http;
 pub use macaddr::MacAddr6Boxed;
 pub use monitor::monitor;
 pub use ping::{PingDestination, ping_address};

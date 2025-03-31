@@ -40,6 +40,7 @@ mod imp {
 
     use adw::subclass::prelude::*;
     use adw::{Toast, ToastOverlay, prelude::*};
+    use futures_util::future::Either;
     use futures_util::{StreamExt, TryStreamExt, stream};
     use glib::dpgettext2;
     use gtk::CompositeTemplate;
@@ -49,7 +50,7 @@ mod imp {
     use crate::app::model::{Device, Devices};
     use crate::app::widgets::MoveDirection;
     use crate::config::G_LOG_DOMAIN;
-    use crate::net;
+    use crate::net::{self, probe_http};
 
     use super::super::DeviceRow;
 
@@ -144,13 +145,34 @@ mod imp {
                 #[weak]
                 row,
                 #[upgrade_or]
-                futures_util::future::err(()),
+                Either::Left(futures_util::future::err(())),
                 move |result| {
-                    if let Err(error) = &result {
-                        glib::trace!("Device {} not reachable: {error}", row.device().label());
-                    }
-                    row.set_is_device_online(result.is_ok());
-                    futures_util::future::ok(())
+                    Either::Right(async move {
+                        match result {
+                            Ok(_) => {
+                                row.set_is_device_online(true);
+                                let url = probe_http(&row.device().host(), Duration::from_secs(1))
+                                    .await
+                                    .map(|scheme| scheme.to_url(&row.device().host()))
+                                    .inspect(|url| {
+                                        glib::info!(
+                                            "Device {} offers URL {url}",
+                                            row.device().label()
+                                        );
+                                    });
+                                row.set_device_url(url);
+                            }
+                            Err(error) => {
+                                glib::trace!(
+                                    "Device {} not reachable: {error}",
+                                    row.device().label()
+                                );
+                                row.set_device_url(None::<String>);
+                                row.set_is_device_online(false);
+                            }
+                        }
+                        Ok(())
+                    })
                 }
             )));
             abort_monitoring
