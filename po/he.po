@@ -81,110 +81,114 @@ msgid "Turn on devices from the command line."
 msgstr "הדלקת התקנים דרך השכמה דרך הרשת המקומית - Wake On LAN"
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:46
+msgid "Probe reachable devices for web interfaces."
+msgstr ""
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:55
 msgid "Update to GNOME 48"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:52
+#: resources/de.swsnr.turnon.metainfo.xml.in:61
 msgid "Reorder devices with Alt+Up and Alt+Down"
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:61
+#: resources/de.swsnr.turnon.metainfo.xml.in:70
 msgid ""
 "Refine application icon to make it sharper at smaller sizes, and redesign "
 "symbolic icon."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:70
+#: resources/de.swsnr.turnon.metainfo.xml.in:79
 msgid "Save and restore main window state."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:71
+#: resources/de.swsnr.turnon.metainfo.xml.in:80
 msgid "Define additional shortcuts."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:80
+#: resources/de.swsnr.turnon.metainfo.xml.in:89
 msgid ""
 "Add new toolbar and start page buttons to enable network scanning. When "
 "network scanning is on show devices discovered in the local network in the "
 "list of devices."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:84
+#: resources/de.swsnr.turnon.metainfo.xml.in:93
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:98
+#: resources/de.swsnr.turnon.metainfo.xml.in:107
 msgid ""
 "The dialog to add a new device now uses success and error styles for the "
 "validity indicators."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:99
+#: resources/de.swsnr.turnon.metainfo.xml.in:108
 msgid ""
 "Refuse to add a new device if the host name contains a port which is not "
 "permitted at this place."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:100
 #: resources/de.swsnr.turnon.metainfo.xml.in:109
-#: resources/de.swsnr.turnon.metainfo.xml.in:117
+#: resources/de.swsnr.turnon.metainfo.xml.in:118
+#: resources/de.swsnr.turnon.metainfo.xml.in:126
 msgid "Update translations."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:115
+#: resources/de.swsnr.turnon.metainfo.xml.in:124
 msgid "Searching for devices via GNOME Shell now ignores case."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:116
+#: resources/de.swsnr.turnon.metainfo.xml.in:125
 msgid ""
 "Add \"--list-devices\" command line argument to list all devices and their "
 "status."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:127
+#: resources/de.swsnr.turnon.metainfo.xml.in:136
 msgid ""
 "The link to translations in application metadata and on Flathub is more "
 "helpful now."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:133
+#: resources/de.swsnr.turnon.metainfo.xml.in:142
 #, fuzzy
 #| msgid "Add Italian translation, and update German translation."
 msgid "Add Dutch translation, and update existing translations."
 msgstr "נוסף תרגום לאיטלקית והתרגום לגרמנית עודכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:134
+#: resources/de.swsnr.turnon.metainfo.xml.in:143
 #, fuzzy
 #| msgid "Turn On no longer crashes when removing the last device."
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr "הדלקה לא קורס עוד בעת הסרת ההתקן האחרון."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:135
+#: resources/de.swsnr.turnon.metainfo.xml.in:144
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:144
+#: resources/de.swsnr.turnon.metainfo.xml.in:153
 msgid "Add Hebrew translation."
 msgstr ""
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:150
+#: resources/de.swsnr.turnon.metainfo.xml.in:159
 msgid "Add Italian translation, and update German translation."
 msgstr "נוסף תרגום לאיטלקית והתרגום לגרמנית עודכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:156
+#: resources/de.swsnr.turnon.metainfo.xml.in:165
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr "הדלקה משתלבת לתוך החיפוש של GNOME ומציעה להדליק התקנים ישירות מהחיפוש."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:157
+#: resources/de.swsnr.turnon.metainfo.xml.in:166
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr "משגר הדלקה מציע להוסיף התקן חדש בתפריט ההקשר."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:158
+#: resources/de.swsnr.turnon.metainfo.xml.in:167
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -192,19 +196,19 @@ msgstr ""
 "הדלקה מספקת ממשק שורת פקידה בסיסי, במיוחד עם האפשרות ‎--turn-on-device "
 "שמפעילה מעתה התקנים לפי התוויות שלהם."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:168
+#: resources/de.swsnr.turnon.metainfo.xml.in:177
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "הדלקה לא קורס עוד בעת הסרת ההתקן האחרון."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:169
+#: resources/de.swsnr.turnon.metainfo.xml.in:178
 msgid "Add German translation, and update application metadata."
 msgstr "הוספת תרגום לגרמנית ועדכון נתוני העל של היישום."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:175
+#: resources/de.swsnr.turnon.metainfo.xml.in:184
 msgid "Shorten summary in metadata."
 msgstr "קוצר ההסבר בנתוני העל."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:181
+#: resources/de.swsnr.turnon.metainfo.xml.in:190
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -215,45 +219,45 @@ msgstr ""
 "התקן ופישוט חלונית עריכת ההתקנים באמצעות המקלדת (לחיצה אל Enter מנווטת "
 "לרשומה הבאה ובסופו של דבר מוסיפה את ההתקן)."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:193
+#: resources/de.swsnr.turnon.metainfo.xml.in:202
 msgid "Refined app icon."
 msgstr "הסגנון של סמל היישום התעדכן."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:199
+#: resources/de.swsnr.turnon.metainfo.xml.in:208
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr "זאת המהדורה הראשונית. היישום תומך ביכולות האלה בגרסה הזאת:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:201
+#: resources/de.swsnr.turnon.metainfo.xml.in:210
 msgid "Add new devices"
 msgstr "הוספת התקנים חדשים"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:202
+#: resources/de.swsnr.turnon.metainfo.xml.in:211
 msgid "Monitor whether devices are turned on"
 msgstr "מעקב אחר האם ההתקנים דולקים"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:203
+#: resources/de.swsnr.turnon.metainfo.xml.in:212
 msgid "Turn on devices with Wake On LAN"
 msgstr "הדלקת התקנים דרך השכמה דרך הרשת המקומית - Wake On LAN"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:205
+#: resources/de.swsnr.turnon.metainfo.xml.in:214
 msgid "This release is missing the following features:"
 msgstr "במהדורה הזאת חסרות היכולות הבאות:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:207
+#: resources/de.swsnr.turnon.metainfo.xml.in:216
 msgid "Devices can not be edited or removed."
 msgstr "אי אפשר לערוך או להסיר התקנים."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:208
+#: resources/de.swsnr.turnon.metainfo.xml.in:217
 msgid "The order of devices cannot be changed."
 msgstr "אי אפשר לשנות את סדר ההתקנים."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:209
+#: resources/de.swsnr.turnon.metainfo.xml.in:218
 msgid "Languages other than English are not supported."
 msgstr "אין תמיכה בשפות מלבד אנגלית."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:222
+#: resources/de.swsnr.turnon.metainfo.xml.in:231
 #, fuzzy
 #| msgid "Two devices, one of them on, and the other off"
 msgid ""
@@ -261,7 +265,7 @@ msgid ""
 "in the network"
 msgstr "שני התקנים, אחד מהם דולק, השני כבוי"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:226
+#: resources/de.swsnr.turnon.metainfo.xml.in:235
 #, fuzzy
 #| msgid "Two devices, one of them on, and the other off"
 msgid ""
@@ -269,13 +273,13 @@ msgid ""
 "enabled"
 msgstr "שני התקנים, אחד מהם דולק, השני כבוי"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:230
+#: resources/de.swsnr.turnon.metainfo.xml.in:239
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr "עריכת התקן עם שם, כתובת חומרה (MAC), וכתובת IP כדי לבדוק מולו את המצב"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:234
+#: resources/de.swsnr.turnon.metainfo.xml.in:243
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
@@ -390,7 +394,7 @@ msgctxt "shortcut description"
 msgid "Move device downwards"
 msgstr ""
 
-#: resources/ui/device-row.blp:69
+#: resources/ui/device-row.blp:70
 #, fuzzy
 #| msgctxt "device-row.action.row.edit.tooltip"
 #| msgid "Edit this device"
@@ -398,22 +402,22 @@ msgctxt "device-row.action.row.add.tooltip"
 msgid "Add this device"
 msgstr "עריכת ההתקן הזה"
 
-#: resources/ui/device-row.blp:81
+#: resources/ui/device-row.blp:82
 msgctxt "device-row.action.row.edit.tooltip"
 msgid "Edit this device"
 msgstr "עריכת ההתקן הזה"
 
-#: resources/ui/device-row.blp:93
+#: resources/ui/device-row.blp:94
 msgctxt "device-row.action.row.ask-delete.tooltip"
 msgid "Delete this device?"
 msgstr "למחוק את ההתקן הזה?"
 
-#: resources/ui/device-row.blp:111
+#: resources/ui/device-row.blp:112
 msgctxt "device-row.action.row.delete"
 msgid "Delete"
 msgstr "מחיקה"
 
-#: resources/ui/device-row.blp:121
+#: resources/ui/device-row.blp:122
 msgctxt "canceldevice-row.action.row.cancel-delete"
 msgid "Cancel"
 msgstr "ביטול"
@@ -630,19 +634,19 @@ msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr "שליחת מנת הנתונים הקסומה לכתובת החומרה %1 של ההתקן %2 נכשלה."
 
-#: src/app/widgets/application_window.rs:90
+#: src/app/widgets/application_window.rs:91
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
 msgstr "נשלחת מנת נתונים קסומה להתקן %s"
 
-#: src/app/widgets/application_window.rs:112
+#: src/app/widgets/application_window.rs:113
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr "נשלחה מנת נתונים קסומה להתקן %s"
 
-#: src/app/widgets/application_window.rs:126
+#: src/app/widgets/application_window.rs:127
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
