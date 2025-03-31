@@ -45,7 +45,8 @@ template $DeviceRow: Adw.ActionRow {
     spacing: 3;
 
     Label {
-      label: bind (template.device as <$Device>).host;
+      label: bind $device_host((template.device as <$Device>).host, template.device-url) as <string>;
+      use-markup: true;
 
       styles [
         "title",

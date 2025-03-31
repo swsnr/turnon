@@ -66,12 +66,18 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
         <child>
           <object class="GtkLabel">
             <binding name="label">
-              <lookup name="host" type="Device">
-                <lookup name="device" type="DeviceRow">
+              <closure function="device_host" type="gchararray">
+                <lookup name="host" type="Device">
+                  <lookup name="device" type="DeviceRow">
+                    <constant>DeviceRow</constant>
+                  </lookup>
+                </lookup>
+                <lookup name="device-url" type="DeviceRow">
                   <constant>DeviceRow</constant>
                 </lookup>
-              </lookup>
+              </closure>
             </binding>
+            <property name="use-markup">true</property>
             <style>
               <class name="title"/>
             </style>
