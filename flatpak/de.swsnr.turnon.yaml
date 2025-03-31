@@ -21,11 +21,11 @@ modules:
     buildsystem: simple
     sources:
       - type: archive
-        url: https://github.com/swsnr/turnon/releases/download/v2.4.1/turnon-v2.4.1.tar.zst
-        sha512: "51f2871d3e738e6fe8d91fa3ffc0633a62465663f27a16e980af707bc579628ee6a18b4cbe8c3fc2de9e2ff4402abbd8b1e21de7714f95b769c5401da1be49a9"
+        url: https://github.com/swsnr/turnon/releases/download/v2.5.0/turnon-v2.5.0.tar.zst
+        sha512: "96f63e89cb00c0f3bccf17a559841868ff91e1ad849572d839871c7e72800efffeb4fa4ac74bfbacb156b86bd1e2dfc7acf266e990e97dd3f149d0da5091ec47"
       - type: archive
-        url: https://github.com/swsnr/turnon/releases/download/v2.4.1/vendor.tar.zst
-        sha512: "27f3bc28b0d32caff7d67e87945e142d2ce56c4d1ef9ca64bd480bf80500d792c05318a3e7b8f99189856e449f1966d5273a05e03e0608e5aa1480452599bd4c"
+        url: https://github.com/swsnr/turnon/releases/download/v2.5.0/turnon-v2.5.0-vendor.tar.zst
+        sha512: "040c019ed153526e8b96ea4a501b81d037dbbfb016f6f1e563a1da074fdcf36459f0378c95aa61adca5d56ef3036501d85e787abd6833b3b3a75e71924377372"
         dest: vendor/
       - type: inline
         dest: .cargo/
