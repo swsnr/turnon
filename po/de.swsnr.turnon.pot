@@ -70,7 +70,7 @@ msgid "Turn on devices from the command line."
 msgstr ""
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:46
-msgid "Probe for reachable devices for web interfaces."
+msgid "Probe reachable devices for web interfaces."
 msgstr ""
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:55
