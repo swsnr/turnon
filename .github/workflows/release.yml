@@ -100,7 +100,7 @@ jobs:
           path: ./artifacts
           merge-multiple: true
       - run: echo ARCHIVE_SHA512="$(sha512sum artifacts/turnon-${{ github.ref_name }}.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
-      - run: echo VENDOR_SHA512="$(sha512sum artifacts/vendor.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
+      - run: echo VENDOR_SHA512="$(sha512sum artifacts/turnon-${{ github.ref_name }}-vendor.tar.zst | cut -d' ' -f1)" >> "$GITHUB_ENV"
       - run: rm -rf artifacts
       - run: yq eval -i '.modules.[0].sources.[0].url = "https://github.com/swsnr/turnon/releases/download/$GITHUB_REF_NAME/turnon-$GITHUB_REF_NAME.tar.zst"' flatpak/de.swsnr.turnon.yaml
       - run: yq eval -i '.modules.[0].sources.[0].sha512 = "$ARCHIVE_SHA512"' flatpak/de.swsnr.turnon.yaml
