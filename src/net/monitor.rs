@@ -17,14 +17,17 @@ use crate::futures::future_with_timeout;
 
 use super::{PingDestination, ping_address};
 
-/// Monitor a network `destination` with periodic pings at the given `interval`.
+/// Monitor a network destination.
 ///
-/// Return a stream which yields `Ok` if the destination could be resolved and replied to echo requests,
-/// or `Err` if a ping failed.
+/// Periodically ping`destination` at the given `interval` and yield the results.
+///
+/// Return a stream which yields `Ok` if the destination could be resolved and
+/// replied to echo requests, or `Err` if a ping failed.  In the former case,
+/// return the resolved IP address and the roundtrip duration for the ping.
 pub fn monitor(
     destination: PingDestination,
     interval: Duration,
-) -> impl Stream<Item = Result<Duration, glib::Error>> {
+) -> impl Stream<Item = Result<(IpAddr, Duration), glib::Error>> {
     let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Rc::default();
     let timeout = interval / 2;
     futures_util::stream::iter(vec![()])
@@ -44,20 +47,24 @@ pub fn monitor(
                         .await
                         .inspect(|duration| {
                             glib::trace!(
-                                "Cached address {address} replied to ping after {}ms and is still reachable, caching again",
+                                "Cached address {address} replied to ping after \
+{}ms and is still reachable, caching again",
                                 duration.as_millis()
                             );
                             state.replace(Some(address));
-                        }),
+                        })
+                        .map(|duration| (address, duration)),
                     // If we have no cached IP address resolve the destination and ping all
                     // addresses it resolves to, then cache the first reachable address.
                     None => future_with_timeout(timeout, destination.ping(seqnr))
                         .await
                         .inspect(|(address, duration)| {
-                            glib::trace!("{address} of {destination} replied after {}ms, caching", duration.as_millis());
+                            glib::trace!(
+                                "{address} of {destination} replied after {}ms, caching",
+                                duration.as_millis()
+                            );
                             state.replace(Some(*address));
-                        })
-                        .map(|(_, duration)| duration),
+                        }),
                 };
                 Some(result)
             }
