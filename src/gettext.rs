@@ -9,9 +9,9 @@ use std::io::Result;
 use std::os::unix::ffi::OsStringExt;
 use std::path::PathBuf;
 
-use glib::GStr;
+use glib::{GStr, gstr};
 
-pub fn bindtextdomain(domainname: &GStr, locale_dir: PathBuf) -> Result<()> {
+fn bindtextdomain(domainname: &GStr, locale_dir: PathBuf) -> Result<()> {
     let locale_dir = CString::new(locale_dir.into_os_string().into_vec()).unwrap();
     // SAFETY: domainname, being a GStr, is nul-terminated, and we explicitly convert locale_dir to a nul-terminated.
     // string. bindtextdomain does not take ownership of these pointers so we need not copy.  We ignore the returned
@@ -24,7 +24,7 @@ pub fn bindtextdomain(domainname: &GStr, locale_dir: PathBuf) -> Result<()> {
     }
 }
 
-pub fn textdomain(domainname: &GStr) -> Result<()> {
+fn textdomain(domainname: &GStr) -> Result<()> {
     // SAFETY: domainname, being a GStr, is nul-terminated. textdomain does not take ownership of this pointer so we
     // need not copy.  We ignore the returned pointer, other than checking for NULL.
     let new_domain = unsafe { native::textdomain(domainname.as_ptr()) };
@@ -35,7 +35,7 @@ pub fn textdomain(domainname: &GStr) -> Result<()> {
     }
 }
 
-pub fn bind_textdomain_codeset(domainname: &GStr, codeset: &GStr) -> Result<()> {
+fn bind_textdomain_codeset(domainname: &GStr, codeset: &GStr) -> Result<()> {
     // SAFETY: domainname and codeset, being GStrs, are nul-terminated already. bind_textdomain_codeset does not take
     // ownership of these pointers so we need not copy.  We ignore the returned pointer, other than checking for NULL.
     let new_codeset =
@@ -47,21 +47,28 @@ pub fn bind_textdomain_codeset(domainname: &GStr, codeset: &GStr) -> Result<()> 
     }
 }
 
-pub fn setlocale(category: c_int, locale: &GStr) -> Result<()> {
+fn setlocale(category: c_int, locale: &GStr) {
     // SAFETY: locale, being a GStr, is nul-terminated already.  setlocale does not take ownership of this pointer so
-    // we need not copy.  We ignore the returned pointer, other than checking for NULL.
-    let current_locale = unsafe { native::setlocale(category, locale.as_ptr()) };
-    if current_locale.is_null() {
-        Err(std::io::Error::last_os_error())
-    } else {
-        Ok(())
-    }
+    // we need not copy.  We just ignore the return value as we don't need the old locale value and there's nothing we
+    // can do about errors anyway.
+    unsafe { libc::setlocale(category, locale.as_ptr()) };
 }
 
-pub const LC_ALL: c_int = 6;
+/// Initialize gettext.
+///
+/// Set locale and text domain, and bind the text domain to the given `locale_dir`.
+///
+/// See <https://www.gnu.org/software/gettext/manual/gettext.html#Triggering-gettext-Operations>.
+pub fn init_gettext(text_domain: &GStr, locale_dir: PathBuf) -> Result<()> {
+    setlocale(libc::LC_ALL, gstr!(""));
+    bindtextdomain(text_domain, locale_dir)?;
+    bind_textdomain_codeset(text_domain, gstr!("UTF-8"))?;
+    textdomain(text_domain)?;
+    Ok(())
+}
 
 mod native {
-    use std::ffi::{c_char, c_int};
+    use std::ffi::c_char;
 
     unsafe extern "C" {
         pub fn bindtextdomain(domainname: *const c_char, dirname: *const c_char) -> *mut c_char;
@@ -72,7 +79,5 @@ mod native {
             domainname: *const c_char,
             codeset: *const c_char,
         ) -> *mut c_char;
-
-        pub fn setlocale(category: c_int, locale: *const c_char) -> *mut c_char;
     }
 }
