@@ -34,7 +34,7 @@ serde_json = "1.0.128"
 bitflags = "2.6.0"
 semver = "1.0.24"
 libc = "0.2.161"
-wol = "0.2.2"
+wol = "0.3.0"
 
 [build-dependencies]
 glob = "0.3.1"

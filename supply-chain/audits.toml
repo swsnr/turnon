@@ -44,6 +44,12 @@ criteria = "safe-to-deploy"
 delta = "0.5.2 -> 0.5.3"
 notes = "Only exports a new feature and slightly changes some type signatures."
 
+[[audits.event-listener-strategy]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-deploy"
+delta = "0.5.3 -> 0.5.4"
+notes = "No actual code change, just a new feature to expose a transitive dependency."
+
 [[audits.field-offset]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -70,6 +76,11 @@ delta = "0.7.1 -> 0.7.2"
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.7.1 -> 0.7.2"
+
+[[audits.log]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.4.26 -> 0.4.27"
 
 [[audits.macaddr]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
