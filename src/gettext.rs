@@ -4,18 +4,15 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use std::ffi::{CString, c_int};
+use std::ffi::c_int;
 use std::io::Result;
-use std::os::unix::ffi::OsStringExt;
-use std::path::PathBuf;
 
 use glib::{GStr, gstr};
 
-fn bindtextdomain(domainname: &GStr, locale_dir: PathBuf) -> Result<()> {
-    let locale_dir = CString::new(locale_dir.into_os_string().into_vec()).unwrap();
-    // SAFETY: domainname, being a GStr, is nul-terminated, and we explicitly convert locale_dir to a nul-terminated.
-    // string. bindtextdomain does not take ownership of these pointers so we need not copy.  We ignore the returned
-    // pointer, other than checking for NULL.
+fn bindtextdomain(domainname: &GStr, locale_dir: &GStr) -> Result<()> {
+    // SAFETY: domainname and locale_dir, being GStrs, are nul-terminated.
+    // bindtextdomain does not take ownership of these pointers so we need not copy.
+    // We ignore the returned pointer, other than checking for NULL.
     let new_dir = unsafe { native::bindtextdomain(domainname.as_ptr(), locale_dir.as_ptr()) };
     if new_dir.is_null() {
         Err(std::io::Error::last_os_error())
@@ -59,7 +56,7 @@ fn setlocale(category: c_int, locale: &GStr) {
 /// Set locale and text domain, and bind the text domain to the given `locale_dir`.
 ///
 /// See <https://www.gnu.org/software/gettext/manual/gettext.html#Triggering-gettext-Operations>.
-pub fn init_gettext(text_domain: &GStr, locale_dir: PathBuf) -> Result<()> {
+pub fn init_gettext(text_domain: &GStr, locale_dir: &GStr) -> Result<()> {
     setlocale(libc::LC_ALL, gstr!(""));
     bindtextdomain(text_domain, locale_dir)?;
     bind_textdomain_codeset(text_domain, gstr!("UTF-8"))?;

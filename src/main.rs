@@ -67,10 +67,7 @@ fn main() -> glib::ExitCode {
     log::set_logger(&GLIB_LOGGER).unwrap();
 
     let locale_dir = config::locale_directory();
-    glib::debug!(
-        "Initializing gettext with locale directory {}",
-        locale_dir.display()
-    );
+    glib::debug!("Initializing gettext with locale directory {}", locale_dir);
     if let Err(error) = gettext::init_gettext(config::APP_ID, locale_dir) {
         glib::warn!("Failed to initialize gettext: {error}");
     }
