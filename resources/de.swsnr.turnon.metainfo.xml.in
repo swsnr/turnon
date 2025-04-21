@@ -11,6 +11,7 @@
         <ul>
             <li>Add devices to turn on.</li>
             <li>Discover devices in the local network.</li>
+            <li>Discover web interfaces on devices.</li>
             <li>Monitor device status.</li>
             <li>Turn on devices with magic Wake On LAN (WoL) packets.</li>
             <li>Turn on devices from GNOME Shell search.</li>
