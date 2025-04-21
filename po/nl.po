@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
 "PO-Revision-Date: 2025-04-01 15:33+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/"
-"de-swsnr-turnon/de-swsnr-turnon/nl/>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/de-swsnr-"
+"turnon/de-swsnr-turnon/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,21 +21,21 @@ msgstr ""
 "X-Generator: Weblate 5.10.2\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
-#: de.swsnr.turnon.desktop.in:4 resources/de.swsnr.turnon.metainfo.xml.in:5
+#: de.swsnr.turnon.desktop.in:3 resources/de.swsnr.turnon.metainfo.xml.in:5
 #: resources/ui/turnon-application-window.blp:9
 msgid "Turn On"
 msgstr "Aanzetten"
 
-#: de.swsnr.turnon.desktop.in:5 resources/de.swsnr.turnon.metainfo.xml.in:6
+#: de.swsnr.turnon.desktop.in:4 resources/de.swsnr.turnon.metainfo.xml.in:6
 msgid "Turn on devices in your network"
 msgstr "Zet apparaten op uw netwerk aan"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
-#: de.swsnr.turnon.desktop.in:11
+#: de.swsnr.turnon.desktop.in:10
 msgid "GNOME;GTK;WakeOnLan;"
 msgstr "GNOME;GTK;WakeOnLan;"
 
-#: de.swsnr.turnon.desktop.in:18
+#: de.swsnr.turnon.desktop.in:17
 msgid "Add new device"
 msgstr "Apparaat toevoegen"
 
@@ -77,18 +77,22 @@ msgid "Turn on devices from the command line."
 msgstr "Schakel apparaten in met behulp van de opdrachtregel."
 
 #: resources/de.swsnr.turnon.metainfo.xml.in:46
+msgid "Correct icons in application."
+msgstr ""
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:52
 msgid "Probe reachable devices for web interfaces."
 msgstr "Vraag bereikbare apparaten om webinterfaces."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:55
+#: resources/de.swsnr.turnon.metainfo.xml.in:61
 msgid "Update to GNOME 48"
 msgstr "Bijgewerkt naar GNOME 48"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:61
+#: resources/de.swsnr.turnon.metainfo.xml.in:67
 msgid "Reorder devices with Alt+Up and Alt+Down"
 msgstr "Herorden apparaten met Alt+pijtje omhoog en Alt+pijltje omlaag"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:70
+#: resources/de.swsnr.turnon.metainfo.xml.in:76
 msgid ""
 "Refine application icon to make it sharper at smaller sizes, and redesign "
 "symbolic icon."
@@ -96,15 +100,15 @@ msgstr ""
 "Het toepassingspictogram is vernieuwd, waardoor het scherper oogt bij "
 "kleinere afmetingen, en het symbolisch pictogram is opnieuw ontworpen."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:79
+#: resources/de.swsnr.turnon.metainfo.xml.in:85
 msgid "Save and restore main window state."
 msgstr "Bewaar en herstel de vensterstatus."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:80
+#: resources/de.swsnr.turnon.metainfo.xml.in:86
 msgid "Define additional shortcuts."
 msgstr "Stel aanvullende sneltoetsen in."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:89
+#: resources/de.swsnr.turnon.metainfo.xml.in:95
 msgid ""
 "Add new toolbar and start page buttons to enable network scanning. When "
 "network scanning is on show devices discovered in the local network in the "
@@ -113,14 +117,14 @@ msgstr ""
 "Nieuwe knoppen op de werkbalk en het startscherm om het netwerk te "
 "doorzoeken. Klik hierop om apparaten van het lokale netwerk te tonen."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:93
+#: resources/de.swsnr.turnon.metainfo.xml.in:99
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr ""
 "Toepassingspictogram bijgewerkt om beter in overeenstemming te zijn met "
 "donkere achtergronden."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:107
+#: resources/de.swsnr.turnon.metainfo.xml.in:113
 msgid ""
 "The dialog to add a new device now uses success and error styles for the "
 "validity indicators."
@@ -128,7 +132,7 @@ msgstr ""
 "Het venster om een nieuw apparaat toe te voegen toont voortaan een indicator "
 "als de verbinding gelukt of mislukt is."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:108
+#: resources/de.swsnr.turnon.metainfo.xml.in:114
 msgid ""
 "Refuse to add a new device if the host name contains a port which is not "
 "permitted at this place."
@@ -136,18 +140,18 @@ msgstr ""
 "Een apparaat kan worden geweigerd als de hostnaam een poort bevat die niet "
 "toegestaan is."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:109
-#: resources/de.swsnr.turnon.metainfo.xml.in:118
-#: resources/de.swsnr.turnon.metainfo.xml.in:126
+#: resources/de.swsnr.turnon.metainfo.xml.in:115
+#: resources/de.swsnr.turnon.metainfo.xml.in:124
+#: resources/de.swsnr.turnon.metainfo.xml.in:132
 msgid "Update translations."
 msgstr "Bijgewerkt: vertalingen."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:124
+#: resources/de.swsnr.turnon.metainfo.xml.in:130
 msgid "Searching for devices via GNOME Shell now ignores case."
 msgstr ""
 "Zoeken naar apparaten via GNOME Shell is niet meer hoofdlettergevoelig."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:125
+#: resources/de.swsnr.turnon.metainfo.xml.in:131
 msgid ""
 "Add \"--list-devices\" command line argument to list all devices and their "
 "status."
@@ -155,36 +159,36 @@ msgstr ""
 "Nieuw: opdrachtregeloptie ‘--list-devices’ om een lijst met alle apparaten "
 "en de status ervan op te vragen."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:136
+#: resources/de.swsnr.turnon.metainfo.xml.in:142
 msgid ""
 "The link to translations in application metadata and on Flathub is more "
 "helpful now."
 msgstr ""
 "De vertaallink in de metagegevens en op Flathub is voortaan duidelijker."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:142
+#: resources/de.swsnr.turnon.metainfo.xml.in:148
 msgid "Add Dutch translation, and update existing translations."
 msgstr ""
 "Nieuw: Nederlandse vertaling - Bijgewerkt: reeds aanwezige vertalingen."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:143
+#: resources/de.swsnr.turnon.metainfo.xml.in:149
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr "De toepassing onthoudt voortaan apparaten na het bewerken."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:144
+#: resources/de.swsnr.turnon.metainfo.xml.in:150
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr "Het venster ‘Over’ toont voortaan foutopsporingsinformatie."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:153
+#: resources/de.swsnr.turnon.metainfo.xml.in:159
 msgid "Add Hebrew translation."
 msgstr "Nieuw: Hebreeuwse vertaling."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:159
+#: resources/de.swsnr.turnon.metainfo.xml.in:165
 msgid "Add Italian translation, and update German translation."
 msgstr "Nieuw: Italiaanse vertaling - Bijgewerkt: Duitse vertaling."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:165
+#: resources/de.swsnr.turnon.metainfo.xml.in:171
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
@@ -192,14 +196,14 @@ msgstr ""
 "Deze toepassing is voortaan geïntegreerd in de GNOME-zoekfunctie, zodat "
 "apparaten via daar aangezet kunnen worden."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:166
+#: resources/de.swsnr.turnon.metainfo.xml.in:172
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr ""
 "Apparaten kunnen voortaan via het rechtermuisknopmenu van de starter worden "
 "aangezet."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:167
+#: resources/de.swsnr.turnon.metainfo.xml.in:173
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -208,19 +212,19 @@ msgstr ""
 "gevolgd door de apparaatnaam, kan een apparaat vanuit een terminalvenster "
 "worden aangezet."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:177
+#: resources/de.swsnr.turnon.metainfo.xml.in:183
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "De toepassing crasht niet meer als het laatste apparaat verwijderd is."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:178
+#: resources/de.swsnr.turnon.metainfo.xml.in:184
 msgid "Add German translation, and update application metadata."
 msgstr "Nieuw: Duitse vertaling - Bijgewerkt: metagegevens."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:184
+#: resources/de.swsnr.turnon.metainfo.xml.in:190
 msgid "Shorten summary in metadata."
 msgstr "De metagegevens zijn ingekort."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:190
+#: resources/de.swsnr.turnon.metainfo.xml.in:196
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -231,11 +235,11 @@ msgstr ""
 "terugkoppeling na het aanzetten en navigeer door het bewerkvenster met "
 "behulp van het toetsenbord (entertoets = volgend item en apparaat toevoegen)."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:202
+#: resources/de.swsnr.turnon.metainfo.xml.in:208
 msgid "Refined app icon."
 msgstr "Bijgewerkt: toepassingspictogram."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:208
+#: resources/de.swsnr.turnon.metainfo.xml.in:214
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
@@ -243,55 +247,55 @@ msgstr ""
 "Dit is de allereerste versie. In deze uitgave is er ondersteuning voor de "
 "volgende functies:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:210
+#: resources/de.swsnr.turnon.metainfo.xml.in:216
 msgid "Add new devices"
 msgstr "Voeg apparaten toe"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:211
+#: resources/de.swsnr.turnon.metainfo.xml.in:217
 msgid "Monitor whether devices are turned on"
 msgstr "Monitor apparaten"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:212
+#: resources/de.swsnr.turnon.metainfo.xml.in:218
 msgid "Turn on devices with Wake On LAN"
 msgstr "Schakel apparaten in met behulp van Wake On Lan"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:214
+#: resources/de.swsnr.turnon.metainfo.xml.in:220
 msgid "This release is missing the following features:"
 msgstr "De volgende functies ontbreken nog:"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:216
+#: resources/de.swsnr.turnon.metainfo.xml.in:222
 msgid "Devices can not be edited or removed."
 msgstr "Apparaten kunnen niet worden bewerkt of verwijderd."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:217
+#: resources/de.swsnr.turnon.metainfo.xml.in:223
 msgid "The order of devices cannot be changed."
 msgstr "De volgorde kan niet worden aangepast."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:218
+#: resources/de.swsnr.turnon.metainfo.xml.in:224
 msgid "Languages other than English are not supported."
 msgstr "Er zijn nog geen vertalingen beschikbaar."
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:231
+#: resources/de.swsnr.turnon.metainfo.xml.in:237
 msgid ""
 "Two devices, one of them on, and the other off, and two devices discovered "
 "in the network"
 msgstr ""
 "Twee apparaten: een aan, de ander uit, en twee anderen op hetzelfde netwerk"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:235
+#: resources/de.swsnr.turnon.metainfo.xml.in:241
 msgid ""
 "Two devices, one of them on, and the other off, with network discovery not "
 "enabled"
 msgstr ""
 "Twee apparaten: een aan, de ander uit, zonder verder op het netwerk te zoeken"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:239
+#: resources/de.swsnr.turnon.metainfo.xml.in:245
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr "Bewerk de naam, het mac- en ip-adres van een apparaat"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:243
+#: resources/de.swsnr.turnon.metainfo.xml.in:249
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
