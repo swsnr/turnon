@@ -10,7 +10,7 @@ template $ValidationIndicator: Adw.Bin {
     visible-child: invalid;
 
     Gtk.Image invalid {
-      icon-name: "dialog-warning-symbolic";
+      icon-name: "warning-outline-symbolic";
       tooltip-text: bind template.feedback;
 
       styles [
@@ -19,7 +19,7 @@ template $ValidationIndicator: Adw.Bin {
     }
 
     Gtk.Image valid {
-      icon-name: "emblem-ok-symbolic";
+      icon-name: "checkmark-symbolic";
 
       styles [
         "success",

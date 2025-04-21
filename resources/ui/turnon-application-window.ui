@@ -16,7 +16,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
             <child type="start">
               <object class="GtkButton">
                 <property name="action-name">app.add-device</property>
-                <property name="icon-name">list-add-symbolic</property>
+                <property name="icon-name">plus-large-symbolic</property>
                 <property name="tooltip-text" translatable="yes" context="application-window.action.app.add-device.tooltip">Add a new device</property>
               </object>
             </child>
@@ -30,7 +30,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
             <child type="end">
               <object class="GtkMenuButton" id="button_menu">
                 <property name="menu-model">main_menu</property>
-                <property name="icon-name">open-menu-symbolic</property>
+                <property name="icon-name">menu-large-symbolic</property>
                 <property name="primary">true</property>
               </object>
             </child>

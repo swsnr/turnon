@@ -10,7 +10,14 @@
         https://docs.gtk.org/gtk4/class.Application.html#automatic-resources -->
         <file compressed="true" preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
         <!-- Icons -->
+        <file preprocess="xml-stripblanks">icons/scalable/actions/checkmark-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/computer-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/edit-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/menu-large-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/plus-large-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/sonar-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/user-trash-symbolic.svg</file>
+        <file preprocess="xml-stripblanks">icons/scalable/actions/warning-outline-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/waves-and-screen-symbolic.svg</file>
         <!-- App icon -->
         <file preprocess="xml-stripblanks">icons/scalable/apps/de.swsnr.turnon.svg</file>

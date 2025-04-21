@@ -41,6 +41,12 @@
             <url>https://github.com/swsnr/turnon/releases/tag/next</url>
         </release>
         -->
+        <release version="next" date="9999-01-01">
+            <description>
+                <p>Correct icons in application.</p>
+            </description>
+            <url>https://github.com/swsnr/turnon/releases/tag/next</url>
+        </release>
         <release version="2.5.0" date="2025-03-31">
             <description>
                 <p>Probe reachable devices for web interfaces.</p>

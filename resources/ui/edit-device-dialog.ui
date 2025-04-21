@@ -67,7 +67,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                             <property name="name">invalid-empty</property>
                             <property name="child">
                               <object class="GtkImage">
-                                <property name="icon-name">dialog-warning-symbolic</property>
+                                <property name="icon-name">warning-outline-symbolic</property>
                                 <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.host.feedback">Please specify a target host to check availability</property>
                                 <style>
                                   <class name="error"/>
@@ -81,7 +81,7 @@ corresponding .blp file and regenerate this file with blueprint-compiler.
                             <property name="name">invalid-socket-address</property>
                             <property name="child">
                               <object class="GtkImage">
-                                <property name="icon-name">dialog-warning-symbolic</property>
+                                <property name="icon-name">warning-outline-symbolic</property>
                                 <property name="tooltip-text" translatable="yes" context="edit-device-dialog.entry.socket-address.feedback">This looks like a socket address with host and port, but a port is not permitted here!</property>
                                 <style>
                                   <class name="error"/>

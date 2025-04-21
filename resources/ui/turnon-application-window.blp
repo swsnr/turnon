@@ -16,7 +16,7 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
       [start]
       Gtk.Button {
         action-name: "app.add-device";
-        icon-name: "list-add-symbolic";
+        icon-name: "plus-large-symbolic";
         tooltip-text: C_("application-window.action.app.add-device.tooltip", "Add a new device");
       }
 
@@ -30,7 +30,7 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
       [end]
       MenuButton button_menu {
         menu-model: main_menu;
-        icon-name: 'open-menu-symbolic';
+        icon-name: 'menu-large-symbolic';
         primary: true;
       }
     }

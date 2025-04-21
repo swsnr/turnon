@@ -62,7 +62,7 @@ template $EditDeviceDialog: Adw.Dialog {
               name: "invalid-empty";
 
               child: Gtk.Image {
-                icon-name: "dialog-warning-symbolic";
+                icon-name: "warning-outline-symbolic";
                 tooltip-text: C_("edit-device-dialog.entry.host.feedback", "Please specify a target host to check availability");
 
                 styles [
@@ -75,7 +75,7 @@ template $EditDeviceDialog: Adw.Dialog {
               name: "invalid-socket-address";
 
               child: Gtk.Image {
-                icon-name: "dialog-warning-symbolic";
+                icon-name: "warning-outline-symbolic";
                 tooltip-text: C_("edit-device-dialog.entry.socket-address.feedback", "This looks like a socket address with host and port, but a port is not permitted here!");
 
                 styles [
