@@ -19,11 +19,8 @@ jobs:
       contents: write
       pull-requests: write
     container:
-      image: docker.io/fedora:latest
+      image: ghcr.io/swsnr/turnon/ci:main
     steps:
-      # We need appstream as it provides extraction rules for metainfo files
-      - name: Install git, make, gettext, and appstream
-        run: dnf install -y git make gettext appstream
       - uses: actions/checkout@v4
       - run: make pot
       # Create a pull request to update the messages file
