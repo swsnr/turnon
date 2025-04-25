@@ -45,7 +45,7 @@ mod imp {
     #[derive(Debug, glib::Properties)]
     #[properties(wrapper_type = super::DeviceDiscovery)]
     pub struct DeviceDiscovery {
-        #[property(get, set = Self::set_discovery_enabled)]
+        #[property(get, set = Self::set_discovery_enabled, explicit_notify)]
         discovery_enabled: Cell<bool>,
         #[property(get, set)]
         arp_cache_file: RefCell<PathBuf>,
