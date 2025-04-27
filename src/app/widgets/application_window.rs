@@ -40,7 +40,6 @@ mod imp {
 
     use adw::subclass::prelude::*;
     use adw::{Toast, ToastOverlay, prelude::*};
-    use futures_util::future::Either;
     use futures_util::{StreamExt, TryStreamExt, stream};
     use glib::dpgettext2;
     use gtk::CompositeTemplate;
@@ -141,13 +140,16 @@ mod imp {
             let (monitor, abort_monitoring) = stream::abortable(
                 net::monitor(device.host().into(), Duration::from_secs(5)).map(Ok),
             );
-            glib::spawn_future_local(monitor.try_for_each(glib::clone!(
-                #[weak]
-                row,
-                #[upgrade_or]
-                Either::Left(futures_util::future::err(())),
-                move |result| {
-                    Either::Right(async move {
+
+            // Start monitoring the device, but only as long as the row still exists.
+            // To this end only hold a weak reference to the row in the stream,
+            // and for every ping explicitly attempt to upgrade to a strong reference.
+            // If the upgrade fails return an error to exit the whole stream.
+            let row = row.downgrade();
+            glib::spawn_future_local(monitor.try_for_each(move |result| {
+                let row = row.clone();
+                async move {
+                    if let Some(row) = row.upgrade() {
                         match result {
                             Ok(_) => {
                                 row.set_is_device_online(true);
@@ -172,9 +174,11 @@ mod imp {
                             }
                         }
                         Ok(())
-                    })
+                    } else {
+                        Err(())
+                    }
                 }
-            )));
+            }));
             abort_monitoring
         }
 
