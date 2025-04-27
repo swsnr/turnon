@@ -186,8 +186,11 @@ mod imp {
             let device = &object.clone().downcast::<Device>().unwrap();
             let row = DeviceRow::new(device);
             let ongoing_monitor = Rc::new(RefCell::new(Self::monitor_device(&row)));
+
             // If the host changed monitor the new host.
             device.connect_host_notify(glib::clone!(
+                #[strong]
+                ongoing_monitor,
                 #[weak]
                 row,
                 move |_| {
@@ -202,9 +205,13 @@ mod imp {
             ));
             row.connect_deleted(glib::clone!(
                 #[strong]
+                ongoing_monitor,
+                #[strong]
                 devices,
                 move |_, device| {
                     glib::info!("Deleting device {}", device.label());
+                    // Abort monitoring if the device is deleted
+                    ongoing_monitor.borrow().abort();
                     if let Some(index) = devices.registered_devices().find(device) {
                         devices.registered_devices().remove(index);
                     }
