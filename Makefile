@@ -88,28 +88,3 @@ patch-appid:
 		resources/de.swsnr.turnon.metainfo.xml.in de.swsnr.turnon.desktop.in \
 		dbus-1/de.swsnr.turnon.service de.swsnr.turnon.search-provider.ini \
 		schemas/de.swsnr.turnon.gschema.xml
-
-# Remove compiled message catalogs and other generated files, and flatpak
-# things
-.PHONY: clean
-clean:
-	rm -fr po/*.mo builddir repo .flatpak-builder
-
-# Build a development flatpak without sandbox.
-.PHONY: flatpak-devel
-flatpak-devel:
-	flatpak run org.flatpak.Builder --force-clean --user --install \
-		--install-deps-from=flathub --repo=repo \
-		builddir flatpak/de.swsnr.turnon.Devel.yaml
-
-# Build a regular flatpak (sandboxed build)
-.PHONY: flatpak
-flatpak:
-	flatpak run org.flatpak.Builder --force-clean --sandbox --user --install \
-		--install-deps-from=flathub --ccache \
-		--mirror-screenshots-url=https://dl.flathub.org/media/ --repo=repo \
-		builddir flatpak/de.swsnr.turnon.yaml
-
-.PHONY: flatpak-lint-repo
-flatpak-lint-repo:
-	flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo
