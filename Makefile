@@ -110,11 +110,6 @@ flatpak:
 		--mirror-screenshots-url=https://dl.flathub.org/media/ --repo=repo \
 		builddir flatpak/de.swsnr.turnon.yaml
 
-.PHONY: flatpak-lint-manifest
-flatpak-lint-manifest:
-	flatpak run --command=flatpak-builder-lint org.flatpak.Builder \
-		manifest flatpak/de.swsnr.turnon.yaml
-
 .PHONY: flatpak-lint-repo
 flatpak-lint-repo:
 	flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo
