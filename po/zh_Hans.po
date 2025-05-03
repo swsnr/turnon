@@ -1,0 +1,613 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Sebastian Wiesner <sebastian@swsnr.de>
+# This file is distributed under the same license as the de.swsnr.turnon package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: de.swsnr.turnon\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-05-02 06:53+0000\n"
+"Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.10.2\n"
+
+#. Translators: Do feel free to translate the application name, as in "Turning on a device".
+#: de.swsnr.turnon.desktop.in:3 resources/de.swsnr.turnon.metainfo.xml.in:5
+#: resources/ui/turnon-application-window.blp:9
+msgid "Turn On"
+msgstr "Turn On"
+
+#: de.swsnr.turnon.desktop.in:4 resources/de.swsnr.turnon.metainfo.xml.in:6
+msgid "Turn on devices in your network"
+msgstr "打开网络中的设备"
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: de.swsnr.turnon.desktop.in:10
+msgid "GNOME;GTK;WakeOnLan;"
+msgstr "GNOME;GTK;WakeOnLan;网络唤醒;"
+
+#: de.swsnr.turnon.desktop.in:17
+msgid "Add new device"
+msgstr "添加新设备"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:8
+msgid ""
+"Conveniently turn on devices in your network, such as a NAS or a gaming "
+"console, using Wake On LAN (WoL)."
+msgstr "使用网络唤醒（WoL）方便地打开网络中的设备，例如 NAS 或游戏机。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:10
+msgid "Features:"
+msgstr "功能："
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:12
+msgid "Add devices to turn on."
+msgstr "添加要打开的设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:13
+msgid "Discover devices in the local network."
+msgstr "发现本地网络中的设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:14
+msgid "Discover web interfaces on devices."
+msgstr "发现设备上的 Web 界面。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:15
+msgid "Monitor device status."
+msgstr "监控设备状态。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:16
+msgid "Turn on devices with magic Wake On LAN (WoL) packets."
+msgstr "使用网络唤醒（WoL）魔法数据包打开设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:17
+msgid "Turn on devices from GNOME Shell search."
+msgstr "从 GNOME Shell 搜索打开设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:18
+msgid "Turn on devices from the command line."
+msgstr "从命令行打开设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:47
+msgid "Correct icons in application."
+msgstr "更正应用程序中的图标。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:53
+msgid "Probe reachable devices for web interfaces."
+msgstr "探测可访问设备以查找 Web 界面。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:62
+msgid "Update to GNOME 48"
+msgstr "更新到 GNOME 48"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:68
+msgid "Reorder devices with Alt+Up and Alt+Down"
+msgstr "使用 Alt+Up 和 Alt+Down 重新排序设备"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:77
+msgid ""
+"Refine application icon to make it sharper at smaller sizes, and redesign "
+"symbolic icon."
+msgstr "优化应用程序图标，使其在较小尺寸下更清晰，并重新设计符号图标。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:86
+msgid "Save and restore main window state."
+msgstr "保存并恢复主窗口状态。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:87
+msgid "Define additional shortcuts."
+msgstr "定义额外的快捷键。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:96
+msgid ""
+"Add new toolbar and start page buttons to enable network scanning. When "
+"network scanning is on show devices discovered in the local network in the "
+"list of devices."
+msgstr "添加新的工具栏和开始页面按钮以启用网络扫描。打开网络扫描时，在设备列表中显示"
+"在本地网络中发现的设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:100
+msgid ""
+"Refine the application icon to improve its contrast on dark backgrounds."
+msgstr "优化应用程序图标以提高其在深色背景上的对比度。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:114
+msgid ""
+"The dialog to add a new device now uses success and error styles for the "
+"validity indicators."
+msgstr "添加新设备的对话框现在使用成功和错误样式作为有效性指标。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:115
+msgid ""
+"Refuse to add a new device if the host name contains a port which is not "
+"permitted at this place."
+msgstr "如果主机名包含此处不允许的端口，则拒绝添加新设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:116
+#: resources/de.swsnr.turnon.metainfo.xml.in:125
+#: resources/de.swsnr.turnon.metainfo.xml.in:133
+msgid "Update translations."
+msgstr "更新翻译。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:131
+msgid "Searching for devices via GNOME Shell now ignores case."
+msgstr "通过 GNOME Shell 搜索设备现在忽略大小写。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:132
+msgid ""
+"Add \"--list-devices\" command line argument to list all devices and their "
+"status."
+msgstr "添加“--list-devices”命令行参数以列出所有设备及其状态。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:143
+msgid ""
+"The link to translations in application metadata and on Flathub is more "
+"helpful now."
+msgstr "应用程序元数据和 Flathub 上的翻译链接现在更有帮助了。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:149
+msgid "Add Dutch translation, and update existing translations."
+msgstr "添加荷兰语翻译，并更新现有翻译。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:150
+msgid "Turn On now correctly persists devices when a device was edited."
+msgstr "Turn On 现在可以在编辑设备时正确保留设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:151
+msgid ""
+"The \"About Turn On\" dialog now provides a debug report for troubleshooting."
+msgstr "“关于 Turn On”对话框现在提供了用于故障诊断的调试报告。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:160
+msgid "Add Hebrew translation."
+msgstr "添加希伯来语翻译。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:166
+msgid "Add Italian translation, and update German translation."
+msgstr "添加意大利语翻译，并更新德语翻译。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:172
+msgid ""
+"Turn On now integrates into GNOME search and offers to turn on devices "
+"directly from the search."
+msgstr "Turn On 现在集成到 GNOME 搜索中并提供直接从搜索打开设备的功能。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:173
+msgid ""
+"The Turn On launcher now offers to add a new device in the context menu."
+msgstr "Turn On 启动器现在可以在右键菜单中添加新设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:174
+msgid ""
+"Turn On itself now provides a basic command line interface; in particular "
+"the --turn-on-device option now turns on a device by its label."
+msgstr "Turn On 本身现在提供了一个基本的命令行界面；特别是 --turn-on-device "
+"选项现在可以通过其标签打开设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:184
+msgid "Turn On no longer crashes when removing the last device."
+msgstr "移除最后一个设备时 Turn On 不再崩溃。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:185
+msgid "Add German translation, and update application metadata."
+msgstr "添加德语翻译，并更新应用程序元数据。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:191
+msgid "Shorten summary in metadata."
+msgstr "缩短元数据中的摘要。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:197
+msgid ""
+"Delete devices from the list of devices, edit existing devices, show early "
+"feedback when turning on a device, and make the dialog to edit devices "
+"easier to use with the keyboard (pressing Enter now navigates to the next "
+"entry and eventually adds the device)."
+msgstr ""
+"从设备列表中删除设备，编辑现有设备，在打开设备时显示早期反馈，并使编辑设备的"
+"对话框更易于通过键盘使用（现在按 Enter 键可导航到下一个条目并最终添加设备）。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:209
+msgid "Refined app icon."
+msgstr "优化了应用图标。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:215
+msgid ""
+"This is the initial release. The application supports the following features "
+"in this release:"
+msgstr "这是初始版本。应用程序在此版本中支持以下功能："
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:217
+msgid "Add new devices"
+msgstr "添加新设备"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:218
+msgid "Monitor whether devices are turned on"
+msgstr "监控设备是否打开"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:219
+msgid "Turn on devices with Wake On LAN"
+msgstr "使用网络唤醒打开设备"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:221
+msgid "This release is missing the following features:"
+msgstr "此版本缺少以下功能："
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:223
+msgid "Devices can not be edited or removed."
+msgstr "无法编辑或移除设备。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:224
+msgid "The order of devices cannot be changed."
+msgstr "无法更改设备的顺序。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:225
+msgid "Languages other than English are not supported."
+msgstr "不支持英语以外的语言。"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:238
+msgid ""
+"Two devices, one of them on, and the other off, and two devices discovered "
+"in the network"
+msgstr "两个设备，一个打开，另一个关闭，还在网络中发现了两个设备"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:242
+msgid ""
+"Two devices, one of them on, and the other off, with network discovery not "
+"enabled"
+msgstr "两个设备，一个打开，另一个关闭，未启用网络发现"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:246
+msgid ""
+"Edit a device with a name, the MAC address, and an IP address to check the "
+"status with"
+msgstr "编辑设备的名称、MAC 地址和 IP 地址，以便检查设备状态"
+
+#: resources/de.swsnr.turnon.metainfo.xml.in:250
+msgid ""
+"The empty greeting page with the application icon and a button to add a new "
+"device"
+msgstr "空白的问候页面，其中包含应用程序图标和添加新设备的按钮"
+
+#: resources/gtk/help-overlay.blp:21
+msgctxt "shortcuts group"
+msgid "General"
+msgstr "常规"
+
+#: resources/gtk/help-overlay.blp:24
+msgctxt "shortcut description"
+msgid "Show shortcuts"
+msgstr "显示快捷键"
+
+#: resources/gtk/help-overlay.blp:29
+msgctxt "shortcut description"
+msgid "Quit"
+msgstr "退出"
+
+#: resources/gtk/help-overlay.blp:35
+msgctxt "shortcuts group"
+msgid "Devices"
+msgstr "设备"
+
+#: resources/gtk/help-overlay.blp:38
+msgctxt "shortcut description"
+msgid "Add a new device"
+msgstr "添加新设备"
+
+#: resources/gtk/help-overlay.blp:43
+msgctxt "shortcut description"
+msgid "Toggle network scanning"
+msgstr "切换网络扫描"
+
+#: resources/gtk/help-overlay.blp:49
+msgctxt "shortcuts group"
+msgid "Discovered device"
+msgstr "已发现设备"
+
+#: resources/gtk/help-overlay.blp:52
+msgctxt "shortcut description"
+msgid "Add as a new device"
+msgstr "添加为新设备"
+
+#: resources/gtk/help-overlay.blp:58
+msgctxt "shortcuts group"
+msgid "Edit device"
+msgstr "编辑设备"
+
+#: resources/gtk/help-overlay.blp:61
+msgctxt "shortcut description"
+msgid "Save device"
+msgstr "保存设备"
+
+#: resources/gtk/help-overlay.blp:67
+msgctxt "shortcuts group"
+msgid "Single device"
+msgstr "单个设备"
+
+#: resources/gtk/help-overlay.blp:70
+msgctxt "shortcut description"
+msgid "Turn on device"
+msgstr "打开设备"
+
+#: resources/gtk/help-overlay.blp:75
+msgctxt "shortcut description"
+msgid "Edit device"
+msgstr "编辑设备"
+
+#: resources/gtk/help-overlay.blp:80
+msgctxt "shortcut description"
+msgid "Ask to delete device"
+msgstr "删除设备请求确认"
+
+#: resources/gtk/help-overlay.blp:85
+msgctxt "shortcut description"
+msgid "Immediately delete device without confirmation"
+msgstr "无需确认立即删除设备"
+
+#: resources/gtk/help-overlay.blp:90
+msgctxt "shortcut description"
+msgid "Move device upwards"
+msgstr "向上移动设备"
+
+#: resources/gtk/help-overlay.blp:95
+msgctxt "shortcut description"
+msgid "Move device downwards"
+msgstr "向下移动设备"
+
+#: resources/ui/device-row.blp:70
+msgctxt "device-row.action.row.add.tooltip"
+msgid "Add this device"
+msgstr "添加此设备"
+
+#: resources/ui/device-row.blp:82
+msgctxt "device-row.action.row.edit.tooltip"
+msgid "Edit this device"
+msgstr "编辑此设备"
+
+#: resources/ui/device-row.blp:94
+msgctxt "device-row.action.row.ask-delete.tooltip"
+msgid "Delete this device?"
+msgstr "删除此设备？"
+
+#: resources/ui/device-row.blp:112
+msgctxt "device-row.action.row.delete"
+msgid "Delete"
+msgstr "删除"
+
+#: resources/ui/device-row.blp:122
+msgctxt "canceldevice-row.action.row.cancel-delete"
+msgid "Cancel"
+msgstr "取消"
+
+#: resources/ui/edit-device-dialog.blp:10
+msgid "Edit device"
+msgstr "编辑设备"
+
+#: resources/ui/edit-device-dialog.blp:21
+msgctxt "edit-device-dialog.entry.label.title"
+msgid "Device _label"
+msgstr "设备标签(_l)"
+
+#: resources/ui/edit-device-dialog.blp:22
+msgctxt "edit-device-dialog.entry.label.tooltip"
+msgid "A label to recognize the device by"
+msgstr "用于识别设备的标签"
+
+#: resources/ui/edit-device-dialog.blp:30
+msgctxt "edit-device-dialog.entry.label.feedback"
+msgid "Please provide a label for the device."
+msgstr "请为设备提供标签。"
+
+#: resources/ui/edit-device-dialog.blp:35
+msgctxt "edit-device-dialog.entry.mac_address.title"
+msgid "_MAC address"
+msgstr "MAC 地址(_M)"
+
+#: resources/ui/edit-device-dialog.blp:36
+msgctxt "edit-device-dialog.entry.mac_address.tooltip"
+msgid "The hardware address for this device"
+msgstr "此设备的硬件地址"
+
+#: resources/ui/edit-device-dialog.blp:45
+msgctxt "edit-device-dialog.entry.mac_address.feedback"
+msgid "This is no valid 48-bit MAC address."
+msgstr "这不是有效的 48 位 MAC 地址。"
+
+#: resources/ui/edit-device-dialog.blp:50
+msgctxt "edit-device-dialog.entry.host.title"
+msgid "_Host name or IP address"
+msgstr "主机名或 IP 地址(_H)"
+
+#: resources/ui/edit-device-dialog.blp:51
+msgctxt "edit-device-dialog.entry.host.tooltip"
+msgid ""
+"The hostname or IP address of the device to check whether it has woken up"
+msgstr "设备的主机名或 IP 地址，用于检查设备是否已唤醒"
+
+#: resources/ui/edit-device-dialog.blp:66
+msgctxt "edit-device-dialog.entry.host.feedback"
+msgid "Please specify a target host to check availability"
+msgstr "请指定目标主机以检查可用性"
+
+#: resources/ui/edit-device-dialog.blp:79
+msgctxt "edit-device-dialog.entry.socket-address.feedback"
+msgid ""
+"This looks like a socket address with host and port, but a port is not "
+"permitted here!"
+msgstr "这似乎是一个带有主机和端口的套接字地址，但这里不允许使用端口！"
+
+#: resources/ui/edit-device-dialog.blp:92
+msgctxt "edit-device-dialog.entry.host.feedback"
+msgid "This looks like a generic name resolved via DNS."
+msgstr "这似乎是通过 DNS 解析的通用名称。"
+
+#: resources/ui/edit-device-dialog.blp:106
+msgctxt "edit-device-dialog.entry.host.feedback"
+msgid "This is a valid IPv4 address."
+msgstr "这是一个有效的 IPv4 地址。"
+
+#: resources/ui/edit-device-dialog.blp:120
+msgctxt "edit-device-dialog.entry.host.feedback"
+msgid "This is a valid IPv6 address."
+msgstr "这是一个有效的 IPv6 地址。"
+
+#: resources/ui/edit-device-dialog.blp:131
+msgid "_Save"
+msgstr "保存(_S)"
+
+#: resources/ui/turnon-application-window.blp:20
+msgctxt "application-window.action.app.add-device.tooltip"
+msgid "Add a new device"
+msgstr "添加新设备"
+
+#: resources/ui/turnon-application-window.blp:27
+msgctxt "application-window.action.app.scan-network.tooltip"
+msgid "Scan the network for devices"
+msgstr "扫描网络中的设备"
+
+#: resources/ui/turnon-application-window.blp:55
+msgctxt "application-window.status-page.title"
+msgid "No devices"
+msgstr "无设备"
+
+#: resources/ui/turnon-application-window.blp:56
+msgctxt "application-window.status-page.description"
+msgid "Add a new device to turn it on."
+msgstr "添加新设备以将其打开。"
+
+#: resources/ui/turnon-application-window.blp:71
+msgctxt "application-window.status-page.button.label"
+msgid "Add new device"
+msgstr "添加新设备"
+
+#: resources/ui/turnon-application-window.blp:81
+msgctxt "application-window.status-page.button.label"
+msgid "Scan network"
+msgstr "扫描网络"
+
+#: resources/ui/turnon-application-window.blp:101
+msgctxt "application-window.menu.label"
+msgid "_Keyboard Shortcuts"
+msgstr "键盘快捷键(_K)"
+
+#: resources/ui/turnon-application-window.blp:106
+msgctxt "application-window.menu.label"
+msgid "_About Turn On"
+msgstr "关于 Turn On(_A)"
+
+#: src/app.rs:51
+msgctxt "about-dialog.link.label"
+msgid "Translations"
+msgstr "翻译"
+
+#. Credits for the translator to the current language.
+#. Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
+#. Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
+#: src/app.rs:60
+msgid "translator-credits"
+msgstr "Outbreak2096"
+
+#: src/app.rs:65
+msgctxt "about-dialog.acknowledgment-section"
+msgid "Help and inspiration"
+msgstr "帮助和灵感"
+
+#: src/app.rs:78
+msgctxt "about-dialog.acknowledgment-section"
+msgid "Helpful services"
+msgstr "实用服务"
+
+#: src/app.rs:287
+msgctxt "option.add-device.description"
+msgid "Add a new device"
+msgstr "添加新设备"
+
+#: src/app.rs:298
+msgctxt "option.turn-on-device.description"
+msgid "Turn on a device by its label"
+msgstr "通过标签打开设备"
+
+#: src/app.rs:303
+msgctxt "option.turn-on-device.arg.description"
+msgid "LABEL"
+msgstr "标签"
+
+#: src/app.rs:314
+msgctxt "option.list-devices.description"
+msgid "List all devices and their status"
+msgstr "列出所有设备及其状态"
+
+#: src/app.rs:326
+msgctxt "option.devices-file.description"
+msgid "Use the given file as storage for devices (for development only)"
+msgstr "使用给定的文件作为设备存储（仅用于开发）"
+
+#: src/app.rs:338
+msgctxt "option.arp-cache-file.description"
+msgid "Use the given file as ARP cache source (for development only)"
+msgstr "使用给定的文件作为 ARP 缓存源（仅用于开发）"
+
+#: src/app/commandline.rs:31
+msgctxt "option.turn-on-device.message"
+msgid "Sent magic packet to mac address %1 of device %2\n"
+msgstr "已将魔法数据包发送到设备 %2 的 Mac 地址 %1\n"
+
+#: src/app/commandline.rs:43
+msgctxt "option.turn-on-device.error"
+msgid "Failed to turn on device %1: %2\n"
+msgstr "无法打开设备 %1：%2\n"
+
+#: src/app/commandline.rs:86
+#, c-format
+msgctxt "option.turn-on-device.error"
+msgid "No device found for label %s\n"
+msgstr "未找到标签 %s 的设备\n"
+
+#: src/app/model/device_discovery.rs:202
+msgctxt "discovered-device.label"
+msgid "Discovered device"
+msgstr "已发现设备"
+
+#: src/app/searchprovider.rs:77
+msgctxt "search-provider.notification.title"
+msgid "Sent magic packet"
+msgstr "已发送魔法数据包"
+
+#: src/app/searchprovider.rs:83
+msgctxt "search-provider.notification.body"
+msgid "Sent magic packet to mac address %1 of device %2."
+msgstr "已将魔法数据包发送到设备 %2 的 Mac 地址 %1。"
+
+#: src/app/searchprovider.rs:107
+msgctxt "search-provider.notification.title"
+msgid "Failed to send magic packet"
+msgstr "无法发送魔法数据包"
+
+#: src/app/searchprovider.rs:113
+msgctxt "search-provider.notification.body"
+msgid "Failed to send magic packet to mac address %1 of device %2."
+msgstr "无法将魔法数据包发送到设备 %2 的 Mac 地址 %1。"
+
+#: src/app/widgets/application_window.rs:91
+#, c-format
+msgctxt "application-window.feedback.toast"
+msgid "Sending magic packet to device %s"
+msgstr "正在向设备 %s 发送魔法数据包"
+
+#: src/app/widgets/application_window.rs:113
+#, c-format
+msgctxt "application-window.feedback.toast"
+msgid "Sent magic packet to device %s"
+msgstr "已向设备 %s 发送魔法数据包"
+
+#: src/app/widgets/application_window.rs:127
+#, c-format
+msgctxt "application-window.feedback.toast"
+msgid "Failed to send magic packet to device %s"
+msgstr "无法向设备 %s 发送魔法数据包"
