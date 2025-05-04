@@ -34,11 +34,9 @@ modules:
         only-arches:
           - x86_64
     build-commands:
-      - find .
       - install -D -m755 just /app/bin/just
     cleanup:
       - /bin/just
-
   - name: turnon
     buildsystem: simple
     sources:
