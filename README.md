@@ -10,7 +10,6 @@ A small GNOME utility application to send Wake On LAN (WoL) magic packets to dev
 ## Installation
 
 - [Flathub](https://flathub.org/apps/de.swsnr.turnon)
-- [Arch binary package](https://build.opensuse.org/project/show/home:swsnr:turnon).
 
 ## Translations
 
