@@ -233,19 +233,19 @@
     </developer>
     <screenshots>
         <screenshot type="default">
-            <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/list-of-discovered-devices.png</image>
+            <image>https://codeberg.org/swsnr/turnon/raw/branch/main/screenshots/list-of-discovered-devices.png</image>
             <caption>Two devices, one of them on, and the other off, and two devices discovered in the network</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/list-of-devices.png</image>
+            <image>https://codeberg.org/swsnr/turnon/raw/branch/main/screenshots/list-of-devices.png</image>
             <caption>Two devices, one of them on, and the other off, with network discovery not enabled</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/edit-device.png</image>
+            <image>https://codeberg.org/swsnr/turnon/raw/branch/main/screenshots/edit-device.png</image>
             <caption>Edit a device with a name, the MAC address, and an IP address to check the status with</caption>
         </screenshot>
         <screenshot>
-            <image>https://raw.githubusercontent.com/swsnr/turnon/refs/heads/main/screenshots/start-page.png</image>
+            <image>https://codeberg.org/swsnr/turnon/raw/branch/main/screenshots/start-page.png</image>
             <caption>The empty greeting page with the application icon and a button to add a new device</caption>
         </screenshot>
     </screenshots>
