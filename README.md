@@ -1,6 +1,7 @@
 # Turn On
 
 [![Translation status](https://translate.codeberg.org/widget/de-swsnr-turnon/de-swsnr-turnon/svg-badge.svg)](https://translate.codeberg.org/engage/de-swsnr-turnon/)
+
 Turn on devices in your network on GNOME:
 
 ![The empty start page with the application icon on the left, and the list of devices with discovered devices on the right](./social-image.png)
