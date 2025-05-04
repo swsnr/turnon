@@ -133,6 +133,7 @@ _post-release:
     @echo "Create new release at https://codeberg.org/swsnr/turnon/tags"
     @echo "Use dist/relnotes.md as release body"
     @echo "Attach archives and signatures in dist as release body"
+    @echo "Verify updates to flatpak manifest, change as necessary, and run git push"
     @echo "Run sync workflow at https://github.com/flathub/de.swsnr.turnon/actions/workflows/sync.yaml"
 
 release *ARGS: test-all && package flatpak-update-manifest _post-release
