@@ -28,7 +28,7 @@
     <url type="bugtracker">https://codeberg.org/swsnr/turnon/issues</url>
     <url type="translate">https://translate.codeberg.org/engage/de-swsnr-turnon/</url>
     <url type="contact">https://swsnr.de/</url>
-    <url type="vcs-browser">https://codeberg.og/swsnr/turnon</url>
+    <url type="vcs-browser">https://codeberg.org/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
         <!-- To start release notes for an upcoming release, copy the following template.
