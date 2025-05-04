@@ -155,7 +155,7 @@ _install-po po_file:
     msgfmt -o '{{DESTPREFIX}}/share/locale/{{file_stem(po_file)}}/LC_MESSAGES/{{APPID}}.mo' '{{po_file}}'
 
 install:
-    find po/ -name '*.po' -exec just DESTPREFIX='{{DESTPREFIX}}' APPID='{{APPID}}' _install-po '{}' ';'
+    find po/ -name '*.po' -exec just version= DESTPREFIX='{{DESTPREFIX}}' APPID='{{APPID}}' _install-po '{}' ';'
     install -Dm0755 target/release/turnon '{{DESTPREFIX}}/bin/{{APPID}}'
     install -Dm0644 -t '{{DESTPREFIX}}/share/icons/hicolor/scalable/apps/' 'resources/icons/scalable/apps/{{APPID}}.svg'
     install -Dm0644 resources/icons/symbolic/apps/de.swsnr.turnon-symbolic.svg \
