@@ -41,12 +41,12 @@ modules:
     buildsystem: simple
     sources:
       - type: archive
-        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.4/turnon-v2.6.4.tar.zst
-        sha256: 4262865dc2e14b5109757f927b12d7c01add2f7c8836d49188e00091c30949be
+        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.5/turnon-v2.6.5.tar.zst
+        sha256: b08d5d903418bf461d0b73b912362f892975bcf3b21900e1828a4fcfabaf58d3
       - type: archive
-        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.4/turnon-v2.6.4-vendor.tar.zst
+        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.5/turnon-v2.6.5-vendor.tar.zst
+        sha256: bb659bf546f96d560a5d980e7ece8b1af6f17184e5975bbc0498bb417c9f4a13
         dest: vendor/
-        sha256: 1d8b22e71af747b05497a7f6895f70f696122e44d114649f4f3255f3f3f3b249
       - type: inline
         dest: .cargo/
         dest-filename: config.toml
@@ -58,4 +58,4 @@ modules:
           directory = "vendor"
     build-commands:
       - cargo build --frozen --release --verbose
-      - just git_describe= DESTPREFIX=/app install
+      - just version= DESTPREFIX=/app install
