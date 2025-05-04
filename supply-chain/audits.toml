@@ -575,6 +575,12 @@ start = "2019-03-06"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
+[[trusted.toml]]
+criteria = "safe-to-run"
+user-id = 6743 # Ed Page (epage)
+start = "2022-12-14"
+end = "2026-05-04"
+
 [[trusted.toml_edit]]
 criteria = "safe-to-run"
 user-id = 6743 # Ed Page (epage)

@@ -176,8 +176,8 @@ user-login = "bilelmoussaoui"
 user-name = "Bilal Elmoussaoui"
 
 [[publisher.libc]]
-version = "0.2.171"
-when = "2025-03-11"
+version = "0.2.172"
+when = "2025-04-15"
 user-id = 55123
 user-login = "rust-lang-owner"
 
@@ -252,8 +252,8 @@ user-login = "mbrubeck"
 user-name = "Matt Brubeck"
 
 [[publisher.syn]]
-version = "2.0.100"
-when = "2025-03-09"
+version = "2.0.101"
+when = "2025-04-26"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
@@ -265,23 +265,30 @@ user-id = 696
 user-login = "fitzgen"
 user-name = "Nick Fitzgerald"
 
+[[publisher.toml]]
+version = "0.8.22"
+when = "2025-04-28"
+user-id = 6743
+user-login = "epage"
+user-name = "Ed Page"
+
 [[publisher.toml_edit]]
-version = "0.22.24"
-when = "2025-02-10"
+version = "0.22.26"
+when = "2025-04-28"
 user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
 
 [[publisher.winnow]]
-version = "0.7.6"
-when = "2025-04-07"
+version = "0.7.9"
+when = "2025-05-02"
 user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
 
 [[publisher.wol]]
-version = "0.3.0"
-when = "2025-03-30"
+version = "0.3.1"
+when = "2025-05-03"
 user-id = 4372
 user-login = "swsnr"
 user-name = "Sebastian Wiesner"
@@ -784,18 +791,6 @@ delta = "1.0.138 -> 1.0.140"
 notes = "Only minor fixes for clippy and documentation updates."
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
-[[audits.google.audits.toml]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "0.5.10"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.toml]]
-who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
-criteria = "safe-to-run"
-delta = "0.5.10 -> 0.8.19"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
 [[audits.google.audits.toml_datetime]]
 who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
 criteria = "safe-to-run"
@@ -871,6 +866,12 @@ criteria = "safe-to-run"
 delta = "0.17.0 -> 0.17.2"
 aggregated-from = "https://codeberg.org/swsnr/gnome-search-providers-vscode/raw/branch/main/supply-chain/audits.toml"
 
+[[audits.swsnr.audits.hashbrown]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.15.2 -> 0.15.3"
+aggregated-from = "https://codeberg.org/swsnr/darklightd/raw/branch/main/supply-chain/audits.toml"
+
 [[audits.swsnr.audits.log]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -894,3 +895,15 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-deploy"
 delta = "3.2.0 -> 3.3.0"
 aggregated-from = "https://raw.githubusercontent.com/swsnr/picture-of-the-day/refs/heads/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.proc-macro2]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-deploy"
+delta = "1.0.94 -> 1.0.95"
+aggregated-from = "https://codeberg.org/swsnr/wol.rs/raw/branch/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.toml_datetime]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.6.8 -> 0.6.9"
+aggregated-from = "https://codeberg.org/swsnr/darklightd/raw/branch/main/supply-chain/audits.toml"
