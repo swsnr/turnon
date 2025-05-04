@@ -5,6 +5,10 @@ xgettext_opts := '--package-name=' + APPID + \
     ' --foreign-user --copyright-holder "Sebastian Wiesner <sebastian@swsnr.de>"' + \
     ' --sort-by-file --from-code=UTF-8 --add-comments'
 
+git_describe := `git describe`
+release_archive := 'turnon-' + git_describe + '.tar.zst'
+release_vendor_archive := 'turnon-' + git_describe + '-vendor.tar.zst'
+
 default:
     just --list
 
@@ -71,3 +75,55 @@ flatpak-build: && lint-flatpak-repo
         --install-deps-from=flathub --ccache \
         --mirror-screenshots-url=https://dl.flathub.org/media/ --repo=repo \
         builddir flatpak/de.swsnr.turnon.yaml
+
+_dist:
+    rm -rf dist
+    mkdir dist
+
+# Build and sign a reproducible archive of cargo vendor sources
+_vendor: _dist
+    rm -rf vendor/
+    cargo vendor --locked
+    echo SOURCE_DATE_EPOCH="$(env LC_ALL=C TZ=UTC0 git show --quiet --date='format-local:%Y-%m-%dT%H:%M:%SZ' --format="%cd" HEAD)"
+    # See https://reproducible-builds.org/docs/archives/
+    env LC_ALL=C TZ=UTC0 tar --numeric-owner --owner 0 --group 0 \
+        --sort name --mode='go+u,go-w' --format=posix \
+        --pax-option=exthdr.name=%d/PaxHeaders/%f \
+        --pax-option=delete=atime,delete=ctime \
+        --mtime="$(env LC_ALL=C TZ=UTC0 git show --quiet --date='format-local:%Y-%m-%dT%H:%M:%SZ' --format="%cd" HEAD)" \
+        -c -f "dist/{{release_vendor_archive}}" \
+        --zstd vendor
+
+# Build and sign a reproducible git archive bundle
+_git-archive: _dist
+    env LC_ALL=C TZ=UTC0 git archive --format tar \
+        --prefix "{{without_extension(without_extension(release_archive))}}/" \
+        --output "dist/{{without_extension(release_archive)}}" HEAD
+    zstd --rm "dist/{{without_extension(release_archive)}}"
+
+_release_notes: _dist
+    appstreamcli metainfo-to-news resources/de.swsnr.turnon.metainfo.xml.in dist/news.yaml
+    yq eval-all '[.]' -oj dist/news.yaml > dist/news.json
+    jq -r --arg tag "$(git describe)" '.[] | select(.Version == ($tag | ltrimstr("v"))) | .Description | tostring' > dist/relnotes.md < dist/news.json
+    rm dist/news.{json,yaml}
+
+package: _git-archive _vendor _release_notes
+    curl https://codeberg.org/swsnr.keys > dist/key
+    ssh-keygen -Y sign -f dist/key -n file "dist/{{release_archive}}"
+    ssh-keygen -Y sign -f dist/key -n file "dist/{{release_vendor_archive}}"
+    rm dist/key
+
+flatpak-update-manifest:
+    yq eval -i '.modules.[0].sources.[0].url = "https://github.com/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME.tar.zst"' flatpak/de.swsnr.turnon.yaml
+    yq eval -i '.modules.[0].sources.[0].sha256 = "$ARCHIVE_SHA256"' flatpak/de.swsnr.turnon.yaml
+    yq eval -i '.modules.[0].sources.[1].url = "https://github.com/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME-vendor.tar.zst"' flatpak/de.swsnr.turnon.yaml
+    yq eval -i '.modules.[0].sources.[1].sha256 = "$VENDOR_SHA256"' flatpak/de.swsnr.turnon.yaml
+    env TAG_NAME="{{git_describe}}" \
+        ARCHIVE_SHA256={{sha256_file('dist' / release_archive)}} \
+        VENDOR_SHA256={{sha256_file('dist' / release_vendor_archive)}} \
+        yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
+    git add flatpak/de.swsnr.turnon.yaml
+    git commit -m 'Update flatpak manifest for {{git_describe}}'
+
+release *ARGS: test-all && package flatpak-update-manifest
+    cargo release {{ARGS}}

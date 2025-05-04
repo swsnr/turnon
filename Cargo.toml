@@ -43,8 +43,8 @@ glob = "0.3.1"
 pre-release-commit-message = "Release {{version}}"
 tag-message = "Turn On {{tag_name}}"
 publish = false
+# The justfile runs all tests before releasing
 verify = false
-push = false
 sign-tag = true
 sign-commit = true
 pre-release-hook = ["scripts/prerelease.py", "{{tag_name}}", "{{date}}"]
