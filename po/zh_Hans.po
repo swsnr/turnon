@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2025-05-02 06:53+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg."
+"org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -75,135 +75,137 @@ msgstr "从 GNOME Shell 搜索打开设备。"
 msgid "Turn on devices from the command line."
 msgstr "从命令行打开设备。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:47
+#: resources/de.swsnr.turnon.metainfo.xml.in:46
 msgid "Correct icons in application."
 msgstr "更正应用程序中的图标。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:53
+#: resources/de.swsnr.turnon.metainfo.xml.in:52
 msgid "Probe reachable devices for web interfaces."
 msgstr "探测可访问设备以查找 Web 界面。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:62
+#: resources/de.swsnr.turnon.metainfo.xml.in:61
 msgid "Update to GNOME 48"
 msgstr "更新到 GNOME 48"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:68
+#: resources/de.swsnr.turnon.metainfo.xml.in:67
 msgid "Reorder devices with Alt+Up and Alt+Down"
 msgstr "使用 Alt+Up 和 Alt+Down 重新排序设备"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:77
+#: resources/de.swsnr.turnon.metainfo.xml.in:76
 msgid ""
 "Refine application icon to make it sharper at smaller sizes, and redesign "
 "symbolic icon."
 msgstr "优化应用程序图标，使其在较小尺寸下更清晰，并重新设计符号图标。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:86
+#: resources/de.swsnr.turnon.metainfo.xml.in:85
 msgid "Save and restore main window state."
 msgstr "保存并恢复主窗口状态。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:87
+#: resources/de.swsnr.turnon.metainfo.xml.in:86
 msgid "Define additional shortcuts."
 msgstr "定义额外的快捷键。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:96
+#: resources/de.swsnr.turnon.metainfo.xml.in:95
 msgid ""
 "Add new toolbar and start page buttons to enable network scanning. When "
 "network scanning is on show devices discovered in the local network in the "
 "list of devices."
-msgstr "添加新的工具栏和开始页面按钮以启用网络扫描。打开网络扫描时，在设备列表中显示"
+msgstr ""
+"添加新的工具栏和开始页面按钮以启用网络扫描。打开网络扫描时，在设备列表中显示"
 "在本地网络中发现的设备。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:100
+#: resources/de.swsnr.turnon.metainfo.xml.in:99
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr "优化应用程序图标以提高其在深色背景上的对比度。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:114
+#: resources/de.swsnr.turnon.metainfo.xml.in:113
 msgid ""
 "The dialog to add a new device now uses success and error styles for the "
 "validity indicators."
 msgstr "添加新设备的对话框现在使用成功和错误样式作为有效性指标。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:115
+#: resources/de.swsnr.turnon.metainfo.xml.in:114
 msgid ""
 "Refuse to add a new device if the host name contains a port which is not "
 "permitted at this place."
 msgstr "如果主机名包含此处不允许的端口，则拒绝添加新设备。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:116
-#: resources/de.swsnr.turnon.metainfo.xml.in:125
-#: resources/de.swsnr.turnon.metainfo.xml.in:133
+#: resources/de.swsnr.turnon.metainfo.xml.in:115
+#: resources/de.swsnr.turnon.metainfo.xml.in:124
+#: resources/de.swsnr.turnon.metainfo.xml.in:132
 msgid "Update translations."
 msgstr "更新翻译。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:131
+#: resources/de.swsnr.turnon.metainfo.xml.in:130
 msgid "Searching for devices via GNOME Shell now ignores case."
 msgstr "通过 GNOME Shell 搜索设备现在忽略大小写。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:132
+#: resources/de.swsnr.turnon.metainfo.xml.in:131
 msgid ""
 "Add \"--list-devices\" command line argument to list all devices and their "
 "status."
 msgstr "添加“--list-devices”命令行参数以列出所有设备及其状态。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:143
+#: resources/de.swsnr.turnon.metainfo.xml.in:142
 msgid ""
 "The link to translations in application metadata and on Flathub is more "
 "helpful now."
 msgstr "应用程序元数据和 Flathub 上的翻译链接现在更有帮助了。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:149
+#: resources/de.swsnr.turnon.metainfo.xml.in:148
 msgid "Add Dutch translation, and update existing translations."
 msgstr "添加荷兰语翻译，并更新现有翻译。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:150
+#: resources/de.swsnr.turnon.metainfo.xml.in:149
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr "Turn On 现在可以在编辑设备时正确保留设备。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:151
+#: resources/de.swsnr.turnon.metainfo.xml.in:150
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr "“关于 Turn On”对话框现在提供了用于故障诊断的调试报告。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:160
+#: resources/de.swsnr.turnon.metainfo.xml.in:159
 msgid "Add Hebrew translation."
 msgstr "添加希伯来语翻译。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:166
+#: resources/de.swsnr.turnon.metainfo.xml.in:165
 msgid "Add Italian translation, and update German translation."
 msgstr "添加意大利语翻译，并更新德语翻译。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:172
+#: resources/de.swsnr.turnon.metainfo.xml.in:171
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr "Turn On 现在集成到 GNOME 搜索中并提供直接从搜索打开设备的功能。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:173
+#: resources/de.swsnr.turnon.metainfo.xml.in:172
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr "Turn On 启动器现在可以在右键菜单中添加新设备。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:174
+#: resources/de.swsnr.turnon.metainfo.xml.in:173
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
-msgstr "Turn On 本身现在提供了一个基本的命令行界面；特别是 --turn-on-device "
-"选项现在可以通过其标签打开设备。"
+msgstr ""
+"Turn On 本身现在提供了一个基本的命令行界面；特别是 --turn-on-device 选项现在"
+"可以通过其标签打开设备。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:184
+#: resources/de.swsnr.turnon.metainfo.xml.in:183
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "移除最后一个设备时 Turn On 不再崩溃。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:185
+#: resources/de.swsnr.turnon.metainfo.xml.in:184
 msgid "Add German translation, and update application metadata."
 msgstr "添加德语翻译，并更新应用程序元数据。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:191
+#: resources/de.swsnr.turnon.metainfo.xml.in:190
 msgid "Shorten summary in metadata."
 msgstr "缩短元数据中的摘要。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:197
+#: resources/de.swsnr.turnon.metainfo.xml.in:196
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -213,63 +215,63 @@ msgstr ""
 "从设备列表中删除设备，编辑现有设备，在打开设备时显示早期反馈，并使编辑设备的"
 "对话框更易于通过键盘使用（现在按 Enter 键可导航到下一个条目并最终添加设备）。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:209
+#: resources/de.swsnr.turnon.metainfo.xml.in:208
 msgid "Refined app icon."
 msgstr "优化了应用图标。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:215
+#: resources/de.swsnr.turnon.metainfo.xml.in:214
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr "这是初始版本。应用程序在此版本中支持以下功能："
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:217
+#: resources/de.swsnr.turnon.metainfo.xml.in:216
 msgid "Add new devices"
 msgstr "添加新设备"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:218
+#: resources/de.swsnr.turnon.metainfo.xml.in:217
 msgid "Monitor whether devices are turned on"
 msgstr "监控设备是否打开"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:219
+#: resources/de.swsnr.turnon.metainfo.xml.in:218
 msgid "Turn on devices with Wake On LAN"
 msgstr "使用网络唤醒打开设备"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:221
+#: resources/de.swsnr.turnon.metainfo.xml.in:220
 msgid "This release is missing the following features:"
 msgstr "此版本缺少以下功能："
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:223
+#: resources/de.swsnr.turnon.metainfo.xml.in:222
 msgid "Devices can not be edited or removed."
 msgstr "无法编辑或移除设备。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:224
+#: resources/de.swsnr.turnon.metainfo.xml.in:223
 msgid "The order of devices cannot be changed."
 msgstr "无法更改设备的顺序。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:225
+#: resources/de.swsnr.turnon.metainfo.xml.in:224
 msgid "Languages other than English are not supported."
 msgstr "不支持英语以外的语言。"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:238
+#: resources/de.swsnr.turnon.metainfo.xml.in:237
 msgid ""
 "Two devices, one of them on, and the other off, and two devices discovered "
 "in the network"
 msgstr "两个设备，一个打开，另一个关闭，还在网络中发现了两个设备"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:242
+#: resources/de.swsnr.turnon.metainfo.xml.in:241
 msgid ""
 "Two devices, one of them on, and the other off, with network discovery not "
 "enabled"
 msgstr "两个设备，一个打开，另一个关闭，未启用网络发现"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:246
+#: resources/de.swsnr.turnon.metainfo.xml.in:245
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr "编辑设备的名称、MAC 地址和 IP 地址，以便检查设备状态"
 
-#: resources/de.swsnr.turnon.metainfo.xml.in:250
+#: resources/de.swsnr.turnon.metainfo.xml.in:249
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
@@ -594,19 +596,19 @@ msgctxt "search-provider.notification.body"
 msgid "Failed to send magic packet to mac address %1 of device %2."
 msgstr "无法将魔法数据包发送到设备 %2 的 Mac 地址 %1。"
 
-#: src/app/widgets/application_window.rs:91
+#: src/app/widgets/application_window.rs:90
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device %s"
 msgstr "正在向设备 %s 发送魔法数据包"
 
-#: src/app/widgets/application_window.rs:113
+#: src/app/widgets/application_window.rs:112
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device %s"
 msgstr "已向设备 %s 发送魔法数据包"
 
-#: src/app/widgets/application_window.rs:127
+#: src/app/widgets/application_window.rs:126
 #, c-format
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
