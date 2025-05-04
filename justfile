@@ -158,3 +158,10 @@ install:
     install -Dm0644 de.swsnr.turnon.search-provider.ini '{{DESTPREFIX}}/share/gnome-shell/search-providers/{{APPID}}.search-provider.ini'
     install -Dm0644 schemas/de.swsnr.turnon.gschema.xml '{{DESTPREFIX}}/share/glib-2.0/schemas/{{APPID}}.gschema.xml'
     glib-compile-schemas --strict '{{DESTPREFIX}}/share/glib-2.0/schemas'
+
+# Assemble the README image from screenshots.
+build-social-image:
+    montage -geometry 602x602+19+19 \
+        screenshots/start-page.png screenshots/list-of-discovered-devices.png \
+        social-image.png
+    oxipng social-image.png
