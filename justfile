@@ -23,7 +23,7 @@ vet *ARGS:
 
 # Remove build files from source code tree
 clean:
-    rm -fr builddir repo .flatpak-builder
+    rm -fr builddir repo .flatpak-builder dist vendor
 
 lint-blueprint:
     blueprint-compiler format resources/**/*.blp
