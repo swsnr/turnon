@@ -51,5 +51,4 @@ modules:
       # Patch version number and app ID before building our binary
       - just APPID=de.swsnr.turnon.Devel patch-devel
       - cargo build --locked --release --verbose
-      - make DESTPREFIX=/app APPID=de.swsnr.turnon.Devel install
-      - glib-compile-schemas --strict /app/share/glib-2.0/schemas
+      - just DESTPREFIX=/app APPID=de.swsnr.turnon.Devel install

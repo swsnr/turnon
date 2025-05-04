@@ -1,5 +1,9 @@
 
 APPID := 'de.swsnr.turnon'
+# The destination prefix to install files to.  Combines traditional DESTDIR and
+# PREFIX variables; turnon does not encode the prefix into its binary and thus
+# does not need to distinguish between the prefix and the destdir.
+DESTPREFIX := '/app'
 
 xgettext_opts := '--package-name=' + APPID + \
     ' --foreign-user --copyright-holder "Sebastian Wiesner <sebastian@swsnr.de>"' + \
@@ -19,7 +23,7 @@ vet *ARGS:
 
 # Remove build files from source code tree
 clean:
-    rm -fr po/*.mo builddir repo .flatpak-builder
+    rm -fr builddir repo .flatpak-builder
 
 lint-blueprint:
     blueprint-compiler format resources/**/*.blp
@@ -137,3 +141,20 @@ patch-devel:
         resources/de.swsnr.turnon.metainfo.xml.in de.swsnr.turnon.desktop.in \
         dbus-1/de.swsnr.turnon.service de.swsnr.turnon.search-provider.ini \
         schemas/de.swsnr.turnon.gschema.xml
+
+_install-po po_file:
+    install -dm0755 '{{DESTPREFIX}}/share/locale/LC_MESSAGES/{{file_stem(po_file)}}'
+    msgfmt -o '{{DESTPREFIX}}/share/locale/LC_MESSAGES/{{file_stem(po_file)}}/{{APPID}}.mo' '{{po_file}}'
+
+install:
+    find po/ -name '*.po' -exec just DESTPREFIX='{{DESTPREFIX}}' APPID='{{APPID}}' _install-po '{}' ';'
+    install -Dm0755 target/release/turnon '{{DESTPREFIX}}/bin/{{APPID}}'
+    install -Dm0644 -t '{{DESTPREFIX}}/share/icons/hicolor/scalable/apps/' 'resources/icons/scalable/apps/{{APPID}}.svg'
+    install -Dm0644 resources/icons/symbolic/apps/de.swsnr.turnon-symbolic.svg \
+        ''{{DESTPREFIX}}/share/icons/hicolor/symbolic/apps/{{APPID}}-symbolic.svg''
+    install -Dm0644 de.swsnr.turnon.desktop '{{DESTPREFIX}}/share/applications/{{APPID}}.desktop'
+    install -Dm0644 resources/de.swsnr.turnon.metainfo.xml '{{DESTPREFIX}}/share/metainfo/{{APPID}}.metainfo.xml'
+    install -Dm0644 dbus-1/de.swsnr.turnon.service '{{DESTPREFIX}}/share/dbus-1/services/{{APPID}}.service'
+    install -Dm0644 de.swsnr.turnon.search-provider.ini '{{DESTPREFIX}}/share/gnome-shell/search-providers/{{APPID}}.search-provider.ini'
+    install -Dm0644 schemas/de.swsnr.turnon.gschema.xml '{{DESTPREFIX}}/share/glib-2.0/schemas/{{APPID}}.gschema.xml'
+    glib-compile-schemas --strict '{{DESTPREFIX}}/share/glib-2.0/schemas'
