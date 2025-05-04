@@ -150,8 +150,8 @@ patch-devel:
         schemas/de.swsnr.turnon.gschema.xml
 
 _install-po po_file:
-    install -dm0755 '{{DESTPREFIX}}/share/locale/LC_MESSAGES/{{file_stem(po_file)}}'
-    msgfmt -o '{{DESTPREFIX}}/share/locale/LC_MESSAGES/{{file_stem(po_file)}}/{{APPID}}.mo' '{{po_file}}'
+    install -dm0755 '{{DESTPREFIX}}/share/locale/{{file_stem(po_file)}}/LC_MESSAGES'
+    msgfmt -o '{{DESTPREFIX}}/share/locale/{{file_stem(po_file)}}/LC_MESSAGES/{{APPID}}.mo' '{{po_file}}'
 
 install:
     find po/ -name '*.po' -exec just DESTPREFIX='{{DESTPREFIX}}' APPID='{{APPID}}' _install-po '{}' ';'
