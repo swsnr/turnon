@@ -43,18 +43,3 @@ install: install-locale
 	install -Dm0644 dbus-1/de.swsnr.turnon.service $(DESTPREFIX)/share/dbus-1/services/$(APPID).service
 	install -Dm0644 de.swsnr.turnon.search-provider.ini $(DESTPREFIX)/share/gnome-shell/search-providers/$(APPID).search-provider.ini
 	install -Dm0644 schemas/de.swsnr.turnon.gschema.xml $(DESTPREFIX)/share/glib-2.0/schemas/$(APPID).gschema.xml
-
-# Patch the current git describe version into Turn On.
-.PHONY: patch-git-version
-patch-git-version:
-	sed -Ei 's/^version = "([^"]+)"/version = "\1+$(GIT_DESCRIBE)"/' Cargo.toml
-	cargo update -p turnon
-
-# Patch the app ID to use APPID in various files
-.PHONY: patch-appid
-patch-appid:
-	sed -i '/$(APPID)/! s/de\.swsnr\.turnon/$(APPID)/g' \
-		src/config.rs \
-		resources/de.swsnr.turnon.metainfo.xml.in de.swsnr.turnon.desktop.in \
-		dbus-1/de.swsnr.turnon.service de.swsnr.turnon.search-provider.ini \
-		schemas/de.swsnr.turnon.gschema.xml

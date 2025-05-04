@@ -17,6 +17,28 @@ build-options:
     # Tell build.rs not to regenerate the UI files from blueprint sources
     SKIP_BLUEPRINT: "1"
 modules:
+  # Install just for our build file
+  - name: just
+    buildsystem: simple
+    sources:
+      - type: archive
+        url: https://github.com/casey/just/releases/download/1.40.0/just-1.40.0-aarch64-unknown-linux-musl.tar.gz
+        sha256: d065d0df1a1f99529869fba8a5b3e0a25c1795b9007099b00dfabe29c7c1f7b6
+        strip-components: 0
+        only-arches:
+          - aarch64
+      - type: archive
+        url: https://github.com/casey/just/releases/download/1.40.0/just-1.40.0-x86_64-unknown-linux-musl.tar.gz
+        sha256: 181b91d0ceebe8a57723fb648ed2ce1a44d849438ce2e658339df4f8db5f1263
+        strip-components: 0
+        only-arches:
+          - x86_64
+    build-commands:
+      - find .
+      - install -D -m755 just /app/bin/just
+    cleanup:
+      - /bin/just
+
   - name: turnon
     buildsystem: simple
     sources:
@@ -27,7 +49,7 @@ modules:
         - --share=network
     build-commands:
       # Patch version number and app ID before building our binary
-      - make APPID=de.swsnr.turnon.Devel patch-git-version patch-appid
+      - just APPID=de.swsnr.turnon.Devel patch-devel
       - cargo build --locked --release --verbose
       - make DESTPREFIX=/app APPID=de.swsnr.turnon.Devel install
       - glib-compile-schemas --strict /app/share/glib-2.0/schemas

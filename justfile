@@ -127,3 +127,13 @@ flatpak-update-manifest:
 
 release *ARGS: test-all && package flatpak-update-manifest
     cargo release {{ARGS}}
+
+# Patch files for the Devel build
+patch-devel:
+    sed -Ei 's/^version = "([^"]+)"/version = "\1+{{git_describe}}"/' Cargo.toml
+    cargo update -p turnon
+    sed -i '/{{APPID}}/! s/de\.swsnr\.turnon/{{APPID}}/g' \
+        src/config.rs \
+        resources/de.swsnr.turnon.metainfo.xml.in de.swsnr.turnon.desktop.in \
+        dbus-1/de.swsnr.turnon.service de.swsnr.turnon.search-provider.ini \
+        schemas/de.swsnr.turnon.gschema.xml
