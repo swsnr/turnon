@@ -17,16 +17,36 @@ build-options:
     # Tell build.rs not to regenerate the UI files from blueprint sources
     SKIP_BLUEPRINT: "1"
 modules:
+  # Install just for our build file
+  - name: just
+    buildsystem: simple
+    sources:
+      - type: archive
+        url: https://github.com/casey/just/releases/download/1.40.0/just-1.40.0-aarch64-unknown-linux-musl.tar.gz
+        sha256: d065d0df1a1f99529869fba8a5b3e0a25c1795b9007099b00dfabe29c7c1f7b6
+        strip-components: 0
+        only-arches:
+          - aarch64
+      - type: archive
+        url: https://github.com/casey/just/releases/download/1.40.0/just-1.40.0-x86_64-unknown-linux-musl.tar.gz
+        sha256: 181b91d0ceebe8a57723fb648ed2ce1a44d849438ce2e658339df4f8db5f1263
+        strip-components: 0
+        only-arches:
+          - x86_64
+    build-commands:
+      - install -D -m755 just /app/bin/just
+    cleanup:
+      - /bin/just
   - name: turnon
     buildsystem: simple
     sources:
       - type: archive
-        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.3/turnon-v2.6.3.tar.zst
-        sha512: "61ae7033713766274f54ae2d476c49ac3930621b7fb038846943028d9b0e040d1bd64e20e0ace34e34776842593d6eef7cf4091370574dfc4127845d016f6b7b"
+        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.4/turnon-v2.6.4.tar.zst
+        sha256: 4262865dc2e14b5109757f927b12d7c01add2f7c8836d49188e00091c30949be
       - type: archive
-        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.3/turnon-v2.6.3-vendor.tar.zst
-        sha512: "c9fb8a000ec3b486cadf3f77c9a171c593072b2c9f457ff6a154061d28e8e9f71308f58469a2a6092085ac7b9ce3b185d08dd2a87e043ef06dba482a19add6ad"
+        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.4/turnon-v2.6.4-vendor.tar.zst
         dest: vendor/
+        sha256: 1d8b22e71af747b05497a7f6895f70f696122e44d114649f4f3255f3f3f3b249
       - type: inline
         dest: .cargo/
         dest-filename: config.toml
@@ -38,5 +58,4 @@ modules:
           directory = "vendor"
     build-commands:
       - cargo build --frozen --release --verbose
-      - make DESTPREFIX=/app install
-      - glib-compile-schemas --strict /app/share/glib-2.0/schemas
+      - just git_describe= DESTPREFIX=/app install
