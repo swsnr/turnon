@@ -147,7 +147,7 @@ mod imp {
                         // Check whether the user specified a port, and if so,
                         // reject the input.
                         //
-                        // See https://github.com/swsnr/turnon/issues/40
+                        // See https://codeberg.org/swsnr/turnon/issues/40
                         "invalid-socket-address"
                     } else {
                         "host"

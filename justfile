@@ -118,9 +118,9 @@ package: _git-archive _vendor _release_notes
     rm dist/key
 
 flatpak-update-manifest:
-    yq eval -i '.modules.[0].sources.[0].url = "https://github.com/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME.tar.zst"' flatpak/de.swsnr.turnon.yaml
+    yq eval -i '.modules.[0].sources.[0].url = "https://codeberg.org/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME.tar.zst"' flatpak/de.swsnr.turnon.yaml
     yq eval -i '.modules.[0].sources.[0].sha256 = "$ARCHIVE_SHA256"' flatpak/de.swsnr.turnon.yaml
-    yq eval -i '.modules.[0].sources.[1].url = "https://github.com/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME-vendor.tar.zst"' flatpak/de.swsnr.turnon.yaml
+    yq eval -i '.modules.[0].sources.[1].url = "https://codeberg.org/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME-vendor.tar.zst"' flatpak/de.swsnr.turnon.yaml
     yq eval -i '.modules.[0].sources.[1].sha256 = "$VENDOR_SHA256"' flatpak/de.swsnr.turnon.yaml
     env TAG_NAME="{{git_describe}}" \
         ARCHIVE_SHA256={{sha256_file('dist' / release_archive)}} \

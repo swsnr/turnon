@@ -21,10 +21,10 @@ modules:
     buildsystem: simple
     sources:
       - type: archive
-        url: https://github.com/swsnr/turnon/releases/download/v2.6.3/turnon-v2.6.3.tar.zst
+        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.3/turnon-v2.6.3.tar.zst
         sha512: "61ae7033713766274f54ae2d476c49ac3930621b7fb038846943028d9b0e040d1bd64e20e0ace34e34776842593d6eef7cf4091370574dfc4127845d016f6b7b"
       - type: archive
-        url: https://github.com/swsnr/turnon/releases/download/v2.6.3/turnon-v2.6.3-vendor.tar.zst
+        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.3/turnon-v2.6.3-vendor.tar.zst
         sha512: "c9fb8a000ec3b486cadf3f77c9a171c593072b2c9f457ff6a154061d28e8e9f71308f58469a2a6092085ac7b9ce3b185d08dd2a87e043ef06dba482a19add6ad"
         dest: vendor/
       - type: inline

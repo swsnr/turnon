@@ -59,7 +59,7 @@ def update_releasenotes(new_version: Version, *, tag_name: str, date: str, dry_r
         next_release[-1].tail = next_release.text
         url = etree.SubElement(next_release, 'url')
         url.tail = next_release.tail
-    url.text = f'https://github.com/swsnr/turnon/releases/tag/{tag_name}'
+    url.text = f'https://codeberg.org/swsnr/turnon/releases/tag/{tag_name}'
     if dry_run:
         etree.dump(tree)
     else:

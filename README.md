@@ -1,9 +1,6 @@
 # Turn On
 
-[![Latest release](https://img.shields.io/github/v/release/swsnr/turnon)](https://github.com/swsnr/turnon/releases/)
 [![Translation status](https://translate.codeberg.org/widget/de-swsnr-turnon/de-swsnr-turnon/svg-badge.svg)](https://translate.codeberg.org/engage/de-swsnr-turnon/)
-[![CI status](https://img.shields.io/github/actions/workflow/status/swsnr/turnon/test.yml)](https://github.com/swsnr/turnon/actions)
-
 Turn on devices in your network on GNOME:
 
 ![The empty start page with the application icon on the left, and the list of devices with discovered devices on the right](./social-image.png)
