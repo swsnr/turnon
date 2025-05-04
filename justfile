@@ -9,9 +9,9 @@ xgettext_opts := '--package-name=' + APPID + \
     ' --foreign-user --copyright-holder "Sebastian Wiesner <sebastian@swsnr.de>"' + \
     ' --sort-by-file --from-code=UTF-8 --add-comments'
 
-git_describe := `git describe`
-release_archive := 'turnon-' + git_describe + '.tar.zst'
-release_vendor_archive := 'turnon-' + git_describe + '-vendor.tar.zst'
+version := `git describe`
+release_archive := 'turnon-' + version + '.tar.zst'
+release_vendor_archive := 'turnon-' + version + '-vendor.tar.zst'
 
 default:
     just --list
@@ -122,12 +122,12 @@ flatpak-update-manifest:
     yq eval -i '.modules.[0].sources.[0].sha256 = "$ARCHIVE_SHA256"' flatpak/de.swsnr.turnon.yaml
     yq eval -i '.modules.[0].sources.[1].url = "https://codeberg.org/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME-vendor.tar.zst"' flatpak/de.swsnr.turnon.yaml
     yq eval -i '.modules.[0].sources.[1].sha256 = "$VENDOR_SHA256"' flatpak/de.swsnr.turnon.yaml
-    env TAG_NAME="{{git_describe}}" \
+    env TAG_NAME="{{version}}" \
         ARCHIVE_SHA256={{sha256_file('dist' / release_archive)}} \
         VENDOR_SHA256={{sha256_file('dist' / release_vendor_archive)}} \
         yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
     git add flatpak/de.swsnr.turnon.yaml
-    git commit -m 'Update flatpak manifest for {{git_describe}}'
+    git commit -m 'Update flatpak manifest for {{version}}'
     @echo "Run git push and trigger sync workflow at https://github.com/flathub/de.swsnr.turnon/actions/workflows/sync.yaml"
 
 _post-release:
@@ -142,7 +142,7 @@ release *ARGS: test-all && _post-release
 
 # Patch files for the Devel build
 patch-devel:
-    sed -Ei 's/^version = "([^"]+)"/version = "\1+{{git_describe}}"/' Cargo.toml
+    sed -Ei 's/^version = "([^"]+)"/version = "\1+{{version}}"/' Cargo.toml
     cargo update -p turnon
     sed -i '/{{APPID}}/! s/de\.swsnr\.turnon/{{APPID}}/g' \
         src/config.rs \
