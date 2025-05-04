@@ -128,15 +128,16 @@ flatpak-update-manifest:
         yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
     git add flatpak/de.swsnr.turnon.yaml
     git commit -m 'Update flatpak manifest for {{git_describe}}'
+    @echo "Run git push and trigger sync workflow at https://github.com/flathub/de.swsnr.turnon/actions/workflows/sync.yaml"
 
 _post-release:
+    @echo "Run just package to create dist archives."
     @echo "Create new release at https://codeberg.org/swsnr/turnon/tags"
     @echo "Use dist/relnotes.md as release body"
     @echo "Attach archives and signatures in dist as release body"
-    @echo "Verify updates to flatpak manifest, change as necessary, and run git push"
-    @echo "Run sync workflow at https://github.com/flathub/de.swsnr.turnon/actions/workflows/sync.yaml"
+    @echo "Then run just flatpak-update-manifest to update the flatpak manifest."
 
-release *ARGS: test-all && package flatpak-update-manifest _post-release
+release *ARGS: test-all && _post-release
     cargo release {{ARGS}}
 
 # Patch files for the Devel build
