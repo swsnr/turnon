@@ -10,7 +10,6 @@ xgettext_opts := '--package-name=' + APPID + \
     ' --sort-by-file --from-code=UTF-8 --add-comments'
 
 version := `git describe`
-release_archive := 'turnon-' + version + '.tar.zst'
 release_vendor_archive := 'turnon-' + version + '-vendor.tar.zst'
 
 default:
@@ -98,32 +97,25 @@ _vendor: _dist
         -c -f "dist/{{release_vendor_archive}}" \
         --zstd vendor
 
-# Build and sign a reproducible git archive bundle
-_git-archive: _dist
-    env LC_ALL=C TZ=UTC0 git archive --format tar \
-        --prefix "{{without_extension(without_extension(release_archive))}}/" \
-        --output "dist/{{without_extension(release_archive)}}" HEAD
-    zstd --rm "dist/{{without_extension(release_archive)}}"
-
 _release_notes: _dist
     appstreamcli metainfo-to-news resources/de.swsnr.turnon.metainfo.xml.in dist/news.yaml
     yq eval-all '[.]' -oj dist/news.yaml > dist/news.json
     jq -r --arg tag "$(git describe)" '.[] | select(.Version == ($tag | ltrimstr("v"))) | .Description | tostring' > dist/relnotes.md < dist/news.json
     rm dist/news.{json,yaml}
 
-package: _git-archive _vendor _release_notes
+# Package artifacts for the release
+package: _vendor _release_notes
     curl https://codeberg.org/swsnr.keys > dist/key
-    ssh-keygen -Y sign -f dist/key -n file "dist/{{release_archive}}"
     ssh-keygen -Y sign -f dist/key -n file "dist/{{release_vendor_archive}}"
     rm dist/key
 
 flatpak-update-manifest:
-    yq eval -i '.modules.[1].sources.[0].url = "https://codeberg.org/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME.tar.zst"' flatpak/de.swsnr.turnon.yaml
-    yq eval -i '.modules.[1].sources.[0].sha256 = "$ARCHIVE_SHA256"' flatpak/de.swsnr.turnon.yaml
+    yq eval -i '.modules.[1].sources.[0].tag = "$TAG_NAME"' flatpak/de.swsnr.turnon.yaml
+    yq eval -i '.modules.[1].sources.[0].commit = "$TAG_COMMIT"' flatpak/de.swsnr.turnon.yaml
     yq eval -i '.modules.[1].sources.[1].url = "https://codeberg.org/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME-vendor.tar.zst"' flatpak/de.swsnr.turnon.yaml
     yq eval -i '.modules.[1].sources.[1].sha256 = "$VENDOR_SHA256"' flatpak/de.swsnr.turnon.yaml
-    env TAG_NAME="{{version}}" \
-        ARCHIVE_SHA256={{sha256_file('dist' / release_archive)}} \
+    env TAG_NAME='{{version}}' \
+        TAG_COMMIT="$(git rev-parse '{{version}}')" \
         VENDOR_SHA256={{sha256_file('dist' / release_vendor_archive)}} \
         yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
     git add flatpak/de.swsnr.turnon.yaml

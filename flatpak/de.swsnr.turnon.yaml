@@ -40,9 +40,10 @@ modules:
   - name: turnon
     buildsystem: simple
     sources:
-      - type: archive
-        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.5/turnon-v2.6.5.tar.zst
-        sha256: b08d5d903418bf461d0b73b912362f892975bcf3b21900e1828a4fcfabaf58d3
+      - type: git
+        url: https://codeberg.org/swsnr/turnon.git
+        tag: "v2.6.5"
+        commit: "e68ef6435f40afe1d6d74f41b9205273db0eafa9"
       - type: archive
         url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.5/turnon-v2.6.5-vendor.tar.zst
         sha256: bb659bf546f96d560a5d980e7ece8b1af6f17184e5975bbc0498bb417c9f4a13
