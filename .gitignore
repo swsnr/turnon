@@ -8,7 +8,6 @@
 
 # Distribution files and vendored crates
 /dist/
-/vendor/
 
 # Translated data files
 /de.swsnr.turnon.desktop

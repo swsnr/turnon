@@ -44,19 +44,8 @@ modules:
         url: https://codeberg.org/swsnr/turnon.git
         tag: "v2.6.5"
         commit: "e68ef6435f40afe1d6d74f41b9205273db0eafa9"
-      - type: archive
-        url: https://codeberg.org/swsnr/turnon/releases/download/v2.6.5/turnon-v2.6.5-vendor.tar.zst
-        sha256: bb659bf546f96d560a5d980e7ece8b1af6f17184e5975bbc0498bb417c9f4a13
-        dest: vendor/
-      - type: inline
-        dest: .cargo/
-        dest-filename: config.toml
-        contents: |
-          [source.crates-io]
-          replace-with = "vendored-sources"
-
-          [source.vendored-sources]
-          directory = "vendor"
+      - de.swsnr.turnon.cargo-sources.json
     build-commands:
+      - install -Dm644 cargo/config .cargo/config.toml
       - cargo build --frozen --release --verbose
       - just version= DESTPREFIX=/app install

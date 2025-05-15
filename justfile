@@ -10,7 +10,6 @@ xgettext_opts := '--package-name=' + APPID + \
     ' --sort-by-file --from-code=UTF-8 --add-comments'
 
 version := `git describe`
-release_vendor_archive := 'turnon-' + version + '-vendor.tar.zst'
 
 default:
     just --list
@@ -22,7 +21,7 @@ vet *ARGS:
 
 # Remove build files from source code tree
 clean:
-    rm -fr builddir repo .flatpak-builder dist vendor
+    rm -fr builddir repo .flatpak-builder dist
 
 lint-blueprint:
     blueprint-compiler format resources/**/*.blp
@@ -79,55 +78,29 @@ flatpak-build: && lint-flatpak-repo
         --mirror-screenshots-url=https://dl.flathub.org/media/ --repo=repo \
         builddir flatpak/de.swsnr.turnon.yaml
 
-_dist:
-    rm -rf dist
-    mkdir dist
+# Print release notes
+print-release-notes:
+    @appstreamcli metainfo-to-news --format yaml resources/de.swsnr.turnon.metainfo.xml.in - | \
+        yq eval-all '[.]' -oj | jq -r --arg tag "{{version}}" \
+        '.[] | select(.Version == ($tag | ltrimstr("v"))) | .Description | tostring'
 
-# Build and sign a reproducible archive of cargo vendor sources
-_vendor: _dist
-    rm -rf vendor/
-    cargo vendor --locked
-    echo SOURCE_DATE_EPOCH="$(env LC_ALL=C TZ=UTC0 git show --quiet --date='format-local:%Y-%m-%dT%H:%M:%SZ' --format="%cd" HEAD)"
-    # See https://reproducible-builds.org/docs/archives/
-    env LC_ALL=C TZ=UTC0 tar --numeric-owner --owner 0 --group 0 \
-        --sort name --mode='go+u,go-w' --format=posix \
-        --pax-option=exthdr.name=%d/PaxHeaders/%f \
-        --pax-option=delete=atime,delete=ctime \
-        --mtime="$(env LC_ALL=C TZ=UTC0 git show --quiet --date='format-local:%Y-%m-%dT%H:%M:%SZ' --format="%cd" HEAD)" \
-        -c -f "dist/{{release_vendor_archive}}" \
-        --zstd vendor
-
-_release_notes: _dist
-    appstreamcli metainfo-to-news resources/de.swsnr.turnon.metainfo.xml.in dist/news.yaml
-    yq eval-all '[.]' -oj dist/news.yaml > dist/news.json
-    jq -r --arg tag "$(git describe)" '.[] | select(.Version == ($tag | ltrimstr("v"))) | .Description | tostring' > dist/relnotes.md < dist/news.json
-    rm dist/news.{json,yaml}
-
-# Package artifacts for the release
-package: _vendor _release_notes
-    curl https://codeberg.org/swsnr.keys > dist/key
-    ssh-keygen -Y sign -f dist/key -n file "dist/{{release_vendor_archive}}"
-    rm dist/key
-
+# Update the flatpak manifest for `version`.
 flatpak-update-manifest:
+    flatpak run --command=flatpak-cargo-generator org.flatpak.Builder \
+        <(git --no-pager show '{{version}}:Cargo.lock') -o flatpak/de.swsnr.turnon.cargo-sources.json
     yq eval -i '.modules.[1].sources.[0].tag = "$TAG_NAME"' flatpak/de.swsnr.turnon.yaml
     yq eval -i '.modules.[1].sources.[0].commit = "$TAG_COMMIT"' flatpak/de.swsnr.turnon.yaml
-    yq eval -i '.modules.[1].sources.[1].url = "https://codeberg.org/swsnr/turnon/releases/download/$TAG_NAME/turnon-$TAG_NAME-vendor.tar.zst"' flatpak/de.swsnr.turnon.yaml
-    yq eval -i '.modules.[1].sources.[1].sha256 = "$VENDOR_SHA256"' flatpak/de.swsnr.turnon.yaml
     env TAG_NAME='{{version}}' \
         TAG_COMMIT="$(git rev-parse '{{version}}')" \
-        VENDOR_SHA256={{sha256_file('dist' / release_vendor_archive)}} \
         yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
-    git add flatpak/de.swsnr.turnon.yaml
-    git commit -m 'Update flatpak manifest for {{version}}'
+    git add flatpak/de.swsnr.turnon.yaml flatpak/de.swsnr.turnon.cargo-sources.json
+    @git commit -m 'Update flatpak manifest for {{version}}'
     @echo "Run git push and trigger sync workflow at https://github.com/flathub/de.swsnr.turnon/actions/workflows/sync.yaml"
 
 _post-release:
-    @echo "Run just package to create dist archives."
     @echo "Create new release at https://codeberg.org/swsnr/turnon/tags"
-    @echo "Use dist/relnotes.md as release body"
-    @echo "Attach archives and signatures in dist as release body"
-    @echo "Then run just flatpak-update-manifest to update the flatpak manifest."
+    @echo "Run `just print-release-notes` to get Markdown release notes for the release"
+    @echo "Run `just flatpak-update-manifest` to update the flatpak manifest."
 
 release *ARGS: test-all && _post-release
     cargo release {{ARGS}}
