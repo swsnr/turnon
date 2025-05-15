@@ -9,15 +9,15 @@ user-login = "cuviper"
 user-name = "Josh Stone"
 
 [[publisher.cairo-rs]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.cairo-sys-rs]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -29,15 +29,15 @@ user-id = 52553
 user-login = "embark-studios"
 
 [[publisher.gdk-pixbuf]]
-version = "0.20.9"
-when = "2025-02-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk-pixbuf-sys]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -57,57 +57,57 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio]]
-version = "0.20.9"
-when = "2025-02-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio-sys]]
-version = "0.20.9"
-when = "2025-02-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib]]
-version = "0.20.9"
-when = "2025-02-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-macros]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-sys]]
-version = "0.20.9"
-when = "2025-02-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gobject-sys]]
-version = "0.20.9"
-when = "2025-02-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.graphene-rs]]
-version = "0.20.9"
-when = "2025-02-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.graphene-sys]]
-version = "0.20.7"
-when = "2024-12-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -189,15 +189,15 @@ user-login = "BurntSushi"
 user-name = "Andrew Gallant"
 
 [[publisher.pango]]
-version = "0.20.9"
-when = "2025-02-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.pango-sys]]
-version = "0.20.9"
-when = "2025-02-16"
+version = "0.20.10"
+when = "2025-05-13"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -279,9 +279,79 @@ user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
 
+[[publisher.windows-sys]]
+version = "0.59.0"
+when = "2024-07-30"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows-targets]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_aarch64_gnullvm]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_aarch64_msvc]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_i686_gnu]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_i686_gnullvm]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_i686_msvc]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_x86_64_gnu]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_x86_64_gnullvm]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
+[[publisher.windows_x86_64_msvc]]
+version = "0.52.6"
+when = "2024-07-03"
+user-id = 64539
+user-login = "kennykerr"
+user-name = "Kenny Kerr"
+
 [[publisher.winnow]]
-version = "0.7.9"
-when = "2025-05-02"
+version = "0.7.10"
+when = "2025-05-06"
 user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
@@ -888,13 +958,13 @@ aggregated-from = "https://codeberg.org/swsnr/gnome-search-providers-vscode/raw/
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "1.2.1 -> 3.2.0"
-aggregated-from = "https://raw.githubusercontent.com/swsnr/picture-of-the-day/refs/heads/main/supply-chain/audits.toml"
+aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
 
 [[audits.swsnr.audits.proc-macro-crate]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-deploy"
 delta = "3.2.0 -> 3.3.0"
-aggregated-from = "https://raw.githubusercontent.com/swsnr/picture-of-the-day/refs/heads/main/supply-chain/audits.toml"
+aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
 
 [[audits.swsnr.audits.proc-macro2]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
