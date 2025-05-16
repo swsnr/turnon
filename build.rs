@@ -4,14 +4,14 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-use std::io::{Error, ErrorKind, Result};
+use std::io::{Error, Result};
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
 fn glob_io(pattern: &str) -> Result<Vec<PathBuf>> {
     glob::glob(pattern)
-        .map_err(|err| Error::new(ErrorKind::Other, err))?
-        .map(|item| item.map_err(|err| Error::new(ErrorKind::Other, err)))
+        .map_err(Error::other)?
+        .map(|item| item.map_err(Error::other))
         .collect::<Result<Vec<PathBuf>>>()
 }
 

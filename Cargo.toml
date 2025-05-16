@@ -20,6 +20,7 @@ version = "2.6.5"
 edition = "2024"
 publish = false
 build = "build.rs"
+rust-version = "1.87"
 
 [dependencies]
 adw = { package = "libadwaita", version = "0.7.0", features = ["v1_7"] }
