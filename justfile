@@ -74,7 +74,7 @@ lint-flatpak-repo:
 # Build (but not install) regular flatpak
 flatpak-build: && lint-flatpak-repo
     flatpak run org.flatpak.Builder --force-clean --sandbox \
-        --install-deps-from=flathub --ccache \
+        --install-deps-from=flathub --ccache --user \
         --mirror-screenshots-url=https://dl.flathub.org/media/ --repo=repo \
         builddir flatpak/de.swsnr.turnon.yaml
 
