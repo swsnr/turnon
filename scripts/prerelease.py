@@ -36,7 +36,7 @@ def is_patch_release(prev_version: Version, new_version: Version) -> bool:
 
 
 def assert_no_releasenotes(new_version: Version):
-    metadata_file = Path(os.environ['CRATE_ROOT']) / 'resources' / 'de.swsnr.turnon.metainfo.xml.in'
+    metadata_file = Path(os.environ['CRATE_ROOT']) / 'de.swsnr.turnon.metainfo.xml'
     tree = etree.parse(metadata_file)
     if tree.find('./releases/release[@version="next"]') is not None:
         raise ValueError('Upcoming release notes found; must do a major or minor release, not a patch release!')
