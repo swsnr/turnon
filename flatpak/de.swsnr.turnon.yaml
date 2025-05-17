@@ -13,9 +13,6 @@ finish-args:
   - --device=dri
 build-options:
   append-path: /usr/lib/sdk/rust-stable/bin
-  env:
-    # Tell build.rs not to regenerate the UI files from blueprint sources
-    SKIP_BLUEPRINT: "1"
 modules:
   # Install just for our build file
   - name: just
@@ -37,15 +34,25 @@ modules:
       - install -D -m755 just /app/bin/just
     cleanup:
       - /bin/just
+  - name: blueprint
+    buildsystem: meson
+    sources:
+      - type: git
+        url: https://gitlab.gnome.org/GNOME/blueprint-compiler.git
+        tag: "v0.16.0"
+        commit: "04ef0944db56ab01307a29aaa7303df6067cb3c0"
+    cleanup:
+      - "*"
   - name: turnon
     buildsystem: simple
     sources:
       - type: git
         url: https://codeberg.org/swsnr/turnon.git
-        tag: "v2.6.5"
-        commit: "e68ef6435f40afe1d6d74f41b9205273db0eafa9"
+        tag: "v2.6.6"
+        commit: "ff1ed63453def7f4d1b65adc5f3ceab496fcf432"
       - de.swsnr.turnon.cargo-sources.json
     build-commands:
       - install -Dm644 cargo/config .cargo/config.toml
+      - just compile
       - cargo build --frozen --release --verbose
-      - just version= DESTPREFIX=/app install
+      - just DESTPREFIX=/app install
