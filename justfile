@@ -15,9 +15,7 @@ default:
     just --list
 
 vet *ARGS:
-    @# Only consider Linux dependencies, as that's all I care for.
-    @# Seems to be unofficial, see https://github.com/mozilla/cargo-vet/issues/579, but works
-    env CARGO_BUILD_TARGET=x86_64-unknown-linux-gnu cargo vet {{ARGS}}
+    cargo vet {{ARGS}}
 
 # Remove build files from source code tree
 clean:
