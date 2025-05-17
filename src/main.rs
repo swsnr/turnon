@@ -41,7 +41,6 @@
 
 use adw::prelude::*;
 use app::TurnOnApplication;
-use gtk::gio;
 use gtk::glib;
 
 mod app;
@@ -72,7 +71,7 @@ fn main() -> glib::ExitCode {
         glib::warn!("Failed to initialize gettext: {error}");
     }
 
-    gio::resources_register_include!("turnon.gresource").unwrap();
+    config::register_resources();
     glib::set_application_name("Turn On");
 
     let app = TurnOnApplication::default();

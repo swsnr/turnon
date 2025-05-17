@@ -1,20 +1,15 @@
+# Cargo outputs
 /target/
+
+# Build directory for justfile tasks
+/build/
 
 /.vscode/
 
+# Flatpak stuff
 /.flatpak-builder/
 /builddir/
 /repo/
 
-# Distribution files and vendored crates
-/dist/
-
-# Translated data files
-/de.swsnr.turnon.desktop
-/resources/de.swsnr.turnon.metainfo.xml
-
 # Compiled gettext catalogs
 /po/*.mo
-
-# Compiled schemas
-/schemas/gschemas.compiled

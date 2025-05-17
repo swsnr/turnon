@@ -21,7 +21,43 @@ vet *ARGS:
 
 # Remove build files from source code tree
 clean:
-    rm -fr builddir repo .flatpak-builder dist
+    rm -fr build builddir repo .flatpak-builder
+
+# Compile all blueprint files to UI files.
+compile-blueprint:
+    mkdir -p build/resources-src/
+    blueprint-compiler batch-compile build/resources-src/ resources resources/**/*.blp
+
+# Compile the translated metainfo file.
+compile-metainfo:
+    mkdir -p build/resources-src/
+    msgfmt --xml --template de.swsnr.turnon.metainfo.xml -d po --output build/de.swsnr.turnon.metainfo.xml
+    @# Also add the translated metainfo file to resources
+    cp -t build/resources-src build/de.swsnr.turnon.metainfo.xml
+
+# Compile all Glib resources for this application.
+compile-resources: compile-blueprint compile-metainfo
+    mkdir -p build/resources
+    glib-compile-resources --sourcedir=build/resources-src \
+        --target build/resources/resources.generated.gresource \
+        resources/resources.generated.gresource.xml
+    glib-compile-resources --sourcedir=resources \
+        --target build/resources/resources.data.gresource \
+        resources/resources.data.gresource.xml
+
+# Compile the translated desktop file.
+compile-desktop-file:
+    mkdir -p build
+    msgfmt --desktop --template de.swsnr.turnon.desktop -d po --output build/de.swsnr.turnon.desktop
+
+# Compile the settings schema
+compile-schemas:
+    mkdir -p build/schemas
+    cp -t build/schemas de.swsnr.turnon.gschema.xml
+    glib-compile-schemas --strict build/schemas
+
+# Compile all extra files (resources, settings schemas, etc.)
+compile: compile-resources compile-desktop-file compile-schemas
 
 lint-blueprint:
     blueprint-compiler format resources/**/*.blp
@@ -33,10 +69,10 @@ lint-rust:
 
 lint-flatpak:
     flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak/de.swsnr.turnon.yaml
-    flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream resources/de.swsnr.turnon.metainfo.xml
+    flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream de.swsnr.turnon.metainfo.xml
 
 lint-data:
-    appstreamcli validate --strict --explain resources/de.swsnr.turnon.metainfo.xml
+    appstreamcli validate --strict --explain de.swsnr.turnon.metainfo.xml
 
 lint-all: lint-rust lint-blueprint lint-data lint-flatpak
 
@@ -44,7 +80,7 @@ test-rust:
     cargo +stable build
     cargo +stable test
 
-test-all: (vet "--locked") lint-all test-rust
+test-all: (vet "--locked") lint-all compile test-rust
 
 # Extract the message template from all source files.
 pot:
@@ -111,25 +147,31 @@ patch-devel:
     cargo update -p turnon
     sed -i '/{{APPID}}/! s/de\.swsnr\.turnon/{{APPID}}/g' \
         src/config.rs \
-        resources/de.swsnr.turnon.metainfo.xml.in de.swsnr.turnon.desktop.in \
+        de.swsnr.turnon.metainfo.xml de.swsnr.turnon.desktop \
         dbus-1/de.swsnr.turnon.service de.swsnr.turnon.search-provider.ini \
-        schemas/de.swsnr.turnon.gschema.xml
+        de.swsnr.turnon.gschema.xml
 
 _install-po po_file:
     install -dm0755 '{{DESTPREFIX}}/share/locale/{{file_stem(po_file)}}/LC_MESSAGES'
     msgfmt -o '{{DESTPREFIX}}/share/locale/{{file_stem(po_file)}}/LC_MESSAGES/{{APPID}}.mo' '{{po_file}}'
 
+# Install to DESTPREFIX (run just compile and cargo build --release first!).
 install:
+    @# Install all message catalogs
     find po/ -name '*.po' -exec just version= DESTPREFIX='{{DESTPREFIX}}' APPID='{{APPID}}' _install-po '{}' ';'
+    @# Install cargo build --release binary
     install -Dm0755 target/release/turnon '{{DESTPREFIX}}/bin/{{APPID}}'
+    @# Install translated appstream metadata and desktop file
+    install -Dm0644 build/de.swsnr.turnon.metainfo.xml '{{DESTPREFIX}}/share/metainfo/{{APPID}}.metainfo.xml'
+    install -Dm0644 build/de.swsnr.turnon.desktop '{{DESTPREFIX}}/share/applications/{{APPID}}.desktop'
+    @# Install static files (icons, etc.)
     install -Dm0644 -t '{{DESTPREFIX}}/share/icons/hicolor/scalable/apps/' 'resources/icons/scalable/apps/{{APPID}}.svg'
     install -Dm0644 resources/icons/symbolic/apps/de.swsnr.turnon-symbolic.svg \
         ''{{DESTPREFIX}}/share/icons/hicolor/symbolic/apps/{{APPID}}-symbolic.svg''
-    install -Dm0644 de.swsnr.turnon.desktop '{{DESTPREFIX}}/share/applications/{{APPID}}.desktop'
-    install -Dm0644 resources/de.swsnr.turnon.metainfo.xml '{{DESTPREFIX}}/share/metainfo/{{APPID}}.metainfo.xml'
     install -Dm0644 dbus-1/de.swsnr.turnon.service '{{DESTPREFIX}}/share/dbus-1/services/{{APPID}}.service'
     install -Dm0644 de.swsnr.turnon.search-provider.ini '{{DESTPREFIX}}/share/gnome-shell/search-providers/{{APPID}}.search-provider.ini'
-    install -Dm0644 schemas/de.swsnr.turnon.gschema.xml '{{DESTPREFIX}}/share/glib-2.0/schemas/{{APPID}}.gschema.xml'
+    install -Dm0644 de.swsnr.turnon.gschema.xml '{{DESTPREFIX}}/share/glib-2.0/schemas/{{APPID}}.gschema.xml'
+    @# Compile settings schemas after installation
     glib-compile-schemas --strict '{{DESTPREFIX}}/share/glib-2.0/schemas'
 
 # Assemble the README image from screenshots.

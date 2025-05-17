@@ -19,7 +19,6 @@ authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
 version = "2.6.5"
 edition = "2024"
 publish = false
-build = "build.rs"
 rust-version = "1.87"
 
 [dependencies]
@@ -36,9 +35,6 @@ bitflags = "2.6.0"
 semver = "1.0.24"
 libc = "0.2.161"
 wol = "0.3.0"
-
-[build-dependencies]
-glob = "0.3.1"
 
 [package.metadata.release]
 pre-release-commit-message = "Release {{version}}"

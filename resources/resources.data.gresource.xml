@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
+    <!-- Resource definitions for static resources. -->
     <gresource prefix="/de/swsnr/turnon/">
-        <!-- User interface templates -->
-        <file compressed="true" preprocess="xml-stripblanks">ui/edit-device-dialog.ui</file>
-        <file compressed="true" preprocess="xml-stripblanks">ui/device-row.ui</file>
-        <file compressed="true" preprocess="xml-stripblanks">ui/validation-indicator.ui</file>
-        <file compressed="true" preprocess="xml-stripblanks">ui/turnon-application-window.ui</file>
-        <!-- Auto-loaded Gtk templates, see
-        https://docs.gtk.org/gtk4/class.Application.html#automatic-resources -->
-        <file compressed="true" preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
         <!-- Icons -->
         <file preprocess="xml-stripblanks">icons/scalable/actions/checkmark-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/computer-symbolic.svg</file>
@@ -27,6 +20,5 @@
         <file preprocess="xml-stripblanks">icons/scalable/apps/de.swsnr.pictureoftheday.svg</file>
         <!-- Other data files -->
         <file compressed="true">style.css</file>
-        <file compressed="true" preprocess="xml-stripblanks">de.swsnr.turnon.metainfo.xml</file>
     </gresource>
 </gresources>
