@@ -57,8 +57,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio]]
-version = "0.20.10"
-when = "2025-05-13"
+version = "0.20.11"
+when = "2025-05-16"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
