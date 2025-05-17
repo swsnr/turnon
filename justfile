@@ -36,7 +36,7 @@ lint-flatpak:
     flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream resources/de.swsnr.turnon.metainfo.xml
 
 lint-data:
-    appstreamcli validate --explain resources/de.swsnr.turnon.metainfo.xml
+    appstreamcli validate --strict --explain resources/de.swsnr.turnon.metainfo.xml
 
 lint-all: lint-rust lint-blueprint lint-data lint-flatpak
 
