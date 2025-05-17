@@ -21,7 +21,7 @@ vet *ARGS:
 
 # Remove build files from source code tree
 clean:
-    rm -fr build builddir repo .flatpak-builder
+    rm -fr build .flatpak-builder .flatpak-builddir .flatpak-repo
 
 # Compile all blueprint files to UI files.
 compile-blueprint:
@@ -100,19 +100,15 @@ pot:
 # Build and install development flatpak without sandboxing
 flatpak-devel-install:
     flatpak run org.flatpak.Builder --force-clean --user --install \
-        --install-deps-from=flathub --repo=repo \
-        builddir flatpak/de.swsnr.turnon.Devel.yaml
-
-# Lint the flatpak repo (you must run flatpak-build first)
-lint-flatpak-repo:
-    flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo
+        --install-deps-from=flathub --repo=.flatpak-repo \
+        .flatpak-builddir flatpak/de.swsnr.turnon.Devel.yaml
 
 # Build (but not install) regular flatpak
-flatpak-build: && lint-flatpak-repo
+flatpak-build:
     flatpak run org.flatpak.Builder --force-clean --sandbox \
         --install-deps-from=flathub --ccache --user \
-        --mirror-screenshots-url=https://dl.flathub.org/media/ --repo=repo \
-        builddir flatpak/de.swsnr.turnon.yaml
+        --mirror-screenshots-url=https://dl.flathub.org/media/ --repo=.flatpak-repo \
+        .flatpak-builddir flatpak/de.swsnr.turnon.yaml
 
 # Print release notes
 print-release-notes:

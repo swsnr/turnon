@@ -4,12 +4,13 @@
 # Build directory for justfile tasks
 /build/
 
-/.vscode/
-
 # Flatpak stuff
 /.flatpak-builder/
-/builddir/
-/repo/
+/.flatpak-builddir/
+/.flatpak-repo/
 
 # Compiled gettext catalogs
 /po/*.mo
+
+# VSCode settinsg
+/.vscode/
