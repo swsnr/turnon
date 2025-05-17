@@ -88,7 +88,7 @@ pot:
     xgettext {{xgettext_opts}} --language=C --keyword=_ --keyword=C_:1c,2 --files-from=po/POTFILES.blp --output=po/de.swsnr.turnon.blp.pot
     xgettext {{xgettext_opts}} --output=po/de.swsnr.turnon.pot \
         po/de.swsnr.turnon.rs.pot po/de.swsnr.turnon.blp.pot \
-        resources/de.swsnr.turnon.metainfo.xml.in de.swsnr.turnon.desktop.in
+        de.swsnr.turnon.metainfo.xml de.swsnr.turnon.desktop
     rm -f po/POTFILES* po/de.swsnr.turnon.rs.pot po/de.swsnr.turnon.blp.pot
     @# We strip the POT-Creation-Date from the resulting POT because xgettext bumps
     @# it everytime regardless if anything else changed, and this just generates
