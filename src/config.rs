@@ -47,23 +47,36 @@ pub fn is_development() -> bool {
     APP_ID.ends_with(".Devel")
 }
 
-/// Get a schema source for this application.
+/// Get schema source for a debug build.
 ///
-/// In a debug build load compiled schemas from the manifest directory, to allow
-/// running the application uninstalled.
+/// Load schemas from `build/schemas` in the manifest directory, and fallback
+/// to the default source.
+#[cfg(debug_assertions)]
+fn schema_source() -> Option<gio::SettingsSchemaSource> {
+    let directory = concat!(env!("CARGO_MANIFEST_DIR"), "/build/schemas");
+    std::fs::exists(directory).unwrap_or_default().then(|| {
+        let default = gio::SettingsSchemaSource::default().unwrap();
+        gio::SettingsSchemaSource::from_directory(directory, Some(&default), false).unwrap()
+    })
+}
+
+/// Get schema source in a release build.
 ///
-/// In a release build only use the default schema source.
-pub fn schema_source() -> gio::SettingsSchemaSource {
-    let default = gio::SettingsSchemaSource::default().unwrap();
-    if cfg!(debug_assertions) {
-        let directory = concat!(env!("CARGO_MANIFEST_DIR"), "/build/schemas");
-        if std::fs::exists(directory).unwrap_or_default() {
-            gio::SettingsSchemaSource::from_directory(directory, Some(&default), false).unwrap()
-        } else {
-            default
-        }
-    } else {
-        default
+/// Simply return `None` to use the default source.
+#[cfg(not(debug_assertions))]
+fn schema_source() -> Option<gio::SettingsSchemaSource> {
+    None
+}
+
+/// Get settings for this application.
+pub fn get_settings() -> gio::Settings {
+    match schema_source() {
+        Some(source) => gio::Settings::new_full(
+            &source.lookup(crate::config::APP_ID, true).unwrap(),
+            gio::SettingsBackend::NONE,
+            None,
+        ),
+        None => gio::Settings::new(crate::config::APP_ID),
     }
 }
 

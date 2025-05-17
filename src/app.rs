@@ -171,7 +171,7 @@ mod imp {
     use adw::prelude::*;
     use adw::subclass::prelude::*;
     use glib::{OptionArg, OptionFlags, dpgettext2};
-    use gtk::gio::{DBusConnection, ListStore, RegistrationId, Settings, SettingsBackend};
+    use gtk::gio::{DBusConnection, ListStore, RegistrationId, Settings};
 
     use crate::config::G_LOG_DOMAIN;
 
@@ -399,13 +399,7 @@ mod imp {
             app.setup_actions();
 
             // Load app settings
-            self.settings.replace(Some(Settings::new_full(
-                &crate::config::schema_source()
-                    .lookup(crate::config::APP_ID, true)
-                    .unwrap(),
-                SettingsBackend::NONE,
-                None,
-            )));
+            self.settings.replace(Some(crate::config::get_settings()));
 
             let devices_file = self.devices_file.borrow_mut().take().unwrap_or_else(|| {
                 glib::user_data_dir()
