@@ -733,7 +733,7 @@ dependencies = [
 
 [[package]]
 name = "turnon"
-version = "2.6.6"
+version = "2.6.7"
 dependencies = [
  "async-channel",
  "bitflags",
