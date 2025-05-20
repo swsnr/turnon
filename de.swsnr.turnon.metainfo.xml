@@ -227,7 +227,7 @@
             <url>https://codeberg.org/swsnr/turnon/releases/tag/v0.1.0</url>
         </release>
     </releases>
-    <project_license>MPL-2.0</project_license>
+    <project_license>EUPL-1.2</project_license>
     <developer id="de.swsnr">
         <name translate="no">Sebastian Wiesner</name>
     </developer>
