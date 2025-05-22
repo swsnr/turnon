@@ -21,7 +21,7 @@ msgstr ""
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
-#: resources/ui/turnon-application-window.blp:9
+#: resources/ui/turnon-application-window.blp:10
 msgid "Turn On"
 msgstr "Anschalten"
 
@@ -322,168 +322,168 @@ msgstr ""
 "Die leere Begrüßungsseite mit Anwendungssymbol und einer Schaltfläche zum "
 "Hinzufügen eines neues Geräts"
 
-#: resources/gtk/help-overlay.blp:21
+#: resources/gtk/help-overlay.blp:22
 msgctxt "shortcuts group"
 msgid "General"
 msgstr "Allgemein"
 
-#: resources/gtk/help-overlay.blp:24
+#: resources/gtk/help-overlay.blp:25
 msgctxt "shortcut description"
 msgid "Show shortcuts"
 msgstr "Tastenkürzel anzeigen"
 
-#: resources/gtk/help-overlay.blp:29
+#: resources/gtk/help-overlay.blp:30
 msgctxt "shortcut description"
 msgid "Quit"
 msgstr "Beenden"
 
-#: resources/gtk/help-overlay.blp:35
+#: resources/gtk/help-overlay.blp:36
 msgctxt "shortcuts group"
 msgid "Devices"
 msgstr "Geräte"
 
-#: resources/gtk/help-overlay.blp:38
+#: resources/gtk/help-overlay.blp:39
 msgctxt "shortcut description"
 msgid "Add a new device"
 msgstr "Ein neues Gerät hinzufügen"
 
-#: resources/gtk/help-overlay.blp:43
+#: resources/gtk/help-overlay.blp:44
 msgctxt "shortcut description"
 msgid "Toggle network scanning"
 msgstr "Netzwerksuche umschalten"
 
-#: resources/gtk/help-overlay.blp:49
+#: resources/gtk/help-overlay.blp:50
 msgctxt "shortcuts group"
 msgid "Discovered device"
 msgstr "Gefundenes Gerät"
 
-#: resources/gtk/help-overlay.blp:52
+#: resources/gtk/help-overlay.blp:53
 msgctxt "shortcut description"
 msgid "Add as a new device"
 msgstr "Als neues Gerät hinzufügen"
 
-#: resources/gtk/help-overlay.blp:58
+#: resources/gtk/help-overlay.blp:59
 msgctxt "shortcuts group"
 msgid "Edit device"
 msgstr "Gerät bearbeiten"
 
-#: resources/gtk/help-overlay.blp:61
+#: resources/gtk/help-overlay.blp:62
 msgctxt "shortcut description"
 msgid "Save device"
 msgstr "Gerät speichern"
 
-#: resources/gtk/help-overlay.blp:67
+#: resources/gtk/help-overlay.blp:68
 msgctxt "shortcuts group"
 msgid "Single device"
 msgstr "Einzelnes Gerät"
 
-#: resources/gtk/help-overlay.blp:70
+#: resources/gtk/help-overlay.blp:71
 msgctxt "shortcut description"
 msgid "Turn on device"
 msgstr "Gerät anschalten"
 
-#: resources/gtk/help-overlay.blp:75
+#: resources/gtk/help-overlay.blp:76
 msgctxt "shortcut description"
 msgid "Edit device"
 msgstr "Gerät bearbeiten"
 
-#: resources/gtk/help-overlay.blp:80
+#: resources/gtk/help-overlay.blp:81
 msgctxt "shortcut description"
 msgid "Ask to delete device"
 msgstr "Gerät nach Bestätigung löschen"
 
-#: resources/gtk/help-overlay.blp:85
+#: resources/gtk/help-overlay.blp:86
 msgctxt "shortcut description"
 msgid "Immediately delete device without confirmation"
 msgstr "Gerät sofort ohne Bestätigung löschen"
 
-#: resources/gtk/help-overlay.blp:90
+#: resources/gtk/help-overlay.blp:91
 msgctxt "shortcut description"
 msgid "Move device upwards"
 msgstr "Gerät nach oben verschieben"
 
-#: resources/gtk/help-overlay.blp:95
+#: resources/gtk/help-overlay.blp:96
 msgctxt "shortcut description"
 msgid "Move device downwards"
 msgstr "Gerät nach unten verschieben"
 
-#: resources/ui/device-row.blp:70
+#: resources/ui/device-row.blp:71
 msgctxt "device-row.action.row.add.tooltip"
 msgid "Add this device"
 msgstr "Dieses Gerät hinzufügen"
 
-#: resources/ui/device-row.blp:82
+#: resources/ui/device-row.blp:83
 msgctxt "device-row.action.row.edit.tooltip"
 msgid "Edit this device"
 msgstr "Dieses Gerät bearbeiten"
 
-#: resources/ui/device-row.blp:94
+#: resources/ui/device-row.blp:95
 msgctxt "device-row.action.row.ask-delete.tooltip"
 msgid "Delete this device?"
 msgstr "Dieses Gerät löschen?"
 
-#: resources/ui/device-row.blp:112
+#: resources/ui/device-row.blp:113
 msgctxt "device-row.action.row.delete"
 msgid "Delete"
 msgstr "Löschen"
 
-#: resources/ui/device-row.blp:122
+#: resources/ui/device-row.blp:123
 msgctxt "canceldevice-row.action.row.cancel-delete"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: resources/ui/edit-device-dialog.blp:10
+#: resources/ui/edit-device-dialog.blp:11
 msgid "Edit device"
 msgstr "Gerät bearbeiten"
 
-#: resources/ui/edit-device-dialog.blp:21
+#: resources/ui/edit-device-dialog.blp:22
 msgctxt "edit-device-dialog.entry.label.title"
 msgid "Device _label"
 msgstr "_Gerätebezeichnung"
 
-#: resources/ui/edit-device-dialog.blp:22
+#: resources/ui/edit-device-dialog.blp:23
 msgctxt "edit-device-dialog.entry.label.tooltip"
 msgid "A label to recognize the device by"
 msgstr "Eine Bezeichnung zum wiedererkennen des Geräts"
 
-#: resources/ui/edit-device-dialog.blp:30
+#: resources/ui/edit-device-dialog.blp:31
 msgctxt "edit-device-dialog.entry.label.feedback"
 msgid "Please provide a label for the device."
 msgstr "Bitte eine Bezeichnung für das Gerät angeben."
 
-#: resources/ui/edit-device-dialog.blp:35
+#: resources/ui/edit-device-dialog.blp:36
 msgctxt "edit-device-dialog.entry.mac_address.title"
 msgid "_MAC address"
 msgstr "_MAC-Adresse"
 
-#: resources/ui/edit-device-dialog.blp:36
+#: resources/ui/edit-device-dialog.blp:37
 msgctxt "edit-device-dialog.entry.mac_address.tooltip"
 msgid "The hardware address for this device"
 msgstr "Die Hardware-Adresse dieses Geräts"
 
-#: resources/ui/edit-device-dialog.blp:45
+#: resources/ui/edit-device-dialog.blp:46
 msgctxt "edit-device-dialog.entry.mac_address.feedback"
 msgid "This is no valid 48-bit MAC address."
 msgstr "Eine gültige 48-Bit MAC-Adresse."
 
-#: resources/ui/edit-device-dialog.blp:50
+#: resources/ui/edit-device-dialog.blp:51
 msgctxt "edit-device-dialog.entry.host.title"
 msgid "_Host name or IP address"
 msgstr "_Hostname oder IP-Adresse"
 
-#: resources/ui/edit-device-dialog.blp:51
+#: resources/ui/edit-device-dialog.blp:52
 msgctxt "edit-device-dialog.entry.host.tooltip"
 msgid ""
 "The hostname or IP address of the device to check whether it has woken up"
 msgstr ""
 "Der Host-Name oder die IP-Adresse des Geräts zur Überprüfung des Status"
 
-#: resources/ui/edit-device-dialog.blp:66
+#: resources/ui/edit-device-dialog.blp:67
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "Please specify a target host to check availability"
 msgstr "Bitte den Ziel-Host zur Verfügbarkeitsprüfung angeben"
 
-#: resources/ui/edit-device-dialog.blp:79
+#: resources/ui/edit-device-dialog.blp:80
 msgctxt "edit-device-dialog.entry.socket-address.feedback"
 msgid ""
 "This looks like a socket address with host and port, but a port is not "
@@ -492,61 +492,61 @@ msgstr ""
 "Eine Socketadresse mit Hostnamen und Port, aber die Angabe eines Ports ist "
 "hier nicht erlaubt!"
 
-#: resources/ui/edit-device-dialog.blp:92
+#: resources/ui/edit-device-dialog.blp:93
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This looks like a generic name resolved via DNS."
 msgstr "Ein generischer Name zur Auflösung mittels DNS."
 
-#: resources/ui/edit-device-dialog.blp:106
+#: resources/ui/edit-device-dialog.blp:107
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This is a valid IPv4 address."
 msgstr "Eine gültige IPv4-Adresse."
 
-#: resources/ui/edit-device-dialog.blp:120
+#: resources/ui/edit-device-dialog.blp:121
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This is a valid IPv6 address."
 msgstr "Eine gültige IPv6-Adresse."
 
-#: resources/ui/edit-device-dialog.blp:131
+#: resources/ui/edit-device-dialog.blp:132
 msgid "_Save"
 msgstr "_Speichern"
 
-#: resources/ui/turnon-application-window.blp:20
+#: resources/ui/turnon-application-window.blp:21
 msgctxt "application-window.action.app.add-device.tooltip"
 msgid "Add a new device"
 msgstr "Ein neues Gerät hinzufügen"
 
-#: resources/ui/turnon-application-window.blp:27
+#: resources/ui/turnon-application-window.blp:28
 msgctxt "application-window.action.app.scan-network.tooltip"
 msgid "Scan the network for devices"
 msgstr "Geräte im Netzwerk suchen"
 
-#: resources/ui/turnon-application-window.blp:55
+#: resources/ui/turnon-application-window.blp:56
 msgctxt "application-window.status-page.title"
 msgid "No devices"
 msgstr "Keine Geräte vorhanden"
 
-#: resources/ui/turnon-application-window.blp:56
+#: resources/ui/turnon-application-window.blp:57
 msgctxt "application-window.status-page.description"
 msgid "Add a new device to turn it on."
 msgstr "Neues Gerät zum Anschalten hinzufügen."
 
-#: resources/ui/turnon-application-window.blp:71
+#: resources/ui/turnon-application-window.blp:72
 msgctxt "application-window.status-page.button.label"
 msgid "Add new device"
 msgstr "Neues Gerät hinzufügen"
 
-#: resources/ui/turnon-application-window.blp:81
+#: resources/ui/turnon-application-window.blp:82
 msgctxt "application-window.status-page.button.label"
 msgid "Scan network"
 msgstr "Netzwerk durchsuchen"
 
-#: resources/ui/turnon-application-window.blp:101
+#: resources/ui/turnon-application-window.blp:102
 msgctxt "application-window.menu.label"
 msgid "_Keyboard Shortcuts"
 msgstr "Tastenkürzel"
 
-#: resources/ui/turnon-application-window.blp:106
+#: resources/ui/turnon-application-window.blp:107
 msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr "Info zu Anschalten"
@@ -573,33 +573,44 @@ msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
 msgstr "Hilfreiche Dienste"
 
-#: src/app.rs:287
+#. Translators: Use translated app name from https://codeberg.org/swsnr/picture-of-the-day
+#: src/app.rs:90
+msgctxt "about-dialog.other-app.name"
+msgid "Picture Of The Day"
+msgstr ""
+
+#: src/app.rs:95
+msgctxt "about-dialog.other-app.summary"
+msgid "Your daily wallpaper"
+msgstr ""
+
+#: src/app.rs:293
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "Ein neues Gerät hinzufügen"
 
-#: src/app.rs:298
+#: src/app.rs:304
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr "Gerät anhand dessen Bezeichnung anschalten"
 
-#: src/app.rs:303
+#: src/app.rs:309
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr "BEZEICHNUNG"
 
-#: src/app.rs:314
+#: src/app.rs:320
 msgctxt "option.list-devices.description"
 msgid "List all devices and their status"
 msgstr "Geräte und deren Status auflisten"
 
-#: src/app.rs:326
+#: src/app.rs:332
 msgctxt "option.devices-file.description"
 msgid "Use the given file as storage for devices (for development only)"
 msgstr ""
 "Die angegebene Datei als Speicher für Geräte nutzen (nur zur Entwicklung)"
 
-#: src/app.rs:338
+#: src/app.rs:344
 msgctxt "option.arp-cache-file.description"
 msgid "Use the given file as ARP cache source (for development only)"
 msgstr "Die angegebene Datei als ARP-Tabelle nutzen (nur zur Entwicklung)"
