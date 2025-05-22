@@ -63,8 +63,10 @@ def update_releasenotes(new_version: Version, *, tag_name: str, date: str, dry_r
     if dry_run:
         etree.dump(tree)
     else:
-        tree.write(metadata_file, xml_declaration=True, encoding='utf-8')
-
+        with open(metadata_file, 'wb') as sink:
+            tree.write(sink, xml_declaration=True, encoding='utf-8')
+            # Write a trailing newline; element tree doesn't do this by itself
+            sink.write(b'\n')
 
 def main():
     prev_version = Version.parse(os.environ['PREV_VERSION'])
