@@ -86,8 +86,14 @@ impl TurnOnApplication {
 
         dialog.add_other_app(
             "de.swsnr.pictureoftheday",
-            "Picture Of The Day",
-            "Your daily wallpaper",
+            // Translators: Use translated app name from https://codeberg.org/swsnr/picture-of-the-day
+            &dpgettext2(None, "about-dialog.other-app.name", "Picture Of The Day"),
+            // Translators: Use translated app summary from https://codeberg.org/swsnr/picture-of-the-day
+            &dpgettext2(
+                None,
+                "about-dialog.other-app.summary",
+                "Your daily wallpaper",
+            ),
         );
 
         dialog.present(self.active_window().as_ref());
