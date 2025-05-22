@@ -4,7 +4,7 @@
 //
 // See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 
-use glib::{GStr, gstr};
+use glib::{GStr, dpgettext2, gstr};
 use gtk::gio::{self, resources_register};
 
 /// The app ID to use.
@@ -36,6 +36,23 @@ pub fn release_notes_version() -> semver::Version {
 }
 
 pub const G_LOG_DOMAIN: &str = "TurnOn";
+
+/// The full app license text.
+pub const LICENSE_TEXT: &str = include_str!("../LICENSE");
+
+pub fn license_text() -> String {
+    dpgettext2(
+        None,
+        "about-dialog.license-text",
+        // Translators: This is Pango markup, be sure to escape appropriately
+        "Copyright Sebastian Wiesner &lt;sebastian@swsnr.de&gt;\n\nLicensed under the terms of the EUPL 1.2. You can find official translations of the license text at <a href=\"%1\">%1</a>.\n\nThe full English text follows.\n\n%2",
+    )
+    .replace(
+        "%1",
+        "https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12",
+    )
+    .replace("%2", &glib::markup_escape_text(LICENSE_TEXT))
+}
 
 /// Whether the app is running in flatpak.
 pub fn running_in_flatpak() -> bool {

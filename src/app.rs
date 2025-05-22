@@ -35,6 +35,9 @@ impl TurnOnApplication {
         );
         dialog.set_version(crate::config::CARGO_PKG_VERSION);
 
+        dialog.set_license_type(gtk::License::Custom);
+        dialog.set_license(&crate::config::license_text());
+
         glib::spawn_future_local(glib::clone!(
             #[strong(rename_to = devices)]
             self.devices(),
