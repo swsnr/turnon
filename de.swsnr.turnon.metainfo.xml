@@ -41,6 +41,12 @@
             <url>https://codeberg.org/swsnr/turnon/releases/tag/next</url>
         </release>
         -->
+        <release version="next" date="9999-01-01">
+            <description>
+                <p>Change license to European Union Public License 1.2.</p>
+            </description>
+            <url>https://codeberg.org/swsnr/turnon/releases/tag/next</url>
+        </release>
         <release version="2.6.0" date="2025-04-21">
             <description>
                 <p>Correct icons in application.</p>
