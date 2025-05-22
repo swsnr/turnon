@@ -45,7 +45,7 @@ def assert_no_releasenotes(new_version: Version):
 
 
 def update_releasenotes(new_version: Version, *, tag_name: str, date: str, dry_run: bool):
-    metadata_file = Path(os.environ['CRATE_ROOT']) / 'resources' / 'de.swsnr.turnon.metainfo.xml.in'
+    metadata_file = Path(os.environ['CRATE_ROOT']) / 'de.swsnr.turnon.metainfo.xml'
     parser = etree.XMLParser(target=etree.TreeBuilder(insert_comments=True))
     tree = etree.parse(metadata_file, parser)
     next_release = tree.find('./releases/release[@version="next"]')
