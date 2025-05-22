@@ -86,12 +86,12 @@ impl TurnOnApplication {
 
         dialog.add_other_app(
             "de.swsnr.pictureoftheday",
-            // Translators: Use translated app name from https://codeberg.org/swsnr/picture-of-the-day
+            // Translators: Use translated app name from https://flathub.org/de/apps/de.swsnr.pictureoftheday
             &dpgettext2(None, "about-dialog.other-app.name", "Picture Of The Day"),
-            // Translators: Use translated app summary from https://codeberg.org/swsnr/picture-of-the-day
             &dpgettext2(
                 None,
                 "about-dialog.other-app.summary",
+                // Translators: Use translated app summary from https://flathub.org/de/apps/de.swsnr.pictureoftheday
                 "Your daily wallpaper",
             ),
         );
