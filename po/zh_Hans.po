@@ -76,36 +76,40 @@ msgid "Turn on devices from the command line."
 msgstr "从命令行打开设备。"
 
 #: de.swsnr.turnon.metainfo.xml:46
+msgid "Change license to European Union Public License 1.2."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:52
 msgid "Correct icons in application."
 msgstr "更正应用程序中的图标。"
 
-#: de.swsnr.turnon.metainfo.xml:52
+#: de.swsnr.turnon.metainfo.xml:58
 msgid "Probe reachable devices for web interfaces."
 msgstr "探测可访问设备以查找 Web 界面。"
 
-#: de.swsnr.turnon.metainfo.xml:61
+#: de.swsnr.turnon.metainfo.xml:67
 msgid "Update to GNOME 48"
 msgstr "更新到 GNOME 48"
 
-#: de.swsnr.turnon.metainfo.xml:67
+#: de.swsnr.turnon.metainfo.xml:73
 msgid "Reorder devices with Alt+Up and Alt+Down"
 msgstr "使用 Alt+Up 和 Alt+Down 重新排序设备"
 
-#: de.swsnr.turnon.metainfo.xml:76
+#: de.swsnr.turnon.metainfo.xml:82
 msgid ""
 "Refine application icon to make it sharper at smaller sizes, and redesign "
 "symbolic icon."
 msgstr "优化应用程序图标，使其在较小尺寸下更清晰，并重新设计符号图标。"
 
-#: de.swsnr.turnon.metainfo.xml:85
+#: de.swsnr.turnon.metainfo.xml:91
 msgid "Save and restore main window state."
 msgstr "保存并恢复主窗口状态。"
 
-#: de.swsnr.turnon.metainfo.xml:86
+#: de.swsnr.turnon.metainfo.xml:92
 msgid "Define additional shortcuts."
 msgstr "定义额外的快捷键。"
 
-#: de.swsnr.turnon.metainfo.xml:95
+#: de.swsnr.turnon.metainfo.xml:101
 msgid ""
 "Add new toolbar and start page buttons to enable network scanning. When "
 "network scanning is on show devices discovered in the local network in the "
@@ -114,77 +118,77 @@ msgstr ""
 "添加新的工具栏和开始页面按钮以启用网络扫描。打开网络扫描时，在设备列表中显示"
 "在本地网络中发现的设备。"
 
-#: de.swsnr.turnon.metainfo.xml:99
+#: de.swsnr.turnon.metainfo.xml:105
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr "优化应用程序图标以提高其在深色背景上的对比度。"
 
-#: de.swsnr.turnon.metainfo.xml:113
+#: de.swsnr.turnon.metainfo.xml:119
 msgid ""
 "The dialog to add a new device now uses success and error styles for the "
 "validity indicators."
 msgstr "添加新设备的对话框现在使用成功和错误样式作为有效性指标。"
 
-#: de.swsnr.turnon.metainfo.xml:114
+#: de.swsnr.turnon.metainfo.xml:120
 msgid ""
 "Refuse to add a new device if the host name contains a port which is not "
 "permitted at this place."
 msgstr "如果主机名包含此处不允许的端口，则拒绝添加新设备。"
 
-#: de.swsnr.turnon.metainfo.xml:115 de.swsnr.turnon.metainfo.xml:124
-#: de.swsnr.turnon.metainfo.xml:132
+#: de.swsnr.turnon.metainfo.xml:121 de.swsnr.turnon.metainfo.xml:130
+#: de.swsnr.turnon.metainfo.xml:138
 msgid "Update translations."
 msgstr "更新翻译。"
 
-#: de.swsnr.turnon.metainfo.xml:130
+#: de.swsnr.turnon.metainfo.xml:136
 msgid "Searching for devices via GNOME Shell now ignores case."
 msgstr "通过 GNOME Shell 搜索设备现在忽略大小写。"
 
-#: de.swsnr.turnon.metainfo.xml:131
+#: de.swsnr.turnon.metainfo.xml:137
 msgid ""
 "Add \"--list-devices\" command line argument to list all devices and their "
 "status."
 msgstr "添加“--list-devices”命令行参数以列出所有设备及其状态。"
 
-#: de.swsnr.turnon.metainfo.xml:142
+#: de.swsnr.turnon.metainfo.xml:148
 msgid ""
 "The link to translations in application metadata and on Flathub is more "
 "helpful now."
 msgstr "应用程序元数据和 Flathub 上的翻译链接现在更有帮助了。"
 
-#: de.swsnr.turnon.metainfo.xml:148
+#: de.swsnr.turnon.metainfo.xml:154
 msgid "Add Dutch translation, and update existing translations."
 msgstr "添加荷兰语翻译，并更新现有翻译。"
 
-#: de.swsnr.turnon.metainfo.xml:149
+#: de.swsnr.turnon.metainfo.xml:155
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr "Turn On 现在可以在编辑设备时正确保留设备。"
 
-#: de.swsnr.turnon.metainfo.xml:150
+#: de.swsnr.turnon.metainfo.xml:156
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr "“关于 Turn On”对话框现在提供了用于故障诊断的调试报告。"
 
-#: de.swsnr.turnon.metainfo.xml:159
+#: de.swsnr.turnon.metainfo.xml:165
 msgid "Add Hebrew translation."
 msgstr "添加希伯来语翻译。"
 
-#: de.swsnr.turnon.metainfo.xml:165
+#: de.swsnr.turnon.metainfo.xml:171
 msgid "Add Italian translation, and update German translation."
 msgstr "添加意大利语翻译，并更新德语翻译。"
 
-#: de.swsnr.turnon.metainfo.xml:171
+#: de.swsnr.turnon.metainfo.xml:177
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr "Turn On 现在集成到 GNOME 搜索中并提供直接从搜索打开设备的功能。"
 
-#: de.swsnr.turnon.metainfo.xml:172
+#: de.swsnr.turnon.metainfo.xml:178
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr "Turn On 启动器现在可以在右键菜单中添加新设备。"
 
-#: de.swsnr.turnon.metainfo.xml:173
+#: de.swsnr.turnon.metainfo.xml:179
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -192,19 +196,19 @@ msgstr ""
 "Turn On 本身现在提供了一个基本的命令行界面；特别是 --turn-on-device 选项现在"
 "可以通过其标签打开设备。"
 
-#: de.swsnr.turnon.metainfo.xml:183
+#: de.swsnr.turnon.metainfo.xml:189
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "移除最后一个设备时 Turn On 不再崩溃。"
 
-#: de.swsnr.turnon.metainfo.xml:184
+#: de.swsnr.turnon.metainfo.xml:190
 msgid "Add German translation, and update application metadata."
 msgstr "添加德语翻译，并更新应用程序元数据。"
 
-#: de.swsnr.turnon.metainfo.xml:190
+#: de.swsnr.turnon.metainfo.xml:196
 msgid "Shorten summary in metadata."
 msgstr "缩短元数据中的摘要。"
 
-#: de.swsnr.turnon.metainfo.xml:196
+#: de.swsnr.turnon.metainfo.xml:202
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -214,63 +218,63 @@ msgstr ""
 "从设备列表中删除设备，编辑现有设备，在打开设备时显示早期反馈，并使编辑设备的"
 "对话框更易于通过键盘使用（现在按 Enter 键可导航到下一个条目并最终添加设备）。"
 
-#: de.swsnr.turnon.metainfo.xml:208
+#: de.swsnr.turnon.metainfo.xml:214
 msgid "Refined app icon."
 msgstr "优化了应用图标。"
 
-#: de.swsnr.turnon.metainfo.xml:214
+#: de.swsnr.turnon.metainfo.xml:220
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr "这是初始版本。应用程序在此版本中支持以下功能："
 
-#: de.swsnr.turnon.metainfo.xml:216
+#: de.swsnr.turnon.metainfo.xml:222
 msgid "Add new devices"
 msgstr "添加新设备"
 
-#: de.swsnr.turnon.metainfo.xml:217
+#: de.swsnr.turnon.metainfo.xml:223
 msgid "Monitor whether devices are turned on"
 msgstr "监控设备是否打开"
 
-#: de.swsnr.turnon.metainfo.xml:218
+#: de.swsnr.turnon.metainfo.xml:224
 msgid "Turn on devices with Wake On LAN"
 msgstr "使用网络唤醒打开设备"
 
-#: de.swsnr.turnon.metainfo.xml:220
+#: de.swsnr.turnon.metainfo.xml:226
 msgid "This release is missing the following features:"
 msgstr "此版本缺少以下功能："
 
-#: de.swsnr.turnon.metainfo.xml:222
+#: de.swsnr.turnon.metainfo.xml:228
 msgid "Devices can not be edited or removed."
 msgstr "无法编辑或移除设备。"
 
-#: de.swsnr.turnon.metainfo.xml:223
+#: de.swsnr.turnon.metainfo.xml:229
 msgid "The order of devices cannot be changed."
 msgstr "无法更改设备的顺序。"
 
-#: de.swsnr.turnon.metainfo.xml:224
+#: de.swsnr.turnon.metainfo.xml:230
 msgid "Languages other than English are not supported."
 msgstr "不支持英语以外的语言。"
 
-#: de.swsnr.turnon.metainfo.xml:237
+#: de.swsnr.turnon.metainfo.xml:243
 msgid ""
 "Two devices, one of them on, and the other off, and two devices discovered "
 "in the network"
 msgstr "两个设备，一个打开，另一个关闭，还在网络中发现了两个设备"
 
-#: de.swsnr.turnon.metainfo.xml:241
+#: de.swsnr.turnon.metainfo.xml:247
 msgid ""
 "Two devices, one of them on, and the other off, with network discovery not "
 "enabled"
 msgstr "两个设备，一个打开，另一个关闭，未启用网络发现"
 
-#: de.swsnr.turnon.metainfo.xml:245
+#: de.swsnr.turnon.metainfo.xml:251
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr "编辑设备的名称、MAC 地址和 IP 地址，以便检查设备状态"
 
-#: de.swsnr.turnon.metainfo.xml:249
+#: de.swsnr.turnon.metainfo.xml:255
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
@@ -502,7 +506,7 @@ msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr "关于 Turn On(_A)"
 
-#: src/app.rs:51
+#: src/app.rs:54
 msgctxt "about-dialog.link.label"
 msgid "Translations"
 msgstr "翻译"
@@ -510,57 +514,58 @@ msgstr "翻译"
 #. Credits for the translator to the current language.
 #. Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
 #. Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
-#: src/app.rs:60
+#: src/app.rs:63
 msgid "translator-credits"
 msgstr "Outbreak2096"
 
-#: src/app.rs:65
+#: src/app.rs:68
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Help and inspiration"
 msgstr "帮助和灵感"
 
-#: src/app.rs:78
+#: src/app.rs:81
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
 msgstr "实用服务"
 
-#. Translators: Use translated app name from https://codeberg.org/swsnr/picture-of-the-day
-#: src/app.rs:90
+#. Translators: Use translated app name from https://flathub.org/de/apps/de.swsnr.pictureoftheday
+#: src/app.rs:93
 msgctxt "about-dialog.other-app.name"
 msgid "Picture Of The Day"
 msgstr ""
 
-#: src/app.rs:95
+#. Translators: Use translated app summary from https://flathub.org/de/apps/de.swsnr.pictureoftheday
+#: src/app.rs:98
 msgctxt "about-dialog.other-app.summary"
 msgid "Your daily wallpaper"
 msgstr ""
 
-#: src/app.rs:293
+#: src/app.rs:296
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "添加新设备"
 
-#: src/app.rs:304
+#: src/app.rs:307
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr "通过标签打开设备"
 
-#: src/app.rs:309
+#: src/app.rs:312
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr "标签"
 
-#: src/app.rs:320
+#: src/app.rs:323
 msgctxt "option.list-devices.description"
 msgid "List all devices and their status"
 msgstr "列出所有设备及其状态"
 
-#: src/app.rs:332
+#: src/app.rs:335
 msgctxt "option.devices-file.description"
 msgid "Use the given file as storage for devices (for development only)"
 msgstr "使用给定的文件作为设备存储（仅用于开发）"
 
-#: src/app.rs:344
+#: src/app.rs:347
 msgctxt "option.arp-cache-file.description"
 msgid "Use the given file as ARP cache source (for development only)"
 msgstr "使用给定的文件作为 ARP 缓存源（仅用于开发）"
@@ -623,3 +628,17 @@ msgstr "已向设备 %s 发送魔法数据包"
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device %s"
 msgstr "无法向设备 %s 发送魔法数据包"
+
+#. Translators: This is Pango markup, be sure to escape appropriately
+#: src/config.rs:48
+msgctxt "about-dialog.license-text"
+msgid ""
+"Copyright Sebastian Wiesner &lt;sebastian@swsnr.de&gt;\n"
+"\n"
+"Licensed under the terms of the EUPL 1.2. You can find official translations "
+"of the license text at <a href=\"%1\">%1</a>.\n"
+"\n"
+"The full English text follows.\n"
+"\n"
+"%2"
+msgstr ""
