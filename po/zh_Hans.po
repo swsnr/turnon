@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-05-02 06:53+0000\n"
+"PO-Revision-Date: 2025-05-23 15:58+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
@@ -77,7 +77,7 @@ msgstr "从命令行打开设备。"
 
 #: de.swsnr.turnon.metainfo.xml:46
 msgid "Change license to European Union Public License 1.2."
-msgstr ""
+msgstr "将许可证更改为 European Union Public License 1.2。"
 
 #: de.swsnr.turnon.metainfo.xml:52
 msgid "Correct icons in application."
@@ -526,19 +526,19 @@ msgstr "帮助和灵感"
 #: src/app.rs:81
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
-msgstr "实用服务"
+msgstr "辅助服务"
 
 #. Translators: Use translated app name from https://flathub.org/de/apps/de.swsnr.pictureoftheday
 #: src/app.rs:93
 msgctxt "about-dialog.other-app.name"
 msgid "Picture Of The Day"
-msgstr ""
+msgstr "今日图片"
 
 #. Translators: Use translated app summary from https://flathub.org/de/apps/de.swsnr.pictureoftheday
 #: src/app.rs:98
 msgctxt "about-dialog.other-app.summary"
 msgid "Your daily wallpaper"
-msgstr ""
+msgstr "您的每日壁纸"
 
 #: src/app.rs:296
 msgctxt "option.add-device.description"
@@ -642,3 +642,11 @@ msgid ""
 "\n"
 "%2"
 msgstr ""
+"版权所有 Sebastian Wiesner &lt;sebastian@swsnr.de&gt;\n"
+"\n"
+"根据 EUPL 1.2 条款授权。您可以在 <a href=\"%1\">%1</a> "
+"找到许可证文本的官方译本。\n"
+"\n"
+"完整的英文文本如下。\n"
+"\n"
+"%2"
