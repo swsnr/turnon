@@ -753,7 +753,6 @@ dependencies = [
  "gnome-app-utils",
  "gtk4",
  "libadwaita",
- "libc",
  "log",
  "macaddr",
  "semver",

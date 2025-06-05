@@ -6,6 +6,7 @@
 
 //! A simple user-space ping implementation.
 
+use gnome_app_utils::libc;
 use std::fmt::Display;
 use std::future::Future;
 use std::net::{IpAddr, SocketAddr};
