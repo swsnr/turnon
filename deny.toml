@@ -19,3 +19,8 @@ allow = [
     "Unicode-3.0",
     "EUPL-1.2",
 ]
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-git = ["https://codeberg.org/swsnr/gnome-app-utils.rs.git"]

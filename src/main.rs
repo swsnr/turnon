@@ -41,29 +41,19 @@
 
 use adw::prelude::*;
 use app::TurnOnApplication;
+use gnome_app_utils::i18n::gettext;
 use gtk::glib;
 
 mod app;
 mod config;
 mod dbus;
 mod futures;
-mod gettext;
 mod net;
 
 use config::G_LOG_DOMAIN;
 
 fn main() -> glib::ExitCode {
-    static GLIB_LOGGER: glib::GlibLogger = glib::GlibLogger::new(
-        glib::GlibLoggerFormat::Structured,
-        glib::GlibLoggerDomain::CrateTarget,
-    );
-    let max_level = if std::env::var_os("G_MESSAGES_DEBUG").is_some() {
-        log::LevelFilter::Trace
-    } else {
-        log::LevelFilter::Warn
-    };
-    log::set_max_level(max_level);
-    log::set_logger(&GLIB_LOGGER).unwrap();
+    gnome_app_utils::log::log_to_glib();
 
     let locale_dir = config::locale_directory();
     glib::debug!("Initializing gettext with locale directory {}", locale_dir);
