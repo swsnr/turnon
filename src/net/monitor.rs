@@ -10,7 +10,7 @@ use std::net::IpAddr;
 use std::rc::Rc;
 use std::{cell::RefCell, time::Duration};
 
-use futures_util::{Stream, StreamExt};
+use gnome_app_utils::futures::{Stream, StreamExt, stream};
 
 use crate::config::G_LOG_DOMAIN;
 use crate::futures::future_with_timeout;
@@ -30,7 +30,7 @@ pub fn monitor(
 ) -> impl Stream<Item = Result<(IpAddr, Duration), glib::Error>> {
     let cached_ip_address: Rc<RefCell<Option<IpAddr>>> = Rc::default();
     let timeout = interval / 2;
-    futures_util::stream::iter(vec![()])
+    stream::iter(vec![()])
         .chain(glib::interval_stream(interval))
         .enumerate()
         .map(|(seqnr, ())| u16::try_from(seqnr % usize::from(u16::MAX)).unwrap())

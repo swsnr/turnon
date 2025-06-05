@@ -6,9 +6,9 @@
 
 use std::{borrow::Cow, future::Future, time::Duration};
 
-use futures_util::{StreamExt, stream::FuturesOrdered};
 use gio::prelude::*;
 use glib::dpgettext2;
+use gnome_app_utils::futures::{StreamExt, stream::FuturesOrdered};
 use gtk::gio;
 
 use crate::app::TurnOnApplication;

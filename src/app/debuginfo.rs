@@ -9,9 +9,11 @@ use std::fmt::Display;
 use std::net::IpAddr;
 use std::time::Duration;
 
-use futures_util::FutureExt;
-use futures_util::StreamExt;
-use futures_util::stream::{FuturesOrdered, FuturesUnordered};
+use gnome_app_utils::env::running_in_flatpak;
+use gnome_app_utils::futures::FutureExt;
+use gnome_app_utils::futures::StreamExt;
+use gnome_app_utils::futures::future;
+use gnome_app_utils::futures::stream::{FuturesOrdered, FuturesUnordered};
 use gtk::gio;
 use gtk::prelude::*;
 use macaddr::MacAddr6;
@@ -79,7 +81,7 @@ impl DebugInfo {
     /// to identify issues.
     pub async fn assemble(devices: Devices) -> DebugInfo {
         let monitor = gio::NetworkMonitor::default();
-        let (connectivity, ping_results) = futures_util::future::join(
+        let (connectivity, ping_results) = future::join(
             // Give network monitor time to actually figure out what the state of the network is,
             // especially inside a flatpak sandbox, see https://gitlab.gnome.org/GNOME/glib/-/issues/1718
             glib::timeout_future(Duration::from_millis(500)).map(|()| monitor.connectivity()),
@@ -111,7 +113,7 @@ impl DebugInfo {
         DebugInfo {
             app_id: config::APP_ID,
             version: config::CARGO_PKG_VERSION,
-            flatpak: config::running_in_flatpak(),
+            flatpak: running_in_flatpak(),
             connectivity,
             ping_results,
             arp_cache_contents,

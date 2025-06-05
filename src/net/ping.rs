@@ -13,9 +13,9 @@ use std::net::{IpAddr, SocketAddr};
 use std::os::fd::{AsRawFd, FromRawFd, OwnedFd};
 use std::time::{Duration, Instant};
 
-use futures_util::stream::FuturesUnordered;
-use futures_util::{FutureExt, StreamExt, future};
 use glib::IOCondition;
+use gnome_app_utils::futures::stream::FuturesUnordered;
+use gnome_app_utils::futures::{FutureExt, StreamExt, future};
 use gtk::gio::Cancellable;
 use gtk::gio::prelude::{ResolverExt, SocketExtManual};
 use gtk::gio::{self, IOErrorEnum};

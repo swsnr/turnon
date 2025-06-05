@@ -40,8 +40,8 @@ mod imp {
 
     use adw::subclass::prelude::*;
     use adw::{Toast, ToastOverlay, prelude::*};
-    use futures_util::{StreamExt, TryStreamExt, stream};
     use glib::dpgettext2;
+    use gnome_app_utils::futures::{StreamExt, TryStreamExt, stream};
     use gtk::CompositeTemplate;
     use gtk::gdk::{Key, ModifierType};
     use gtk::glib::subclass::InitializingObject;

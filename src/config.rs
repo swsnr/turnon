@@ -5,6 +5,7 @@
 // See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 
 use glib::{GStr, dpgettext2, gstr};
+use gnome_app_utils::env::running_in_flatpak;
 use gtk::gio::{self, resources_register};
 
 /// The app ID to use.
@@ -52,11 +53,6 @@ pub fn license_text() -> String {
         "https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12",
     )
     .replace("%2", &glib::markup_escape_text(LICENSE_TEXT))
-}
-
-/// Whether the app is running in flatpak.
-pub fn running_in_flatpak() -> bool {
-    std::fs::exists("/.flatpak-info").unwrap_or_default()
 }
 
 /// Whether this is a development/nightly build.
