@@ -31,15 +31,11 @@
     <url type="vcs-browser">https://codeberg.org/swsnr/turnon</url>
     <launchable type="desktop-id">de.swsnr.turnon.desktop</launchable>
     <releases>
-        <!-- To start release notes for an upcoming release, copy the following template.
+        <!-- To start release notes for an upcoming release, create a release
+        for version='next' and date='9999-01-01', with url
+        'https://codeberg.org/swsnr/turnon/releases/tag/next'.
 
         Upon release, cargo release will replace it accordingly.
-
-        <release version="next" date="9999-01-01">
-            <description>
-            </description>
-            <url>https://codeberg.org/swsnr/turnon/releases/tag/next</url>
-        </release>
         -->
         <release version="2.7.0" date="2025-05-22">
             <description>

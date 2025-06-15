@@ -44,4 +44,24 @@ push = false
 verify = false
 sign-tag = true
 sign-commit = true
-pre-release-hook = ["scripts/prerelease.py", "{{tag_name}}", "{{date}}"]
+
+[[package.metadata.release.pre-release-replacements]]
+file = "de.swsnr.turnon.metainfo.xml"
+search = "version=\"next\""
+replace = "version=\"{{version}}\""
+min = 0
+max = 1
+
+[[package.metadata.release.pre-release-replacements]]
+file = "de.swsnr.turnon.metainfo.xml"
+search = "date=\"9999-01-01\""
+replace = "date=\"{{date}}\""
+min = 0
+max = 1
+
+[[package.metadata.release.pre-release-replacements]]
+file = "de.swsnr.turnon.metainfo.xml"
+search = "<url>https://codeberg.org/swsnr/turnon/releases/tag/next</url>"
+replace = "<url>https://codeberg.org/swsnr/turnon/releases/tag/{{tag_name}}</url>"
+min = 0
+max = 1
