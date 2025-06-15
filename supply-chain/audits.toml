@@ -21,6 +21,11 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.16.0 -> 0.17.0"
 
+[[audits.cfg-expr]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.17.2 -> 0.20.0"
+
 [[audits.crossbeam-utils]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -71,6 +76,11 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.3.1 -> 0.3.2"
 notes = "A few slightly non-trivial changes around symlinks, but still safe-to-run"
+
+[[audits.hashbrown]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.15.3 -> 0.15.4"
 
 [[audits.libadwaita]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -155,10 +165,20 @@ criteria = "safe-to-deploy"
 delta = "7.0.2 -> 7.0.3"
 notes = "The diff just updates a dependency version, and does not involve a code change."
 
+[[audits.system-deps]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "7.0.3 -> 7.0.5"
+
 [[audits.toml]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.8.19 -> 0.8.20"
+
+[[audits.toml_datetime]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.6.9 -> 0.6.11"
 
 [[audits.unicode-ident]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -221,7 +241,7 @@ notes = "Trusted by mozilla"
 
 [[trusted.errno]]
 criteria = "safe-to-run"
-user-id = 6825
+user-id = 6825 # Dan Gohman (sunfishcode)
 start = "2023-08-29"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
@@ -475,7 +495,7 @@ end = "2026-02-22"
 
 [[trusted.linux-raw-sys]]
 criteria = "safe-to-run"
-user-id = 6825
+user-id = 6825 # Dan Gohman (sunfishcode)
 start = "2021-06-12"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
@@ -531,7 +551,7 @@ notes = "Trusted by mozilla"
 
 [[trusted.rustix]]
 criteria = "safe-to-run"
-user-id = 6825
+user-id = 6825 # Dan Gohman (sunfishcode)
 start = "2021-10-29"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
@@ -592,14 +612,14 @@ notes = "swsnr trusts dtolnay"
 
 [[trusted.target-lexicon]]
 criteria = "safe-to-run"
-user-id = 696 # Nick Fitzgerald (fitzgen)
+user-id = 696
 start = "2024-07-30"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
 
 [[trusted.target-lexicon]]
 criteria = "safe-to-run"
-user-id = 6825
+user-id = 6825 # Dan Gohman (sunfishcode)
 start = "2019-03-06"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
