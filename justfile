@@ -14,12 +14,16 @@ version := `git describe`
 default:
     just --list
 
-vet *ARGS:
-    cargo vet {{ARGS}}
-
 # Remove build files from source code tree
 clean:
     rm -fr build .flatpak-builder .flatpak-builddir .flatpak-repo
+
+# Write APP ID to file for build
+configure-app-id:
+    @rm -f build/app-id
+    @mkdir -p build
+    @# Do not add a newline; that'd break the app ID in include_str!
+    echo -n '{{APPID}}' > build/app-id
 
 # Compile all blueprint files to UI files.
 compile-blueprint:
@@ -29,9 +33,11 @@ compile-blueprint:
 # Compile the translated metainfo file.
 compile-metainfo:
     mkdir -p build/resources-src/
-    msgfmt --xml --template de.swsnr.turnon.metainfo.xml -d po --output build/de.swsnr.turnon.metainfo.xml
+    msgfmt --xml --template de.swsnr.turnon.metainfo.xml -d po --output build/{{APPID}}.metainfo.xml
+    @# Patch the app ID
+    sed -i '/{{APPID}}/! s/de\.swsnr\.turnon/{{APPID}}/g' build/{{APPID}}.metainfo.xml
     @# Also add the translated metainfo file to resources
-    cp -t build/resources-src build/de.swsnr.turnon.metainfo.xml
+    cp build/{{APPID}}.metainfo.xml build/resources-src/de.swsnr.turnon.metainfo.xml
 
 # Compile all Glib resources for this application.
 compile-resources: compile-blueprint compile-metainfo
@@ -46,16 +52,31 @@ compile-resources: compile-blueprint compile-metainfo
 # Compile the translated desktop file.
 compile-desktop-file:
     mkdir -p build
-    msgfmt --desktop --template de.swsnr.turnon.desktop -d po --output build/de.swsnr.turnon.desktop
+    msgfmt --desktop --template de.swsnr.turnon.desktop -d po --output build/{{APPID}}.desktop
+    @# Patch the app ID
+    sed -i '/{{APPID}}/! s/de\.swsnr\.turnon/{{APPID}}/g' build/{{APPID}}.desktop
 
 # Compile the settings schema
 compile-schemas:
-    mkdir -p build/schemas
-    cp -t build/schemas de.swsnr.turnon.gschema.xml
+    @mkdir -p build/schemas
+    cp de.swsnr.turnon.gschema.xml build/schemas/{{APPID}}.gschema.xml
+    @# Patch the app ID
+    sed -i '/{{APPID}}/! s/de\.swsnr\.turnon/{{APPID}}/g' build/schemas/{{APPID}}.gschema.xml
     glib-compile-schemas --strict build/schemas
 
+# Compile misc files to patch the app ID
+compile-misc:
+    @mkdir -p build
+    cp dbus-1/de.swsnr.turnon.service build/{{APPID}}.service
+    cp de.swsnr.turnon.search-provider.ini build/{{APPID}}.search-provider.ini
+    sed -i '/{{APPID}}/! s/de\.swsnr\.turnon/{{APPID}}/g' \
+        build/{{APPID}}.service build/{{APPID}}.search-provider.ini
+
 # Compile all extra files (resources, settings schemas, etc.)
-compile: compile-resources compile-desktop-file compile-schemas
+compile: configure-app-id compile-resources compile-desktop-file compile-schemas compile-misc
+
+vet *ARGS:
+    cargo vet {{ARGS}}
 
 lint-blueprint:
     blueprint-compiler format resources/**/*.blp
@@ -135,15 +156,10 @@ _post-release:
 release *ARGS: test-all && _post-release
     cargo release {{ARGS}}
 
-# Patch files for the Devel build
-patch-devel:
+# Patch `version` into `Cargo.toml`
+patch-version:
     sed -Ei 's/^version = "([^"]+)"/version = "\1+{{version}}"/' Cargo.toml
     cargo update -p turnon
-    sed -i '/{{APPID}}/! s/de\.swsnr\.turnon/{{APPID}}/g' \
-        src/config.rs \
-        de.swsnr.turnon.metainfo.xml de.swsnr.turnon.desktop \
-        dbus-1/de.swsnr.turnon.service de.swsnr.turnon.search-provider.ini \
-        de.swsnr.turnon.gschema.xml
 
 _install-po po_file:
     install -dm0755 '{{DESTPREFIX}}/share/locale/{{file_stem(po_file)}}/LC_MESSAGES'
@@ -156,15 +172,15 @@ install:
     @# Install cargo build --release binary
     install -Dm0755 target/release/turnon '{{DESTPREFIX}}/bin/{{APPID}}'
     @# Install translated appstream metadata and desktop file
-    install -Dm0644 build/de.swsnr.turnon.metainfo.xml '{{DESTPREFIX}}/share/metainfo/{{APPID}}.metainfo.xml'
-    install -Dm0644 build/de.swsnr.turnon.desktop '{{DESTPREFIX}}/share/applications/{{APPID}}.desktop'
+    install -Dm0644 -t '{{DESTPREFIX}}/share/metainfo/' build/{{APPID}}.metainfo.xml
+    install -Dm0644 -t '{{DESTPREFIX}}/share/applications/' build/{{APPID}}.desktop
     @# Install static files (icons, etc.)
+    install -Dm0644 -t '{{DESTPREFIX}}/share/dbus-1/services/' build/{{APPID}}.service
+    install -Dm0644 -t '{{DESTPREFIX}}/share/gnome-shell/search-providers/' build/{{APPID}}.search-provider.ini
+    install -Dm0644 -t '{{DESTPREFIX}}/share/glib-2.0/schemas/' build/schemas/{{APPID}}.gschema.xml
     install -Dm0644 -t '{{DESTPREFIX}}/share/icons/hicolor/scalable/apps/' 'resources/icons/scalable/apps/{{APPID}}.svg'
     install -Dm0644 resources/icons/symbolic/apps/de.swsnr.turnon-symbolic.svg \
         '{{DESTPREFIX}}/share/icons/hicolor/symbolic/apps/{{APPID}}-symbolic.svg'
-    install -Dm0644 dbus-1/de.swsnr.turnon.service '{{DESTPREFIX}}/share/dbus-1/services/{{APPID}}.service'
-    install -Dm0644 de.swsnr.turnon.search-provider.ini '{{DESTPREFIX}}/share/gnome-shell/search-providers/{{APPID}}.search-provider.ini'
-    install -Dm0644 de.swsnr.turnon.gschema.xml '{{DESTPREFIX}}/share/glib-2.0/schemas/{{APPID}}.gschema.xml'
     @# Compile settings schemas after installation
     glib-compile-schemas --strict '{{DESTPREFIX}}/share/glib-2.0/schemas'
 

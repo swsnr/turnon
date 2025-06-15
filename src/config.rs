@@ -8,8 +8,11 @@ use glib::{GStr, dpgettext2, gstr};
 use gnome_app_utils::env::running_in_flatpak;
 use gtk::gio::{self, resources_register};
 
-/// The app ID to use.
-pub const APP_ID: &GStr = gstr!("de.swsnr.turnon");
+pub const APP_ID: &GStr =
+    // SAFETY: We explicitly append a nul byte
+    unsafe {
+        GStr::from_str_with_nul_unchecked(concat!(include_str!("../build/app-id"), "\0"))
+    };
 
 /// The Cargo package verson.
 ///

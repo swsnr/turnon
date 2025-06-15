@@ -52,7 +52,7 @@ modules:
       build-args:
         - --share=network
     build-commands:
-      # Patch version number and app ID before building our binary, then compile
-      - just APPID=de.swsnr.turnon.Devel patch-devel compile
+      # Patch Git version number into the manifest, then compile
+      - just APPID=de.swsnr.turnon.Devel patch-version compile
       - cargo build --locked --release --verbose
       - just DESTPREFIX=/app APPID=de.swsnr.turnon.Devel install
