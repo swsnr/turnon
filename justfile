@@ -75,13 +75,11 @@ compile-misc:
 # Compile all extra files (resources, settings schemas, etc.)
 compile: configure-app-id compile-resources compile-desktop-file compile-schemas compile-misc
 
-vet *ARGS:
-    cargo vet {{ARGS}}
-
 lint-blueprint:
     blueprint-compiler format resources/**/*.blp
 
 lint-rust:
+    cargo +stable vet --locked
     cargo +stable deny --all-features --locked check
     cargo +stable fmt -- --check
     cargo +stable clippy --all-targets
@@ -99,7 +97,7 @@ test-rust:
     cargo +stable build
     cargo +stable test
 
-test-all: (vet "--locked") lint-all compile test-rust
+test-all: lint-all compile test-rust
 
 # Extract the message template from all source files.
 pot:
