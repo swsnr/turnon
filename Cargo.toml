@@ -19,7 +19,7 @@ authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
 version = "2.7.2"
 edition = "2024"
 publish = false
-rust-version = "1.87"
+rust-version = "1.88"
 
 [dependencies]
 adw = { package = "libadwaita", version = "0.7.0", features = ["v1_7"] }

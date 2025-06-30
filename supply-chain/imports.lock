@@ -2,15 +2,15 @@
 # cargo-vet imports lock
 
 [[publisher.autocfg]]
-version = "1.4.0"
-when = "2024-09-27"
+version = "1.5.0"
+when = "2025-06-17"
 user-id = 539
 user-login = "cuviper"
 user-name = "Josh Stone"
 
 [[publisher.cairo-rs]]
-version = "0.20.10"
-when = "2025-05-13"
+version = "0.20.12"
+when = "2025-06-20"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -85,8 +85,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio]]
-version = "0.20.11"
-when = "2025-05-16"
+version = "0.20.12"
+when = "2025-06-20"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -99,15 +99,15 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib]]
-version = "0.20.10"
-when = "2025-05-13"
+version = "0.20.12"
+when = "2025-06-20"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-macros]]
-version = "0.20.10"
-when = "2025-05-13"
+version = "0.20.12"
+when = "2025-06-20"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -155,8 +155,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gtk4]]
-version = "0.9.6"
-when = "2025-02-16"
+version = "0.9.7"
+when = "2025-06-21"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -183,8 +183,8 @@ user-login = "Amanieu"
 user-name = "Amanieu d'Antras"
 
 [[publisher.indexmap]]
-version = "2.9.0"
-when = "2025-04-04"
+version = "2.10.0"
+when = "2025-06-26"
 user-id = 539
 user-login = "cuviper"
 user-name = "Josh Stone"
@@ -204,8 +204,8 @@ user-login = "bilelmoussaoui"
 user-name = "Bilal Elmoussaoui"
 
 [[publisher.libc]]
-version = "0.2.173"
-when = "2025-06-13"
+version = "0.2.174"
+when = "2025-06-17"
 user-id = 55123
 user-login = "rust-lang-owner"
 
@@ -217,8 +217,8 @@ user-login = "BurntSushi"
 user-name = "Andrew Gallant"
 
 [[publisher.pango]]
-version = "0.20.10"
-when = "2025-05-13"
+version = "0.20.12"
+when = "2025-06-20"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -266,8 +266,8 @@ user-login = "epage"
 user-name = "Ed Page"
 
 [[publisher.slab]]
-version = "0.4.9"
-when = "2023-08-22"
+version = "0.4.10"
+when = "2025-06-15"
 user-id = 6741
 user-login = "Darksonn"
 user-name = "Alice Ryhl"
@@ -280,8 +280,8 @@ user-login = "mbrubeck"
 user-name = "Matt Brubeck"
 
 [[publisher.syn]]
-version = "2.0.103"
-when = "2025-06-13"
+version = "2.0.104"
+when = "2025-06-20"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
