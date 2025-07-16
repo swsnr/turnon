@@ -25,7 +25,7 @@ mod r#enum {
 
 glib::wrapper! {
     pub struct DeviceRow(ObjectSubclass<imp::DeviceRow>)
-        @extends adw::ActionRow, adw::PreferencesRow, gtk::ListBox, gtk::Widget,
+        @extends adw::ActionRow, adw::PreferencesRow, gtk::ListBoxRow, gtk::Widget,
         @implements gtk::Accessible, gtk::Actionable, gtk::Buildable, gtk::ConstraintTarget;
 }
 
