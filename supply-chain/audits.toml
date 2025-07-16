@@ -294,11 +294,23 @@ user-id = 3623 # Sebastian Dröge (sdroege)
 start = "2021-04-04"
 end = "2026-06-05"
 
+[[trusted.gdk4-wayland]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2026-07-16"
+
 [[trusted.gdk4-wayland-sys]]
 criteria = "safe-to-run"
 user-id = 3623 # Sebastian Dröge (sdroege)
 start = "2021-04-04"
 end = "2026-06-05"
+
+[[trusted.gdk4-wayland-sys]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2026-07-16"
 
 [[trusted.gdk4-x11]]
 criteria = "safe-to-run"
@@ -306,11 +318,23 @@ user-id = 3623 # Sebastian Dröge (sdroege)
 start = "2021-04-04"
 end = "2026-06-05"
 
+[[trusted.gdk4-x11]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2026-07-16"
+
 [[trusted.gdk4-x11-sys]]
 criteria = "safe-to-run"
 user-id = 3623 # Sebastian Dröge (sdroege)
 start = "2021-04-04"
 end = "2026-06-05"
+
+[[trusted.gdk4-x11-sys]]
+criteria = "safe-to-run"
+user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
+start = "2021-07-12"
+end = "2026-07-16"
 
 [[trusted.gio]]
 criteria = "safe-to-run"
@@ -473,12 +497,24 @@ start = "2021-06-23"
 end = "2025-10-26"
 notes = "Known Gnome developer"
 
+[[trusted.libadwaita]]
+criteria = "safe-to-run"
+user-id = 111887 # Maximiliano (A6GibKm)
+start = "2025-03-19"
+end = "2026-07-16"
+
 [[trusted.libadwaita-sys]]
 criteria = "safe-to-run"
 user-id = 54339 # Bilal Elmoussaoui (bilelmoussaoui)
 start = "2021-06-23"
 end = "2025-10-26"
 notes = "Known Gnome developer"
+
+[[trusted.libadwaita-sys]]
+criteria = "safe-to-run"
+user-id = 111887 # Maximiliano (A6GibKm)
+start = "2025-03-19"
+end = "2026-07-16"
 
 [[trusted.libc]]
 criteria = "safe-to-run"

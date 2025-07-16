@@ -175,6 +175,7 @@ impl Default for TurnOnApplication {
 
 mod imp {
     use std::cell::{Ref, RefCell};
+    use std::ops::ControlFlow;
     use std::path::PathBuf;
 
     use adw::prelude::*;
@@ -452,9 +453,9 @@ mod imp {
             window.present();
         }
 
-        fn handle_local_options(&self, options: &glib::VariantDict) -> glib::ExitCode {
+        fn handle_local_options(&self, options: &glib::VariantDict) -> ControlFlow<glib::ExitCode> {
             glib::debug!("Handling local options");
-            self.parent_handle_local_options(options);
+            self.parent_handle_local_options(options)?;
             if let Ok(Some(path)) = options.lookup::<PathBuf>("devices-file") {
                 glib::warn!(
                     "Overriding storage file to {}; only use for development purposes!",
@@ -469,8 +470,8 @@ mod imp {
                 );
                 self.devices.discovered_devices().set_arp_cache_file(path);
             }
-            // -1 means continue normal command line processing
-            glib::ExitCode::from(-1)
+            // Continue normal command line processing
+            ControlFlow::Continue(())
         }
 
         fn command_line(&self, command_line: &gtk::gio::ApplicationCommandLine) -> glib::ExitCode {

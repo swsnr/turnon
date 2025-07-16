@@ -10,7 +10,7 @@ use gnome_app_utils::libc;
 use std::fmt::Display;
 use std::future::Future;
 use std::net::{IpAddr, SocketAddr};
-use std::os::fd::{AsRawFd, FromRawFd, OwnedFd};
+use std::os::fd::{FromRawFd, OwnedFd};
 use std::time::{Duration, Instant};
 
 use glib::IOCondition;
@@ -45,22 +45,13 @@ fn icmp_socket_for_address(address: IpAddr) -> Result<gio::Socket, glib::Error> 
         Err(to_glib_error(std::io::Error::last_os_error()))
     } else {
         // SAFETY: socket returns a new FD on success which the caller now owns.
-        let socket = unsafe { OwnedFd::from_raw_fd(socket) };
-        // SAFETY: from_fd has unfortunate ownership semantics: It claims the fd on
-        // success, but on error the caller retains ownership of the fd.  Hence, we
-        // do _not_ move out of `fd` here, but instead pass the raw fd.  In case of
-        // error Rust will then just drop our owned fd as usual.  In case of success
-        // the fd now belongs to the GIO socket, so we explicitly forget the
-        // borrowed fd.
-        let gio_socket = unsafe { gio::Socket::from_fd(socket.as_raw_fd()) }?;
-        // Do not drop our fd because it is now owned by gio_socket.
-        std::mem::forget(socket);
+        let socket = gio::Socket::from_fd(unsafe { OwnedFd::from_raw_fd(socket) })?;
         // Make the socket non-blocking and add a reasonable timeout.
         // set_timeout takes a timeout in seconds; we go through a Duration value
         // to make this explicit.
-        gio_socket.set_blocking(false);
-        gio_socket.set_timeout(u32::try_from(Duration::from_secs(10).as_secs()).unwrap());
-        Ok(gio_socket)
+        socket.set_blocking(false);
+        socket.set_timeout(u32::try_from(Duration::from_secs(10).as_secs()).unwrap());
+        Ok(socket)
     }
 }
 
