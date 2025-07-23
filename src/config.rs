@@ -49,7 +49,14 @@ pub fn license_text() -> String {
         None,
         "about-dialog.license-text",
         // Translators: This is Pango markup, be sure to escape appropriately
-        "Copyright Sebastian Wiesner &lt;sebastian@swsnr.de&gt;\n\nLicensed under the terms of the EUPL 1.2. You can find official translations of the license text at <a href=\"%1\">%1</a>.\n\nThe full English text follows.\n\n%2",
+        "Copyright Sebastian Wiesner &lt;sebastian@swsnr.de&gt;
+
+Licensed under the terms of the EUPL 1.2. You can find official translations \
+of the license text at <a href=\"%1\">%1</a>.
+
+The full English text follows.
+
+%2",
     )
     .replace(
         "%1",
