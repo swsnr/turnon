@@ -33,6 +33,7 @@ serde_json = "1.0.128"
 bitflags = "2.6.0"
 semver = "1.0.24"
 wol = "0.3.0"
+formatx = "0.2.4"
 
 [package.metadata.release]
 pre-release-commit-message = "Release {{version}}"

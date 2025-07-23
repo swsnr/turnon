@@ -6,6 +6,7 @@
 
 //! Utilities for the search provider of Turn On.
 
+use formatx::formatx;
 use glib::{ControlFlow, Variant, VariantDict, dpgettext2};
 use gtk::gio::{
     DBusConnection, DBusError, ListStore, Notification, NotificationPriority, RegistrationId,
@@ -77,13 +78,17 @@ async fn activate_result(
                     "Sent magic packet",
                 ));
                 notification.set_body(Some(
-                    &dpgettext2(
-                        None,
-                        "search-provider.notification.body",
-                        "Sent magic packet to mac address %1 of device %2.",
+                    &formatx!(
+                        dpgettext2(
+                            None,
+                            "search-provider.notification.body",
+                            "Sent magic packet to mac address {device_mac_address} \
+of device {device_label}.",
+                        ),
+                        device_label = device.label(),
+                        device_mac_address = device.mac_address()
                     )
-                    .replace("%1", &device.mac_address().to_string())
-                    .replace("%2", &device.label()),
+                    .unwrap(),
                 ));
                 let id = glib::uuid_string_random();
                 app.send_notification(Some(&id), &notification);
@@ -107,13 +112,17 @@ async fn activate_result(
                     "Failed to send magic packet",
                 ));
                 notification.set_body(Some(
-                    &dpgettext2(
-                        None,
-                        "search-provider.notification.body",
-                        "Failed to send magic packet to mac address %1 of device %2.",
+                    &formatx!(
+                        dpgettext2(
+                            None,
+                            "search-provider.notification.body",
+                            "Failed to send magic packet to mac address \
+{device_mac_address} of device {device_label}.",
+                        ),
+                        device_label = device.label(),
+                        device_mac_address = device.mac_address()
                     )
-                    .replace("%1", &device.mac_address().to_string())
-                    .replace("%2", &device.label()),
+                    .unwrap(),
                 ));
                 notification.set_priority(NotificationPriority::Urgent);
                 app.send_notification(None, &notification);

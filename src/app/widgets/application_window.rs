@@ -40,6 +40,7 @@ mod imp {
 
     use adw::subclass::prelude::*;
     use adw::{Toast, ToastOverlay, prelude::*};
+    use formatx::formatx;
     use glib::dpgettext2;
     use gnome_app_utils::futures::{StreamExt, TryStreamExt, stream};
     use gtk::CompositeTemplate;
@@ -84,12 +85,15 @@ mod imp {
             // Notify the user that we're about to send the magic packet to the target device
             let toast_sending = adw::Toast::builder()
                 .title(
-                    dpgettext2(
-                        None,
-                        "application-window.feedback.toast",
-                        "Sending magic packet to device %s",
+                    formatx!(
+                        dpgettext2(
+                            None,
+                            "application-window.feedback.toast",
+                            "Sending magic packet to device {device_label}",
+                        ),
+                        device_label = device.label()
                     )
-                    .replace("%s", &device.label()),
+                    .unwrap(),
                 )
                 .timeout(3)
                 .build();
@@ -106,12 +110,15 @@ mod imp {
 
                         let toast = adw::Toast::builder()
                             .title(
-                                dpgettext2(
-                                    None,
-                                    "application-window.feedback.toast",
-                                    "Sent magic packet to device %s",
+                                formatx!(
+                                    dpgettext2(
+                                        None,
+                                        "application-window.feedback.toast",
+                                        "Sent magic packet to device {device_label}",
+                                    ),
+                                    device_label = device.label()
                                 )
-                                .replace("%s", &device.label()),
+                                .unwrap(),
                             )
                             .timeout(3)
                             .build();
@@ -120,12 +127,15 @@ mod imp {
                         toast_sending.inspect(Toast::dismiss);
                         let toast = adw::Toast::builder()
                             .title(
-                                dpgettext2(
-                                    None,
-                                    "application-window.feedback.toast",
-                                    "Failed to send magic packet to device %s",
+                                formatx!(
+                                    dpgettext2(
+                                        None,
+                                        "application-window.feedback.toast",
+                                        "Failed to send magic packet to device {device_label}",
+                                    ),
+                                    device_label = device.label()
                                 )
-                                .replace("%s", &device.label()),
+                                .unwrap(),
                             )
                             .timeout(10)
                             .build();

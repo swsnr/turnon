@@ -1100,6 +1100,12 @@ criteria = "safe-to-run"
 delta = "0.20.0 -> 0.20.1"
 aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
 
+[[audits.swsnr.audits.formatx]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+version = "0.2.4"
+aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
+
 [[audits.swsnr.audits.hashbrown]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"

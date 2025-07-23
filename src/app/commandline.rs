@@ -6,6 +6,7 @@
 
 use std::{borrow::Cow, future::Future, time::Duration};
 
+use formatx::formatx;
 use gio::prelude::*;
 use glib::dpgettext2;
 use gnome_app_utils::futures::{StreamExt, stream::FuturesOrdered};
@@ -25,25 +26,32 @@ async fn turn_on_device(
     match device.wol().await {
         Ok(()) => {
             command_line.print_literal(
-                &dpgettext2(
-                    None,
-                    "option.turn-on-device.message",
-                    "Sent magic packet to mac address %1 of device %2\n",
+                &formatx!(
+                    dpgettext2(
+                        None,
+                        "option.turn-on-device.message",
+                        "Sent magic packet to mac address {device_mac_address} \
+of device {device_label}\n",
+                    ),
+                    device_label = device.label(),
+                    device_mac_address = device.mac_address(),
                 )
-                .replace("%1", &device.mac_address().to_string())
-                .replace("%2", &device.label()),
+                .unwrap(),
             );
             glib::ExitCode::SUCCESS
         }
         Err(error) => {
             command_line.printerr_literal(
-                &dpgettext2(
-                    None,
-                    "option.turn-on-device.error",
-                    "Failed to turn on device %1: %2\n",
+                &formatx!(
+                    dpgettext2(
+                        None,
+                        "option.turn-on-device.error",
+                        "Failed to turn on device {device_label}: {error}\n",
+                    ),
+                    device_label = device.label(),
+                    error = error
                 )
-                .replace("%1", &device.label())
-                .replace("%2", &error.to_string()),
+                .unwrap(),
             );
             glib::ExitCode::FAILURE
         }
@@ -80,12 +88,15 @@ pub fn turn_on_device_by_label(
         glib::ExitCode::SUCCESS
     } else {
         command_line.printerr_literal(
-            &dpgettext2(
-                None,
-                "option.turn-on-device.error",
-                "No device found for label %s\n",
+            &formatx!(
+                dpgettext2(
+                    None,
+                    "option.turn-on-device.error",
+                    "No device found for label {label}\n",
+                ),
+                label = label
             )
-            .replace("%s", label),
+            .unwrap(),
         );
         glib::ExitCode::FAILURE
     }
