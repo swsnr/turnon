@@ -55,7 +55,7 @@ pub fn license_text() -> String {
             None,
             "about-dialog.license-text",
             // Translators: This is Pango markup, be sure to escape appropriately
-            "Copyright Sebastian Wiesner &lt;sebastian@swsnr.de&gt;
+            "Copyright {copyright_name} &lt;{copyright_email}&gt;
 
 Licensed under the terms of the EUPL 1.2. You can find official translations \
 of the license text at <a href=\"{translations}\">{translations}</a>.
@@ -64,6 +64,8 @@ The full English text follows.
 
 {license_text}",
         ),
+        copyright_name = "Sebastian Wiesner",
+        copyright_email = "sebastian@swsnr.de",
         translations = LICENSE_TRANSLATIONS_URL,
         license_text = glib::markup_escape_text(LICENSE_TEXT)
     )
