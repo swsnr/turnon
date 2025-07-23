@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
 "PO-Revision-Date: 2025-05-22 10:12+0000\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/"
-"de-swsnr-turnon/de-swsnr-turnon/de/>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/de-swsnr-"
+"turnon/de-swsnr-turnon/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,31 +78,31 @@ msgstr "Geräte aus der GNOME-Suche heraus anschalten."
 msgid "Turn on devices from the command line."
 msgstr "Geräte über die Kommandozeile anschalten."
 
-#: de.swsnr.turnon.metainfo.xml:46
+#: de.swsnr.turnon.metainfo.xml:42
 msgid "Change license to European Union Public License 1.2."
 msgstr ""
 "Die Lizenz wurde zur Open-Source-Lizenz für die Europäische Union 1.2 "
 "geändert."
 
-#: de.swsnr.turnon.metainfo.xml:52
+#: de.swsnr.turnon.metainfo.xml:48
 msgid "Correct icons in application."
 msgstr "Symbole in der Anwendung wurden korrigiert."
 
-#: de.swsnr.turnon.metainfo.xml:58
+#: de.swsnr.turnon.metainfo.xml:54
 msgid "Probe reachable devices for web interfaces."
 msgstr "Erreichbare Geräte werden auf Web-Schnittstellen geprüft."
 
-#: de.swsnr.turnon.metainfo.xml:67
+#: de.swsnr.turnon.metainfo.xml:63
 msgid "Update to GNOME 48"
 msgstr "Aktualisiert auf GNOME 48"
 
-#: de.swsnr.turnon.metainfo.xml:73
+#: de.swsnr.turnon.metainfo.xml:69
 msgid "Reorder devices with Alt+Up and Alt+Down"
 msgstr ""
 "Geräte können mit Alt+Pfeil nach oben und Alt+Pfeil nach unten neu "
 "angeordnet werden"
 
-#: de.swsnr.turnon.metainfo.xml:82
+#: de.swsnr.turnon.metainfo.xml:78
 msgid ""
 "Refine application icon to make it sharper at smaller sizes, and redesign "
 "symbolic icon."
@@ -110,15 +110,15 @@ msgstr ""
 "Das Anwendungssymbol wurde verbessert, und das stilisierte Symbol wurde neu "
 "entworfen."
 
-#: de.swsnr.turnon.metainfo.xml:91
+#: de.swsnr.turnon.metainfo.xml:87
 msgid "Save and restore main window state."
 msgstr "Der Zustand des Hauptfensters wird gespeichert und wiederhergestellt."
 
-#: de.swsnr.turnon.metainfo.xml:92
+#: de.swsnr.turnon.metainfo.xml:88
 msgid "Define additional shortcuts."
 msgstr "Zusätzliche Tastenkürzel wurden hinzugefügt."
 
-#: de.swsnr.turnon.metainfo.xml:101
+#: de.swsnr.turnon.metainfo.xml:97
 msgid ""
 "Add new toolbar and start page buttons to enable network scanning. When "
 "network scanning is on show devices discovered in the local network in the "
@@ -129,14 +129,14 @@ msgstr ""
 "werden Geräte, die im lokalen Netzwerk gefunden wurden, in der Liste der "
 "Geräte angezeigt."
 
-#: de.swsnr.turnon.metainfo.xml:105
+#: de.swsnr.turnon.metainfo.xml:101
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr ""
 "Das Anwendungssymbol wurde überarbeitet, um den Kontrast auf dunklen "
 "Hintergründen zu verbessern."
 
-#: de.swsnr.turnon.metainfo.xml:119
+#: de.swsnr.turnon.metainfo.xml:115
 msgid ""
 "The dialog to add a new device now uses success and error styles for the "
 "validity indicators."
@@ -144,7 +144,7 @@ msgstr ""
 "Im Dialog zum Hinzufügen eines neuen Geräts werden jetzt entsprechende "
 "Erfolg- und Fehlerstile für die Gültigkeitsanzeige benutzt."
 
-#: de.swsnr.turnon.metainfo.xml:120
+#: de.swsnr.turnon.metainfo.xml:116
 msgid ""
 "Refuse to add a new device if the host name contains a port which is not "
 "permitted at this place."
@@ -152,18 +152,18 @@ msgstr ""
 "Ein Gerät kann nicht länger hinzugefügt werden, wenn der Hostname eine "
 "Portnummer enthält, deren Angabe an dieser Stelle nicht erlaubt ist."
 
-#: de.swsnr.turnon.metainfo.xml:121 de.swsnr.turnon.metainfo.xml:130
-#: de.swsnr.turnon.metainfo.xml:138
+#: de.swsnr.turnon.metainfo.xml:117 de.swsnr.turnon.metainfo.xml:126
+#: de.swsnr.turnon.metainfo.xml:134
 msgid "Update translations."
 msgstr "Übersetzungen aktualisiert."
 
-#: de.swsnr.turnon.metainfo.xml:136
+#: de.swsnr.turnon.metainfo.xml:132
 msgid "Searching for devices via GNOME Shell now ignores case."
 msgstr ""
 "Groß- und Kleinschreibung wird bei der Suche nach Geräten über GNOME Shell "
 "nicht mehr berücksichtigt."
 
-#: de.swsnr.turnon.metainfo.xml:137
+#: de.swsnr.turnon.metainfo.xml:133
 msgid ""
 "Add \"--list-devices\" command line argument to list all devices and their "
 "status."
@@ -171,7 +171,7 @@ msgstr ""
 "Eine Kommandozeile-Option \"--list-devices\" zum Auflisten aller Geräte "
 "sowie deren Status wurde hinzugefügt."
 
-#: de.swsnr.turnon.metainfo.xml:148
+#: de.swsnr.turnon.metainfo.xml:144
 msgid ""
 "The link to translations in application metadata and on Flathub is more "
 "helpful now."
@@ -179,35 +179,35 @@ msgstr ""
 "Der Link zu den Übersetzungen in den Metadaten und auf Flathub führt jetzt "
 "auf eine hilfreichere Seite."
 
-#: de.swsnr.turnon.metainfo.xml:154
+#: de.swsnr.turnon.metainfo.xml:150
 msgid "Add Dutch translation, and update existing translations."
 msgstr ""
 "Niederländische Übersetzung hinzugefügt, und vorhandene Übersetzung "
 "aktualisiert."
 
-#: de.swsnr.turnon.metainfo.xml:155
+#: de.swsnr.turnon.metainfo.xml:151
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr ""
 "Anschalten speichert die Liste der Geräte jetzt korrekt ab, wenn ein Gerät "
 "bearbeitet wurde."
 
-#: de.swsnr.turnon.metainfo.xml:156
+#: de.swsnr.turnon.metainfo.xml:152
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr ""
 "Der Dialog \"Info zu Anschalten\" stellt nun einen Debug-Bericht zur "
 "Fehleranalyse bereit."
 
-#: de.swsnr.turnon.metainfo.xml:165
+#: de.swsnr.turnon.metainfo.xml:161
 msgid "Add Hebrew translation."
 msgstr "Hebräische Übersetzung hinzugefügt."
 
-#: de.swsnr.turnon.metainfo.xml:171
+#: de.swsnr.turnon.metainfo.xml:167
 msgid "Add Italian translation, and update German translation."
 msgstr ""
 "Italienische Übersetzung hinzugefügt, und deutsche Übersetzung aktualisiert."
 
-#: de.swsnr.turnon.metainfo.xml:177
+#: de.swsnr.turnon.metainfo.xml:173
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
@@ -215,14 +215,14 @@ msgstr ""
 "Anschalten ist jetzt in die GNOME-Suche integriert und kann Geräte direkt "
 "aus der Suche heraus anschalten."
 
-#: de.swsnr.turnon.metainfo.xml:178
+#: de.swsnr.turnon.metainfo.xml:174
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr ""
 "Geräte können jetzt über das Kontext-Menü des Anwendungssymbols von "
 "Anschalten hinzugefügt werden."
 
-#: de.swsnr.turnon.metainfo.xml:179
+#: de.swsnr.turnon.metainfo.xml:175
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -231,20 +231,20 @@ msgstr ""
 "insbesondere kann mit der Option --turn-on-device ein Gerät direkt über "
 "dessen Bezeichnung angeschaltet werden."
 
-#: de.swsnr.turnon.metainfo.xml:189
+#: de.swsnr.turnon.metainfo.xml:185
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "Anschalten stürzt nicht mehr ab, wenn das letzte Gerät entfernt wird."
 
-#: de.swsnr.turnon.metainfo.xml:190
+#: de.swsnr.turnon.metainfo.xml:186
 msgid "Add German translation, and update application metadata."
 msgstr ""
 "Deutsche Übersetzung hinzugefügt, und Metadaten der Anwendung aktualisiert."
 
-#: de.swsnr.turnon.metainfo.xml:196
+#: de.swsnr.turnon.metainfo.xml:192
 msgid "Shorten summary in metadata."
 msgstr "Zusammenfassung in den Metadaten gekürzt."
 
-#: de.swsnr.turnon.metainfo.xml:202
+#: de.swsnr.turnon.metainfo.xml:198
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -256,11 +256,11 @@ msgstr ""
 "Geräten einfacher per Tastatur zu nutzen (Enter springt zum nächsten "
 "Eingabefeld, und speichert das Gerät zum Schluss)."
 
-#: de.swsnr.turnon.metainfo.xml:214
+#: de.swsnr.turnon.metainfo.xml:210
 msgid "Refined app icon."
 msgstr "Anwendungssymbol verbessert."
 
-#: de.swsnr.turnon.metainfo.xml:220
+#: de.swsnr.turnon.metainfo.xml:216
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
@@ -268,35 +268,35 @@ msgstr ""
 "Die erste Veröffentlichung. In dieser Version unterstützt die Anwendung "
 "folgende Funktionalität:"
 
-#: de.swsnr.turnon.metainfo.xml:222
+#: de.swsnr.turnon.metainfo.xml:218
 msgid "Add new devices"
 msgstr "Neue Geräte hinzufügen"
 
-#: de.swsnr.turnon.metainfo.xml:223
+#: de.swsnr.turnon.metainfo.xml:219
 msgid "Monitor whether devices are turned on"
 msgstr "Überwachen, welche Geräte eingeschaltet sind"
 
-#: de.swsnr.turnon.metainfo.xml:224
+#: de.swsnr.turnon.metainfo.xml:220
 msgid "Turn on devices with Wake On LAN"
 msgstr "Geräte mittels Wake-On-LAN einschalten"
 
-#: de.swsnr.turnon.metainfo.xml:226
+#: de.swsnr.turnon.metainfo.xml:222
 msgid "This release is missing the following features:"
 msgstr "In dieser Version fehlt folgende Funktionalität:"
 
-#: de.swsnr.turnon.metainfo.xml:228
+#: de.swsnr.turnon.metainfo.xml:224
 msgid "Devices can not be edited or removed."
 msgstr "Geräte können weder bearbeitet noch entfernt werden."
 
-#: de.swsnr.turnon.metainfo.xml:229
+#: de.swsnr.turnon.metainfo.xml:225
 msgid "The order of devices cannot be changed."
 msgstr "Die Reihenfolge der Geräte kann nicht verändert werden."
 
-#: de.swsnr.turnon.metainfo.xml:230
+#: de.swsnr.turnon.metainfo.xml:226
 msgid "Languages other than English are not supported."
 msgstr "Sprachen außer Englisch werden nicht unterstützt."
 
-#: de.swsnr.turnon.metainfo.xml:243
+#: de.swsnr.turnon.metainfo.xml:239
 msgid ""
 "Two devices, one of them on, and the other off, and two devices discovered "
 "in the network"
@@ -304,7 +304,7 @@ msgstr ""
 "Zwei Geräte, eines davon angeschaltet, das andere ausgeschaltet, und zwei "
 "Geräte, die im Netzwerk gefunden wurden"
 
-#: de.swsnr.turnon.metainfo.xml:247
+#: de.swsnr.turnon.metainfo.xml:243
 msgid ""
 "Two devices, one of them on, and the other off, with network discovery not "
 "enabled"
@@ -312,7 +312,7 @@ msgstr ""
 "Zwei Geräte, eines davon angeschaltet, das andere ausgeschaltet, mit "
 "abgeschalteter Netzwerksuche"
 
-#: de.swsnr.turnon.metainfo.xml:251
+#: de.swsnr.turnon.metainfo.xml:247
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
@@ -320,7 +320,7 @@ msgstr ""
 "Ein Gerät bearbeiten mit Bezeichnung, MAC-Adresse, und einer IP-Adresse zur "
 "Überprüfung des Status"
 
-#: de.swsnr.turnon.metainfo.xml:255
+#: de.swsnr.turnon.metainfo.xml:251
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
@@ -591,51 +591,61 @@ msgctxt "about-dialog.other-app.summary"
 msgid "Your daily wallpaper"
 msgstr "Dein täglicher Bildschirmhintergrund"
 
-#: src/app.rs:296
+#: src/app.rs:297
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "Ein neues Gerät hinzufügen"
 
-#: src/app.rs:307
+#: src/app.rs:308
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr "Gerät anhand dessen Bezeichnung anschalten"
 
-#: src/app.rs:312
+#: src/app.rs:313
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr "BEZEICHNUNG"
 
-#: src/app.rs:323
+#: src/app.rs:324
 msgctxt "option.list-devices.description"
 msgid "List all devices and their status"
 msgstr "Geräte und deren Status auflisten"
 
-#: src/app.rs:335
+#: src/app.rs:336
 msgctxt "option.devices-file.description"
 msgid "Use the given file as storage for devices (for development only)"
 msgstr ""
 "Die angegebene Datei als Speicher für Geräte nutzen (nur zur Entwicklung)"
 
-#: src/app.rs:347
+#: src/app.rs:348
 msgctxt "option.arp-cache-file.description"
 msgid "Use the given file as ARP cache source (for development only)"
 msgstr "Die angegebene Datei als ARP-Tabelle nutzen (nur zur Entwicklung)"
 
-#: src/app/commandline.rs:31
+#: src/app/commandline.rs:33
+#, fuzzy
+#| msgctxt "option.turn-on-device.message"
+#| msgid "Sent magic packet to mac address %1 of device %2\n"
 msgctxt "option.turn-on-device.message"
-msgid "Sent magic packet to mac address %1 of device %2\n"
+msgid ""
+"Sent magic packet to mac address {device_mac_address} of device "
+"{device_label}\n"
 msgstr "Magisches Paket wurde an die MAC-Adresse %1 des Geräts %2 gesendet\n"
 
-#: src/app/commandline.rs:43
+#: src/app/commandline.rs:49
+#, fuzzy
+#| msgctxt "option.turn-on-device.error"
+#| msgid "Failed to turn on device %1: %2\n"
 msgctxt "option.turn-on-device.error"
-msgid "Failed to turn on device %1: %2\n"
+msgid "Failed to turn on device {device_label}: {error}\n"
 msgstr "Gerät %1 konnte nicht angeschaltet werden: %2\n"
 
-#: src/app/commandline.rs:86
-#, c-format
+#: src/app/commandline.rs:95
+#, fuzzy
+#| msgctxt "option.turn-on-device.error"
+#| msgid "No device found for label %s\n"
 msgctxt "option.turn-on-device.error"
-msgid "No device found for label %s\n"
+msgid "No device found for label {label}\n"
 msgstr "Kein Gerät mit der Bezeichnung %s gefunden\n"
 
 #: src/app/model/device_discovery.rs:202
@@ -643,58 +653,69 @@ msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr "Gefundenes Gerät"
 
-#: src/app/searchprovider.rs:77
+#: src/app/searchprovider.rs:78
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
 msgstr "Magisches Paket wurde gesendet"
 
-#: src/app/searchprovider.rs:83
+#: src/app/searchprovider.rs:85
+#, fuzzy
+#| msgctxt "search-provider.notification.body"
+#| msgid "Sent magic packet to mac address %1 of device %2."
 msgctxt "search-provider.notification.body"
-msgid "Sent magic packet to mac address %1 of device %2."
+msgid ""
+"Sent magic packet to mac address {device_mac_address} of device "
+"{device_label}."
 msgstr "Magisches Paket wurde an die MAC-Adresse %1 des Geräts %2 gesendet."
 
-#: src/app/searchprovider.rs:107
+#: src/app/searchprovider.rs:112
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
 msgstr "Magisches Paket konnte nicht gesendet werden"
 
-#: src/app/searchprovider.rs:113
+#: src/app/searchprovider.rs:119
+#, fuzzy
+#| msgctxt "search-provider.notification.body"
+#| msgid "Failed to send magic packet to mac address %1 of device %2."
 msgctxt "search-provider.notification.body"
-msgid "Failed to send magic packet to mac address %1 of device %2."
+msgid ""
+"Failed to send magic packet to mac address {device_mac_address} of device "
+"{device_label}."
 msgstr ""
 "Magisches Paket konnte nicht an die MAC-Adresse %1 des Geräts %2 gesendet "
 "werden."
 
-#: src/app/widgets/application_window.rs:90
-#, c-format
+#: src/app/widgets/application_window.rs:92
+#, fuzzy
+#| msgctxt "application-window.feedback.toast"
+#| msgid "Sending magic packet to device %s"
 msgctxt "application-window.feedback.toast"
-msgid "Sending magic packet to device %s"
+msgid "Sending magic packet to device {device_label}"
 msgstr "Magisches Paket wird an Gerät %s gesendet"
 
-#: src/app/widgets/application_window.rs:112
-#, c-format
-msgctxt "application-window.feedback.toast"
-msgid "Sent magic packet to device %s"
-msgstr "Magisches Paket wurde an Gerät %s gesendet"
-
-#: src/app/widgets/application_window.rs:126
-#, c-format
-msgctxt "application-window.feedback.toast"
-msgid "Failed to send magic packet to device %s"
-msgstr "Magisches Paket konnte nicht an Gerät %s gesendet werden"
-
 #. Translators: This is Pango markup, be sure to escape appropriately
-#: src/config.rs:48
+#: src/config.rs:58
+#, fuzzy
+#| msgctxt "about-dialog.license-text"
+#| msgid ""
+#| "Copyright Sebastian Wiesner &lt;sebastian@swsnr.de&gt;\n"
+#| "\n"
+#| "Licensed under the terms of the EUPL 1.2. You can find official "
+#| "translations of the license text at <a href=\"%1\">%1</a>.\n"
+#| "\n"
+#| "The full English text follows.\n"
+#| "\n"
+#| "%2"
 msgctxt "about-dialog.license-text"
 msgid ""
-"Copyright Sebastian Wiesner &lt;sebastian@swsnr.de&gt;\n"
+"Copyright {copyright_name} &lt;{copyright_email}&gt;\n"
 "\n"
 "Licensed under the terms of the EUPL 1.2. You can find official translations "
-"of the license text at <a href=\"%1\">%1</a>.\n"
+"of the license text at <a href=\"{translations}\">{translations}</a>.\n"
 "\n"
 "The full English text follows.\n"
 "\n"
-"%2"
+"{license_text}"
 msgstr ""
 "Copyright Sebastian Wiesner &lt;sebastian@swsnr.de&gt;\n"
 "\n"
@@ -704,6 +725,16 @@ msgstr ""
 "Es folgt der vollständige englische Text.\n"
 "\n"
 "%2"
+
+#, c-format
+#~ msgctxt "application-window.feedback.toast"
+#~ msgid "Sent magic packet to device %s"
+#~ msgstr "Magisches Paket wurde an Gerät %s gesendet"
+
+#, c-format
+#~ msgctxt "application-window.feedback.toast"
+#~ msgid "Failed to send magic packet to device %s"
+#~ msgstr "Magisches Paket konnte nicht an Gerät %s gesendet werden"
 
 #~ msgctxt "application-window.action.win.add-device.tooltip"
 #~ msgid "Add a new device"
