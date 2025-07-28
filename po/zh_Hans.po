@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-05-23 15:58+0000\n"
+"PO-Revision-Date: 2025-07-28 02:09+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
@@ -571,30 +571,21 @@ msgid "Use the given file as ARP cache source (for development only)"
 msgstr "使用给定的文件作为 ARP 缓存源（仅用于开发）"
 
 #: src/app/commandline.rs:33
-#, fuzzy
-#| msgctxt "option.turn-on-device.message"
-#| msgid "Sent magic packet to mac address %1 of device %2\n"
 msgctxt "option.turn-on-device.message"
 msgid ""
 "Sent magic packet to mac address {device_mac_address} of device "
 "{device_label}\n"
-msgstr "已将魔法数据包发送到设备 %2 的 Mac 地址 %1\n"
+msgstr "已将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}\n"
 
 #: src/app/commandline.rs:49
-#, fuzzy
-#| msgctxt "option.turn-on-device.error"
-#| msgid "Failed to turn on device %1: %2\n"
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device {device_label}: {error}\n"
-msgstr "无法打开设备 %1：%2\n"
+msgstr "无法打开设备 {device_label}：{error}\n"
 
 #: src/app/commandline.rs:95
-#, fuzzy
-#| msgctxt "option.turn-on-device.error"
-#| msgid "No device found for label %s\n"
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label {label}\n"
-msgstr "未找到标签 %s 的设备\n"
+msgstr "未找到标签 {label} 的设备\n"
 
 #: src/app/model/device_discovery.rs:202
 msgctxt "discovered-device.label"
@@ -607,14 +598,11 @@ msgid "Sent magic packet"
 msgstr "已发送魔法数据包"
 
 #: src/app/searchprovider.rs:85
-#, fuzzy
-#| msgctxt "search-provider.notification.body"
-#| msgid "Sent magic packet to mac address %1 of device %2."
 msgctxt "search-provider.notification.body"
 msgid ""
 "Sent magic packet to mac address {device_mac_address} of device "
 "{device_label}."
-msgstr "已将魔法数据包发送到设备 %2 的 Mac 地址 %1。"
+msgstr "已将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}。"
 
 #: src/app/searchprovider.rs:112
 msgctxt "search-provider.notification.title"
@@ -622,36 +610,19 @@ msgid "Failed to send magic packet"
 msgstr "无法发送魔法数据包"
 
 #: src/app/searchprovider.rs:119
-#, fuzzy
-#| msgctxt "search-provider.notification.body"
-#| msgid "Failed to send magic packet to mac address %1 of device %2."
 msgctxt "search-provider.notification.body"
 msgid ""
 "Failed to send magic packet to mac address {device_mac_address} of device "
 "{device_label}."
-msgstr "无法将魔法数据包发送到设备 %2 的 Mac 地址 %1。"
+msgstr "无法将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}。"
 
 #: src/app/widgets/application_window.rs:92
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sending magic packet to device %s"
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device {device_label}"
-msgstr "正在向设备 %s 发送魔法数据包"
+msgstr "正在向设备 {device_label} 发送魔法数据包"
 
 #. Translators: This is Pango markup, be sure to escape appropriately
 #: src/config.rs:58
-#, fuzzy
-#| msgctxt "about-dialog.license-text"
-#| msgid ""
-#| "Copyright Sebastian Wiesner &lt;sebastian@swsnr.de&gt;\n"
-#| "\n"
-#| "Licensed under the terms of the EUPL 1.2. You can find official "
-#| "translations of the license text at <a href=\"%1\">%1</a>.\n"
-#| "\n"
-#| "The full English text follows.\n"
-#| "\n"
-#| "%2"
 msgctxt "about-dialog.license-text"
 msgid ""
 "Copyright {copyright_name} &lt;{copyright_email}&gt;\n"
@@ -663,14 +634,14 @@ msgid ""
 "\n"
 "{license_text}"
 msgstr ""
-"版权所有 Sebastian Wiesner &lt;sebastian@swsnr.de&gt;\n"
+"版权所有 {copyright_name} &lt;{copyright_email}&gt;\n"
 "\n"
-"根据 EUPL 1.2 条款授权。您可以在 <a href=\"%1\">%1</a> 找到许可证文本的官方译"
-"本。\n"
+"根据 EUPL 1.2 条款授权。您可以在 <a href=\"{translations}\">{translations}</"
+"a> 找到许可证文本的官方译本。\n"
 "\n"
 "完整的英文文本如下。\n"
 "\n"
-"%2"
+"{license_text}"
 
 #, c-format
 #~ msgctxt "application-window.feedback.toast"
