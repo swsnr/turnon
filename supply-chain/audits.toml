@@ -148,11 +148,26 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "1.0.138 -> 1.0.139"
 
+[[audits.serde_json]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.140 -> 1.0.142"
+
 [[audits.socket2]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.5.7 -> 0.5.8"
 notes = "Only straight-forward wrappers around underlying C/syscall APIs; looks correct, but I didn't audit use of unsafe and correct use of these unsafe APIs."
+
+[[audits.strum]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.27.1 -> 0.27.2"
+
+[[audits.strum_macros]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.27.1 -> 0.27.2"
 
 [[audits.system-deps]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
