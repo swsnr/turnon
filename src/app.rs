@@ -214,7 +214,7 @@ mod imp {
         /// Get application settings.
         ///
         /// Panic if settings weren't loaded yet; only call this after `startup`!
-        fn settings(&self) -> Ref<Settings> {
+        fn settings(&self) -> Ref<'_, Settings> {
             Ref::map(self.settings.borrow(), |v| v.as_ref().unwrap())
         }
 
