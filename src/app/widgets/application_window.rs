@@ -246,17 +246,17 @@ mod imp {
                     };
                     if let Some(current_index) = devices.find(device) {
                         let swap_index = i64::from(current_index) + offset;
-                        if 0 <= swap_index && swap_index < i64::from(devices.n_items()) {
-                            if let Some(device_swapped) =
+                        if 0 <= swap_index
+                            && swap_index < i64::from(devices.n_items())
+                            && let Some(device_swapped) =
                                 devices.item(u32::try_from(swap_index).unwrap())
-                            {
-                                // We remove the other device, not the device being moved; this
-                                // retains the widget for the device being moved in views consuming
-                                // the model, meaning it remains focused, and we can repeatedly
-                                // move the same device to rearrange it.
-                                devices.remove(u32::try_from(swap_index).unwrap());
-                                devices.insert(current_index, &device_swapped);
-                            }
+                        {
+                            // We remove the other device, not the device being moved; this
+                            // retains the widget for the device being moved in views consuming
+                            // the model, meaning it remains focused, and we can repeatedly
+                            // move the same device to rearrange it.
+                            devices.remove(u32::try_from(swap_index).unwrap());
+                            devices.insert(current_index, &device_swapped);
                         }
                     }
                 }

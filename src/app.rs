@@ -377,10 +377,10 @@ mod imp {
         fn dbus_unregister(&self, connection: &DBusConnection, object_path: &str) {
             self.parent_dbus_unregister(connection, object_path);
             glib::info!("Unregistering search provider");
-            if let Some(registration_id) = self.registered_search_provider.replace(None) {
-                if let Err(error) = connection.unregister_object(registration_id) {
-                    glib::warn!("Failed to unregister the search provider DBUS interface: {error}");
-                }
+            if let Some(registration_id) = self.registered_search_provider.replace(None)
+                && let Err(error) = connection.unregister_object(registration_id)
+            {
+                glib::warn!("Failed to unregister the search provider D-Bus interface: {error}");
             }
         }
 
