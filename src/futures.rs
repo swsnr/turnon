@@ -21,5 +21,5 @@ pub async fn future_with_timeout<T>(
                 &format!("Timeout after {}ms", timeout.as_millis()),
             )
         })
-        .and_then(|inner| inner)
+        .flatten()
 }
