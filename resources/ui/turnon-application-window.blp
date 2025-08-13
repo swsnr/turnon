@@ -30,7 +30,20 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
 
       [end]
       MenuButton button_menu {
-        menu-model: main_menu;
+        menu-model: menu {
+          section {
+            item {
+              label: C_("application-window.menu.label", "_Keyboard Shortcuts");
+              action: "win.show-help-overlay";
+            }
+
+            item {
+              label: C_("application-window.menu.label", "_About Turn On");
+              action: "app.about";
+            }
+          }
+        };
+
         icon-name: 'menu-large-symbolic';
         primary: true;
       }
@@ -94,18 +107,4 @@ template $TurnOnApplicationWindow: Adw.ApplicationWindow {
       }
     }
   };
-}
-
-menu main_menu {
-  section {
-    item {
-      label: C_("application-window.menu.label", "_Keyboard Shortcuts");
-      action: "win.show-help-overlay";
-    }
-
-    item {
-      label: C_("application-window.menu.label", "_About Turn On");
-      action: "app.about";
-    }
-  }
 }
