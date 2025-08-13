@@ -19,14 +19,14 @@ modules:
     buildsystem: simple
     sources:
       - type: archive
-        url: https://github.com/casey/just/releases/download/1.40.0/just-1.40.0-aarch64-unknown-linux-musl.tar.gz
-        sha256: d065d0df1a1f99529869fba8a5b3e0a25c1795b9007099b00dfabe29c7c1f7b6
+        url: https://github.com/casey/just/releases/download/1.42.4/just-1.42.4-aarch64-unknown-linux-musl.tar.gz
+        sha256: beb35a4ed1208ffbb0fef26042c65875759a5358b9ee1a7856dec8490dfd4aca
         strip-components: 0
         only-arches:
           - aarch64
       - type: archive
-        url: https://github.com/casey/just/releases/download/1.40.0/just-1.40.0-x86_64-unknown-linux-musl.tar.gz
-        sha256: 181b91d0ceebe8a57723fb648ed2ce1a44d849438ce2e658339df4f8db5f1263
+        url: https://github.com/casey/just/releases/download/1.42.4/just-1.42.4-x86_64-unknown-linux-musl.tar.gz
+        sha256: 678efc1cfbd5fa5a88375daa7e2f3864a049d6d63a0296df925a2ae5f516cb56
         strip-components: 0
         only-arches:
           - x86_64
@@ -39,8 +39,8 @@ modules:
     sources:
       - type: git
         url: https://gitlab.gnome.org/GNOME/blueprint-compiler.git
-        tag: "v0.16.0"
-        commit: "04ef0944db56ab01307a29aaa7303df6067cb3c0"
+        tag: "v0.18.0"
+        commit: "07c9c9df9cd1b6b4454ecba21ee58211e9144a4b"
     cleanup:
       - "*"
   - name: turnon
@@ -48,8 +48,8 @@ modules:
     sources:
       - type: git
         url: https://codeberg.org/swsnr/turnon.git
-        tag: "v2.7.3"
-        commit: "02da3f2279972aaf2d899f1a7cbb117e40d67cf9"
+        tag: "v2.7.4"
+        commit: "b4753233a7216da482e8085a39c1474805b5dc1f"
       - de.swsnr.turnon.cargo-sources.json
     build-commands:
       - install -Dm644 cargo/config .cargo/config.toml
