@@ -476,35 +476,35 @@ msgctxt "application-window.action.app.scan-network.tooltip"
 msgid "Scan the network for devices"
 msgstr "扫描网络中的设备"
 
-#: resources/ui/turnon-application-window.blp:56
-msgctxt "application-window.status-page.title"
-msgid "No devices"
-msgstr "无设备"
-
-#: resources/ui/turnon-application-window.blp:57
-msgctxt "application-window.status-page.description"
-msgid "Add a new device to turn it on."
-msgstr "添加新设备以将其打开。"
-
-#: resources/ui/turnon-application-window.blp:72
-msgctxt "application-window.status-page.button.label"
-msgid "Add new device"
-msgstr "添加新设备"
-
-#: resources/ui/turnon-application-window.blp:82
-msgctxt "application-window.status-page.button.label"
-msgid "Scan network"
-msgstr "扫描网络"
-
-#: resources/ui/turnon-application-window.blp:102
+#: resources/ui/turnon-application-window.blp:36
 msgctxt "application-window.menu.label"
 msgid "_Keyboard Shortcuts"
 msgstr "键盘快捷键(_K)"
 
-#: resources/ui/turnon-application-window.blp:107
+#: resources/ui/turnon-application-window.blp:41
 msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr "关于 Turn On(_A)"
+
+#: resources/ui/turnon-application-window.blp:69
+msgctxt "application-window.status-page.title"
+msgid "No devices"
+msgstr "无设备"
+
+#: resources/ui/turnon-application-window.blp:70
+msgctxt "application-window.status-page.description"
+msgid "Add a new device to turn it on."
+msgstr "添加新设备以将其打开。"
+
+#: resources/ui/turnon-application-window.blp:85
+msgctxt "application-window.status-page.button.label"
+msgid "Add new device"
+msgstr "添加新设备"
+
+#: resources/ui/turnon-application-window.blp:95
+msgctxt "application-window.status-page.button.label"
+msgid "Scan network"
+msgstr "扫描网络"
 
 #: src/app.rs:54
 msgctxt "about-dialog.link.label"
@@ -575,7 +575,8 @@ msgctxt "option.turn-on-device.message"
 msgid ""
 "Sent magic packet to mac address {device_mac_address} of device "
 "{device_label}\n"
-msgstr "已将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}\n"
+msgstr ""
+"已将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}\n"
 
 #: src/app/commandline.rs:49
 msgctxt "option.turn-on-device.error"
@@ -602,7 +603,8 @@ msgctxt "search-provider.notification.body"
 msgid ""
 "Sent magic packet to mac address {device_mac_address} of device "
 "{device_label}."
-msgstr "已将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}。"
+msgstr ""
+"已将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}。"
 
 #: src/app/searchprovider.rs:112
 msgctxt "search-provider.notification.title"
@@ -614,7 +616,8 @@ msgctxt "search-provider.notification.body"
 msgid ""
 "Failed to send magic packet to mac address {device_mac_address} of device "
 "{device_label}."
-msgstr "无法将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}。"
+msgstr ""
+"无法将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}。"
 
 #: src/app/widgets/application_window.rs:92
 msgctxt "application-window.feedback.toast"

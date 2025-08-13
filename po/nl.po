@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
 "PO-Revision-Date: 2025-07-24 19:09+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/"
-"de-swsnr-turnon/de-swsnr-turnon/nl/>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/de-swsnr-"
+"turnon/de-swsnr-turnon/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -512,35 +512,35 @@ msgctxt "application-window.action.app.scan-network.tooltip"
 msgid "Scan the network for devices"
 msgstr "Zoek naar apparaten op het netwerk"
 
-#: resources/ui/turnon-application-window.blp:56
-msgctxt "application-window.status-page.title"
-msgid "No devices"
-msgstr "Er zijn geen apparaten"
-
-#: resources/ui/turnon-application-window.blp:57
-msgctxt "application-window.status-page.description"
-msgid "Add a new device to turn it on."
-msgstr "Voeg een aan te zetten apparaat toe."
-
-#: resources/ui/turnon-application-window.blp:72
-msgctxt "application-window.status-page.button.label"
-msgid "Add new device"
-msgstr "Apparaat toevoegen"
-
-#: resources/ui/turnon-application-window.blp:82
-msgctxt "application-window.status-page.button.label"
-msgid "Scan network"
-msgstr "Netwerk doorzoeken"
-
-#: resources/ui/turnon-application-window.blp:102
+#: resources/ui/turnon-application-window.blp:36
 msgctxt "application-window.menu.label"
 msgid "_Keyboard Shortcuts"
 msgstr "_Sneltoetsen"
 
-#: resources/ui/turnon-application-window.blp:107
+#: resources/ui/turnon-application-window.blp:41
 msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr "Over _Aanzetten"
+
+#: resources/ui/turnon-application-window.blp:69
+msgctxt "application-window.status-page.title"
+msgid "No devices"
+msgstr "Er zijn geen apparaten"
+
+#: resources/ui/turnon-application-window.blp:70
+msgctxt "application-window.status-page.description"
+msgid "Add a new device to turn it on."
+msgstr "Voeg een aan te zetten apparaat toe."
+
+#: resources/ui/turnon-application-window.blp:85
+msgctxt "application-window.status-page.button.label"
+msgid "Add new device"
+msgstr "Apparaat toevoegen"
+
+#: resources/ui/turnon-application-window.blp:95
+msgctxt "application-window.status-page.button.label"
+msgid "Scan network"
+msgstr "Netwerk doorzoeken"
 
 #: src/app.rs:54
 msgctxt "about-dialog.link.label"
@@ -680,8 +680,8 @@ msgstr ""
 "Auteursrecht {copyright_name} &lt;{copyright_email}&gt;\n"
 "\n"
 "Uitgebracht onder de voorwaarden van de EUPL 1.2-licentie. Officiële "
-"vertalingen van de licentievoorwaarden zijn te vinden op <a href="
-"\"{translations}\">{translations}</a>.\n"
+"vertalingen van de licentievoorwaarden zijn te vinden op <a "
+"href=\"{translations}\">{translations}</a>.\n"
 "\n"
 "Hieronder vindt u de Engelstalige tekst.\n"
 "\n"

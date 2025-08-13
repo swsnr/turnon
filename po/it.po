@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
 "PO-Revision-Date: 2025-08-09 15:09+0000\n"
 "Last-Translator: albanobattistella <albanobattistella@noreply.codeberg.org>\n"
-"Language-Team: Italian <https://translate.codeberg.org/projects/"
-"de-swsnr-turnon/de-swsnr-turnon/it/>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/de-swsnr-"
+"turnon/de-swsnr-turnon/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -524,35 +524,35 @@ msgctxt "application-window.action.app.scan-network.tooltip"
 msgid "Scan the network for devices"
 msgstr "Scansiona la rete per i dispositivi"
 
-#: resources/ui/turnon-application-window.blp:56
-msgctxt "application-window.status-page.title"
-msgid "No devices"
-msgstr "Nessun dispositivo"
-
-#: resources/ui/turnon-application-window.blp:57
-msgctxt "application-window.status-page.description"
-msgid "Add a new device to turn it on."
-msgstr "Aggiungi un nuovo dispositivo per attivarlo."
-
-#: resources/ui/turnon-application-window.blp:72
-msgctxt "application-window.status-page.button.label"
-msgid "Add new device"
-msgstr "Aggiungi nuovo dispositivo"
-
-#: resources/ui/turnon-application-window.blp:82
-msgctxt "application-window.status-page.button.label"
-msgid "Scan network"
-msgstr "Scansione di rete"
-
-#: resources/ui/turnon-application-window.blp:102
+#: resources/ui/turnon-application-window.blp:36
 msgctxt "application-window.menu.label"
 msgid "_Keyboard Shortcuts"
 msgstr "_Scorciatoie da tastiera"
 
-#: resources/ui/turnon-application-window.blp:107
+#: resources/ui/turnon-application-window.blp:41
 msgctxt "application-window.menu.label"
 msgid "_About Turn On"
 msgstr "_Informazioni su Turn On"
+
+#: resources/ui/turnon-application-window.blp:69
+msgctxt "application-window.status-page.title"
+msgid "No devices"
+msgstr "Nessun dispositivo"
+
+#: resources/ui/turnon-application-window.blp:70
+msgctxt "application-window.status-page.description"
+msgid "Add a new device to turn it on."
+msgstr "Aggiungi un nuovo dispositivo per attivarlo."
+
+#: resources/ui/turnon-application-window.blp:85
+msgctxt "application-window.status-page.button.label"
+msgid "Add new device"
+msgstr "Aggiungi nuovo dispositivo"
+
+#: resources/ui/turnon-application-window.blp:95
+msgctxt "application-window.status-page.button.label"
+msgid "Scan network"
+msgstr "Scansione di rete"
 
 #: src/app.rs:54
 msgctxt "about-dialog.link.label"
@@ -695,8 +695,8 @@ msgstr ""
 "Copyright {copyright_name} &lt;{copyright_email}&gt;\n"
 "\n"
 "Concesso in licenza secondo i termini della EUPL 1.2. Le traduzioni "
-"ufficiali del testo della licenza sono disponibili all'indirizzo <a href="
-"\"{translations}\">{translations}</a>.\n"
+"ufficiali del testo della licenza sono disponibili all'indirizzo <a "
+"href=\"{translations}\">{translations}</a>.\n"
 "\n"
 "Di seguito il testo completo in inglese.\n"
 "\n"
