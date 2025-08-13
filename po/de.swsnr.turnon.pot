@@ -468,34 +468,34 @@ msgctxt "application-window.action.app.scan-network.tooltip"
 msgid "Scan the network for devices"
 msgstr ""
 
-#: resources/ui/turnon-application-window.blp:56
-msgctxt "application-window.status-page.title"
-msgid "No devices"
-msgstr ""
-
-#: resources/ui/turnon-application-window.blp:57
-msgctxt "application-window.status-page.description"
-msgid "Add a new device to turn it on."
-msgstr ""
-
-#: resources/ui/turnon-application-window.blp:72
-msgctxt "application-window.status-page.button.label"
-msgid "Add new device"
-msgstr ""
-
-#: resources/ui/turnon-application-window.blp:82
-msgctxt "application-window.status-page.button.label"
-msgid "Scan network"
-msgstr ""
-
-#: resources/ui/turnon-application-window.blp:102
+#: resources/ui/turnon-application-window.blp:36
 msgctxt "application-window.menu.label"
 msgid "_Keyboard Shortcuts"
 msgstr ""
 
-#: resources/ui/turnon-application-window.blp:107
+#: resources/ui/turnon-application-window.blp:41
 msgctxt "application-window.menu.label"
 msgid "_About Turn On"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:69
+msgctxt "application-window.status-page.title"
+msgid "No devices"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:70
+msgctxt "application-window.status-page.description"
+msgid "Add a new device to turn it on."
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:85
+msgctxt "application-window.status-page.button.label"
+msgid "Add new device"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:95
+msgctxt "application-window.status-page.button.label"
+msgid "Scan network"
 msgstr ""
 
 #: src/app.rs:54
