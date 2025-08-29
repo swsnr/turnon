@@ -767,6 +767,6 @@ notes = "Trusted by mozilla and bytecode-alliance"
 
 [[trusted.wol]]
 criteria = "safe-to-run"
-user-id = 4372 # Sebastian Wiesner (swsnr)
+user-id = 4372 # swsnr
 start = "2025-03-25"
 end = "2026-03-26"

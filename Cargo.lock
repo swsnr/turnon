@@ -967,9 +967,9 @@ dependencies = [
 
 [[package]]
 name = "wol"
-version = "0.3.1"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2a79dd9fd8e71812bff3b6acd9ebc2a5d1e9ec6245ebd067637201b279ba4dd1"
+checksum = "798a3f4d7a0d179150a0adb1074ffd375815ffac797a893cef81f13add08c163"
 dependencies = [
  "macaddr",
 ]

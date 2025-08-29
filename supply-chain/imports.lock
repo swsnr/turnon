@@ -385,11 +385,10 @@ user-login = "epage"
 user-name = "Ed Page"
 
 [[publisher.wol]]
-version = "0.3.1"
-when = "2025-05-03"
+version = "0.4.0"
+when = "2025-08-29"
 user-id = 4372
 user-login = "swsnr"
-user-name = "Sebastian Wiesner"
 
 [[audits.bytecode-alliance.audits.futures]]
 who = "Joel Dice <joel.dice@gmail.com>"
