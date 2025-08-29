@@ -81,7 +81,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for Device {
-        const NAME: &'static str = "Device";
+        const NAME: &'static str = "TurnOnDevice";
 
         type Type = super::Device;
     }

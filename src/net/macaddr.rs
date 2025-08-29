@@ -16,7 +16,7 @@ use macaddr::MacAddr6;
 ///
 /// Define a MAC address type for glib, by boxing a [`MacAdd6`].
 #[derive(Default, Debug, Copy, Clone, Eq, PartialEq, PartialOrd, Ord, glib::Boxed)]
-#[boxed_type(name = "MacAdd6")]
+#[boxed_type(name = "TurnOnMacAdd6")]
 pub struct MacAddr6Boxed(MacAddr6);
 
 impl From<MacAddr6> for MacAddr6Boxed {

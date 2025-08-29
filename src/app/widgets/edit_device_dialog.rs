@@ -181,7 +181,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for EditDeviceDialog {
-        const NAME: &'static str = "EditDeviceDialog";
+        const NAME: &'static str = "TurnOnEditDeviceDialog";
 
         type Type = super::EditDeviceDialog;
 

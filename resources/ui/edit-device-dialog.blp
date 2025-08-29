@@ -6,7 +6,7 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $EditDeviceDialog: Adw.Dialog {
+template $TurnOnEditDeviceDialog: Adw.Dialog {
   can-close: true;
   title: _("Edit device");
   content-width: 450;
@@ -26,7 +26,7 @@ template $EditDeviceDialog: Adw.Dialog {
           entry-activated => $move_to_next_entry();
 
           [suffix]
-          $ValidationIndicator {
+          $TurnOnValidationIndicator {
             is_valid: bind template.label_valid;
             feedback: C_("edit-device-dialog.entry.label.feedback", "Please provide a label for the device.");
           }
@@ -41,7 +41,7 @@ template $EditDeviceDialog: Adw.Dialog {
           entry-activated => $move_to_next_entry();
 
           [suffix]
-          $ValidationIndicator {
+          $TurnOnValidationIndicator {
             is_valid: bind template.mac_address_valid;
             feedback: C_("edit-device-dialog.entry.mac_address.feedback", "This is no valid 48-bit MAC address.");
           }

@@ -64,7 +64,7 @@ mod imp {
 
     #[glib::object_subclass]
     impl ObjectSubclass for ValidationIndicator {
-        const NAME: &'static str = "ValidationIndicator";
+        const NAME: &'static str = "TurnOnValidationIndicator";
 
         type Type = super::ValidationIndicator;
 
