@@ -4,10 +4,7 @@
 //
 // See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 
-//! Simple MAC address type on top of [`glib::Bytes`].
-//!
-//! While this is not the most efficient approach it allows storing the MAC
-//! address as a glib property.
+//! Boxed MAC address type for use as GLib property.
 
 use std::fmt::Display;
 use std::ops::Deref;
