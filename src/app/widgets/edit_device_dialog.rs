@@ -77,7 +77,7 @@ mod imp {
     use gtk::{glib, template_callbacks};
 
     use crate::app::model::Device;
-    use crate::net::MacAddr6Boxed;
+    use crate::net::{MacAddr6Boxed, SocketAddrV4Boxed, WOL_DEFAULT_TARGET_ADDRESS};
 
     use super::super::ValidationIndicator;
 
@@ -105,6 +105,10 @@ mod imp {
         #[property(get)]
         pub mac_address_valid: Cell<bool>,
         #[property(get, set)]
+        pub target_address: RefCell<String>,
+        #[property(get)]
+        pub target_address_valid: Cell<bool>,
+        #[property(get, set)]
         pub host: RefCell<String>,
         #[property(get, default = "invalid-empty")]
         pub host_indicator: RefCell<String>,
@@ -129,9 +133,21 @@ mod imp {
             !text.is_empty() && macaddr::MacAddr::from_str(&text).is_ok()
         }
 
+        fn is_target_address_valid(&self) -> bool {
+            let text = self.target_address.borrow();
+            !text.is_empty() && SocketAddrV4Boxed::from_str(&text).is_ok()
+        }
+
         fn validate_mac_address(&self) {
             self.mac_address_valid.set(self.is_mac_address_valid());
             self.obj().notify_mac_address_valid();
+            self.obj().notify_is_valid();
+        }
+
+        fn validate_target_address(&self) {
+            self.target_address_valid
+                .set(self.is_target_address_valid());
+            self.obj().notify_target_address_valid();
             self.obj().notify_is_valid();
         }
 
@@ -167,6 +183,7 @@ mod imp {
             self.validate_label();
             self.validate_mac_address();
             self.validate_host();
+            self.validate_target_address();
         }
 
         fn is_valid(&self) -> bool {
@@ -194,6 +211,8 @@ mod imp {
                 label_valid: Cell::default(),
                 mac_address: RefCell::default(),
                 mac_address_valid: Cell::default(),
+                target_address: RefCell::default(),
+                target_address_valid: Cell::default(),
                 host: RefCell::default(),
                 host_indicator: RefCell::new("invalid-empty".to_string()),
                 is_valid: (),
@@ -209,19 +228,27 @@ mod imp {
 
             klass.install_action("device.save", None, |dialog, _, _| {
                 if dialog.is_valid() {
-                    // At this point we know that the MAC address is valid, hence we can unwrap
+                    // At this point we know that the addresses are valid, hence we can unwrap
                     let mac_address = MacAddr6Boxed::from_str(&dialog.mac_address()).unwrap();
+                    let target_address =
+                        SocketAddrV4Boxed::from_str(&dialog.target_address()).unwrap();
                     let device = match dialog.device() {
                         Some(device) => {
                             // The dialog edits an existing device, so update its fields.
                             device.set_label(dialog.label());
                             device.set_mac_address(mac_address);
                             device.set_host(dialog.host());
+                            device.set_target_address(target_address);
                             device
                         }
                         None => {
                             // Create a new device if the dialog does not own a device.
-                            Device::new(&dialog.label(), mac_address, &dialog.host())
+                            Device::new(
+                                &dialog.label(),
+                                mac_address,
+                                &dialog.host(),
+                                target_address,
+                            )
                         }
                     };
                     dialog.emit_by_name::<()>("saved", &[&device]);
@@ -258,6 +285,13 @@ mod imp {
                 self.obj().set_label(device.label());
                 self.obj().set_mac_address(device.mac_address().to_string());
                 self.obj().set_host(device.host());
+                self.obj()
+                    .set_target_address(device.target_address().to_string());
+            } else {
+                // If this dialog doesn't edit an existing device, pre-fill a
+                // reasonable default target address.
+                self.obj()
+                    .set_target_address(WOL_DEFAULT_TARGET_ADDRESS.to_string());
             }
             // After initialization, update validation status.
             self.validate_all();
@@ -270,6 +304,9 @@ mod imp {
             });
             self.obj().connect_host_notify(|dialog| {
                 dialog.imp().validate_host();
+            });
+            self.obj().connect_target_address_notify(|dialog| {
+                dialog.imp().validate_target_address();
             });
             self.obj().connect_is_valid_notify(|dialog| {
                 dialog.action_set_enabled("device.save", dialog.is_valid());

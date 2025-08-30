@@ -18,6 +18,8 @@ template $TurnOnEditDeviceDialog: Adw.Dialog {
 
     Adw.PreferencesPage {
       Adw.PreferencesGroup {
+        title: C_("edit-device-dialog.group.title", "Device");
+
         Adw.EntryRow {
           title: C_("edit-device-dialog.entry.label.title", "Device _label");
           tooltip-text: C_("edit-device-dialog.entry.label.tooltip", "A label to recognize the device by");
@@ -53,7 +55,7 @@ template $TurnOnEditDeviceDialog: Adw.Dialog {
           input-hints: no_emoji | no_spellcheck;
           use-underline: true;
           text: bind template.host bidirectional;
-          activates-default: true;
+          entry-activated => $move_to_next_entry();
 
           [suffix]
           Gtk.Stack {
@@ -127,7 +129,29 @@ template $TurnOnEditDeviceDialog: Adw.Dialog {
             }
           }
         }
+      }
 
+      Adw.PreferencesGroup {
+        title: C_("edit-device-dialog.group.title", "Magic packet destination");
+        description: C_("edit-device-dialog.group.description", "Configure the destination the magic packet for this device is sent to.");
+
+        Adw.EntryRow {
+          title: C_("edit-device-dialog.entry.target-address.title", "Target address");
+          tooltip-text: C_("edit-device-dialog.entry.target-address.tooltip", "The target address as IPv4 socket address, i.e. IPv4 address and port");
+          input-hints: no_emoji | no_spellcheck;
+          use-underline: true;
+          text: bind template.target_address bidirectional;
+          activates-default: true;
+
+          [suffix]
+          $TurnOnValidationIndicator {
+            is_valid: bind template.target_address_valid;
+            feedback: C_("edit-device-dialog.entry.label.feedback", "Please provide a valid target address for the device.");
+          }
+        }
+      }
+
+      Adw.PreferencesGroup {
         Gtk.Button save {
           label: _("_Save");
           use-underline: true;
