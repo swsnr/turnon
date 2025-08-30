@@ -6,6 +6,7 @@
 
 use std::fs::File;
 use std::io::{ErrorKind, Result};
+use std::net::SocketAddrV4;
 use std::panic::resume_unwind;
 use std::path::{Path, PathBuf};
 
@@ -16,7 +17,7 @@ use macaddr::MacAddr6;
 use serde::{Deserialize, Serialize};
 
 use crate::config::G_LOG_DOMAIN;
-use crate::net::MacAddr6Boxed;
+use crate::net::{MacAddr6Boxed, SocketAddrV4Boxed, WOL_DEFAULT_TARGET_ADDRESS};
 
 use super::model::Device;
 
@@ -29,6 +30,10 @@ pub struct StoredDevice {
     #[serde(with = "mac_addr6_as_string")]
     pub mac_address: MacAddr6,
     pub host: String,
+    /// The target address.
+    ///
+    /// Optional for compatibility with serialized data from previous releases.
+    pub target_address: Option<SocketAddrV4>,
 }
 
 impl From<StoredDevice> for Device {
@@ -37,6 +42,7 @@ impl From<StoredDevice> for Device {
             &value.label,
             MacAddr6Boxed::from(value.mac_address),
             &value.host,
+            SocketAddrV4Boxed::from(value.target_address.unwrap_or(WOL_DEFAULT_TARGET_ADDRESS)),
         )
     }
 }
@@ -47,6 +53,7 @@ impl From<Device> for StoredDevice {
             label: device.label(),
             host: device.host(),
             mac_address: *device.mac_address(),
+            target_address: Some(*device.target_address()),
         }
     }
 }

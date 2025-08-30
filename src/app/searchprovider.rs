@@ -214,13 +214,18 @@ pub fn register_app_search_provider(
 mod tests {
     use macaddr::MacAddr6;
 
-    use crate::app::model::Device;
+    use crate::{app::model::Device, net::WOL_DEFAULT_TARGET_ADDRESS};
 
     use super::*;
 
     #[test]
     fn device_matches_terms_case_insensitive() {
-        let device = Device::new("Server", MacAddr6::nil().into(), "foo.example.com");
+        let device = Device::new(
+            "Server",
+            MacAddr6::nil().into(),
+            "foo.example.com",
+            WOL_DEFAULT_TARGET_ADDRESS.into(),
+        );
         assert!(matches_terms(&device, &["server"]));
         assert!(matches_terms(&device, &["SERVER"]));
         assert!(matches_terms(&device, &["SeRvEr"]));
@@ -230,7 +235,12 @@ mod tests {
 
     #[test]
     fn device_matches_terms_in_label_and_host() {
-        let device = Device::new("Server", MacAddr6::nil().into(), "foo.example.com");
+        let device = Device::new(
+            "Server",
+            MacAddr6::nil().into(),
+            "foo.example.com",
+            WOL_DEFAULT_TARGET_ADDRESS.into(),
+        );
         assert!(matches_terms(&device, &["Server", "foo"]));
     }
 
@@ -240,6 +250,7 @@ mod tests {
             "Server",
             "a2:35:e4:9e:b4:c3".parse().unwrap(),
             "foo.example.com",
+            WOL_DEFAULT_TARGET_ADDRESS.into(),
         );
         assert!(!matches_terms(&device, &["a2:35"]));
     }

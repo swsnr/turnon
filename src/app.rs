@@ -349,6 +349,22 @@ mod imp {
                 ),
                 None,
             );
+            app.add_main_option(
+                "main-window-height",
+                0.into(),
+                OptionFlags::NONE,
+                OptionArg::Int,
+                &dpgettext2(
+                    None,
+                    "option.main-window-height.description",
+                    "Set the height of the main window (for development only)",
+                ),
+                Some(&dpgettext2(
+                    None,
+                    "option.main-window-height.arg.description",
+                    "HEIGHT",
+                )),
+            );
         }
     }
 
@@ -495,6 +511,11 @@ mod imp {
                 commandline::turn_on_device_by_label(&self.obj(), command_line, &label)
             } else {
                 self.obj().activate();
+                if let Ok(Some(height)) = options.lookup::<i32>("main-window-height") {
+                    glib::debug!("Requesting window height {height} from command line");
+                    let window = self.obj().active_window().unwrap();
+                    window.set_height_request(height);
+                }
                 glib::ExitCode::SUCCESS
             }
         }

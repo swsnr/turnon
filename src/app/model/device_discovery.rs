@@ -11,6 +11,7 @@ use gtk::gio;
 use gtk::gio::prelude::*;
 
 use crate::config::G_LOG_DOMAIN;
+use crate::net::WOL_DEFAULT_TARGET_ADDRESS;
 use crate::net::arpcache::{
     ArpCacheEntryFlags, ArpHardwareType, ArpKnownHardwareType, read_arp_cache_from_path,
 };
@@ -202,6 +203,7 @@ async fn devices_from_arp_cache<P: AsRef<Path> + Send + 'static>(
                 &dpgettext2(None, "discovered-device.label", "Discovered device"),
                 entry.hardware_address.into(),
                 &entry.ip_address.to_string(),
+                WOL_DEFAULT_TARGET_ADDRESS.into(),
             )
         }))
 }

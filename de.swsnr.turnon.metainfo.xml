@@ -37,6 +37,15 @@
 
         Upon release, cargo release will replace it accordingly.
         -->
+        <release version="next" date="9999-01-01">
+            <description>
+                <p>Configure target address for magic packets per device.</p>
+            </description>
+            <issues>
+                <issue url="https://codeberg.org/swsnr/turnon/pulls/133">CB-133</issue>
+            </issues>
+            <url>https://codeberg.org/swsnr/turnon/releases/tag/next</url>
+        </release>
         <release version="2.7.0" date="2025-05-22">
             <description>
                 <p>Change license to European Union Public License 1.2.</p>

@@ -235,6 +235,7 @@ mod imp {
                     &current_device.label(),
                     current_device.mac_address(),
                     &current_device.host(),
+                    current_device.target_address(),
                 ));
                 dialog.connect_saved(glib::clone!(
                     #[weak]
