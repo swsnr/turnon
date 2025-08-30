@@ -189,8 +189,12 @@ build-social-image:
         social-image.png
     oxipng social-image.png
 
+# Run oxipng on all screenshots
+optimize-screenshots:
+    oxipng screenshots/*.png
+
 # Run the app repeatedly to make screenshots
-run-for-screenshots:
+run-for-screenshots: && optimize-screenshots build-social-image
     @# Run app with default settings: Force the in-memory gsettings backend to
     @# block access to standard Gtk settings, and tell Adwaita not to access
     @# portals to prevent it from getting dark mode and accent color from desktop
