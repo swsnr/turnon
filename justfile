@@ -189,13 +189,21 @@ build-social-image:
         social-image.png
     oxipng social-image.png
 
-# Run with default settings to make screenshots
-run-for-screenshot devices_file='screenshots/devices.json':
+# Run the app repeatedly to make screenshots
+run-for-screenshots:
     @# Run app with default settings: Force the in-memory gsettings backend to
     @# block access to standard Gtk settings, and tell Adwaita not to access
     @# portals to prevent it from getting dark mode and accent color from desktop
     @# settings.
     @#
     @# Effectively this makes our app run with default settings.
-    env GSETTINGS_BACKEND=memory ADW_DISABLE_PORTAL=1 \
-        cargo run -- --devices-file '{{devices_file}}' --arp-cache-file screenshots/arp
+    @#
+    @echo -e "\n$(tput bold)Standard window size, fake devices: Screenshot of devices list and discovered devices$(tput sgr0)"
+    @env GSETTINGS_BACKEND=memory ADW_DISABLE_PORTAL=1 \
+        cargo run --quiet -- --devices-file 'screenshots/devices.json' --arp-cache-file screenshots/arp
+    @echo -e "\n$(tput bold)Larger window size, fake devices: Screenshot of edit dialog for first device$(tput sgr0)"
+    @env GSETTINGS_BACKEND=memory ADW_DISABLE_PORTAL=1 \
+        cargo run --quiet -- --devices-file 'screenshots/devices.json' --arp-cache-file screenshots/arp --main-window-height 640
+    @echo -e "\n$(tput bold)Standard window size, no devices: Screenshot of startpage$(tput sgr0)"
+    @env GSETTINGS_BACKEND=memory ADW_DISABLE_PORTAL=1 \
+        cargo run --quiet -- --devices-file /dev/null --arp-cache-file screenshots/arp
