@@ -144,9 +144,49 @@ template $TurnOnEditDeviceDialog: Adw.Dialog {
           activates-default: true;
 
           [suffix]
-          $TurnOnValidationIndicator {
-            is_valid: bind template.target_address_valid;
-            feedback: C_("edit-device-dialog.entry.label.feedback", "Please provide a valid target address for the device.");
+          Gtk.Stack {
+            visible-child-name: bind template.target_address_indicator;
+
+            Gtk.StackPage {
+              name: "invalid";
+
+              child: Gtk.Image {
+                icon-name: "warning-outline-symbolic";
+                tooltip-text: C_("edit-device-dialog.entry.target_address.feedback", "Please provide a valid target socket address for the device.");
+
+                styles [
+                  "error",
+                ]
+              };
+            }
+
+            Gtk.StackPage {
+              name: "ipv4";
+
+              child: Gtk.Label {
+                label: "<b>v4</b>";
+                use-markup: true;
+                tooltip-text: C_("edit-device-dialog.entry.target_address.feedback", "This is a valid IPv4 socket address.");
+
+                styles [
+                  "success",
+                ]
+              };
+            }
+
+            Gtk.StackPage {
+              name: "ipv6";
+
+              child: Gtk.Label {
+                label: "<b>v6</b>";
+                use-markup: true;
+                tooltip-text: C_("edit-device-dialog.entry.target_address.feedback", "This is a valid IPv6 socket address.");
+
+                styles [
+                  "success",
+                ]
+              };
+            }
           }
         }
       }

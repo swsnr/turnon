@@ -20,7 +20,7 @@ use macaddr::MacAddr6;
 
 use crate::config;
 use crate::futures::future_with_timeout;
-use crate::net::SocketAddrV4Boxed;
+use crate::net::SocketAddrBoxed;
 use crate::net::arpcache::{ArpCacheEntry, default_arp_cache_path, read_arp_cache_from_path};
 use crate::net::{PingDestination, ping_address};
 
@@ -90,7 +90,7 @@ impl DebugInfo {
                 "localhost",
                 MacAddr6::nil().into(),
                 "localhost",
-                SocketAddrV4Boxed::default(),
+                SocketAddrBoxed::default(),
             ))
             .chain(
                 devices
