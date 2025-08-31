@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2025-08-31 11:54+0000\n"
+"PO-Revision-Date: 2025-08-31 11:59+0000\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/de/>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,11 +80,12 @@ msgstr "Geräte über die Kommandozeile anschalten."
 
 #: de.swsnr.turnon.metainfo.xml:42
 msgid "Configure target address for magic packets per device."
-msgstr ""
+msgstr "Die Zieladresse für magische Pakete kann pro Gerät konfiguriert werden."
 
 #: de.swsnr.turnon.metainfo.xml:43
 msgid "Support IPv6 target addresses for magic packets."
 msgstr ""
+"IPv6-Adressen können als Zieladressen für magische Pakete genutzt werden."
 
 #: de.swsnr.turnon.metainfo.xml:53
 msgid "Change license to European Union Public License 1.2."
@@ -535,44 +536,34 @@ msgstr "Ziel des magischen Pakets"
 msgctxt "edit-device-dialog.group.description"
 msgid "The destination address the magic packet for this device is sent to."
 msgstr ""
+"Die Zieladresse, an die das magische Paket für dieses Gerät geschickt wird."
 
 #: resources/ui/edit-device-dialog.blp:139
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.target-address.title"
-#| msgid "Target address"
 msgctxt "edit-device-dialog.entry.target-address.title"
 msgid "_Target address"
-msgstr "Zieladresse"
+msgstr "_Zieladresse"
 
 #: resources/ui/edit-device-dialog.blp:140
 msgctxt "edit-device-dialog.entry.target-address.tooltip"
 msgid ""
 "The target address as IPv4 or IPv6 socket address, i.e. IP address and port"
 msgstr ""
+"Die Zieladresse als IPv4 oder IPv6 Socketadresse, i.e. IP-Adresse und Port"
 
 #: resources/ui/edit-device-dialog.blp:155
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.label.feedback"
-#| msgid "Please provide a label for the device."
 msgctxt "edit-device-dialog.entry.target_address.feedback"
 msgid "Please provide a valid target socket address for the device."
-msgstr "Bitte eine Bezeichnung für das Gerät angeben."
+msgstr "Bitte ein gültige Socketadresse als Ziel für dieses Gerät angeben."
 
 #: resources/ui/edit-device-dialog.blp:169
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.host.feedback"
-#| msgid "This is a valid IPv4 address."
 msgctxt "edit-device-dialog.entry.target_address.feedback"
 msgid "This is a valid IPv4 socket address."
-msgstr "Eine gültige IPv4-Adresse."
+msgstr "Eine gültige IPv4-Socketadresse."
 
 #: resources/ui/edit-device-dialog.blp:183
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.host.feedback"
-#| msgid "This is a valid IPv6 address."
 msgctxt "edit-device-dialog.entry.target_address.feedback"
 msgid "This is a valid IPv6 socket address."
-msgstr "Eine gültige IPv6-Adresse."
+msgstr "Eine gültige IPv6-Socketadresse."
 
 #: resources/ui/edit-device-dialog.blp:196
 msgid "_Save"
@@ -684,18 +675,14 @@ msgid "Use the given file as ARP cache source (for development only)"
 msgstr "Die angegebene Datei als ARP-Tabelle nutzen (nur zur Entwicklung)"
 
 #: src/app.rs:360
-#, fuzzy
-#| msgctxt "option.devices-file.description"
-#| msgid "Use the given file as storage for devices (for development only)"
 msgctxt "option.main-window-height.description"
 msgid "Set the height of the main window (for development only)"
-msgstr ""
-"Die angegebene Datei als Speicher für Geräte nutzen (nur zur Entwicklung)"
+msgstr "Die Höhe des Hauptfensters setzen (nur zur Entwicklung)"
 
 #: src/app.rs:365
 msgctxt "option.main-window-height.arg.description"
 msgid "HEIGHT"
-msgstr ""
+msgstr "HÖHE"
 
 #: src/app/commandline.rs:33
 msgctxt "option.turn-on-device.message"
