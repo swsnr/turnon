@@ -21,8 +21,8 @@ pub const WOL_DEFAULT_TARGET_ADDRESS: SocketAddrV4 = SocketAddrV4::new(Ipv4Addr:
 
 /// Send a magic Wake On LAN packet to the given `mac_address`.
 ///
-/// Sends the magic package as UDP package to port 9 on the IPv4 broadcast address.
-pub async fn wol(mac_address: MacAddr6, target_address: SocketAddrV4) -> Result<(), glib::Error> {
+/// Sends the magic package as UDP package to `target_address`.
+pub async fn wol(mac_address: MacAddr6, target_address: SocketAddr) -> Result<(), glib::Error> {
     let socket = gio::Socket::new(
         gio::SocketFamily::Ipv4,
         gio::SocketType::Datagram,

@@ -4,6 +4,7 @@
 //
 // See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 
+use std::net::SocketAddr;
 use std::time::Duration;
 
 use gtk::glib;
@@ -40,7 +41,7 @@ impl Device {
             self.label()
         );
         let wol_timeout = Duration::from_secs(5);
-        future_with_timeout(wol_timeout, wol(*mac_address, *target_address))
+        future_with_timeout(wol_timeout, wol(*mac_address, SocketAddr::V4(*target_address)))
             .await
             .inspect(|()| {
                 glib::info!(
