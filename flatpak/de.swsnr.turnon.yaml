@@ -53,6 +53,6 @@ modules:
       - de.swsnr.turnon.cargo-sources.json
     build-commands:
       - install -Dm644 cargo/config .cargo/config.toml
-      - just compile
+      - just APPID=de.swsnr.turnon compile
       - cargo build --frozen --release --verbose
-      - just DESTPREFIX=/app install
+      - just APPID=de.swsnr.turnon DESTPREFIX=/app install
