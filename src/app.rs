@@ -328,7 +328,7 @@ mod imp {
             app.add_main_option(
                 "devices-file",
                 0.into(),
-                OptionFlags::NONE,
+                OptionFlags::HIDDEN,
                 OptionArg::Filename,
                 &dpgettext2(
                     None,
@@ -340,7 +340,7 @@ mod imp {
             app.add_main_option(
                 "arp-cache-file",
                 0.into(),
-                OptionFlags::NONE,
+                OptionFlags::HIDDEN,
                 OptionArg::Filename,
                 &dpgettext2(
                     None,
@@ -352,7 +352,7 @@ mod imp {
             app.add_main_option(
                 "main-window-height",
                 0.into(),
-                OptionFlags::NONE,
+                OptionFlags::HIDDEN,
                 OptionArg::Int,
                 &dpgettext2(
                     None,
