@@ -1,4 +1,4 @@
-APPID := 'de.swsnr.turnon'
+APPID := 'de.swsnr.turnon.Devel'
 
 # The destination prefix to install files to.  Combines traditional DESTDIR and
 # PREFIX variables; turnon does not encode the prefix into its binary and thus
