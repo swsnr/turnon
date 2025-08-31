@@ -64,7 +64,7 @@ impl Default for EditDeviceDialog {
 mod imp {
 
     use std::cell::{Cell, RefCell};
-    use std::net::IpAddr;
+    use std::net::{IpAddr, SocketAddr};
     use std::str::FromStr;
     use std::sync::LazyLock;
 
@@ -77,7 +77,7 @@ mod imp {
     use gtk::{glib, template_callbacks};
 
     use crate::app::model::Device;
-    use crate::net::{MacAddr6Boxed, SocketAddrV4Boxed, WOL_DEFAULT_TARGET_ADDRESS};
+    use crate::net::{MacAddr6Boxed, SocketAddrBoxed, WOL_DEFAULT_TARGET_ADDRESS};
 
     use super::super::ValidationIndicator;
 
@@ -106,8 +106,8 @@ mod imp {
         pub mac_address_valid: Cell<bool>,
         #[property(get, set)]
         pub target_address: RefCell<String>,
-        #[property(get)]
-        pub target_address_valid: Cell<bool>,
+        #[property(get, default = "invalid")]
+        pub target_address_indicator: RefCell<String>,
         #[property(get, set)]
         pub host: RefCell<String>,
         #[property(get, default = "invalid-empty")]
@@ -133,11 +133,6 @@ mod imp {
             !text.is_empty() && macaddr::MacAddr::from_str(&text).is_ok()
         }
 
-        fn is_target_address_valid(&self) -> bool {
-            let text = self.target_address.borrow();
-            !text.is_empty() && SocketAddrV4Boxed::from_str(&text).is_ok()
-        }
-
         fn validate_mac_address(&self) {
             self.mac_address_valid.set(self.is_mac_address_valid());
             self.obj().notify_mac_address_valid();
@@ -145,9 +140,14 @@ mod imp {
         }
 
         fn validate_target_address(&self) {
-            self.target_address_valid
-                .set(self.is_target_address_valid());
-            self.obj().notify_target_address_valid();
+            let address = self.target_address.borrow();
+            let indicator = match SocketAddr::from_str(&address) {
+                Ok(SocketAddr::V4(_)) => "ipv4",
+                Ok(SocketAddr::V6(_)) => "ipv6",
+                Err(_) => "invalid",
+            };
+            self.target_address_indicator.replace(indicator.to_owned());
+            self.obj().notify_target_address_indicator();
             self.obj().notify_is_valid();
         }
 
@@ -212,7 +212,7 @@ mod imp {
                 mac_address: RefCell::default(),
                 mac_address_valid: Cell::default(),
                 target_address: RefCell::default(),
-                target_address_valid: Cell::default(),
+                target_address_indicator: RefCell::new("invalid".to_string()),
                 host: RefCell::default(),
                 host_indicator: RefCell::new("invalid-empty".to_string()),
                 is_valid: (),
@@ -231,7 +231,7 @@ mod imp {
                     // At this point we know that the addresses are valid, hence we can unwrap
                     let mac_address = MacAddr6Boxed::from_str(&dialog.mac_address()).unwrap();
                     let target_address =
-                        SocketAddrV4Boxed::from_str(&dialog.target_address()).unwrap();
+                        SocketAddrBoxed::from_str(&dialog.target_address()).unwrap();
                     let device = match dialog.device() {
                         Some(device) => {
                             // The dialog edits an existing device, so update its fields.

@@ -40,9 +40,11 @@
         <release version="next" date="9999-01-01">
             <description>
                 <p>Configure target address for magic packets per device.</p>
+                <p>Support IPv6 target addresses for magic packets.</p>
             </description>
             <issues>
                 <issue url="https://codeberg.org/swsnr/turnon/pulls/133">CB-133</issue>
+                <issue url="https://codeberg.org/swsnr/turnon/pulls/134">CB-134</issue>
             </issues>
             <url>https://codeberg.org/swsnr/turnon/releases/tag/next</url>
         </release>

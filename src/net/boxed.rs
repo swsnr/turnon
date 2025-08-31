@@ -7,7 +7,7 @@
 //! Boxed networking type for use as GLib property.
 
 use std::fmt::Display;
-use std::net::{AddrParseError, Ipv4Addr, SocketAddrV4};
+use std::net::{AddrParseError, Ipv4Addr, SocketAddr, SocketAddrV4};
 use std::ops::Deref;
 use std::str::FromStr;
 
@@ -51,42 +51,50 @@ impl Display for MacAddr6Boxed {
 /// Boxed [`SocketAddrV4`].
 ///
 /// Define a IPv4 socket address type for GLib, by boxing a standard Rust
-/// [`SocketAddrV4`].  Unlike Gio's built-in [`gtk::gio::InetSocketAddress`]
-/// this type lets us enforce IPv4 address on type level.
+/// [`SocketAddrV4`].
+///
+/// We use a boxed socket address instead of Gio's `InetSocketAddress` because
+/// Rust has a much nicer API.
 #[derive(Debug, Copy, Clone, Eq, PartialEq, glib::Boxed)]
-#[boxed_type(name = "TurnOnSocketAddrV4")]
-pub struct SocketAddrV4Boxed(SocketAddrV4);
+#[boxed_type(name = "TurnOnSocketAddr")]
+pub struct SocketAddrBoxed(SocketAddr);
 
-impl Default for SocketAddrV4Boxed {
+impl Default for SocketAddrBoxed {
     /// The unspecified IPv4 address and port 0.
     fn default() -> Self {
-        Self(SocketAddrV4::new(Ipv4Addr::UNSPECIFIED, 0))
+        Self(SocketAddrV4::new(Ipv4Addr::UNSPECIFIED, 0).into())
     }
 }
 
-impl From<SocketAddrV4> for SocketAddrV4Boxed {
-    fn from(value: SocketAddrV4) -> Self {
+impl From<SocketAddr> for SocketAddrBoxed {
+    fn from(value: SocketAddr) -> Self {
         Self(value)
     }
 }
 
-impl FromStr for SocketAddrV4Boxed {
-    type Err = AddrParseError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        SocketAddrV4::from_str(s).map(Into::into)
+impl From<SocketAddrV4> for SocketAddrBoxed {
+    fn from(value: SocketAddrV4) -> Self {
+        SocketAddr::from(value).into()
     }
 }
 
-impl Deref for SocketAddrV4Boxed {
-    type Target = SocketAddrV4;
+impl FromStr for SocketAddrBoxed {
+    type Err = AddrParseError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        SocketAddr::from_str(s).map(Into::into)
+    }
+}
+
+impl Deref for SocketAddrBoxed {
+    type Target = SocketAddr;
 
     fn deref(&self) -> &Self::Target {
         &self.0
     }
 }
 
-impl Display for SocketAddrV4Boxed {
+impl Display for SocketAddrBoxed {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         self.0.fmt(f)
     }

@@ -4,14 +4,13 @@
 //
 // See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 
-use std::net::SocketAddr;
 use std::time::Duration;
 
 use gtk::glib;
 
 use crate::config::G_LOG_DOMAIN;
 use crate::futures::future_with_timeout;
-use crate::net::{MacAddr6Boxed, SocketAddrV4Boxed, wol};
+use crate::net::{MacAddr6Boxed, SocketAddrBoxed, wol};
 
 glib::wrapper! {
     pub struct Device(ObjectSubclass<imp::Device>);
@@ -22,7 +21,7 @@ impl Device {
         label: &str,
         mac_address: MacAddr6Boxed,
         host: &str,
-        target_address: SocketAddrV4Boxed,
+        target_address: SocketAddrBoxed,
     ) -> Self {
         glib::Object::builder()
             .property("label", label)
@@ -41,7 +40,7 @@ impl Device {
             self.label()
         );
         let wol_timeout = Duration::from_secs(5);
-        future_with_timeout(wol_timeout, wol(*mac_address, SocketAddr::V4(*target_address)))
+        future_with_timeout(wol_timeout, wol(*mac_address, *target_address))
             .await
             .inspect(|()| {
                 glib::info!(
@@ -71,7 +70,7 @@ mod imp {
     use glib::subclass::prelude::*;
     use gtk::glib;
 
-    use crate::net::{MacAddr6Boxed, SocketAddrV4Boxed};
+    use crate::net::{MacAddr6Boxed, SocketAddrBoxed};
 
     #[derive(Debug, Default, glib::Properties)]
     #[properties(wrapper_type = super::Device)]
@@ -87,7 +86,7 @@ mod imp {
         pub host: RefCell<String>,
         /// The target address to send the magic packet for this device to.
         #[property(get, set)]
-        pub target_address: RefCell<SocketAddrV4Boxed>,
+        pub target_address: RefCell<SocketAddrBoxed>,
     }
 
     #[glib::object_subclass]

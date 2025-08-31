@@ -24,7 +24,10 @@ pub const WOL_DEFAULT_TARGET_ADDRESS: SocketAddrV4 = SocketAddrV4::new(Ipv4Addr:
 /// Sends the magic package as UDP package to `target_address`.
 pub async fn wol(mac_address: MacAddr6, target_address: SocketAddr) -> Result<(), glib::Error> {
     let socket = gio::Socket::new(
-        gio::SocketFamily::Ipv4,
+        match target_address {
+            SocketAddr::V4(_) => gio::SocketFamily::Ipv4,
+            SocketAddr::V6(_) => gio::SocketFamily::Ipv6,
+        },
         gio::SocketType::Datagram,
         gio::SocketProtocol::Udp,
     )?;
@@ -54,7 +57,7 @@ pub async fn wol(mac_address: MacAddr6, target_address: SocketAddr) -> Result<()
 #[allow(clippy::indexing_slicing)]
 mod tests {
     use std::{
-        net::{IpAddr, Ipv4Addr, UdpSocket},
+        net::{IpAddr, Ipv4Addr, Ipv6Addr, UdpSocket},
         time::Duration,
     };
 
@@ -62,13 +65,15 @@ mod tests {
 
     use crate::testutil::block_on_new_main_context;
 
-    #[test]
-    fn send_real_wol_packet() {
-        let server = UdpSocket::bind((Ipv4Addr::LOCALHOST, 0)).unwrap();
+    fn assert_wol_packet(address: IpAddr) {
+        let server = UdpSocket::bind((address, 0)).unwrap();
         server
             .set_read_timeout(Some(Duration::from_secs(1)))
             .unwrap();
         let target_address = server.local_addr().unwrap();
+
+        assert_eq!(target_address.ip(), address);
+        assert!(0 < target_address.port());
 
         // 0x0E is a local MAC address, so it's unlikely to match any actual MAC address of any device on the current system.
         let macaddr = MacAddr6::new(0x0E, 0x12, 0x13, 0x14, 0x15, 0x16);
@@ -79,9 +84,13 @@ mod tests {
         wol::fill_magic_packet(&mut expected_package, macaddr);
 
         let mut buffer = [0; 1024];
-        let (size, remote) = server.recv_from(&mut buffer).unwrap();
-
-        assert_eq!(remote.ip(), IpAddr::V4(Ipv4Addr::LOCALHOST));
+        let size = server.recv(&mut buffer).unwrap();
         assert_eq!(&buffer[..size], expected_package.as_slice());
+    }
+
+    #[test]
+    fn send_real_wol_packet() {
+        assert_wol_packet(Ipv4Addr::LOCALHOST.into());
+        assert_wol_packet(Ipv6Addr::LOCALHOST.into());
     }
 }
