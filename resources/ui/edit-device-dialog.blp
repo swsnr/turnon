@@ -133,11 +133,11 @@ template $TurnOnEditDeviceDialog: Adw.Dialog {
 
       Adw.PreferencesGroup {
         title: C_("edit-device-dialog.group.title", "Magic packet destination");
-        description: C_("edit-device-dialog.group.description", "Configure the destination the magic packet for this device is sent to.");
+        description: C_("edit-device-dialog.group.description", "The destination address the magic packet for this device is sent to.");
 
         Adw.EntryRow {
-          title: C_("edit-device-dialog.entry.target-address.title", "Target address");
-          tooltip-text: C_("edit-device-dialog.entry.target-address.tooltip", "The target address as IPv4 socket address, i.e. IPv4 address and port");
+          title: C_("edit-device-dialog.entry.target-address.title", "_Target address");
+          tooltip-text: C_("edit-device-dialog.entry.target-address.tooltip", "The target address as IPv4 or IPv6 socket address, i.e. IP address and port");
           input-hints: no_emoji | no_spellcheck;
           use-underline: true;
           text: bind template.target_address bidirectional;
