@@ -41,13 +41,47 @@ pub async fn wol(mac_address: MacAddr6, target_address: SocketAddr) -> Result<()
     }
     let mut payload = [0; 102];
     wol::fill_magic_packet(&mut payload, mac_address);
-    let broadcast_and_discard_address =
-        gio::InetSocketAddress::from(SocketAddr::V4(target_address));
     let bytes_sent = socket.send_to(
-        Some(&broadcast_and_discard_address),
+        Some(&gio::InetSocketAddress::from(target_address)),
         payload,
         Cancellable::NONE,
     )?;
     assert!(bytes_sent == payload.len());
     Ok(())
+}
+
+#[cfg(test)]
+#[allow(clippy::indexing_slicing)]
+mod tests {
+    use std::{
+        net::{IpAddr, Ipv4Addr, UdpSocket},
+        time::Duration,
+    };
+
+    use wol::MacAddr6;
+
+    use crate::testutil::block_on_new_main_context;
+
+    #[test]
+    fn send_real_wol_packet() {
+        let server = UdpSocket::bind((Ipv4Addr::LOCALHOST, 0)).unwrap();
+        server
+            .set_read_timeout(Some(Duration::from_secs(1)))
+            .unwrap();
+        let target_address = server.local_addr().unwrap();
+
+        // 0x0E is a local MAC address, so it's unlikely to match any actual MAC address of any device on the current system.
+        let macaddr = MacAddr6::new(0x0E, 0x12, 0x13, 0x14, 0x15, 0x16);
+        let result = block_on_new_main_context(super::wol(macaddr, target_address));
+        assert!(result.is_ok(), "Result: {result:?}");
+
+        let mut expected_package = [0; 102];
+        wol::fill_magic_packet(&mut expected_package, macaddr);
+
+        let mut buffer = [0; 1024];
+        let (size, remote) = server.recv_from(&mut buffer).unwrap();
+
+        assert_eq!(remote.ip(), IpAddr::V4(Ipv4Addr::LOCALHOST));
+        assert_eq!(&buffer[..size], expected_package.as_slice());
+    }
 }
