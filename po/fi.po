@@ -84,26 +84,34 @@ msgid "Turn on devices from the command line."
 msgstr "Käynnistä laitteita komentoriviltä."
 
 #: de.swsnr.turnon.metainfo.xml:42
+msgid "Configure target address for magic packets per device."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:43
+msgid "Support IPv6 target addresses for magic packets."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:53
 msgid "Change license to European Union Public License 1.2."
 msgstr ""
 
-#: de.swsnr.turnon.metainfo.xml:48
+#: de.swsnr.turnon.metainfo.xml:59
 msgid "Correct icons in application."
 msgstr ""
 
-#: de.swsnr.turnon.metainfo.xml:54
+#: de.swsnr.turnon.metainfo.xml:65
 msgid "Probe reachable devices for web interfaces."
 msgstr ""
 
-#: de.swsnr.turnon.metainfo.xml:63
+#: de.swsnr.turnon.metainfo.xml:74
 msgid "Update to GNOME 48"
 msgstr ""
 
-#: de.swsnr.turnon.metainfo.xml:69
+#: de.swsnr.turnon.metainfo.xml:80
 msgid "Reorder devices with Alt+Up and Alt+Down"
 msgstr "Järjestä laitteet uudelleen painamalla Alt+Ylös ja Alt+Alas"
 
-#: de.swsnr.turnon.metainfo.xml:78
+#: de.swsnr.turnon.metainfo.xml:89
 msgid ""
 "Refine application icon to make it sharper at smaller sizes, and redesign "
 "symbolic icon."
@@ -111,15 +119,15 @@ msgstr ""
 "Tarkenna sovelluskuvaketta tehdäksesi siitä terävämpi pienemmässä koossa ja "
 "suunnittele symbolinen kuvake uudelleen."
 
-#: de.swsnr.turnon.metainfo.xml:87
+#: de.swsnr.turnon.metainfo.xml:98
 msgid "Save and restore main window state."
 msgstr "Tallenna ja palauta pääikkunan tila."
 
-#: de.swsnr.turnon.metainfo.xml:88
+#: de.swsnr.turnon.metainfo.xml:99
 msgid "Define additional shortcuts."
 msgstr "Määritä lisäpikakuvakkeet."
 
-#: de.swsnr.turnon.metainfo.xml:97
+#: de.swsnr.turnon.metainfo.xml:108
 msgid ""
 "Add new toolbar and start page buttons to enable network scanning. When "
 "network scanning is on show devices discovered in the local network in the "
@@ -129,13 +137,13 @@ msgstr ""
 "aloitussivupainikkeet. Kun verkkoskannaus on käytössä, näytä "
 "paikallisverkosta löydetyt laitteet laiteluettelossa."
 
-#: de.swsnr.turnon.metainfo.xml:101
+#: de.swsnr.turnon.metainfo.xml:112
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr ""
 "Tarkenna sovelluskuvaketta parantaaksesi sen kontrastia tummilla taustoilla."
 
-#: de.swsnr.turnon.metainfo.xml:115
+#: de.swsnr.turnon.metainfo.xml:126
 msgid ""
 "The dialog to add a new device now uses success and error styles for the "
 "validity indicators."
@@ -143,7 +151,7 @@ msgstr ""
 "Uuden laitteen lisäämisikkuna käyttää nyt onnistumis- ja virhetyylejä "
 "kelpoisuusindikaattoreille."
 
-#: de.swsnr.turnon.metainfo.xml:116
+#: de.swsnr.turnon.metainfo.xml:127
 msgid ""
 "Refuse to add a new device if the host name contains a port which is not "
 "permitted at this place."
@@ -151,17 +159,17 @@ msgstr ""
 "Kieltäydy lisäämästä uutta laitetta, jos isäntänimi sisältää portin, joka ei "
 "ole sallittu tässä paikassa."
 
-#: de.swsnr.turnon.metainfo.xml:117 de.swsnr.turnon.metainfo.xml:126
-#: de.swsnr.turnon.metainfo.xml:134
+#: de.swsnr.turnon.metainfo.xml:128 de.swsnr.turnon.metainfo.xml:137
+#: de.swsnr.turnon.metainfo.xml:145
 msgid "Update translations."
 msgstr "Päivitä käännökset."
 
-#: de.swsnr.turnon.metainfo.xml:132
+#: de.swsnr.turnon.metainfo.xml:143
 msgid "Searching for devices via GNOME Shell now ignores case."
 msgstr ""
 "Laitteiden etsiminen GNOME Shellin kautta jättää nyt kirjainkoon huomiotta."
 
-#: de.swsnr.turnon.metainfo.xml:133
+#: de.swsnr.turnon.metainfo.xml:144
 msgid ""
 "Add \"--list-devices\" command line argument to list all devices and their "
 "status."
@@ -169,7 +177,7 @@ msgstr ""
 "Lisää komentoriviargumentti '--list-devices' luetellaksesi kaikki laitteet "
 "ja niiden tilan."
 
-#: de.swsnr.turnon.metainfo.xml:144
+#: de.swsnr.turnon.metainfo.xml:155
 msgid ""
 "The link to translations in application metadata and on Flathub is more "
 "helpful now."
@@ -177,30 +185,30 @@ msgstr ""
 "Linkki käännöksiin sovelluksen metatiedoissa ja Flathubissa on nyt "
 "hyödyllisempi."
 
-#: de.swsnr.turnon.metainfo.xml:150
+#: de.swsnr.turnon.metainfo.xml:161
 msgid "Add Dutch translation, and update existing translations."
 msgstr "Lisää hollanninkielinen käännös ja päivitä olemassa olevat käännökset."
 
-#: de.swsnr.turnon.metainfo.xml:151
+#: de.swsnr.turnon.metainfo.xml:162
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr "'Kytke päälle', säilyy nyt oikein, kun laitetta muokattiin."
 
-#: de.swsnr.turnon.metainfo.xml:152
+#: de.swsnr.turnon.metainfo.xml:163
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr ""
 "'Tietoja 'Kytke päälle':sta' -valintaikkuna tarjoaa nyt viankorjausraportin "
 "vianmääritystä varten."
 
-#: de.swsnr.turnon.metainfo.xml:161
+#: de.swsnr.turnon.metainfo.xml:172
 msgid "Add Hebrew translation."
 msgstr "Lisää hepreankielinen käännös."
 
-#: de.swsnr.turnon.metainfo.xml:167
+#: de.swsnr.turnon.metainfo.xml:178
 msgid "Add Italian translation, and update German translation."
 msgstr "Lisää italialainen käännös ja päivitä saksankielinen käännös."
 
-#: de.swsnr.turnon.metainfo.xml:173
+#: de.swsnr.turnon.metainfo.xml:184
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
@@ -208,14 +216,14 @@ msgstr ""
 "'Kytke päälle' integroituu nyt GNOME-hakuun ja tarjoaa laitteiden "
 "käynnistämisen suoraan hausta."
 
-#: de.swsnr.turnon.metainfo.xml:174
+#: de.swsnr.turnon.metainfo.xml:185
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr ""
 "'Kytke päälle':m käynnistin tarjoaa nyt uuden laitteen lisäämisen "
 "pikavalikkoon."
 
-#: de.swsnr.turnon.metainfo.xml:175
+#: de.swsnr.turnon.metainfo.xml:186
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -224,19 +232,19 @@ msgstr ""
 "turn-on-device'-vaihtoehto kytkee nyt laitteen päälle sen etiketin "
 "perusteella."
 
-#: de.swsnr.turnon.metainfo.xml:185
+#: de.swsnr.turnon.metainfo.xml:196
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "'Kytke päälle' ei enää kaatuu, kun viimeinen laite poistetaan."
 
-#: de.swsnr.turnon.metainfo.xml:186
+#: de.swsnr.turnon.metainfo.xml:197
 msgid "Add German translation, and update application metadata."
 msgstr "Lisää saksankielinen käännös ja päivitä sovelluksen metatiedot."
 
-#: de.swsnr.turnon.metainfo.xml:192
+#: de.swsnr.turnon.metainfo.xml:203
 msgid "Shorten summary in metadata."
 msgstr "Lyhennä metatiedon yhteenvetoa."
 
-#: de.swsnr.turnon.metainfo.xml:198
+#: de.swsnr.turnon.metainfo.xml:209
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -248,11 +256,11 @@ msgstr ""
 "muokkausikkunasta helpompi käyttää näppäimistön kanssa (Enter-näppäimellä "
 "siirrytään nyt seuraavaan kohtaan ja lopulta laite lisätään)."
 
-#: de.swsnr.turnon.metainfo.xml:210
+#: de.swsnr.turnon.metainfo.xml:221
 msgid "Refined app icon."
 msgstr "Tarkennettu sovelluskuvake."
 
-#: de.swsnr.turnon.metainfo.xml:216
+#: de.swsnr.turnon.metainfo.xml:227
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
@@ -260,35 +268,35 @@ msgstr ""
 "Tämä on ensimmäinen julkaisu. Sovellus tukee seuraavia tämän julkaisun "
 "ominaisuuksia:"
 
-#: de.swsnr.turnon.metainfo.xml:218
+#: de.swsnr.turnon.metainfo.xml:229
 msgid "Add new devices"
 msgstr "Lisää uusia laitteita"
 
-#: de.swsnr.turnon.metainfo.xml:219
+#: de.swsnr.turnon.metainfo.xml:230
 msgid "Monitor whether devices are turned on"
 msgstr "Tarkkaile ovatko laitteet päällä vai ei"
 
-#: de.swsnr.turnon.metainfo.xml:220
+#: de.swsnr.turnon.metainfo.xml:231
 msgid "Turn on devices with Wake On LAN"
 msgstr "Käynnistä laitteita Wake On LAN:ia käyttäen"
 
-#: de.swsnr.turnon.metainfo.xml:222
+#: de.swsnr.turnon.metainfo.xml:233
 msgid "This release is missing the following features:"
 msgstr "Tästä julkaisusta puuttuu seuraavat ominaisuudet:"
 
-#: de.swsnr.turnon.metainfo.xml:224
+#: de.swsnr.turnon.metainfo.xml:235
 msgid "Devices can not be edited or removed."
 msgstr "Laitteita ei voi muokata tai poistaa."
 
-#: de.swsnr.turnon.metainfo.xml:225
+#: de.swsnr.turnon.metainfo.xml:236
 msgid "The order of devices cannot be changed."
 msgstr "Laitteiden järjestystä ei voi muuttaa."
 
-#: de.swsnr.turnon.metainfo.xml:226
+#: de.swsnr.turnon.metainfo.xml:237
 msgid "Languages other than English are not supported."
 msgstr "Muita kieliä kuin englantia ei tueta."
 
-#: de.swsnr.turnon.metainfo.xml:239
+#: de.swsnr.turnon.metainfo.xml:250
 msgid ""
 "Two devices, one of them on, and the other off, and two devices discovered "
 "in the network"
@@ -296,7 +304,7 @@ msgstr ""
 "Kaksi laitetta, joista toinen on päällä ja toinen pois päältä, ja kaksi "
 "laitetta löydetty verkosta"
 
-#: de.swsnr.turnon.metainfo.xml:243
+#: de.swsnr.turnon.metainfo.xml:254
 msgid ""
 "Two devices, one of them on, and the other off, with network discovery not "
 "enabled"
@@ -304,7 +312,7 @@ msgstr ""
 "Kaksi laitetta, joista toinen on päällä ja toinen pois päältä, verkon "
 "etsintä ei ole otettu käyttöön"
 
-#: de.swsnr.turnon.metainfo.xml:247
+#: de.swsnr.turnon.metainfo.xml:258
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
@@ -312,7 +320,7 @@ msgstr ""
 "Muokkaa laitetta, jossa on nimi, MAC-osoite ja IP-osoite, jonka avulla voit "
 "tarkistaa tilan"
 
-#: de.swsnr.turnon.metainfo.xml:251
+#: de.swsnr.turnon.metainfo.xml:262
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
@@ -434,54 +442,62 @@ msgstr "Peru"
 msgid "Edit device"
 msgstr "Muokkaa laitetta"
 
-#: resources/ui/edit-device-dialog.blp:22
+#: resources/ui/edit-device-dialog.blp:21
+#, fuzzy
+#| msgctxt "shortcuts group"
+#| msgid "Devices"
+msgctxt "edit-device-dialog.group.title"
+msgid "Device"
+msgstr "Laitteet"
+
+#: resources/ui/edit-device-dialog.blp:24
 msgctxt "edit-device-dialog.entry.label.title"
 msgid "Device _label"
 msgstr "Laitteen _nimike"
 
-#: resources/ui/edit-device-dialog.blp:23
+#: resources/ui/edit-device-dialog.blp:25
 msgctxt "edit-device-dialog.entry.label.tooltip"
 msgid "A label to recognize the device by"
 msgstr "Nimike, josta laite on mahdollista tunnistaa"
 
-#: resources/ui/edit-device-dialog.blp:31
+#: resources/ui/edit-device-dialog.blp:33
 msgctxt "edit-device-dialog.entry.label.feedback"
 msgid "Please provide a label for the device."
 msgstr "Anna nimike laitteelle."
 
-#: resources/ui/edit-device-dialog.blp:36
+#: resources/ui/edit-device-dialog.blp:38
 msgctxt "edit-device-dialog.entry.mac_address.title"
 msgid "_MAC address"
 msgstr "_MAC-osoite"
 
-#: resources/ui/edit-device-dialog.blp:37
+#: resources/ui/edit-device-dialog.blp:39
 msgctxt "edit-device-dialog.entry.mac_address.tooltip"
 msgid "The hardware address for this device"
 msgstr "Laitteen laitteisto-osoite"
 
-#: resources/ui/edit-device-dialog.blp:46
+#: resources/ui/edit-device-dialog.blp:48
 msgctxt "edit-device-dialog.entry.mac_address.feedback"
 msgid "This is no valid 48-bit MAC address."
 msgstr "Tämä ei ole kelvollinen 48-bittinen MAC-osoite."
 
-#: resources/ui/edit-device-dialog.blp:51
+#: resources/ui/edit-device-dialog.blp:53
 msgctxt "edit-device-dialog.entry.host.title"
 msgid "_Host name or IP address"
 msgstr "_Laitenimi tai IP-osoite"
 
-#: resources/ui/edit-device-dialog.blp:52
+#: resources/ui/edit-device-dialog.blp:54
 msgctxt "edit-device-dialog.entry.host.tooltip"
 msgid ""
 "The hostname or IP address of the device to check whether it has woken up"
 msgstr ""
 "Laitteen isäntänimi tai IP-osoite sen tarkistamiseksi, onko se herännyt"
 
-#: resources/ui/edit-device-dialog.blp:67
+#: resources/ui/edit-device-dialog.blp:69
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "Please specify a target host to check availability"
 msgstr "Määritä kohdelaite tarkistaaksesi sen saatavuuden"
 
-#: resources/ui/edit-device-dialog.blp:80
+#: resources/ui/edit-device-dialog.blp:82
 msgctxt "edit-device-dialog.entry.socket-address.feedback"
 msgid ""
 "This looks like a socket address with host and port, but a port is not "
@@ -490,22 +506,69 @@ msgstr ""
 "Tämä vaikuttaa pistoke-osoitteelta, jossa on laitenimi ja portti, mutta "
 "portti ei ole sallittu tässä yhteydessä!"
 
-#: resources/ui/edit-device-dialog.blp:93
+#: resources/ui/edit-device-dialog.blp:95
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This looks like a generic name resolved via DNS."
 msgstr "Tämä vaikuttaa geneeriseltä DNS:n kautta selvitetyltä nimeltä."
 
-#: resources/ui/edit-device-dialog.blp:107
+#: resources/ui/edit-device-dialog.blp:109
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This is a valid IPv4 address."
 msgstr "Tämä on kelvollinen IPv4-osoite."
 
-#: resources/ui/edit-device-dialog.blp:121
+#: resources/ui/edit-device-dialog.blp:123
 msgctxt "edit-device-dialog.entry.host.feedback"
 msgid "This is a valid IPv6 address."
 msgstr "Tämä on kelvollinen IPv6-osoite."
 
-#: resources/ui/edit-device-dialog.blp:132
+#: resources/ui/edit-device-dialog.blp:135
+msgctxt "edit-device-dialog.group.title"
+msgid "Magic packet destination"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:136
+msgctxt "edit-device-dialog.group.description"
+msgid "Configure the destination the magic packet for this device is sent to."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:139
+#, fuzzy
+#| msgctxt "edit-device-dialog.entry.mac_address.title"
+#| msgid "_MAC address"
+msgctxt "edit-device-dialog.entry.target-address.title"
+msgid "Target address"
+msgstr "_MAC-osoite"
+
+#: resources/ui/edit-device-dialog.blp:140
+msgctxt "edit-device-dialog.entry.target-address.tooltip"
+msgid "The target address as IPv4 socket address, i.e. IPv4 address and port"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:155
+#, fuzzy
+#| msgctxt "edit-device-dialog.entry.label.feedback"
+#| msgid "Please provide a label for the device."
+msgctxt "edit-device-dialog.entry.target_address.feedback"
+msgid "Please provide a valid target socket address for the device."
+msgstr "Anna nimike laitteelle."
+
+#: resources/ui/edit-device-dialog.blp:169
+#, fuzzy
+#| msgctxt "edit-device-dialog.entry.host.feedback"
+#| msgid "This is a valid IPv4 address."
+msgctxt "edit-device-dialog.entry.target_address.feedback"
+msgid "This is a valid IPv4 socket address."
+msgstr "Tämä on kelvollinen IPv4-osoite."
+
+#: resources/ui/edit-device-dialog.blp:183
+#, fuzzy
+#| msgctxt "edit-device-dialog.entry.host.feedback"
+#| msgid "This is a valid IPv6 address."
+msgctxt "edit-device-dialog.entry.target_address.feedback"
+msgid "This is a valid IPv6 socket address."
+msgstr "Tämä on kelvollinen IPv6-osoite."
+
+#: resources/ui/edit-device-dialog.blp:196
 msgid "_Save"
 msgstr "_Tallenna"
 
@@ -615,6 +678,20 @@ msgid "Use the given file as ARP cache source (for development only)"
 msgstr ""
 "Käytä annettua tiedostoa ARP-välimuistilähteenä (vain kehitystä varten)"
 
+#: src/app.rs:360
+#, fuzzy
+#| msgctxt "option.devices-file.description"
+#| msgid "Use the given file as storage for devices (for development only)"
+msgctxt "option.main-window-height.description"
+msgid "Set the height of the main window (for development only)"
+msgstr ""
+"Käytä annettua tiedostoa laitteiden tallennustilana (vain kehitystä varten)"
+
+#: src/app.rs:365
+msgctxt "option.main-window-height.arg.description"
+msgid "HEIGHT"
+msgstr ""
+
 #: src/app/commandline.rs:33
 #, fuzzy
 #| msgctxt "option.turn-on-device.message"
@@ -642,7 +719,7 @@ msgctxt "option.turn-on-device.error"
 msgid "No device found for label {label}\n"
 msgstr "Nimikkeellä %s ei löydy laitetta\n"
 
-#: src/app/model/device_discovery.rs:202
+#: src/app/model/device_discovery.rs:203
 msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr "Löydetyt laitteet"
