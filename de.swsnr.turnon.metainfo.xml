@@ -37,7 +37,7 @@
 
         Upon release, cargo release will replace it accordingly.
         -->
-        <release version="next" date="9999-01-01">
+        <release version="2.8.0" date="2025-08-31">
             <description>
                 <p>Configure target address for magic packets per device.</p>
                 <p>Support IPv6 target addresses for magic packets.</p>
@@ -46,7 +46,7 @@
                 <issue url="https://codeberg.org/swsnr/turnon/pulls/133">CB-133</issue>
                 <issue url="https://codeberg.org/swsnr/turnon/pulls/134">CB-134</issue>
             </issues>
-            <url>https://codeberg.org/swsnr/turnon/releases/tag/next</url>
+            <url>https://codeberg.org/swsnr/turnon/releases/tag/v2.8.0</url>
         </release>
         <release version="2.7.0" date="2025-05-22">
             <description>
