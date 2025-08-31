@@ -24,7 +24,7 @@ use super::model::Device;
 /// A stored device.
 ///
 /// Like [`model::Device`], but for serialization.
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct StoredDevice {
     pub label: String,
     #[serde(with = "mac_addr6_as_string")]
@@ -36,25 +36,37 @@ pub struct StoredDevice {
     pub target_address: Option<SocketAddrV4>,
 }
 
-impl From<StoredDevice> for Device {
-    fn from(value: StoredDevice) -> Self {
+impl From<&StoredDevice> for Device {
+    fn from(device: &StoredDevice) -> Self {
         Device::new(
-            &value.label,
-            MacAddr6Boxed::from(value.mac_address),
-            &value.host,
-            SocketAddrV4Boxed::from(value.target_address.unwrap_or(WOL_DEFAULT_TARGET_ADDRESS)),
+            &device.label,
+            MacAddr6Boxed::from(device.mac_address),
+            &device.host,
+            SocketAddrV4Boxed::from(device.target_address.unwrap_or(WOL_DEFAULT_TARGET_ADDRESS)),
         )
     }
 }
 
-impl From<Device> for StoredDevice {
-    fn from(device: Device) -> Self {
+impl From<StoredDevice> for Device {
+    fn from(device: StoredDevice) -> Self {
+        Device::from(&device)
+    }
+}
+
+impl From<&Device> for StoredDevice {
+    fn from(device: &Device) -> Self {
         StoredDevice {
             label: device.label(),
             host: device.host(),
             mac_address: *device.mac_address(),
             target_address: Some(*device.target_address()),
         }
+    }
+}
+
+impl From<Device> for StoredDevice {
+    fn from(device: Device) -> Self {
+        StoredDevice::from(&device)
     }
 }
 
@@ -212,5 +224,95 @@ impl StorageServiceClient {
         // Forcibly overwrite earlier storage requests, to ensure we only store
         // the most recent version of data.
         self.tx.force_send(devices).unwrap();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::net::Ipv4Addr;
+
+    use super::*;
+
+    /// Baseline deserialization: The earliest data format of all Turn On versions.
+    #[test]
+    fn deserialize_device_baseline() {
+        let json = r#"
+{
+    "label": "NAS",
+    "mac_address": "2E:E3:50:A3:E2:F7",
+    "host": "192.168.2.100"
+}"#;
+        let device = serde_json::from_str::<StoredDevice>(json).unwrap();
+        assert_eq!(device.label, "NAS");
+        assert_eq!(device.host, "192.168.2.100");
+        assert_eq!(device.mac_address.to_string(), "2E:E3:50:A3:E2:F7");
+        assert!(device.target_address.is_none());
+    }
+
+    #[test]
+    fn deserialize_with_target_address() {
+        let json = r#"
+{
+    "label": "spam",
+    "mac_address": "2E:E3:60:A3:E2:F7",
+    "host": "foo",
+    "target_address": "192.168.2.3:9"
+}"#;
+        let device = serde_json::from_str::<StoredDevice>(json).unwrap();
+        assert_eq!(device.label, "spam");
+        assert_eq!(device.host, "foo");
+        assert_eq!(device.mac_address.to_string(), "2E:E3:60:A3:E2:F7");
+        assert_eq!(
+            device.target_address,
+            Some(SocketAddrV4::new(Ipv4Addr::new(192, 168, 2, 3), 9))
+        );
+    }
+
+    #[test]
+    fn device_from_stored_device() {
+        let stored_device = StoredDevice {
+            label: "foo-server".into(),
+            mac_address: MacAddr6::new(0x10, 0x11, 0x12, 0x13, 0x14, 0x15),
+            host: "123.456.789.100".into(),
+            target_address: None,
+        };
+        let device = Device::from(&stored_device);
+        assert_eq!(device.label(), stored_device.label);
+        assert_eq!(*device.mac_address(), stored_device.mac_address);
+        assert_eq!(device.host(), stored_device.host);
+        assert_eq!(*device.target_address(), WOL_DEFAULT_TARGET_ADDRESS);
+
+        let target_address = SocketAddrV4::new(Ipv4Addr::new(123, 231, 123, 231), 42);
+        let stored_device = StoredDevice {
+            label: "foo".into(),
+            mac_address: MacAddr6::new(0x20, 0x21, 0x22, 0x23, 0x24, 0x25),
+            host: "foo.example.com".into(),
+            target_address: Some(target_address),
+        };
+        let device = Device::from(&stored_device);
+        assert_eq!(device.label(), stored_device.label);
+        assert_eq!(*device.mac_address(), stored_device.mac_address);
+        assert_eq!(device.host(), stored_device.host);
+        assert_eq!(*device.target_address(), target_address);
+    }
+
+    #[test]
+    fn stored_device_from_device() {
+        let device = Device::new(
+            "foo",
+            MacAddr6::new(0x0a, 0x0b, 0x0c, 0x0a, 0x0b, 0x0c).into(),
+            "spam.example.com",
+            SocketAddrV4::new(Ipv4Addr::new(123, 231, 123, 231), 42).into(),
+        );
+        let stored_device = StoredDevice::from(&device);
+        assert_eq!(
+            stored_device,
+            StoredDevice {
+                label: device.label(),
+                mac_address: *device.mac_address(),
+                host: device.host(),
+                target_address: Some(*device.target_address())
+            }
+        );
     }
 }
