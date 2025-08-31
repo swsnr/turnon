@@ -233,7 +233,7 @@ mod tests {
     use super::*;
 
     #[test]
-    pub fn test_arp_cache_entry_from_str() {
+    pub fn arp_cache_entry_from_str() {
         let entry = ArpCacheEntry::from_str(
             "192.168.178.130  0x1         0x2         b6:a3:b0:48:80:f1     *        wlp4s0
 ",
@@ -249,5 +249,14 @@ mod tests {
             entry.hardware_address,
             MacAddr6::new(0xb6, 0xa3, 0xb0, 0x48, 0x80, 0xf1)
         );
+    }
+
+    #[test]
+    pub fn real_arp_cache_smoke() {
+        let entries = read_arp_cache_from_path(default_arp_cache_path())
+            .unwrap()
+            .collect::<std::io::Result<Vec<_>>>()
+            .unwrap();
+        assert!(!entries.is_empty());
     }
 }
