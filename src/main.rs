@@ -50,6 +50,9 @@ mod dbus;
 mod futures;
 mod net;
 
+#[cfg(test)]
+mod testutil;
+
 use config::G_LOG_DOMAIN;
 
 fn main() -> glib::ExitCode {

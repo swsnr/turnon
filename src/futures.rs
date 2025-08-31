@@ -23,3 +23,27 @@ pub async fn future_with_timeout<T>(
         })
         .flatten()
 }
+
+#[cfg(test)]
+mod tests {
+    use std::time::Duration;
+
+    use gnome_app_utils::futures::future;
+    use gtk::gio::IOErrorEnum;
+
+    use crate::testutil::block_on_new_main_context;
+
+    #[test]
+    fn future_with_timeout() {
+        let result = block_on_new_main_context(super::future_with_timeout(
+            Duration::new(1, 500_000_000),
+            async {
+                future::pending::<()>().await;
+                Ok(1)
+            },
+        ));
+        let error = result.unwrap_err();
+        assert_eq!(error.kind(), Some(IOErrorEnum::TimedOut));
+        assert_eq!(error.message(), "Timeout after 1500ms");
+    }
+}
