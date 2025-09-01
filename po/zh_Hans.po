@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-07-28 02:09+0000\n"
+"PO-Revision-Date: 2025-09-01 18:09+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
@@ -77,11 +77,11 @@ msgstr "从命令行打开设备。"
 
 #: de.swsnr.turnon.metainfo.xml:42
 msgid "Configure target address for magic packets per device."
-msgstr ""
+msgstr "为每个设备配置魔法数据包的目标地址。"
 
 #: de.swsnr.turnon.metainfo.xml:43
 msgid "Support IPv6 target addresses for magic packets."
-msgstr ""
+msgstr "支持魔法数据包的 IPv6 目标地址。"
 
 #: de.swsnr.turnon.metainfo.xml:53
 msgid "Change license to European Union Public License 1.2."
@@ -403,9 +403,6 @@ msgid "Edit device"
 msgstr "编辑设备"
 
 #: resources/ui/edit-device-dialog.blp:21
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Devices"
 msgctxt "edit-device-dialog.group.title"
 msgid "Device"
 msgstr "设备"
@@ -481,50 +478,38 @@ msgstr "这是一个有效的 IPv6 地址。"
 #: resources/ui/edit-device-dialog.blp:135
 msgctxt "edit-device-dialog.group.title"
 msgid "Magic packet destination"
-msgstr ""
+msgstr "魔法数据包目标"
 
 #: resources/ui/edit-device-dialog.blp:136
 msgctxt "edit-device-dialog.group.description"
 msgid "The destination address the magic packet for this device is sent to."
-msgstr ""
+msgstr "此设备的魔法数据包发送到的目标地址。"
 
 #: resources/ui/edit-device-dialog.blp:139
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.mac_address.title"
-#| msgid "_MAC address"
 msgctxt "edit-device-dialog.entry.target-address.title"
 msgid "_Target address"
-msgstr "MAC 地址(_M)"
+msgstr "目标地址(_T)"
 
 #: resources/ui/edit-device-dialog.blp:140
 msgctxt "edit-device-dialog.entry.target-address.tooltip"
 msgid ""
 "The target address as IPv4 or IPv6 socket address, i.e. IP address and port"
-msgstr ""
+msgstr "目标地址为 IPv4 或 IPv6 套接字地址，即 IP 地址和端口"
 
 #: resources/ui/edit-device-dialog.blp:155
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.label.feedback"
-#| msgid "Please provide a label for the device."
 msgctxt "edit-device-dialog.entry.target_address.feedback"
 msgid "Please provide a valid target socket address for the device."
-msgstr "请为设备提供标签。"
+msgstr "请为设备提供有效的目标套接字地址。"
 
 #: resources/ui/edit-device-dialog.blp:169
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.host.feedback"
-#| msgid "This is a valid IPv4 address."
 msgctxt "edit-device-dialog.entry.target_address.feedback"
 msgid "This is a valid IPv4 socket address."
-msgstr "这是一个有效的 IPv4 地址。"
+msgstr "这是一个有效的 IPv4 套接字地址。"
 
 #: resources/ui/edit-device-dialog.blp:183
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.host.feedback"
-#| msgid "This is a valid IPv6 address."
 msgctxt "edit-device-dialog.entry.target_address.feedback"
 msgid "This is a valid IPv6 socket address."
-msgstr "这是一个有效的 IPv6 地址。"
+msgstr "这是一个有效的 IPv6 套接字地址。"
 
 #: resources/ui/edit-device-dialog.blp:196
 msgid "_Save"
@@ -635,17 +620,14 @@ msgid "Use the given file as ARP cache source (for development only)"
 msgstr "使用给定的文件作为 ARP 缓存源（仅用于开发）"
 
 #: src/app.rs:360
-#, fuzzy
-#| msgctxt "option.devices-file.description"
-#| msgid "Use the given file as storage for devices (for development only)"
 msgctxt "option.main-window-height.description"
 msgid "Set the height of the main window (for development only)"
-msgstr "使用给定的文件作为设备存储（仅用于开发）"
+msgstr "设置主窗口的高度（仅用于开发）"
 
 #: src/app.rs:365
 msgctxt "option.main-window-height.arg.description"
 msgid "HEIGHT"
-msgstr ""
+msgstr "高度"
 
 #: src/app/commandline.rs:33
 msgctxt "option.turn-on-device.message"
