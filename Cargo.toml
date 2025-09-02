@@ -39,8 +39,6 @@ formatx = "0.2.4"
 pre-release-commit-message = "Release {{version}}"
 tag-message = "Turn On {{tag_name}}"
 publish = false
-# We push manually only if the release looks good
-push = false
 # The justfile runs all tests before releasing
 verify = false
 sign-tag = true
