@@ -5,7 +5,7 @@ APPID := 'de.swsnr.turnon.Devel'
 # does not need to distinguish between the prefix and the destdir.
 DESTPREFIX := '/app'
 
-xgettext_opts := '--package-name=' + APPID + \
+xgettext_opts := '--package-name=' + trim_end_matches(APPID, '.Devel') + \
     ' --foreign-user --copyright-holder "Sebastian Wiesner <sebastian@swsnr.de>"' + \
     ' --sort-by-file --from-code=UTF-8 --add-comments'
 
