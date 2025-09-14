@@ -75,16 +75,13 @@ pub fn turn_on_device_by_label(
         .and_then(|position| registered_devices.item(position))
         .and_then(|o| o.downcast::<Device>().ok());
     if let Some(device) = device {
-        glib::spawn_future_local(glib::clone!(
-            #[strong]
-            command_line,
-            async move {
-                let exit_code = turn_on_device(&command_line, &device).await;
-                command_line.set_exit_status(exit_code.into());
-                command_line.done();
-                drop(guard);
-            }
-        ));
+        let command_line = command_line.clone();
+        glib::spawn_future_local(async move {
+            let exit_code = turn_on_device(&command_line, &device).await;
+            command_line.set_exit_status(exit_code.into());
+            command_line.done();
+            drop(guard);
+        });
         glib::ExitCode::SUCCESS
     } else {
         command_line.printerr_literal(
@@ -123,47 +120,43 @@ pub fn list_devices(
     command_line: &gio::ApplicationCommandLine,
 ) -> glib::ExitCode {
     let guard = app.hold();
-    glib::spawn_future_local(glib::clone!(
-        #[strong]
-        app,
-        #[strong]
-        command_line,
-        async move {
-            let pinged_devices = ping_all_devices(
-                app.devices()
-                    .registered_devices()
-                    .into_iter()
-                    .map(|o| o.unwrap().downcast().unwrap()),
-            )
-            .await;
-            let (label_width, host_width) =
-                pinged_devices.iter().fold((0, 0), |(lw, hw), (device, _)| {
-                    (
-                        lw.max(device.label().chars().count()),
-                        hw.max(device.host().chars().count()),
-                    )
-                });
-            for (device, result) in pinged_devices {
-                let (color, indicator) = match result {
-                    Ok(duration) => (
-                        "\x1b[1;32m",
-                        Cow::Owned(format!("{:3}ms", duration.as_millis())),
-                    ),
-                    Err(_) => ("\x1b[1;31m", Cow::Borrowed("    ●")),
-                };
-                command_line.print_literal(&format!(
-                    "{}{}\x1b[0m {:label_width$}\t{}\t{:host_width$}\n",
-                    color,
-                    indicator,
-                    device.label(),
-                    device.mac_address(),
-                    device.host()
-                ));
-            }
-            command_line.set_exit_status(glib::ExitCode::SUCCESS.into());
-            command_line.done();
-            drop(guard);
+    let app = app.clone();
+    let command_line = command_line.clone();
+    glib::spawn_future_local(async move {
+        let pinged_devices = ping_all_devices(
+            app.devices()
+                .registered_devices()
+                .into_iter()
+                .map(|o| o.unwrap().downcast().unwrap()),
+        )
+        .await;
+        let (label_width, host_width) =
+            pinged_devices.iter().fold((0, 0), |(lw, hw), (device, _)| {
+                (
+                    lw.max(device.label().chars().count()),
+                    hw.max(device.host().chars().count()),
+                )
+            });
+        for (device, result) in pinged_devices {
+            let (color, indicator) = match result {
+                Ok(duration) => (
+                    "\x1b[1;32m",
+                    Cow::Owned(format!("{:3}ms", duration.as_millis())),
+                ),
+                Err(_) => ("\x1b[1;31m", Cow::Borrowed("    ●")),
+            };
+            command_line.print_literal(&format!(
+                "{}{}\x1b[0m {:label_width$}\t{}\t{:host_width$}\n",
+                color,
+                indicator,
+                device.label(),
+                device.mac_address(),
+                device.host()
+            ));
         }
-    ));
+        command_line.set_exit_status(glib::ExitCode::SUCCESS.into());
+        command_line.done();
+        drop(guard);
+    });
     glib::ExitCode::SUCCESS
 }

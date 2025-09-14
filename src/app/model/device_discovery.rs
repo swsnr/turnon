@@ -106,13 +106,7 @@ mod imp {
         /// Reverse-lookup the DNS names of all currently discovered devices.
         fn reverse_lookup_devices(&self) {
             for device in self.discovered_devices.borrow().iter() {
-                glib::spawn_future_local(glib::clone!(
-                    #[weak]
-                    device,
-                    async move {
-                        resolve_device_host_to_label(device).await;
-                    }
-                ));
+                glib::spawn_future_local(resolve_device_host_to_label(device.clone()));
             }
         }
     }

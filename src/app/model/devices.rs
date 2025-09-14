@@ -57,14 +57,14 @@ mod imp {
             self.parent_constructed();
 
             self.registered_devices.connect_items_changed(glib::clone!(
-                #[strong(rename_to=devices)]
+                #[weak(rename_to=devices)]
                 self.obj(),
                 move |_, position, removed, added| {
                     devices.items_changed(position, removed, added);
                 }
             ));
             self.discovered_devices.connect_items_changed(glib::clone!(
-                #[strong(rename_to=devices)]
+                #[weak(rename_to=devices)]
                 self.obj(),
                 move |_, position, removed, added| {
                     devices.items_changed(

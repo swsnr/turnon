@@ -37,19 +37,6 @@ impl TurnOnApplication {
 
         dialog.set_license_type(gtk::License::Custom);
         dialog.set_license(&crate::config::license_text());
-
-        glib::spawn_future_local(glib::clone!(
-            #[strong(rename_to = devices)]
-            self.devices(),
-            #[weak]
-            dialog,
-            async move {
-                let info = DebugInfo::assemble(devices).await;
-                dialog.set_debug_info(&info.to_string());
-                dialog.set_debug_info_filename(&info.suggested_file_name());
-            }
-        ));
-
         dialog.add_link(
             &dpgettext2(None, "about-dialog.link.label", "Translations"),
             "https://translate.codeberg.org/engage/de-swsnr-turnon/",
@@ -100,6 +87,15 @@ impl TurnOnApplication {
         );
 
         dialog.present(self.active_window().as_ref());
+
+        // Asynchronously fill the debug information for the about dialog
+        let devices = self.devices();
+        glib::spawn_future_local(async move {
+            let info = DebugInfo::assemble(devices).await;
+            glib::info!("Assembled debug information");
+            dialog.set_debug_info(&info.to_string());
+            dialog.set_debug_info_filename(&info.suggested_file_name());
+        });
     }
 
     /// Setup actions.

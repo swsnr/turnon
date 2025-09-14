@@ -209,14 +209,14 @@ mod imp {
                 },
             ));
             row.connect_activated(glib::clone!(
-                #[strong(rename_to=window)]
+                #[weak(rename_to=window)]
                 self.obj(),
                 move |row| window.imp().turn_on_device(row.device())
             ));
             row.connect_deleted(glib::clone!(
                 #[strong]
                 ongoing_monitor,
-                #[strong]
+                #[weak]
                 devices,
                 move |_, device| {
                     glib::info!("Deleting device {}", device.label());
@@ -228,7 +228,7 @@ mod imp {
                 }
             ));
             row.connect_added(glib::clone!(
-                #[strong]
+                #[weak]
                 devices,
                 move |_, device| {
                     glib::info!("Adding device {}", device.label());
@@ -236,7 +236,7 @@ mod imp {
                 }
             ));
             row.connect_moved(glib::clone!(
-                #[strong]
+                #[weak]
                 devices,
                 move |_, device, direction| {
                     let devices = devices.registered_devices();

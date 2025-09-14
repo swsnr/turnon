@@ -4,7 +4,6 @@
 //
 // See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
 
-use glib::clone;
 use gtk::{glib, prelude::ObjectExt};
 
 use crate::app::model::Device;
@@ -35,7 +34,7 @@ impl EditDeviceDialog {
         self.connect_local(
             "saved",
             false,
-            clone!(
+            glib::clone!(
                 #[weak(rename_to=dialog)]
                 &self,
                 #[upgrade_or_default]
