@@ -8,6 +8,7 @@
 
 use formatx::formatx;
 use glib::{Variant, VariantDict, dpgettext2};
+use gnome_app_utils::futures::{FutureExt as _, future};
 use gtk::gio::{
     DBusConnection, DBusError, ListStore, Notification, NotificationPriority, RegistrationId,
 };
@@ -143,12 +144,10 @@ fn get_result_metas(app: &TurnOnApplication, call: &GetResultMetas) -> Variant {
 }
 
 async fn dispatch_method_call(
-    app: Option<TurnOnApplication>,
+    app: TurnOnApplication,
     call: MethodCall,
 ) -> Result<Option<Variant>, glib::Error> {
     use MethodCall::*;
-    let app =
-        app.ok_or_else(|| glib::Error::new(DBusError::Disconnected, "Application is gone"))?;
     match call {
         GetInitialResultSet(c) => {
             glib::trace!("Initial search for terms {:?}", c.terms);
@@ -192,7 +191,15 @@ pub fn register_app_search_provider(
             app,
             move |_, sender, call| {
                 glib::debug!("Sender {sender:?} called method {call:?}");
-                dispatch_method_call(app.clone(), call)
+                if let Some(app) = app {
+                    dispatch_method_call(app, call).right_future()
+                } else {
+                    future::ready(Err(glib::Error::new(
+                        DBusError::Disconnected,
+                        "Application is gone",
+                    )))
+                    .left_future()
+                }
             }
         ))
         .build()?;
