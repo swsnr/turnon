@@ -7,7 +7,7 @@
 //! Utilities for the search provider of Turn On.
 
 use formatx::formatx;
-use glib::{ControlFlow, Variant, VariantDict, dpgettext2};
+use glib::{Variant, VariantDict, dpgettext2};
 use gtk::gio::{
     DBusConnection, DBusError, ListStore, Notification, NotificationPriority, RegistrationId,
 };
@@ -92,19 +92,8 @@ of device {device_label}.",
                 ));
                 let id = glib::uuid_string_random();
                 app.send_notification(Some(&id), &notification);
-                glib::timeout_add_seconds_local(
-                    10,
-                    glib::clone!(
-                        #[weak]
-                        app,
-                        #[upgrade_or]
-                        ControlFlow::Break,
-                        move || {
-                            app.withdraw_notification(&id);
-                            ControlFlow::Break
-                        }
-                    ),
-                );
+                glib::timeout_future_seconds(10).await;
+                app.withdraw_notification(&id);
             } else {
                 let notification = Notification::new(&dpgettext2(
                     None,
