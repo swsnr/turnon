@@ -9,15 +9,15 @@ user-login = "cuviper"
 user-name = "Josh Stone"
 
 [[publisher.cairo-rs]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.cairo-sys-rs]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -29,151 +29,151 @@ user-id = 52553
 user-login = "embark-studios"
 
 [[publisher.gdk-pixbuf]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk-pixbuf-sys]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-sys]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-wayland]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-wayland-sys]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-x11]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-x11-sys]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gio]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio-sys]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-macros]]
-version = "0.21.0"
-when = "2025-07-15"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-sys]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gobject-sys]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.graphene-rs]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.graphene-sys]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gsk4]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gsk4-sys]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gtk4]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gtk4-macros]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.gtk4-sys]]
-version = "0.10.0"
-when = "2025-07-15"
-user-id = 54339
-user-login = "bilelmoussaoui"
-user-name = "Bilal Elmoussaoui"
+version = "0.10.1"
+when = "2025-09-17"
+user-id = 3623
+user-login = "sdroege"
+user-name = "Sebastian Dröge"
 
 [[publisher.hashbrown]]
 version = "0.15.2"
@@ -217,15 +217,15 @@ user-login = "BurntSushi"
 user-name = "Andrew Gallant"
 
 [[publisher.pango]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.pango-sys]]
-version = "0.21.1"
-when = "2025-08-09"
+version = "0.21.2"
+when = "2025-09-17"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
