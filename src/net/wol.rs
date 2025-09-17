@@ -61,11 +61,10 @@ mod tests {
         time::Duration,
     };
 
+    use glib::async_test;
     use wol::MacAddr6;
 
-    use crate::testutil::block_on_new_main_context;
-
-    fn assert_wol_packet(address: IpAddr) {
+    async fn assert_wol_packet(address: IpAddr) {
         let server = UdpSocket::bind((address, 0)).unwrap();
         server
             .set_read_timeout(Some(Duration::from_secs(1)))
@@ -77,7 +76,7 @@ mod tests {
 
         // 0x0E is a local MAC address, so it's unlikely to match any actual MAC address of any device on the current system.
         let macaddr = MacAddr6::new(0x0E, 0x12, 0x13, 0x14, 0x15, 0x16);
-        let result = block_on_new_main_context(super::wol(macaddr, target_address));
+        let result = super::wol(macaddr, target_address).await;
         assert!(result.is_ok(), "Result: {result:?}");
 
         let mut expected_package = [0; 102];
@@ -88,9 +87,9 @@ mod tests {
         assert_eq!(&buffer[..size], expected_package.as_slice());
     }
 
-    #[test]
-    fn send_real_wol_packet() {
-        assert_wol_packet(Ipv4Addr::LOCALHOST.into());
-        assert_wol_packet(Ipv6Addr::LOCALHOST.into());
+    #[async_test]
+    async fn send_real_wol_packet() {
+        assert_wol_packet(Ipv4Addr::LOCALHOST.into()).await;
+        assert_wol_packet(Ipv6Addr::LOCALHOST.into()).await;
     }
 }
