@@ -1,6 +1,6 @@
 id: de.swsnr.turnon
 runtime: org.gnome.Platform
-runtime-version: "48"
+runtime-version: "49"
 sdk: org.gnome.Sdk
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
@@ -32,24 +32,14 @@ modules:
           - x86_64
     build-commands:
       - install -D -m755 just /app/bin/just
-    cleanup:
-      - /bin/just
-  - name: blueprint
-    buildsystem: meson
-    sources:
-      - type: git
-        url: https://gitlab.gnome.org/GNOME/blueprint-compiler.git
-        tag: "v0.18.0"
-        commit: "07c9c9df9cd1b6b4454ecba21ee58211e9144a4b"
-    cleanup:
-      - "*"
+    cleanup: ["*"]
   - name: turnon
     buildsystem: simple
     sources:
       - type: git
         url: https://codeberg.org/swsnr/turnon.git
-        tag: "v2.8.2"
-        commit: "2f1cdd6d1f26b37e078e8864496990517678cb13"
+        tag: "v2.9.0"
+        commit: "fd1f159d8965106ebe4a1b24cde0b0ed4cec5598"
       - de.swsnr.turnon.cargo-sources.json
     build-commands:
       - install -Dm644 cargo/config .cargo/config.toml
