@@ -29,34 +29,23 @@ Adw.ShortcutsDialog shortcuts_dialog {
   }
 
   Adw.ShortcutsSection {
-    title: C_("shortcuts section", "Devices");
-
     Adw.ShortcutsItem {
       title: C_("shortcut item title", "Add a new device");
       accelerator: "<Ctrl>N";
     }
+  }
+
+  Adw.ShortcutsSection {
+    title: C_("shortcuts section", "Device discovery");
 
     Adw.ShortcutsItem {
       title: C_("shortcut item title", "Toggle network scanning");
       action-name: "app.scan-network";
     }
-  }
-
-  Adw.ShortcutsSection {
-    title: C_("shortcuts section", "Discovered device");
 
     Adw.ShortcutsItem {
       title: C_("shortcut item title", "Add as a new device");
       accelerator: "<Ctrl>N";
-    }
-  }
-
-  Adw.ShortcutsSection {
-    title: C_("shortcuts section", "Edit device");
-
-    Adw.ShortcutsItem {
-      title: C_("shortcut item title", "Save device");
-      accelerator: "<Ctrl>S";
     }
   }
 
@@ -67,12 +56,21 @@ Adw.ShortcutsDialog shortcuts_dialog {
       title: C_("shortcut item title", "Turn on device");
       accelerator: "Return";
     }
+  }
 
+  Adw.ShortcutsSection {
     Adw.ShortcutsItem {
       title: C_("shortcut item title", "Edit device");
       accelerator: "<Alt>Return";
     }
 
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Save device");
+      accelerator: "<Ctrl>S";
+    }
+  }
+
+  Adw.ShortcutsSection {
     Adw.ShortcutsItem {
       title: C_("shortcut item title", "Ask to delete device");
       accelerator: "Delete";
@@ -82,7 +80,9 @@ Adw.ShortcutsDialog shortcuts_dialog {
       title: C_("shortcut item title", "Delete device without confirmation");
       accelerator: "<Ctrl>Delete";
     }
+  }
 
+  Adw.ShortcutsSection {
     Adw.ShortcutsItem {
       title: C_("shortcut item title", "Move device upwards");
       accelerator: "<Alt>Up";
