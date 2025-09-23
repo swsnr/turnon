@@ -344,9 +344,9 @@ dependencies = [
 
 [[package]]
 name = "glib"
-version = "0.21.2"
+version = "0.21.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8527f9a139b7ba936fe1cbb8710d7801d145a4e81534f2ae6e6be255b582f3b5"
+checksum = "e1f2cbc4577536c849335878552f42086bfd25a8dcd6f54a18655cf818b20c8f"
 dependencies = [
  "bitflags",
  "futures-channel",
@@ -390,7 +390,7 @@ dependencies = [
 [[package]]
 name = "gnome-app-utils"
 version = "0.1.0"
-source = "git+https://codeberg.org/swsnr/gnome-app-utils.rs.git?rev=ee945bcb72184adec41afa4eb48a0d279807a4fb#ee945bcb72184adec41afa4eb48a0d279807a4fb"
+source = "git+https://codeberg.org/swsnr/gnome-app-utils.rs.git?rev=fa6c00fd9e8d269d47fca8924226002dab37df32#fa6c00fd9e8d269d47fca8924226002dab37df32"
 dependencies = [
  "futures",
  "gdk4-wayland",

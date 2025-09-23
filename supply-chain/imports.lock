@@ -99,8 +99,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib]]
-version = "0.21.2"
-when = "2025-09-17"
+version = "0.21.3"
+when = "2025-09-21"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"

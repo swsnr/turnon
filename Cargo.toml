@@ -22,11 +22,11 @@ publish = false
 rust-version = "1.89"
 
 [dependencies]
-adw = { package = "libadwaita", version = "0.8.0", features = ["v1_7"] }
+adw = { package = "libadwaita", version = "0.8.0", features = ["v1_8"] }
 async-channel = "2.3.1"
 glib = { version = "0.21.0", features = ["log_macros"] }
-gnome-app-utils = { git = "https://codeberg.org/swsnr/gnome-app-utils.rs.git", rev = "ee945bcb72184adec41afa4eb48a0d279807a4fb" }
-gtk = { package = "gtk4", version = "0.10.1", features = ["gnome_48"] }
+gnome-app-utils = { git = "https://codeberg.org/swsnr/gnome-app-utils.rs.git", rev = "fa6c00fd9e8d269d47fca8924226002dab37df32" }
+gtk = { package = "gtk4", version = "0.10.1" }
 macaddr = "1.0.1"
 serde = { version = "1.0.210", features = ["derive"] }
 serde_json = "1.0.128"
