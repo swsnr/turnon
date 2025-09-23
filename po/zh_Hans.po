@@ -76,48 +76,54 @@ msgid "Turn on devices from the command line."
 msgstr "从命令行打开设备。"
 
 #: de.swsnr.turnon.metainfo.xml:42
+#, fuzzy
+#| msgid "Update to GNOME 48"
+msgid "Update to GNOME 49."
+msgstr "更新到 GNOME 48"
+
+#: de.swsnr.turnon.metainfo.xml:51
 msgid "Configure target address for magic packets per device."
 msgstr "为每个设备配置魔法数据包的目标地址。"
 
-#: de.swsnr.turnon.metainfo.xml:43
+#: de.swsnr.turnon.metainfo.xml:52
 msgid "Support IPv6 target addresses for magic packets."
 msgstr "支持魔法数据包的 IPv6 目标地址。"
 
-#: de.swsnr.turnon.metainfo.xml:53
+#: de.swsnr.turnon.metainfo.xml:62
 msgid "Change license to European Union Public License 1.2."
 msgstr "将许可证更改为 European Union Public License 1.2。"
 
-#: de.swsnr.turnon.metainfo.xml:59
+#: de.swsnr.turnon.metainfo.xml:68
 msgid "Correct icons in application."
 msgstr "更正应用程序中的图标。"
 
-#: de.swsnr.turnon.metainfo.xml:65
+#: de.swsnr.turnon.metainfo.xml:74
 msgid "Probe reachable devices for web interfaces."
 msgstr "探测可访问设备以查找 Web 界面。"
 
-#: de.swsnr.turnon.metainfo.xml:74
+#: de.swsnr.turnon.metainfo.xml:83
 msgid "Update to GNOME 48"
 msgstr "更新到 GNOME 48"
 
-#: de.swsnr.turnon.metainfo.xml:80
+#: de.swsnr.turnon.metainfo.xml:89
 msgid "Reorder devices with Alt+Up and Alt+Down"
 msgstr "使用 Alt+Up 和 Alt+Down 重新排序设备"
 
-#: de.swsnr.turnon.metainfo.xml:89
+#: de.swsnr.turnon.metainfo.xml:98
 msgid ""
 "Refine application icon to make it sharper at smaller sizes, and redesign "
 "symbolic icon."
 msgstr "优化应用程序图标，使其在较小尺寸下更清晰，并重新设计符号图标。"
 
-#: de.swsnr.turnon.metainfo.xml:98
+#: de.swsnr.turnon.metainfo.xml:107
 msgid "Save and restore main window state."
 msgstr "保存并恢复主窗口状态。"
 
-#: de.swsnr.turnon.metainfo.xml:99
+#: de.swsnr.turnon.metainfo.xml:108
 msgid "Define additional shortcuts."
 msgstr "定义额外的快捷键。"
 
-#: de.swsnr.turnon.metainfo.xml:108
+#: de.swsnr.turnon.metainfo.xml:117
 msgid ""
 "Add new toolbar and start page buttons to enable network scanning. When "
 "network scanning is on show devices discovered in the local network in the "
@@ -126,77 +132,77 @@ msgstr ""
 "添加新的工具栏和开始页面按钮以启用网络扫描。打开网络扫描时，在设备列表中显示"
 "在本地网络中发现的设备。"
 
-#: de.swsnr.turnon.metainfo.xml:112
+#: de.swsnr.turnon.metainfo.xml:121
 msgid ""
 "Refine the application icon to improve its contrast on dark backgrounds."
 msgstr "优化应用程序图标以提高其在深色背景上的对比度。"
 
-#: de.swsnr.turnon.metainfo.xml:126
+#: de.swsnr.turnon.metainfo.xml:135
 msgid ""
 "The dialog to add a new device now uses success and error styles for the "
 "validity indicators."
 msgstr "添加新设备的对话框现在使用成功和错误样式作为有效性指标。"
 
-#: de.swsnr.turnon.metainfo.xml:127
+#: de.swsnr.turnon.metainfo.xml:136
 msgid ""
 "Refuse to add a new device if the host name contains a port which is not "
 "permitted at this place."
 msgstr "如果主机名包含此处不允许的端口，则拒绝添加新设备。"
 
-#: de.swsnr.turnon.metainfo.xml:128 de.swsnr.turnon.metainfo.xml:137
-#: de.swsnr.turnon.metainfo.xml:145
+#: de.swsnr.turnon.metainfo.xml:137 de.swsnr.turnon.metainfo.xml:146
+#: de.swsnr.turnon.metainfo.xml:154
 msgid "Update translations."
 msgstr "更新翻译。"
 
-#: de.swsnr.turnon.metainfo.xml:143
+#: de.swsnr.turnon.metainfo.xml:152
 msgid "Searching for devices via GNOME Shell now ignores case."
 msgstr "通过 GNOME Shell 搜索设备现在忽略大小写。"
 
-#: de.swsnr.turnon.metainfo.xml:144
+#: de.swsnr.turnon.metainfo.xml:153
 msgid ""
 "Add \"--list-devices\" command line argument to list all devices and their "
 "status."
 msgstr "添加“--list-devices”命令行参数以列出所有设备及其状态。"
 
-#: de.swsnr.turnon.metainfo.xml:155
+#: de.swsnr.turnon.metainfo.xml:164
 msgid ""
 "The link to translations in application metadata and on Flathub is more "
 "helpful now."
 msgstr "应用程序元数据和 Flathub 上的翻译链接现在更有帮助了。"
 
-#: de.swsnr.turnon.metainfo.xml:161
+#: de.swsnr.turnon.metainfo.xml:170
 msgid "Add Dutch translation, and update existing translations."
 msgstr "添加荷兰语翻译，并更新现有翻译。"
 
-#: de.swsnr.turnon.metainfo.xml:162
+#: de.swsnr.turnon.metainfo.xml:171
 msgid "Turn On now correctly persists devices when a device was edited."
 msgstr "Turn On 现在可以在编辑设备时正确保留设备。"
 
-#: de.swsnr.turnon.metainfo.xml:163
+#: de.swsnr.turnon.metainfo.xml:172
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr "“关于 Turn On”对话框现在提供了用于故障诊断的调试报告。"
 
-#: de.swsnr.turnon.metainfo.xml:172
+#: de.swsnr.turnon.metainfo.xml:181
 msgid "Add Hebrew translation."
 msgstr "添加希伯来语翻译。"
 
-#: de.swsnr.turnon.metainfo.xml:178
+#: de.swsnr.turnon.metainfo.xml:187
 msgid "Add Italian translation, and update German translation."
 msgstr "添加意大利语翻译，并更新德语翻译。"
 
-#: de.swsnr.turnon.metainfo.xml:184
+#: de.swsnr.turnon.metainfo.xml:193
 msgid ""
 "Turn On now integrates into GNOME search and offers to turn on devices "
 "directly from the search."
 msgstr "Turn On 现在集成到 GNOME 搜索中并提供直接从搜索打开设备的功能。"
 
-#: de.swsnr.turnon.metainfo.xml:185
+#: de.swsnr.turnon.metainfo.xml:194
 msgid ""
 "The Turn On launcher now offers to add a new device in the context menu."
 msgstr "Turn On 启动器现在可以在右键菜单中添加新设备。"
 
-#: de.swsnr.turnon.metainfo.xml:186
+#: de.swsnr.turnon.metainfo.xml:195
 msgid ""
 "Turn On itself now provides a basic command line interface; in particular "
 "the --turn-on-device option now turns on a device by its label."
@@ -204,19 +210,19 @@ msgstr ""
 "Turn On 本身现在提供了一个基本的命令行界面；特别是 --turn-on-device 选项现在"
 "可以通过其标签打开设备。"
 
-#: de.swsnr.turnon.metainfo.xml:196
+#: de.swsnr.turnon.metainfo.xml:205
 msgid "Turn On no longer crashes when removing the last device."
 msgstr "移除最后一个设备时 Turn On 不再崩溃。"
 
-#: de.swsnr.turnon.metainfo.xml:197
+#: de.swsnr.turnon.metainfo.xml:206
 msgid "Add German translation, and update application metadata."
 msgstr "添加德语翻译，并更新应用程序元数据。"
 
-#: de.swsnr.turnon.metainfo.xml:203
+#: de.swsnr.turnon.metainfo.xml:212
 msgid "Shorten summary in metadata."
 msgstr "缩短元数据中的摘要。"
 
-#: de.swsnr.turnon.metainfo.xml:209
+#: de.swsnr.turnon.metainfo.xml:218
 msgid ""
 "Delete devices from the list of devices, edit existing devices, show early "
 "feedback when turning on a device, and make the dialog to edit devices "
@@ -226,150 +232,199 @@ msgstr ""
 "从设备列表中删除设备，编辑现有设备，在打开设备时显示早期反馈，并使编辑设备的"
 "对话框更易于通过键盘使用（现在按 Enter 键可导航到下一个条目并最终添加设备）。"
 
-#: de.swsnr.turnon.metainfo.xml:221
+#: de.swsnr.turnon.metainfo.xml:230
 msgid "Refined app icon."
 msgstr "优化了应用图标。"
 
-#: de.swsnr.turnon.metainfo.xml:227
+#: de.swsnr.turnon.metainfo.xml:236
 msgid ""
 "This is the initial release. The application supports the following features "
 "in this release:"
 msgstr "这是初始版本。应用程序在此版本中支持以下功能："
 
-#: de.swsnr.turnon.metainfo.xml:229
+#: de.swsnr.turnon.metainfo.xml:238
 msgid "Add new devices"
 msgstr "添加新设备"
 
-#: de.swsnr.turnon.metainfo.xml:230
+#: de.swsnr.turnon.metainfo.xml:239
 msgid "Monitor whether devices are turned on"
 msgstr "监控设备是否打开"
 
-#: de.swsnr.turnon.metainfo.xml:231
+#: de.swsnr.turnon.metainfo.xml:240
 msgid "Turn on devices with Wake On LAN"
 msgstr "使用网络唤醒打开设备"
 
-#: de.swsnr.turnon.metainfo.xml:233
+#: de.swsnr.turnon.metainfo.xml:242
 msgid "This release is missing the following features:"
 msgstr "此版本缺少以下功能："
 
-#: de.swsnr.turnon.metainfo.xml:235
+#: de.swsnr.turnon.metainfo.xml:244
 msgid "Devices can not be edited or removed."
 msgstr "无法编辑或移除设备。"
 
-#: de.swsnr.turnon.metainfo.xml:236
+#: de.swsnr.turnon.metainfo.xml:245
 msgid "The order of devices cannot be changed."
 msgstr "无法更改设备的顺序。"
 
-#: de.swsnr.turnon.metainfo.xml:237
+#: de.swsnr.turnon.metainfo.xml:246
 msgid "Languages other than English are not supported."
 msgstr "不支持英语以外的语言。"
 
-#: de.swsnr.turnon.metainfo.xml:250
+#: de.swsnr.turnon.metainfo.xml:259
 msgid ""
 "Two devices, one of them on, and the other off, and two devices discovered "
 "in the network"
 msgstr "两个设备，一个打开，另一个关闭，还在网络中发现了两个设备"
 
-#: de.swsnr.turnon.metainfo.xml:254
+#: de.swsnr.turnon.metainfo.xml:263
 msgid ""
 "Two devices, one of them on, and the other off, with network discovery not "
 "enabled"
 msgstr "两个设备，一个打开，另一个关闭，未启用网络发现"
 
-#: de.swsnr.turnon.metainfo.xml:258
+#: de.swsnr.turnon.metainfo.xml:267
 msgid ""
 "Edit a device with a name, the MAC address, and an IP address to check the "
 "status with"
 msgstr "编辑设备的名称、MAC 地址和 IP 地址，以便检查设备状态"
 
-#: de.swsnr.turnon.metainfo.xml:262
+#: de.swsnr.turnon.metainfo.xml:271
 msgid ""
 "The empty greeting page with the application icon and a button to add a new "
 "device"
 msgstr "空白的问候页面，其中包含应用程序图标和添加新设备的按钮"
 
-#: resources/gtk/help-overlay.blp:22
-msgctxt "shortcuts group"
+#: resources/shortcuts-dialog.blp:18
+#, fuzzy
+#| msgctxt "shortcuts group"
+#| msgid "General"
+msgctxt "shortcuts section"
 msgid "General"
 msgstr "常规"
 
-#: resources/gtk/help-overlay.blp:25
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:21
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Show shortcuts"
+msgctxt "shortcut item title"
 msgid "Show shortcuts"
 msgstr "显示快捷键"
 
-#: resources/gtk/help-overlay.blp:30
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:26
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Quit"
+msgctxt "shortcut item title"
 msgid "Quit"
 msgstr "退出"
 
-#: resources/gtk/help-overlay.blp:36
-msgctxt "shortcuts group"
+#: resources/shortcuts-dialog.blp:32
+#, fuzzy
+#| msgctxt "shortcuts group"
+#| msgid "Devices"
+msgctxt "shortcuts section"
 msgid "Devices"
 msgstr "设备"
 
-#: resources/gtk/help-overlay.blp:39
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:35
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Add a new device"
+msgctxt "shortcut item title"
 msgid "Add a new device"
 msgstr "添加新设备"
 
-#: resources/gtk/help-overlay.blp:44
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:40
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Toggle network scanning"
+msgctxt "shortcut item title"
 msgid "Toggle network scanning"
 msgstr "切换网络扫描"
 
-#: resources/gtk/help-overlay.blp:50
-msgctxt "shortcuts group"
+#: resources/shortcuts-dialog.blp:46
+#, fuzzy
+#| msgctxt "shortcuts group"
+#| msgid "Discovered device"
+msgctxt "shortcuts section"
 msgid "Discovered device"
 msgstr "已发现设备"
 
-#: resources/gtk/help-overlay.blp:53
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:49
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Add as a new device"
+msgctxt "shortcut item title"
 msgid "Add as a new device"
 msgstr "添加为新设备"
 
-#: resources/gtk/help-overlay.blp:59
-msgctxt "shortcuts group"
+#: resources/shortcuts-dialog.blp:55
+#, fuzzy
+#| msgid "Edit device"
+msgctxt "shortcuts section"
 msgid "Edit device"
 msgstr "编辑设备"
 
-#: resources/gtk/help-overlay.blp:62
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:58
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Save device"
+msgctxt "shortcut item title"
 msgid "Save device"
 msgstr "保存设备"
 
-#: resources/gtk/help-overlay.blp:68
-msgctxt "shortcuts group"
+#: resources/shortcuts-dialog.blp:64
+#, fuzzy
+#| msgctxt "shortcuts group"
+#| msgid "Single device"
+msgctxt "shortcuts section"
 msgid "Single device"
 msgstr "单个设备"
 
-#: resources/gtk/help-overlay.blp:71
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:67
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Turn on device"
+msgctxt "shortcut item title"
 msgid "Turn on device"
 msgstr "打开设备"
 
-#: resources/gtk/help-overlay.blp:76
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:72
+#, fuzzy
+#| msgid "Edit device"
+msgctxt "shortcut item title"
 msgid "Edit device"
 msgstr "编辑设备"
 
-#: resources/gtk/help-overlay.blp:81
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:77
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Ask to delete device"
+msgctxt "shortcut item title"
 msgid "Ask to delete device"
 msgstr "删除设备请求确认"
 
-#: resources/gtk/help-overlay.blp:86
-msgctxt "shortcut description"
-msgid "Immediately delete device without confirmation"
+#: resources/shortcuts-dialog.blp:82
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Immediately delete device without confirmation"
+msgctxt "shortcut item title"
+msgid "Delete device without confirmation"
 msgstr "无需确认立即删除设备"
 
-#: resources/gtk/help-overlay.blp:91
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:87
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Move device upwards"
+msgctxt "shortcut item title"
 msgid "Move device upwards"
 msgstr "向上移动设备"
 
-#: resources/gtk/help-overlay.blp:96
-msgctxt "shortcut description"
+#: resources/shortcuts-dialog.blp:92
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Move device downwards"
+msgctxt "shortcut item title"
 msgid "Move device downwards"
 msgstr "向下移动设备"
 
@@ -555,7 +610,7 @@ msgctxt "application-window.status-page.button.label"
 msgid "Scan network"
 msgstr "扫描网络"
 
-#: src/app.rs:54
+#: src/app.rs:41
 msgctxt "about-dialog.link.label"
 msgid "Translations"
 msgstr "翻译"
@@ -563,68 +618,68 @@ msgstr "翻译"
 #. Credits for the translator to the current language.
 #. Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
 #. Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
-#: src/app.rs:63
+#: src/app.rs:50
 msgid "translator-credits"
 msgstr "Outbreak2096"
 
-#: src/app.rs:68
+#: src/app.rs:55
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Help and inspiration"
 msgstr "帮助和灵感"
 
-#: src/app.rs:81
+#: src/app.rs:68
 msgctxt "about-dialog.acknowledgment-section"
 msgid "Helpful services"
 msgstr "辅助服务"
 
 #. Translators: Use translated app name from https://flathub.org/de/apps/de.swsnr.pictureoftheday
-#: src/app.rs:93
+#: src/app.rs:80
 msgctxt "about-dialog.other-app.name"
 msgid "Picture Of The Day"
 msgstr "今日图片"
 
 #. Translators: Use translated app summary from https://flathub.org/de/apps/de.swsnr.pictureoftheday
-#: src/app.rs:98
+#: src/app.rs:85
 msgctxt "about-dialog.other-app.summary"
 msgid "Your daily wallpaper"
 msgstr "您的每日壁纸"
 
-#: src/app.rs:297
+#: src/app.rs:293
 msgctxt "option.add-device.description"
 msgid "Add a new device"
 msgstr "添加新设备"
 
-#: src/app.rs:308
+#: src/app.rs:304
 msgctxt "option.turn-on-device.description"
 msgid "Turn on a device by its label"
 msgstr "通过标签打开设备"
 
-#: src/app.rs:313
+#: src/app.rs:309
 msgctxt "option.turn-on-device.arg.description"
 msgid "LABEL"
 msgstr "标签"
 
-#: src/app.rs:324
+#: src/app.rs:320
 msgctxt "option.list-devices.description"
 msgid "List all devices and their status"
 msgstr "列出所有设备及其状态"
 
-#: src/app.rs:336
+#: src/app.rs:332
 msgctxt "option.devices-file.description"
 msgid "Use the given file as storage for devices (for development only)"
 msgstr "使用给定的文件作为设备存储（仅用于开发）"
 
-#: src/app.rs:348
+#: src/app.rs:344
 msgctxt "option.arp-cache-file.description"
 msgid "Use the given file as ARP cache source (for development only)"
 msgstr "使用给定的文件作为 ARP 缓存源（仅用于开发）"
 
-#: src/app.rs:360
+#: src/app.rs:356
 msgctxt "option.main-window-height.description"
 msgid "Set the height of the main window (for development only)"
 msgstr "设置主窗口的高度（仅用于开发）"
 
-#: src/app.rs:365
+#: src/app.rs:361
 msgctxt "option.main-window-height.arg.description"
 msgid "HEIGHT"
 msgstr "高度"
@@ -642,22 +697,22 @@ msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device {device_label}: {error}\n"
 msgstr "无法打开设备 {device_label}：{error}\n"
 
-#: src/app/commandline.rs:95
+#: src/app/commandline.rs:92
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label {label}\n"
 msgstr "未找到标签 {label} 的设备\n"
 
-#: src/app/model/device_discovery.rs:203
+#: src/app/model/device_discovery.rs:197
 msgctxt "discovered-device.label"
 msgid "Discovered device"
 msgstr "已发现设备"
 
-#: src/app/searchprovider.rs:78
+#: src/app/searchprovider.rs:79
 msgctxt "search-provider.notification.title"
 msgid "Sent magic packet"
 msgstr "已发送魔法数据包"
 
-#: src/app/searchprovider.rs:85
+#: src/app/searchprovider.rs:86
 msgctxt "search-provider.notification.body"
 msgid ""
 "Sent magic packet to mac address {device_mac_address} of device "
@@ -665,12 +720,12 @@ msgid ""
 msgstr ""
 "已将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}。"
 
-#: src/app/searchprovider.rs:112
+#: src/app/searchprovider.rs:102
 msgctxt "search-provider.notification.title"
 msgid "Failed to send magic packet"
 msgstr "无法发送魔法数据包"
 
-#: src/app/searchprovider.rs:119
+#: src/app/searchprovider.rs:109
 msgctxt "search-provider.notification.body"
 msgid ""
 "Failed to send magic packet to mac address {device_mac_address} of device "
@@ -704,6 +759,14 @@ msgstr ""
 "完整的英文文本如下。\n"
 "\n"
 "{license_text}"
+
+#~ msgctxt "shortcuts group"
+#~ msgid "Edit device"
+#~ msgstr "编辑设备"
+
+#~ msgctxt "shortcut description"
+#~ msgid "Edit device"
+#~ msgstr "编辑设备"
 
 #, c-format
 #~ msgctxt "application-window.feedback.toast"
