@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2025-08-31 11:59+0000\n"
+"PO-Revision-Date: 2025-09-23 18:53+0000\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/de/>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.2\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
@@ -79,10 +79,8 @@ msgid "Turn on devices from the command line."
 msgstr "Geräte über die Kommandozeile anschalten."
 
 #: de.swsnr.turnon.metainfo.xml:42
-#, fuzzy
-#| msgid "Update to GNOME 48"
 msgid "Update to GNOME 49."
-msgstr "Aktualisiert auf GNOME 48"
+msgstr "Aktualisiert auf GNOME 49."
 
 #: de.swsnr.turnon.metainfo.xml:51
 msgid "Configure target address for magic packets per device."
@@ -345,135 +343,86 @@ msgstr ""
 "Hinzufügen eines neues Geräts"
 
 #: resources/shortcuts-dialog.blp:18
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "General"
 msgctxt "shortcuts section"
 msgid "General"
 msgstr "Allgemein"
 
 #: resources/shortcuts-dialog.blp:21
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Show shortcuts"
 msgctxt "shortcut item title"
 msgid "Show shortcuts"
 msgstr "Tastenkürzel anzeigen"
 
 #: resources/shortcuts-dialog.blp:26
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Quit"
 msgctxt "shortcut item title"
 msgid "Quit"
 msgstr "Beenden"
 
 #: resources/shortcuts-dialog.blp:32
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Devices"
 msgctxt "shortcuts section"
 msgid "Devices"
 msgstr "Geräte"
 
 #: resources/shortcuts-dialog.blp:35
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "shortcut item title"
 msgid "Add a new device"
 msgstr "Ein neues Gerät hinzufügen"
 
 #: resources/shortcuts-dialog.blp:40
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Toggle network scanning"
 msgctxt "shortcut item title"
 msgid "Toggle network scanning"
 msgstr "Netzwerksuche umschalten"
 
 #: resources/shortcuts-dialog.blp:46
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Discovered device"
 msgctxt "shortcuts section"
 msgid "Discovered device"
 msgstr "Gefundenes Gerät"
 
 #: resources/shortcuts-dialog.blp:49
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add as a new device"
 msgctxt "shortcut item title"
 msgid "Add as a new device"
 msgstr "Als neues Gerät hinzufügen"
 
 #: resources/shortcuts-dialog.blp:55
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcuts section"
 msgid "Edit device"
 msgstr "Gerät bearbeiten"
 
 #: resources/shortcuts-dialog.blp:58
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Save device"
 msgctxt "shortcut item title"
 msgid "Save device"
 msgstr "Gerät speichern"
 
 #: resources/shortcuts-dialog.blp:64
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Single device"
 msgctxt "shortcuts section"
 msgid "Single device"
 msgstr "Einzelnes Gerät"
 
 #: resources/shortcuts-dialog.blp:67
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Turn on device"
 msgctxt "shortcut item title"
 msgid "Turn on device"
 msgstr "Gerät anschalten"
 
 #: resources/shortcuts-dialog.blp:72
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcut item title"
 msgid "Edit device"
 msgstr "Gerät bearbeiten"
 
 #: resources/shortcuts-dialog.blp:77
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Ask to delete device"
 msgctxt "shortcut item title"
 msgid "Ask to delete device"
 msgstr "Gerät nach Bestätigung löschen"
 
 #: resources/shortcuts-dialog.blp:82
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Immediately delete device without confirmation"
 msgctxt "shortcut item title"
 msgid "Delete device without confirmation"
-msgstr "Gerät sofort ohne Bestätigung löschen"
+msgstr "Gerät ohne Bestätigung löschen"
 
 #: resources/shortcuts-dialog.blp:87
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Move device upwards"
 msgctxt "shortcut item title"
 msgid "Move device upwards"
 msgstr "Gerät nach oben verschieben"
 
 #: resources/shortcuts-dialog.blp:92
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Move device downwards"
 msgctxt "shortcut item title"
 msgid "Move device downwards"
 msgstr "Gerät nach unten verschieben"
