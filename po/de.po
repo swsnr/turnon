@@ -8,10 +8,10 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2025-09-23 18:53+0000\n"
+"PO-Revision-Date: 2025-09-23 19:10+0000\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/de/>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -363,12 +363,9 @@ msgid "Add a new device"
 msgstr "Ein neues Gerät hinzufügen"
 
 #: resources/shortcuts-dialog.blp:39
-#, fuzzy
-#| msgctxt "shortcuts section"
-#| msgid "Devices"
 msgctxt "shortcuts section"
 msgid "Device discovery"
-msgstr "Geräte"
+msgstr "Gerätesuche"
 
 #: resources/shortcuts-dialog.blp:42
 msgctxt "shortcut item title"
