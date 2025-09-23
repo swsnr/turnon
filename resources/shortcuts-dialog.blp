@@ -1,0 +1,96 @@
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+//
+// Licensed under the EUPL
+//
+// See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+using Gtk 4.0;
+using Adw 1;
+
+/** Documentation for all relevant shortcuts of our app.
+ *
+ * Adwaita's main application automatically sets up an action with a shortcut to
+ * show this window if shortcuts-dialog.ui exists.
+ *
+ * see https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1.8/class.Application.html#shortcuts-dialog
+ */
+Adw.ShortcutsDialog shortcuts_dialog {
+  Adw.ShortcutsSection {
+    title: C_("shortcuts section", "General");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Show shortcuts");
+      action-name: "app.shortcuts";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Quit");
+      action-name: "app.quit";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: C_("shortcuts section", "Devices");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Add a new device");
+      accelerator: "<Ctrl>N";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Toggle network scanning");
+      action-name: "app.scan-network";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: C_("shortcuts section", "Discovered device");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Add as a new device");
+      accelerator: "<Ctrl>N";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: C_("shortcuts section", "Edit device");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Save device");
+      accelerator: "<Ctrl>S";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: C_("shortcuts section", "Single device");
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Turn on device");
+      accelerator: "Return";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Edit device");
+      accelerator: "<Alt>Return";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Ask to delete device");
+      accelerator: "Delete";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Delete device without confirmation");
+      accelerator: "<Ctrl>Delete";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Move device upwards");
+      accelerator: "<Alt>Up";
+    }
+
+    Adw.ShortcutsItem {
+      title: C_("shortcut item title", "Move device downwards");
+      accelerator: "<Alt>Down";
+    }
+  }
+}

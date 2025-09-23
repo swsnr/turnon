@@ -28,7 +28,7 @@ configure-app-id:
 # Compile all blueprint files to UI files.
 compile-blueprint:
     mkdir -p build/resources-src/
-    blueprint-compiler batch-compile build/resources-src/ resources resources/**/*.blp
+    blueprint-compiler batch-compile build/resources-src/ resources resources/**/*.blp resources/*.blp
 
 # Compile the translated metainfo file.
 compile-metainfo:
@@ -76,7 +76,7 @@ compile-misc:
 compile: configure-app-id compile-resources compile-desktop-file compile-schemas compile-misc
 
 lint-blueprint:
-    blueprint-compiler format resources/**/*.blp
+    blueprint-compiler format resources/**/*.blp resources/*.blp
 
 lint-rust:
     cargo +stable vet --locked
