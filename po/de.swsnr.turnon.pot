@@ -299,62 +299,52 @@ msgctxt "shortcut item title"
 msgid "Quit"
 msgstr ""
 
-#: resources/shortcuts-dialog.blp:32
-msgctxt "shortcuts section"
-msgid "Devices"
-msgstr ""
-
-#: resources/shortcuts-dialog.blp:35
+#: resources/shortcuts-dialog.blp:33
 msgctxt "shortcut item title"
 msgid "Add a new device"
 msgstr ""
 
-#: resources/shortcuts-dialog.blp:40
+#: resources/shortcuts-dialog.blp:39
+msgctxt "shortcuts section"
+msgid "Device discovery"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:42
 msgctxt "shortcut item title"
 msgid "Toggle network scanning"
 msgstr ""
 
-#: resources/shortcuts-dialog.blp:46
-msgctxt "shortcuts section"
-msgid "Discovered device"
-msgstr ""
-
-#: resources/shortcuts-dialog.blp:49
+#: resources/shortcuts-dialog.blp:47
 msgctxt "shortcut item title"
 msgid "Add as a new device"
 msgstr ""
 
-#: resources/shortcuts-dialog.blp:55
-msgctxt "shortcuts section"
-msgid "Edit device"
-msgstr ""
-
-#: resources/shortcuts-dialog.blp:58
-msgctxt "shortcut item title"
-msgid "Save device"
-msgstr ""
-
-#: resources/shortcuts-dialog.blp:64
+#: resources/shortcuts-dialog.blp:53
 msgctxt "shortcuts section"
 msgid "Single device"
 msgstr ""
 
-#: resources/shortcuts-dialog.blp:67
+#: resources/shortcuts-dialog.blp:56
 msgctxt "shortcut item title"
 msgid "Turn on device"
 msgstr ""
 
-#: resources/shortcuts-dialog.blp:72
+#: resources/shortcuts-dialog.blp:63
 msgctxt "shortcut item title"
 msgid "Edit device"
 msgstr ""
 
-#: resources/shortcuts-dialog.blp:77
+#: resources/shortcuts-dialog.blp:68
+msgctxt "shortcut item title"
+msgid "Save device"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:75
 msgctxt "shortcut item title"
 msgid "Ask to delete device"
 msgstr ""
 
-#: resources/shortcuts-dialog.blp:82
+#: resources/shortcuts-dialog.blp:80
 msgctxt "shortcut item title"
 msgid "Delete device without confirmation"
 msgstr ""
