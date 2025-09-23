@@ -364,15 +364,7 @@ msgctxt "shortcut item title"
 msgid "Quit"
 msgstr "Esci"
 
-#: resources/shortcuts-dialog.blp:32
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Devices"
-msgctxt "shortcuts section"
-msgid "Devices"
-msgstr "Dispositivi"
-
-#: resources/shortcuts-dialog.blp:35
+#: resources/shortcuts-dialog.blp:33
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Add a new device"
@@ -380,7 +372,15 @@ msgctxt "shortcut item title"
 msgid "Add a new device"
 msgstr "Aggiungi un nuovo dispositivo"
 
-#: resources/shortcuts-dialog.blp:40
+#: resources/shortcuts-dialog.blp:39
+#, fuzzy
+#| msgctxt "shortcuts group"
+#| msgid "Devices"
+msgctxt "shortcuts section"
+msgid "Device discovery"
+msgstr "Dispositivi"
+
+#: resources/shortcuts-dialog.blp:42
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Toggle network scanning"
@@ -388,15 +388,7 @@ msgctxt "shortcut item title"
 msgid "Toggle network scanning"
 msgstr "Attiva scansione di rete"
 
-#: resources/shortcuts-dialog.blp:46
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Discovered device"
-msgctxt "shortcuts section"
-msgid "Discovered device"
-msgstr "Trovato dispositivo"
-
-#: resources/shortcuts-dialog.blp:49
+#: resources/shortcuts-dialog.blp:47
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Add as a new device"
@@ -404,22 +396,7 @@ msgctxt "shortcut item title"
 msgid "Add as a new device"
 msgstr "Aggiungi come nuovo dispositivo"
 
-#: resources/shortcuts-dialog.blp:55
-#, fuzzy
-#| msgid "Edit device"
-msgctxt "shortcuts section"
-msgid "Edit device"
-msgstr "Modifica dispositivo"
-
-#: resources/shortcuts-dialog.blp:58
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Save device"
-msgctxt "shortcut item title"
-msgid "Save device"
-msgstr "Salva dispositivo"
-
-#: resources/shortcuts-dialog.blp:64
+#: resources/shortcuts-dialog.blp:53
 #, fuzzy
 #| msgctxt "shortcuts group"
 #| msgid "Single device"
@@ -427,7 +404,7 @@ msgctxt "shortcuts section"
 msgid "Single device"
 msgstr "Dispositivo singolo"
 
-#: resources/shortcuts-dialog.blp:67
+#: resources/shortcuts-dialog.blp:56
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Turn on device"
@@ -435,14 +412,22 @@ msgctxt "shortcut item title"
 msgid "Turn on device"
 msgstr "Accendi il dispositivo"
 
-#: resources/shortcuts-dialog.blp:72
+#: resources/shortcuts-dialog.blp:63
 #, fuzzy
 #| msgid "Edit device"
 msgctxt "shortcut item title"
 msgid "Edit device"
 msgstr "Modifica dispositivo"
 
-#: resources/shortcuts-dialog.blp:77
+#: resources/shortcuts-dialog.blp:68
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Save device"
+msgctxt "shortcut item title"
+msgid "Save device"
+msgstr "Salva dispositivo"
+
+#: resources/shortcuts-dialog.blp:75
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Ask to delete device"
@@ -450,7 +435,7 @@ msgctxt "shortcut item title"
 msgid "Ask to delete device"
 msgstr "Chiedi di eliminare il dispositivo"
 
-#: resources/shortcuts-dialog.blp:82
+#: resources/shortcuts-dialog.blp:80
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Immediately delete device without confirmation"
@@ -821,6 +806,19 @@ msgstr ""
 "Di seguito il testo completo in inglese.\n"
 "\n"
 "{license_text}"
+
+#, fuzzy
+#~| msgctxt "shortcuts group"
+#~| msgid "Discovered device"
+#~ msgctxt "shortcuts section"
+#~ msgid "Discovered device"
+#~ msgstr "Trovato dispositivo"
+
+#, fuzzy
+#~| msgid "Edit device"
+#~ msgctxt "shortcuts section"
+#~ msgid "Edit device"
+#~ msgstr "Modifica dispositivo"
 
 #~ msgctxt "shortcuts group"
 #~ msgid "Edit device"

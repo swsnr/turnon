@@ -332,15 +332,7 @@ msgctxt "shortcut item title"
 msgid "Quit"
 msgstr "יציאה"
 
-#: resources/shortcuts-dialog.blp:32
-#, fuzzy
-#| msgctxt "application-window.status-page.title"
-#| msgid "No devices"
-msgctxt "shortcuts section"
-msgid "Devices"
-msgstr "אין התקנים"
-
-#: resources/shortcuts-dialog.blp:35
+#: resources/shortcuts-dialog.blp:33
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Add a new device"
@@ -348,20 +340,20 @@ msgctxt "shortcut item title"
 msgid "Add a new device"
 msgstr "הוספת התקן חדש"
 
-#: resources/shortcuts-dialog.blp:40
+#: resources/shortcuts-dialog.blp:39
+#, fuzzy
+#| msgctxt "application-window.status-page.title"
+#| msgid "No devices"
+msgctxt "shortcuts section"
+msgid "Device discovery"
+msgstr "אין התקנים"
+
+#: resources/shortcuts-dialog.blp:42
 msgctxt "shortcut item title"
 msgid "Toggle network scanning"
 msgstr ""
 
-#: resources/shortcuts-dialog.blp:46
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
-msgctxt "shortcuts section"
-msgid "Discovered device"
-msgstr "הוספת התקן חדש"
-
-#: resources/shortcuts-dialog.blp:49
+#: resources/shortcuts-dialog.blp:47
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Add a new device"
@@ -369,29 +361,14 @@ msgctxt "shortcut item title"
 msgid "Add as a new device"
 msgstr "הוספת התקן חדש"
 
-#: resources/shortcuts-dialog.blp:55
-#, fuzzy
-#| msgid "Edit device"
-msgctxt "shortcuts section"
-msgid "Edit device"
-msgstr "עריכת התקן"
-
-#: resources/shortcuts-dialog.blp:58
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
-msgctxt "shortcut item title"
-msgid "Save device"
-msgstr "הוספת התקן חדש"
-
-#: resources/shortcuts-dialog.blp:64
+#: resources/shortcuts-dialog.blp:53
 #, fuzzy
 #| msgid "Add new device"
 msgctxt "shortcuts section"
 msgid "Single device"
 msgstr "הוספת התקן חדש"
 
-#: resources/shortcuts-dialog.blp:67
+#: resources/shortcuts-dialog.blp:56
 #, fuzzy
 #| msgctxt "application-window.status-page.title"
 #| msgid "No devices"
@@ -399,14 +376,22 @@ msgctxt "shortcut item title"
 msgid "Turn on device"
 msgstr "אין התקנים"
 
-#: resources/shortcuts-dialog.blp:72
+#: resources/shortcuts-dialog.blp:63
 #, fuzzy
 #| msgid "Edit device"
 msgctxt "shortcut item title"
 msgid "Edit device"
 msgstr "עריכת התקן"
 
-#: resources/shortcuts-dialog.blp:77
+#: resources/shortcuts-dialog.blp:68
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Add a new device"
+msgctxt "shortcut item title"
+msgid "Save device"
+msgstr "הוספת התקן חדש"
+
+#: resources/shortcuts-dialog.blp:75
 #, fuzzy
 #| msgctxt "device-row.action.row.ask-delete.tooltip"
 #| msgid "Delete this device?"
@@ -414,7 +399,7 @@ msgctxt "shortcut item title"
 msgid "Ask to delete device"
 msgstr "למחוק את ההתקן הזה?"
 
-#: resources/shortcuts-dialog.blp:82
+#: resources/shortcuts-dialog.blp:80
 msgctxt "shortcut item title"
 msgid "Delete device without confirmation"
 msgstr ""
@@ -794,6 +779,19 @@ msgid ""
 "\n"
 "{license_text}"
 msgstr ""
+
+#, fuzzy
+#~| msgctxt "shortcut description"
+#~| msgid "Add a new device"
+#~ msgctxt "shortcuts section"
+#~ msgid "Discovered device"
+#~ msgstr "הוספת התקן חדש"
+
+#, fuzzy
+#~| msgid "Edit device"
+#~ msgctxt "shortcuts section"
+#~ msgid "Edit device"
+#~ msgstr "עריכת התקן"
 
 #, fuzzy
 #~| msgid "Edit device"

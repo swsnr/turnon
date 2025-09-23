@@ -356,15 +356,7 @@ msgctxt "shortcut item title"
 msgid "Quit"
 msgstr "Lopeta"
 
-#: resources/shortcuts-dialog.blp:32
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Devices"
-msgctxt "shortcuts section"
-msgid "Devices"
-msgstr "Laitteet"
-
-#: resources/shortcuts-dialog.blp:35
+#: resources/shortcuts-dialog.blp:33
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Add a new device"
@@ -372,7 +364,15 @@ msgctxt "shortcut item title"
 msgid "Add a new device"
 msgstr "Lisää uusi laite"
 
-#: resources/shortcuts-dialog.blp:40
+#: resources/shortcuts-dialog.blp:39
+#, fuzzy
+#| msgctxt "shortcuts group"
+#| msgid "Devices"
+msgctxt "shortcuts section"
+msgid "Device discovery"
+msgstr "Laitteet"
+
+#: resources/shortcuts-dialog.blp:42
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Toggle network scanning"
@@ -380,15 +380,7 @@ msgctxt "shortcut item title"
 msgid "Toggle network scanning"
 msgstr "Verkon skannaus päällä/pois"
 
-#: resources/shortcuts-dialog.blp:46
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Discovered device"
-msgctxt "shortcuts section"
-msgid "Discovered device"
-msgstr "Löydetty laite"
-
-#: resources/shortcuts-dialog.blp:49
+#: resources/shortcuts-dialog.blp:47
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Add as a new device"
@@ -396,22 +388,7 @@ msgctxt "shortcut item title"
 msgid "Add as a new device"
 msgstr "Lisää uutena laitteena"
 
-#: resources/shortcuts-dialog.blp:55
-#, fuzzy
-#| msgid "Edit device"
-msgctxt "shortcuts section"
-msgid "Edit device"
-msgstr "Muokkaa laitetta"
-
-#: resources/shortcuts-dialog.blp:58
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Save device"
-msgctxt "shortcut item title"
-msgid "Save device"
-msgstr "Tallenna laite"
-
-#: resources/shortcuts-dialog.blp:64
+#: resources/shortcuts-dialog.blp:53
 #, fuzzy
 #| msgctxt "shortcuts group"
 #| msgid "Single device"
@@ -419,7 +396,7 @@ msgctxt "shortcuts section"
 msgid "Single device"
 msgstr "Yksittäinen laite"
 
-#: resources/shortcuts-dialog.blp:67
+#: resources/shortcuts-dialog.blp:56
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Turn on device"
@@ -427,14 +404,22 @@ msgctxt "shortcut item title"
 msgid "Turn on device"
 msgstr "Käynnistä laite"
 
-#: resources/shortcuts-dialog.blp:72
+#: resources/shortcuts-dialog.blp:63
 #, fuzzy
 #| msgid "Edit device"
 msgctxt "shortcut item title"
 msgid "Edit device"
 msgstr "Muokkaa laitetta"
 
-#: resources/shortcuts-dialog.blp:77
+#: resources/shortcuts-dialog.blp:68
+#, fuzzy
+#| msgctxt "shortcut description"
+#| msgid "Save device"
+msgctxt "shortcut item title"
+msgid "Save device"
+msgstr "Tallenna laite"
+
+#: resources/shortcuts-dialog.blp:75
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Ask to delete device"
@@ -442,7 +427,7 @@ msgctxt "shortcut item title"
 msgid "Ask to delete device"
 msgstr "Kysy laitteen poistamista"
 
-#: resources/shortcuts-dialog.blp:82
+#: resources/shortcuts-dialog.blp:80
 #, fuzzy
 #| msgctxt "shortcut description"
 #| msgid "Immediately delete device without confirmation"
@@ -832,6 +817,19 @@ msgid ""
 "\n"
 "{license_text}"
 msgstr ""
+
+#, fuzzy
+#~| msgctxt "shortcuts group"
+#~| msgid "Discovered device"
+#~ msgctxt "shortcuts section"
+#~ msgid "Discovered device"
+#~ msgstr "Löydetty laite"
+
+#, fuzzy
+#~| msgid "Edit device"
+#~ msgctxt "shortcuts section"
+#~ msgid "Edit device"
+#~ msgstr "Muokkaa laitetta"
 
 #~ msgctxt "shortcuts group"
 #~ msgid "Edit device"

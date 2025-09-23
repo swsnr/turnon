@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
 "PO-Revision-Date: 2025-09-23 18:53+0000\n"
 "Last-Translator: Sebastian Wiesner <sebastian@swsnr.de>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/"
-"de-swsnr-turnon/de-swsnr-turnon/de/>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/de-swsnr-"
+"turnon/de-swsnr-turnon/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -357,62 +357,55 @@ msgctxt "shortcut item title"
 msgid "Quit"
 msgstr "Beenden"
 
-#: resources/shortcuts-dialog.blp:32
-msgctxt "shortcuts section"
-msgid "Devices"
-msgstr "Geräte"
-
-#: resources/shortcuts-dialog.blp:35
+#: resources/shortcuts-dialog.blp:33
 msgctxt "shortcut item title"
 msgid "Add a new device"
 msgstr "Ein neues Gerät hinzufügen"
 
-#: resources/shortcuts-dialog.blp:40
+#: resources/shortcuts-dialog.blp:39
+#, fuzzy
+#| msgctxt "shortcuts section"
+#| msgid "Devices"
+msgctxt "shortcuts section"
+msgid "Device discovery"
+msgstr "Geräte"
+
+#: resources/shortcuts-dialog.blp:42
 msgctxt "shortcut item title"
 msgid "Toggle network scanning"
 msgstr "Netzwerksuche umschalten"
 
-#: resources/shortcuts-dialog.blp:46
-msgctxt "shortcuts section"
-msgid "Discovered device"
-msgstr "Gefundenes Gerät"
-
-#: resources/shortcuts-dialog.blp:49
+#: resources/shortcuts-dialog.blp:47
 msgctxt "shortcut item title"
 msgid "Add as a new device"
 msgstr "Als neues Gerät hinzufügen"
 
-#: resources/shortcuts-dialog.blp:55
-msgctxt "shortcuts section"
-msgid "Edit device"
-msgstr "Gerät bearbeiten"
-
-#: resources/shortcuts-dialog.blp:58
-msgctxt "shortcut item title"
-msgid "Save device"
-msgstr "Gerät speichern"
-
-#: resources/shortcuts-dialog.blp:64
+#: resources/shortcuts-dialog.blp:53
 msgctxt "shortcuts section"
 msgid "Single device"
 msgstr "Einzelnes Gerät"
 
-#: resources/shortcuts-dialog.blp:67
+#: resources/shortcuts-dialog.blp:56
 msgctxt "shortcut item title"
 msgid "Turn on device"
 msgstr "Gerät anschalten"
 
-#: resources/shortcuts-dialog.blp:72
+#: resources/shortcuts-dialog.blp:63
 msgctxt "shortcut item title"
 msgid "Edit device"
 msgstr "Gerät bearbeiten"
 
-#: resources/shortcuts-dialog.blp:77
+#: resources/shortcuts-dialog.blp:68
+msgctxt "shortcut item title"
+msgid "Save device"
+msgstr "Gerät speichern"
+
+#: resources/shortcuts-dialog.blp:75
 msgctxt "shortcut item title"
 msgid "Ask to delete device"
 msgstr "Gerät nach Bestätigung löschen"
 
-#: resources/shortcuts-dialog.blp:82
+#: resources/shortcuts-dialog.blp:80
 msgctxt "shortcut item title"
 msgid "Delete device without confirmation"
 msgstr "Gerät ohne Bestätigung löschen"
@@ -768,6 +761,14 @@ msgstr ""
 "Es folgt der vollständige englische Text.\n"
 "\n"
 "{license_text}"
+
+#~ msgctxt "shortcuts section"
+#~ msgid "Discovered device"
+#~ msgstr "Gefundenes Gerät"
+
+#~ msgctxt "shortcuts section"
+#~ msgid "Edit device"
+#~ msgstr "Gerät bearbeiten"
 
 #~ msgctxt "shortcuts group"
 #~ msgid "Edit device"
