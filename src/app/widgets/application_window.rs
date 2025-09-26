@@ -80,10 +80,8 @@ mod imp {
             );
         }
 
-        fn turn_on_device(&self, device: Device) {
-            let window = self.obj().clone();
-            // Notify the user that we're about to send the magic packet to the target device
-            let toast_sending = adw::Toast::builder()
+        fn toast_sending(&self, device: &Device) -> Toast {
+            let toast = adw::Toast::builder()
                 .title(
                     formatx!(
                         dpgettext2(
@@ -97,7 +95,42 @@ mod imp {
                 )
                 .timeout(3)
                 .build();
-            window.imp().feedback.add_toast(toast_sending.clone());
+            self.feedback.add_toast(toast.clone());
+            toast
+        }
+
+        fn toast_sent(&self, device: &Device, result: &Result<(), glib::Error>) {
+            let toast = if result.is_ok() {
+                let title = formatx!(
+                    dpgettext2(
+                        None,
+                        "application-window.feedback.toast",
+                        "Sent magic packet to device {device_label}",
+                    ),
+                    device_label = device.label()
+                )
+                .unwrap();
+                adw::Toast::builder().title(title).timeout(3).build()
+            } else {
+                let title = formatx!(
+                    dpgettext2(
+                        None,
+                        "application-window.feedback.toast",
+                        "Failed to send magic packet to device {device_label}",
+                    ),
+                    device_label = device.label()
+                )
+                .unwrap();
+                adw::Toast::builder().title(title).timeout(10).build()
+            };
+            self.feedback.add_toast(toast);
+        }
+
+        fn turn_on_device(&self, device: Device) {
+            let window = self.obj().clone();
+            // Notify the user that we're about to send the magic packet to the target device
+            let toast_sending = self.toast_sending(&device);
+            self.feedback.add_toast(toast_sending.clone());
 
             glib::spawn_future_local(glib::clone!(
                 #[weak]
@@ -105,42 +138,11 @@ mod imp {
                 #[weak_allow_none]
                 toast_sending,
                 async move {
-                    if let Ok(()) = device.wol().await {
-                        toast_sending.inspect(Toast::dismiss);
-
-                        let toast = adw::Toast::builder()
-                            .title(
-                                formatx!(
-                                    dpgettext2(
-                                        None,
-                                        "application-window.feedback.toast",
-                                        "Sent magic packet to device {device_label}",
-                                    ),
-                                    device_label = device.label()
-                                )
-                                .unwrap(),
-                            )
-                            .timeout(3)
-                            .build();
-                        window.imp().feedback.add_toast(toast);
-                    } else {
-                        toast_sending.inspect(Toast::dismiss);
-                        let toast = adw::Toast::builder()
-                            .title(
-                                formatx!(
-                                    dpgettext2(
-                                        None,
-                                        "application-window.feedback.toast",
-                                        "Failed to send magic packet to device {device_label}",
-                                    ),
-                                    device_label = device.label()
-                                )
-                                .unwrap(),
-                            )
-                            .timeout(10)
-                            .build();
-                        window.imp().feedback.add_toast(toast);
-                    }
+                    let result = device.wol().await.inspect_err(|error| {
+                        glib::warn!("Failed to wake up device {}: {error}", device.label());
+                    });
+                    toast_sending.inspect(Toast::dismiss);
+                    window.imp().toast_sent(&device, &result);
                 }
             ));
         }
