@@ -666,10 +666,22 @@ msgid ""
 "{device_label}."
 msgstr ""
 
-#: src/app/widgets/application_window.rs:92
+#: src/app/widgets/application_window.rs:90
 #, rust-format
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device {device_label}"
+msgstr ""
+
+#: src/app/widgets/application_window.rs:108
+#, rust-format
+msgctxt "application-window.feedback.toast"
+msgid "Sent magic packet to device {device_label}"
+msgstr ""
+
+#: src/app/widgets/application_window.rs:119
+#, rust-format
+msgctxt "application-window.feedback.toast"
+msgid "Failed to send magic packet to device {device_label}"
 msgstr ""
 
 #. Translators: This is Pango markup, be sure to escape appropriately
