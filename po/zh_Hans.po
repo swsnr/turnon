@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-09-01 18:09+0000\n"
+"PO-Revision-Date: 2025-09-26 05:58+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.2\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
@@ -76,10 +76,8 @@ msgid "Turn on devices from the command line."
 msgstr "从命令行打开设备。"
 
 #: de.swsnr.turnon.metainfo.xml:42
-#, fuzzy
-#| msgid "Update to GNOME 48"
 msgid "Update to GNOME 49."
-msgstr "更新到 GNOME 48"
+msgstr "更新到 GNOME 49。"
 
 #: de.swsnr.turnon.metainfo.xml:51
 msgid "Configure target address for magic packets per device."
@@ -295,120 +293,76 @@ msgid ""
 msgstr "空白的问候页面，其中包含应用程序图标和添加新设备的按钮"
 
 #: resources/shortcuts-dialog.blp:18
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "General"
 msgctxt "shortcuts section"
 msgid "General"
 msgstr "常规"
 
 #: resources/shortcuts-dialog.blp:21
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Show shortcuts"
 msgctxt "shortcut item title"
 msgid "Show shortcuts"
 msgstr "显示快捷键"
 
 #: resources/shortcuts-dialog.blp:26
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Quit"
 msgctxt "shortcut item title"
 msgid "Quit"
 msgstr "退出"
 
 #: resources/shortcuts-dialog.blp:33
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "shortcut item title"
 msgid "Add a new device"
 msgstr "添加新设备"
 
 #: resources/shortcuts-dialog.blp:39
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Devices"
 msgctxt "shortcuts section"
 msgid "Device discovery"
-msgstr "设备"
+msgstr "设备发现"
 
 #: resources/shortcuts-dialog.blp:42
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Toggle network scanning"
 msgctxt "shortcut item title"
 msgid "Toggle network scanning"
 msgstr "切换网络扫描"
 
 #: resources/shortcuts-dialog.blp:47
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add as a new device"
 msgctxt "shortcut item title"
 msgid "Add as a new device"
 msgstr "添加为新设备"
 
 #: resources/shortcuts-dialog.blp:53
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Single device"
 msgctxt "shortcuts section"
 msgid "Single device"
 msgstr "单个设备"
 
 #: resources/shortcuts-dialog.blp:56
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Turn on device"
 msgctxt "shortcut item title"
 msgid "Turn on device"
 msgstr "打开设备"
 
 #: resources/shortcuts-dialog.blp:63
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcut item title"
 msgid "Edit device"
 msgstr "编辑设备"
 
 #: resources/shortcuts-dialog.blp:68
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Save device"
 msgctxt "shortcut item title"
 msgid "Save device"
 msgstr "保存设备"
 
 #: resources/shortcuts-dialog.blp:75
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Ask to delete device"
 msgctxt "shortcut item title"
 msgid "Ask to delete device"
-msgstr "删除设备请求确认"
+msgstr "经确认后删除设备‌"
 
 #: resources/shortcuts-dialog.blp:80
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Immediately delete device without confirmation"
 msgctxt "shortcut item title"
 msgid "Delete device without confirmation"
-msgstr "无需确认立即删除设备"
+msgstr "无需确认删除设备"
 
 #: resources/shortcuts-dialog.blp:87
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Move device upwards"
 msgctxt "shortcut item title"
 msgid "Move device upwards"
 msgstr "向上移动设备"
 
 #: resources/shortcuts-dialog.blp:92
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Move device downwards"
 msgctxt "shortcut item title"
 msgid "Move device downwards"
 msgstr "向下移动设备"
