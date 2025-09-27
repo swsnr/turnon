@@ -25,7 +25,7 @@ rust-version = "1.89"
 adw = { package = "libadwaita", version = "0.8.0", features = ["v1_8"] }
 async-channel = "2.3.1"
 glib = { version = "0.21.0", features = ["log_macros"] }
-gnome-app-utils = { git = "https://codeberg.org/swsnr/gnome-app-utils.rs.git", rev = "fa6c00fd9e8d269d47fca8924226002dab37df32" }
+gnome-app-utils = { git = "https://codeberg.org/swsnr/gnome-app-utils.rs.git", rev = "2648d5e7391e07b77bc5a8c45084a15de5a97249" }
 gtk = { package = "gtk4", version = "0.10.1" }
 macaddr = "1.0.1"
 serde = { version = "1.0.210", features = ["derive"] }
