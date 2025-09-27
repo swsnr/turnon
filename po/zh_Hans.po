@@ -672,9 +672,25 @@ msgid ""
 msgstr ""
 "无法将魔法数据包发送到设备 {device_label} 的 Mac 地址 {device_mac_address}。"
 
-#: src/app/widgets/application_window.rs:92
+#: src/app/widgets/application_window.rs:90
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device {device_label}"
+msgstr "正在向设备 {device_label} 发送魔法数据包"
+
+#: src/app/widgets/application_window.rs:108
+#, fuzzy
+#| msgctxt "application-window.feedback.toast"
+#| msgid "Sending magic packet to device {device_label}"
+msgctxt "application-window.feedback.toast"
+msgid "Sent magic packet to device {device_label}"
+msgstr "正在向设备 {device_label} 发送魔法数据包"
+
+#: src/app/widgets/application_window.rs:119
+#, fuzzy
+#| msgctxt "application-window.feedback.toast"
+#| msgid "Sending magic packet to device {device_label}"
+msgctxt "application-window.feedback.toast"
+msgid "Failed to send magic packet to device {device_label}"
 msgstr "正在向设备 {device_label} 发送魔法数据包"
 
 #. Translators: This is Pango markup, be sure to escape appropriately

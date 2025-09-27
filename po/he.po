@@ -758,12 +758,28 @@ msgid ""
 "{device_label}."
 msgstr "שליחת מנת הנתונים הקסומה לכתובת החומרה %1 של ההתקן %2 נכשלה."
 
-#: src/app/widgets/application_window.rs:92
+#: src/app/widgets/application_window.rs:90
 #, fuzzy
 #| msgctxt "application-window.feedback.toast"
 #| msgid "Sending magic packet to device %s"
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device {device_label}"
+msgstr "נשלחת מנת נתונים קסומה להתקן %s"
+
+#: src/app/widgets/application_window.rs:108
+#, fuzzy
+#| msgctxt "application-window.feedback.toast"
+#| msgid "Sending magic packet to device %s"
+msgctxt "application-window.feedback.toast"
+msgid "Sent magic packet to device {device_label}"
+msgstr "נשלחת מנת נתונים קסומה להתקן %s"
+
+#: src/app/widgets/application_window.rs:119
+#, fuzzy
+#| msgctxt "application-window.feedback.toast"
+#| msgid "Sending magic packet to device %s"
+msgctxt "application-window.feedback.toast"
+msgid "Failed to send magic packet to device {device_label}"
 msgstr "נשלחת מנת נתונים קסומה להתקן %s"
 
 #. Translators: This is Pango markup, be sure to escape appropriately

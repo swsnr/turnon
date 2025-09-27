@@ -779,9 +779,25 @@ msgstr ""
 "Impossibile inviare il pacchetto magico all'indirizzo MAC "
 "{device_mac_address} del dispositivo {device_label}."
 
-#: src/app/widgets/application_window.rs:92
+#: src/app/widgets/application_window.rs:90
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device {device_label}"
+msgstr "Invio del pacchetto magico al dispositivo {device_label}"
+
+#: src/app/widgets/application_window.rs:108
+#, fuzzy
+#| msgctxt "application-window.feedback.toast"
+#| msgid "Sending magic packet to device {device_label}"
+msgctxt "application-window.feedback.toast"
+msgid "Sent magic packet to device {device_label}"
+msgstr "Invio del pacchetto magico al dispositivo {device_label}"
+
+#: src/app/widgets/application_window.rs:119
+#, fuzzy
+#| msgctxt "application-window.feedback.toast"
+#| msgid "Sending magic packet to device {device_label}"
+msgctxt "application-window.feedback.toast"
+msgid "Failed to send magic packet to device {device_label}"
 msgstr "Invio del pacchetto magico al dispositivo {device_label}"
 
 #. Translators: This is Pango markup, be sure to escape appropriately
