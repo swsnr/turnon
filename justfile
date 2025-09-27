@@ -137,8 +137,8 @@ print-release-notes:
 flatpak-update-manifest:
     flatpak run --command=flatpak-cargo-generator org.flatpak.Builder \
         <(git --no-pager show '{{version}}:Cargo.lock') -o flatpak/de.swsnr.turnon.cargo-sources.json
-    yq eval -i '.modules.[2].sources.[0].tag = "$TAG_NAME"' flatpak/de.swsnr.turnon.yaml
-    yq eval -i '.modules.[2].sources.[0].commit = "$TAG_COMMIT"' flatpak/de.swsnr.turnon.yaml
+    yq eval -i '.modules.[1].sources.[0].tag = "$TAG_NAME"' flatpak/de.swsnr.turnon.yaml
+    yq eval -i '.modules.[1].sources.[0].commit = "$TAG_COMMIT"' flatpak/de.swsnr.turnon.yaml
     env TAG_NAME='{{version}}' \
         TAG_COMMIT="$(git rev-parse '{{version}}')" \
         yq eval -i '(.. | select(tag == "!!str")) |= envsubst' flatpak/de.swsnr.turnon.yaml
