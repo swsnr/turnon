@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-09-26 05:58+0000\n"
+"PO-Revision-Date: 2025-09-27 07:09+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
@@ -675,23 +675,17 @@ msgstr ""
 #: src/app/widgets/application_window.rs:90
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device {device_label}"
-msgstr "正在向设备 {device_label} 发送魔法数据包"
+msgstr "正在将魔法数据包发送到设备 {device_label}"
 
 #: src/app/widgets/application_window.rs:108
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sending magic packet to device {device_label}"
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device {device_label}"
-msgstr "正在向设备 {device_label} 发送魔法数据包"
+msgstr "已将魔法数据包发送到设备 {device_label}"
 
 #: src/app/widgets/application_window.rs:119
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sending magic packet to device {device_label}"
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device {device_label}"
-msgstr "正在向设备 {device_label} 发送魔法数据包"
+msgstr "无法将魔法数据包发送到设备 {device_label}"
 
 #. Translators: This is Pango markup, be sure to escape appropriately
 #: src/config.rs:58
