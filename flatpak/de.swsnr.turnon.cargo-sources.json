@@ -2,8 +2,8 @@
     {
         "type": "git",
         "url": "https://codeberg.org/swsnr/gnome-app-utils.rs",
-        "commit": "fa6c00fd9e8d269d47fca8924226002dab37df32",
-        "dest": "flatpak-cargo/git/gnome-app-utils.rs-fa6c00f"
+        "commit": "2648d5e7391e07b77bc5a8c45084a15de5a97249",
+        "dest": "flatpak-cargo/git/gnome-app-utils.rs-2648d5e"
     },
     {
         "type": "archive",
@@ -463,7 +463,7 @@
     {
         "type": "shell",
         "commands": [
-            "cp -r --reflink=auto \"flatpak-cargo/git/gnome-app-utils.rs-fa6c00f/.\" \"cargo/vendor/gnome-app-utils\""
+            "cp -r --reflink=auto \"flatpak-cargo/git/gnome-app-utils.rs-2648d5e/.\" \"cargo/vendor/gnome-app-utils\""
         ]
     },
     {
@@ -1143,7 +1143,7 @@
     },
     {
         "type": "inline",
-        "contents": "[source.vendored-sources]\ndirectory = \"cargo/vendor\"\n\n[source.crates-io]\nreplace-with = \"vendored-sources\"\n\n[source.\"https://codeberg.org/swsnr/gnome-app-utils.rs\"]\ngit = \"https://codeberg.org/swsnr/gnome-app-utils.rs\"\nreplace-with = \"vendored-sources\"\nrev = \"fa6c00fd9e8d269d47fca8924226002dab37df32\"\n",
+        "contents": "[source.vendored-sources]\ndirectory = \"cargo/vendor\"\n\n[source.crates-io]\nreplace-with = \"vendored-sources\"\n\n[source.\"https://codeberg.org/swsnr/gnome-app-utils.rs\"]\ngit = \"https://codeberg.org/swsnr/gnome-app-utils.rs\"\nreplace-with = \"vendored-sources\"\nrev = \"2648d5e7391e07b77bc5a8c45084a15de5a97249\"\n",
         "dest": "cargo",
         "dest-filename": "config"
     }
