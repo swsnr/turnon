@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-13 19:52+0000\n"
-"PO-Revision-Date: 2025-09-25 10:09+0000\n"
+"PO-Revision-Date: 2025-09-28 08:09+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/nl/>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/nl/>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -719,20 +719,14 @@ msgid "Sending magic packet to device {device_label}"
 msgstr "Het magische pakket wordt verstuurd naar ‘{device_label}’"
 
 #: src/app/widgets/application_window.rs:108
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sending magic packet to device {device_label}"
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device {device_label}"
-msgstr "Het magische pakket wordt verstuurd naar ‘{device_label}’"
+msgstr "Het magische pakket is verstuurd naar ‘{device_label}’"
 
 #: src/app/widgets/application_window.rs:119
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sending magic packet to device {device_label}"
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device {device_label}"
-msgstr "Het magische pakket wordt verstuurd naar ‘{device_label}’"
+msgstr "Het magische pakket kan niet worden verstuurd naar ‘{device_label}’"
 
 #. Translators: This is Pango markup, be sure to escape appropriately
 #: src/config.rs:58
