@@ -16,7 +16,7 @@ authors = ["Sebastian Wiesner <sebastian@swsnr.de>"]
 # enables us to ship updates to translations whenever translators contributed
 # new languages or made major updates, while still providing meaningful release
 # notes for the last functional changes.
-version = "2.9.2"
+version = "2.9.3"
 edition = "2024"
 publish = false
 rust-version = "1.89"
