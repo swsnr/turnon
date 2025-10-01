@@ -7,17 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-28 09:16+0000\n"
-"Last-Translator: Ricky-Tigg <ricky-"
-"tigg@users.noreply.translate.codeberg.org>\n"
-"Language-Team: Finnish <https://translate.codeberg.org/projects/de-swsnr-"
-"turnon/de-swsnr-turnon/fi/>\n"
+"PO-Revision-Date: 2025-10-01 12:09+0000\n"
+"Last-Translator: Ricky-Tigg <ricky-tigg@noreply.codeberg.org>\n"
+"Language-Team: Finnish <https://translate.codeberg.org/projects/"
+"de-swsnr-turnon/de-swsnr-turnon/fi/>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.13.2\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
@@ -31,10 +30,8 @@ msgstr "Kytke verkkosi laitteet päälle"
 
 #. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
 #: de.swsnr.turnon.desktop:10
-#, fuzzy
-#| msgid "Gnome;GTK;WakeOnLan;"
 msgid "GNOME;GTK;WakeOnLan;"
-msgstr "Gnome;GTK;WakeOnLan;"
+msgstr "GNOME;GTK;WakeOnLan;"
 
 #: de.swsnr.turnon.desktop:17
 msgid "Add new device"
@@ -61,11 +58,8 @@ msgid "Discover devices in the local network."
 msgstr "Löydä laitteita lähiverkosta."
 
 #: de.swsnr.turnon.metainfo.xml:14
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Discovered device"
 msgid "Discover web interfaces on devices."
-msgstr "Löydetty laite"
+msgstr "Tutustu laitteiden verkkokäyttöliittymiin."
 
 #: de.swsnr.turnon.metainfo.xml:15
 msgid "Monitor device status."
@@ -85,31 +79,31 @@ msgstr "Käynnistä laitteita komentoriviltä."
 
 #: de.swsnr.turnon.metainfo.xml:42
 msgid "Update to GNOME 49."
-msgstr ""
+msgstr "Päivitä GNOME 49:ään."
 
 #: de.swsnr.turnon.metainfo.xml:51
 msgid "Configure target address for magic packets per device."
-msgstr ""
+msgstr "Määritä laitekohtainen taikapakettien kohdeosoite."
 
 #: de.swsnr.turnon.metainfo.xml:52
 msgid "Support IPv6 target addresses for magic packets."
-msgstr ""
+msgstr "Tukee IPv6-kohdeosoitteita taikapaketteja varten."
 
 #: de.swsnr.turnon.metainfo.xml:62
 msgid "Change license to European Union Public License 1.2."
-msgstr ""
+msgstr "Vaihda lisenssi European Union Public License 1.2:ksi."
 
 #: de.swsnr.turnon.metainfo.xml:68
 msgid "Correct icons in application."
-msgstr ""
+msgstr "Korjaa sovelluksen kuvakkeet."
 
 #: de.swsnr.turnon.metainfo.xml:74
 msgid "Probe reachable devices for web interfaces."
-msgstr ""
+msgstr "Testaa saavutettavia laitteita verkkokäyttöliittymiä varten."
 
 #: de.swsnr.turnon.metainfo.xml:83
 msgid "Update to GNOME 48"
-msgstr ""
+msgstr "Päivitä GNOME 48:aan"
 
 #: de.swsnr.turnon.metainfo.xml:89
 msgid "Reorder devices with Alt+Up and Alt+Down"
@@ -333,120 +327,76 @@ msgstr ""
 "lisäämistä varten"
 
 #: resources/shortcuts-dialog.blp:18
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "General"
 msgctxt "shortcuts section"
 msgid "General"
 msgstr "Yleiset"
 
 #: resources/shortcuts-dialog.blp:21
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Show shortcuts"
 msgctxt "shortcut item title"
 msgid "Show shortcuts"
 msgstr "Näytä pikanäppäimet"
 
 #: resources/shortcuts-dialog.blp:26
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Quit"
 msgctxt "shortcut item title"
 msgid "Quit"
 msgstr "Lopeta"
 
 #: resources/shortcuts-dialog.blp:33
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add a new device"
 msgctxt "shortcut item title"
 msgid "Add a new device"
 msgstr "Lisää uusi laite"
 
 #: resources/shortcuts-dialog.blp:39
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Devices"
 msgctxt "shortcuts section"
 msgid "Device discovery"
-msgstr "Laitteet"
+msgstr "Laitteihin tutustuminen"
 
 #: resources/shortcuts-dialog.blp:42
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Toggle network scanning"
 msgctxt "shortcut item title"
 msgid "Toggle network scanning"
 msgstr "Verkon skannaus päällä/pois"
 
 #: resources/shortcuts-dialog.blp:47
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Add as a new device"
 msgctxt "shortcut item title"
 msgid "Add as a new device"
 msgstr "Lisää uutena laitteena"
 
 #: resources/shortcuts-dialog.blp:53
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Single device"
 msgctxt "shortcuts section"
 msgid "Single device"
 msgstr "Yksittäinen laite"
 
 #: resources/shortcuts-dialog.blp:56
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Turn on device"
 msgctxt "shortcut item title"
 msgid "Turn on device"
-msgstr "Käynnistä laite"
+msgstr "Kytke laite päälle"
 
 #: resources/shortcuts-dialog.blp:63
-#, fuzzy
-#| msgid "Edit device"
 msgctxt "shortcut item title"
 msgid "Edit device"
 msgstr "Muokkaa laitetta"
 
 #: resources/shortcuts-dialog.blp:68
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Save device"
 msgctxt "shortcut item title"
 msgid "Save device"
 msgstr "Tallenna laite"
 
 #: resources/shortcuts-dialog.blp:75
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Ask to delete device"
 msgctxt "shortcut item title"
 msgid "Ask to delete device"
 msgstr "Kysy laitteen poistamista"
 
 #: resources/shortcuts-dialog.blp:80
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Immediately delete device without confirmation"
 msgctxt "shortcut item title"
 msgid "Delete device without confirmation"
-msgstr "Poista laite välittömästi ilman vahvistusta"
+msgstr "Poista laite ilman vahvistusta"
 
 #: resources/shortcuts-dialog.blp:87
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Move device upwards"
 msgctxt "shortcut item title"
 msgid "Move device upwards"
 msgstr "Siirrä laite ylöspäin"
 
 #: resources/shortcuts-dialog.blp:92
-#, fuzzy
-#| msgctxt "shortcut description"
-#| msgid "Move device downwards"
 msgctxt "shortcut item title"
 msgid "Move device downwards"
 msgstr "Siirrä laite alaspäin"
@@ -481,12 +431,9 @@ msgid "Edit device"
 msgstr "Muokkaa laitetta"
 
 #: resources/ui/edit-device-dialog.blp:21
-#, fuzzy
-#| msgctxt "shortcuts group"
-#| msgid "Devices"
 msgctxt "edit-device-dialog.group.title"
 msgid "Device"
-msgstr "Laitteet"
+msgstr "Laite"
 
 #: resources/ui/edit-device-dialog.blp:24
 msgctxt "edit-device-dialog.entry.label.title"
@@ -562,50 +509,38 @@ msgstr "Tämä on kelvollinen IPv6-osoite."
 #: resources/ui/edit-device-dialog.blp:135
 msgctxt "edit-device-dialog.group.title"
 msgid "Magic packet destination"
-msgstr ""
+msgstr "Taikapakettien määränpää"
 
 #: resources/ui/edit-device-dialog.blp:136
 msgctxt "edit-device-dialog.group.description"
 msgid "The destination address the magic packet for this device is sent to."
-msgstr ""
+msgstr "Kohdeosoite, johon tämän laitteen taikapaketti lähetetään."
 
 #: resources/ui/edit-device-dialog.blp:139
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.mac_address.title"
-#| msgid "_MAC address"
 msgctxt "edit-device-dialog.entry.target-address.title"
 msgid "_Target address"
-msgstr "_MAC-osoite"
+msgstr "_Kohdeosoite"
 
 #: resources/ui/edit-device-dialog.blp:140
 msgctxt "edit-device-dialog.entry.target-address.tooltip"
 msgid ""
 "The target address as IPv4 or IPv6 socket address, i.e. IP address and port"
-msgstr ""
+msgstr "Kohdeosoite IPv4- tai IPv6-socket-osoitteena eli IP-osoite ja portti"
 
 #: resources/ui/edit-device-dialog.blp:155
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.label.feedback"
-#| msgid "Please provide a label for the device."
 msgctxt "edit-device-dialog.entry.target_address.feedback"
 msgid "Please provide a valid target socket address for the device."
-msgstr "Anna nimike laitteelle."
+msgstr "Anna laitteelle kelvollinen kohdesocket-osoite."
 
 #: resources/ui/edit-device-dialog.blp:169
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.host.feedback"
-#| msgid "This is a valid IPv4 address."
 msgctxt "edit-device-dialog.entry.target_address.feedback"
 msgid "This is a valid IPv4 socket address."
-msgstr "Tämä on kelvollinen IPv4-osoite."
+msgstr "Tämä on kelvollinen IPv4-socket-osoite."
 
 #: resources/ui/edit-device-dialog.blp:183
-#, fuzzy
-#| msgctxt "edit-device-dialog.entry.host.feedback"
-#| msgid "This is a valid IPv6 address."
 msgctxt "edit-device-dialog.entry.target_address.feedback"
 msgid "This is a valid IPv6 socket address."
-msgstr "Tämä on kelvollinen IPv6-osoite."
+msgstr "Tämä on kelvollinen IPv6-socket-osoite."
 
 #: resources/ui/edit-device-dialog.blp:196
 msgid "_Save"
@@ -677,13 +612,13 @@ msgstr "Hyödylliset palvelut"
 #: src/app.rs:80
 msgctxt "about-dialog.other-app.name"
 msgid "Picture Of The Day"
-msgstr ""
+msgstr "Päivän kuva"
 
 #. Translators: Use translated app summary from https://flathub.org/de/apps/de.swsnr.pictureoftheday
 #: src/app.rs:85
 msgctxt "about-dialog.other-app.summary"
 msgid "Your daily wallpaper"
-msgstr ""
+msgstr "Päivittäinen taustakuvasi"
 
 #: src/app.rs:293
 msgctxt "option.add-device.description"
@@ -718,45 +653,33 @@ msgstr ""
 "Käytä annettua tiedostoa ARP-välimuistilähteenä (vain kehitystä varten)"
 
 #: src/app.rs:356
-#, fuzzy
-#| msgctxt "option.devices-file.description"
-#| msgid "Use the given file as storage for devices (for development only)"
 msgctxt "option.main-window-height.description"
 msgid "Set the height of the main window (for development only)"
-msgstr ""
-"Käytä annettua tiedostoa laitteiden tallennustilana (vain kehitystä varten)"
+msgstr "Aseta pääikkunan korkeus (vain kehityskäyttöön)"
 
 #: src/app.rs:361
 msgctxt "option.main-window-height.arg.description"
 msgid "HEIGHT"
-msgstr ""
+msgstr "KORKEUS"
 
 #: src/app/commandline.rs:33
-#, fuzzy
-#| msgctxt "option.turn-on-device.message"
-#| msgid "Sent magic packet to mac address %1 of device %2\n"
 msgctxt "option.turn-on-device.message"
 msgid ""
 "Sent magic packet to mac address {device_mac_address} of device "
 "{device_label}\n"
 msgstr ""
-"Lähetettiin taikapaketti MAC-osoitteeseen %1 joka kuuluu laitteelle %2\n"
+"Lähetetty taikapaketti laitteen {device_label} MAC-osoitteeseen "
+"{device_mac_address}\n"
 
 #: src/app/commandline.rs:49
-#, fuzzy
-#| msgctxt "option.turn-on-device.error"
-#| msgid "Failed to turn on device %1: %2\n"
 msgctxt "option.turn-on-device.error"
 msgid "Failed to turn on device {device_label}: {error}\n"
-msgstr "Laitteen %1 käynnistäminen epäonnistui: %2\n"
+msgstr "Laitteen {device_label} päälle kytkeminen epäonnistui: {error}\n"
 
 #: src/app/commandline.rs:92
-#, fuzzy
-#| msgctxt "option.turn-on-device.error"
-#| msgid "No device found for label %s\n"
 msgctxt "option.turn-on-device.error"
 msgid "No device found for label {label}\n"
-msgstr "Nimikkeellä %s ei löydy laitetta\n"
+msgstr "Nimiölle {label} ei löytynyt laitetta\n"
 
 #: src/app/model/device_discovery.rs:197
 msgctxt "discovered-device.label"
@@ -769,15 +692,13 @@ msgid "Sent magic packet"
 msgstr "Lähetetty taikapaketti"
 
 #: src/app/searchprovider.rs:86
-#, fuzzy
-#| msgctxt "search-provider.notification.body"
-#| msgid "Sent magic packet to mac address %1 of device %2."
 msgctxt "search-provider.notification.body"
 msgid ""
 "Sent magic packet to mac address {device_mac_address} of device "
 "{device_label}."
 msgstr ""
-"Lähetettiin taikapaketti MAC-osoitteeseen %1 joka kuuluu laitteelle %2."
+"Lähetetty taikapaketti laitteen {device_label} MAC-osoitteeseen "
+"{device_mac_address}."
 
 #: src/app/searchprovider.rs:102
 msgctxt "search-provider.notification.title"
@@ -785,40 +706,28 @@ msgid "Failed to send magic packet"
 msgstr "Taikapaketin lähettäminen epäonnistui"
 
 #: src/app/searchprovider.rs:109
-#, fuzzy
-#| msgctxt "search-provider.notification.body"
-#| msgid "Failed to send magic packet to mac address %1 of device %2."
 msgctxt "search-provider.notification.body"
 msgid ""
 "Failed to send magic packet to mac address {device_mac_address} of device "
 "{device_label}."
 msgstr ""
-"Taikapaketin lähettäminen MAC-osoitteeseen %1, joka kuuluu laitteelle %2, "
-"epäonnistui."
+"Taikapaketin lähettäminen laitteen {device_label} MAC-osoitteeseen "
+"{device_mac_address} epäonnistui."
 
 #: src/app/widgets/application_window.rs:90
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sending magic packet to device %s"
 msgctxt "application-window.feedback.toast"
 msgid "Sending magic packet to device {device_label}"
-msgstr "Lähetetään taikapaketti laitteelle %s"
+msgstr "Lähetetään taikapaketti laitteelle {device_label}"
 
 #: src/app/widgets/application_window.rs:108
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sending magic packet to device %s"
 msgctxt "application-window.feedback.toast"
 msgid "Sent magic packet to device {device_label}"
-msgstr "Lähetetään taikapaketti laitteelle %s"
+msgstr "Lähetetty taikapaketti laitteelle {device_label}"
 
 #: src/app/widgets/application_window.rs:119
-#, fuzzy
-#| msgctxt "application-window.feedback.toast"
-#| msgid "Sending magic packet to device %s"
 msgctxt "application-window.feedback.toast"
 msgid "Failed to send magic packet to device {device_label}"
-msgstr "Lähetetään taikapaketti laitteelle %s"
+msgstr "Taikapaketin lähettäminen laitteeseen {device_label} epäonnistui"
 
 #. Translators: This is Pango markup, be sure to escape appropriately
 #: src/config.rs:58
@@ -833,6 +742,14 @@ msgid ""
 "\n"
 "{license_text}"
 msgstr ""
+"Tekijänoikeus {copyright_name} &lt;{copyright_email}&gt;\n"
+"\n"
+"Lisensoitu EUPL 1.2 :n ehtojen mukaisesti. Löydät lisenssitekstin viralliset "
+"käännökset osoitteesta <a href=\"{translations}\">{translations</a>.\n"
+"\n"
+"Koko englanninkielinen teksti on seuraavassa.\n"
+"\n"
+"{license_text}"
 
 #, fuzzy
 #~| msgctxt "shortcuts group"
