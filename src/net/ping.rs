@@ -7,6 +7,7 @@
 //! A simple user-space ping implementation.
 
 use gnome_app_utils::libc;
+use std::ffi::c_int;
 use std::fmt::Display;
 use std::future::Future;
 use std::net::{IpAddr, SocketAddr};
@@ -34,25 +35,33 @@ fn to_glib_error(error: std::io::Error) -> glib::Error {
     glib::Error::new(io_error, &error.to_string())
 }
 
+/// Create a socket and return the file descriptor for the socket.
+///
+/// See `socket(2)` for details.
+fn socket(domain: c_int, ty: c_int, protocol: c_int) -> std::io::Result<OwnedFd> {
+    // SAFETY: We only pass integer constants here, and check for error return immediately.
+    let socket = unsafe { libc::socket(domain, ty, protocol) };
+    if socket < 0 {
+        Err(std::io::Error::last_os_error())
+    } else {
+        // SAFETY: socket returns a new FD on success which the caller now owns.
+        Ok(unsafe { OwnedFd::from_raw_fd(socket) })
+    }
+}
+
 fn icmp_socket_for_address(address: IpAddr) -> Result<gio::Socket, glib::Error> {
     let (domain, proto) = match address {
         IpAddr::V4(_) => (libc::AF_INET, libc::IPPROTO_ICMP),
         IpAddr::V6(_) => (libc::AF_INET6, libc::IPPROTO_ICMPV6),
     };
-    // SAFETY: We only pass integer constants here, and check for error return immediately.
-    let socket = unsafe { libc::socket(domain, libc::SOCK_DGRAM, proto) };
-    if socket < 0 {
-        Err(to_glib_error(std::io::Error::last_os_error()))
-    } else {
-        // SAFETY: socket returns a new FD on success which the caller now owns.
-        let socket = gio::Socket::from_fd(unsafe { OwnedFd::from_raw_fd(socket) })?;
-        // Make the socket non-blocking and add a reasonable timeout.
-        // set_timeout takes a timeout in seconds; we go through a Duration value
-        // to make this explicit.
-        socket.set_blocking(false);
-        socket.set_timeout(u32::try_from(Duration::from_secs(10).as_secs()).unwrap());
-        Ok(socket)
-    }
+    let socket_fd = socket(domain, libc::SOCK_DGRAM, proto).map_err(to_glib_error)?;
+    let socket = gio::Socket::from_fd(socket_fd)?;
+    // Make the socket non-blocking and add a reasonable timeout.
+    // set_timeout takes a timeout in seconds; we go through a Duration value
+    // to make this explicit.
+    socket.set_blocking(false);
+    socket.set_timeout(u32::try_from(Duration::from_secs(10).as_secs()).unwrap());
+    Ok(socket)
 }
 
 /// Send a single ping to `ip_address`.
