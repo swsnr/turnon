@@ -13,6 +13,9 @@ url = "https://raw.githubusercontent.com/EmbarkStudios/rust-ecosystem/main/audit
 [imports.google]
 url = "https://raw.githubusercontent.com/google/supply-chain/main/audits.toml"
 
+[imports.isrg]
+url = "https://raw.githubusercontent.com/divviup/libprio-rs/main/supply-chain/audits.toml"
+
 [imports.mozilla]
 url = "https://raw.githubusercontent.com/mozilla/supply-chain/main/audits.toml"
 
@@ -32,4 +35,8 @@ criteria = "safe-to-run"
 
 [[exemptions.event-listener-strategy]]
 version = "0.5.2"
+criteria = "safe-to-run"
+
+[[exemptions.toml_parser]]
+version = "1.0.4"
 criteria = "safe-to-run"
