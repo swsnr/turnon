@@ -38,6 +38,7 @@
     clippy::as_conversions,
 )]
 #![allow(clippy::enum_glob_use, clippy::module_name_repetitions)]
+#![forbid(unsafe_code)]
 
 use std::ffi::CString;
 

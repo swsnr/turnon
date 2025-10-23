@@ -28,6 +28,13 @@ when = "2024-04-10"
 user-id = 52553
 user-login = "embark-studios"
 
+[[publisher.errno]]
+version = "0.3.14"
+when = "2025-09-09"
+user-id = 6825
+user-login = "sunfishcode"
+user-name = "Dan Gohman"
+
 [[publisher.gdk-pixbuf]]
 version = "0.21.2"
 when = "2025-09-17"
@@ -209,6 +216,13 @@ when = "2025-10-09"
 user-id = 55123
 user-login = "rust-lang-owner"
 
+[[publisher.linux-raw-sys]]
+version = "0.11.0"
+when = "2025-09-09"
+user-id = 6825
+user-login = "sunfishcode"
+user-name = "Dan Gohman"
+
 [[publisher.memchr]]
 version = "2.7.6"
 when = "2025-09-25"
@@ -236,6 +250,13 @@ when = "2025-03-03"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
+
+[[publisher.rustix]]
+version = "1.1.2"
+when = "2025-09-09"
+user-id = 6825
+user-login = "sunfishcode"
+user-name = "Dan Gohman"
 
 [[publisher.ryu]]
 version = "1.0.20"

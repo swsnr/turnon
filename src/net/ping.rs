@@ -6,12 +6,9 @@
 
 //! A simple user-space ping implementation.
 
-use gnome_app_utils::libc;
-use std::ffi::c_int;
 use std::fmt::Display;
 use std::future::Future;
 use std::net::{IpAddr, SocketAddr};
-use std::os::fd::{FromRawFd, OwnedFd};
 use std::time::{Duration, Instant};
 
 use glib::IOCondition;
@@ -24,37 +21,18 @@ use gtk::prelude::SocketExt;
 
 use crate::config::G_LOG_DOMAIN;
 
-#[allow(
-    clippy::needless_pass_by_value,
-    reason = "Taking error by value is more ergonomic with map_err"
-)]
-fn to_glib_error(error: std::io::Error) -> glib::Error {
-    let io_error = error
-        .raw_os_error()
-        .map_or(IOErrorEnum::Failed, gio::io_error_from_errno);
-    glib::Error::new(io_error, &error.to_string())
-}
-
-/// Create a socket and return the file descriptor for the socket.
-///
-/// See `socket(2)` for details.
-fn socket(domain: c_int, ty: c_int, protocol: c_int) -> std::io::Result<OwnedFd> {
-    // SAFETY: We only pass integer constants here, and check for error return immediately.
-    let socket = unsafe { libc::socket(domain, ty, protocol) };
-    if socket < 0 {
-        Err(std::io::Error::last_os_error())
-    } else {
-        // SAFETY: socket returns a new FD on success which the caller now owns.
-        Ok(unsafe { OwnedFd::from_raw_fd(socket) })
-    }
+fn to_glib_error(error: rustix::io::Errno) -> glib::Error {
+    let domain = gio::io_error_from_errno(error.raw_os_error());
+    glib::Error::new(domain, &error.to_string())
 }
 
 fn icmp_socket_for_address(address: IpAddr) -> Result<gio::Socket, glib::Error> {
+    use rustix::net::*;
     let (domain, proto) = match address {
-        IpAddr::V4(_) => (libc::AF_INET, libc::IPPROTO_ICMP),
-        IpAddr::V6(_) => (libc::AF_INET6, libc::IPPROTO_ICMPV6),
+        IpAddr::V4(_) => (AddressFamily::INET, ipproto::ICMP),
+        IpAddr::V6(_) => (AddressFamily::INET6, ipproto::ICMPV6),
     };
-    let socket_fd = socket(domain, libc::SOCK_DGRAM, proto).map_err(to_glib_error)?;
+    let socket_fd = socket(domain, SocketType::DGRAM, Some(proto)).map_err(to_glib_error)?;
     let socket = gio::Socket::from_fd(socket_fd)?;
     // Make the socket non-blocking and add a reasonable timeout.
     // set_timeout takes a timeout in seconds; we go through a Duration value
