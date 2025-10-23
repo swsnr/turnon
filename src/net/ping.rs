@@ -18,6 +18,7 @@ use gtk::gio::Cancellable;
 use gtk::gio::prelude::{ResolverExt, SocketExtManual};
 use gtk::gio::{self, IOErrorEnum};
 use gtk::prelude::SocketExt;
+use rustix::net::{AddressFamily, SocketType, ipproto, socket};
 
 use crate::config::G_LOG_DOMAIN;
 
@@ -27,7 +28,6 @@ fn to_glib_error(error: rustix::io::Errno) -> glib::Error {
 }
 
 fn icmp_socket_for_address(address: IpAddr) -> Result<gio::Socket, glib::Error> {
-    use rustix::net::*;
     let (domain, proto) = match address {
         IpAddr::V4(_) => (AddressFamily::INET, ipproto::ICMP),
         IpAddr::V6(_) => (AddressFamily::INET6, ipproto::ICMPV6),
