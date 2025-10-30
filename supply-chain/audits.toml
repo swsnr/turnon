@@ -365,7 +365,7 @@ end = "2026-07-16"
 criteria = "safe-to-run"
 user-id = 3623 # Sebastian Dröge (sdroege)
 start = "2020-08-28"
-end = "2025-10-26"
+end = "2026-10-30"
 notes = "Known Gnome developer"
 
 [[trusted.gio-sys]]
@@ -379,7 +379,7 @@ notes = "Known Gnome developer"
 criteria = "safe-to-run"
 user-id = 3623 # Sebastian Dröge (sdroege)
 start = "2020-02-14"
-end = "2025-10-26"
+end = "2026-10-30"
 notes = "Known Gnome developer"
 
 [[trusted.glib-build-tools]]
@@ -393,7 +393,7 @@ notes = "Known Gnome developer"
 criteria = "safe-to-run"
 user-id = 3623 # Sebastian Dröge (sdroege)
 start = "2021-07-08"
-end = "2025-10-26"
+end = "2026-10-30"
 notes = "Known Gnome developer"
 
 [[trusted.glib-sys]]

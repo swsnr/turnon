@@ -324,9 +324,9 @@ dependencies = [
 
 [[package]]
 name = "gio"
-version = "0.21.2"
+version = "0.21.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ed68efc12b748a771be2dccc49480d8584004382967c98323245fc3c38b74a42"
+checksum = "daeff3dd716d1ba91850b976b76a1c2d28f99ef6c1602cd8fdaa8fab8017fd9c"
 dependencies = [
  "futures-channel",
  "futures-core",
@@ -354,9 +354,9 @@ dependencies = [
 
 [[package]]
 name = "glib"
-version = "0.21.3"
+version = "0.21.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e1f2cbc4577536c849335878552f42086bfd25a8dcd6f54a18655cf818b20c8f"
+checksum = "5b9dbecb1c33e483a98be4acfea2ab369e1c28f517c6eadb674537409c25c4b2"
 dependencies = [
  "bitflags",
  "futures-channel",
@@ -376,9 +376,9 @@ dependencies = [
 
 [[package]]
 name = "glib-macros"
-version = "0.21.2"
+version = "0.21.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "55eda916eecdae426d78d274a17b48137acdca6fba89621bd3705f2835bc719f"
+checksum = "880e524e0085f3546cfb38532b2c202c0d64741d9977a6e4aa24704bfc9f19fb"
 dependencies = [
  "heck",
  "proc-macro-crate",
@@ -400,7 +400,7 @@ dependencies = [
 [[package]]
 name = "gnome-app-utils"
 version = "0.1.0"
-source = "git+https://codeberg.org/swsnr/gnome-app-utils.rs.git?rev=a20c376fe47e04f0d67f9f2be953a6d67f2a846b#a20c376fe47e04f0d67f9f2be953a6d67f2a846b"
+source = "git+https://codeberg.org/swsnr/gnome-app-utils.rs.git?rev=70972c3c250e19c58965671e6e0e531c269d3a47#70972c3c250e19c58965671e6e0e531c269d3a47"
 dependencies = [
  "futures",
  "gdk4-wayland",
@@ -410,7 +410,6 @@ dependencies = [
  "gtk4",
  "libc",
  "log",
- "pin-project-lite",
  "strum",
 ]
 
