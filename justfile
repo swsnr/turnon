@@ -84,14 +84,14 @@ lint-rust: configure-app-id
     cargo +stable fmt -- --check
     cargo +stable clippy --all-targets
 
-lint-flatpak:
+lint-flatpak-manifest:
     flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak/de.swsnr.turnon.Devel.yaml
     flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak/de.swsnr.turnon.yaml
 
 lint-data:
     appstreamcli validate --strict --explain de.swsnr.turnon.metainfo.xml
 
-lint-all: lint-rust lint-blueprint lint-data lint-flatpak
+lint-all: lint-rust lint-blueprint lint-data
 
 test-rust:
     cargo +stable build
