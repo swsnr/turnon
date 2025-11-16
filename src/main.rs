@@ -31,7 +31,6 @@
     clippy::let_underscore_untyped,
     // Code smells
     clippy::float_cmp_const,
-    clippy::string_to_string,
     clippy::if_then_some_else_none,
     clippy::large_include_file,
     // Disable as casts
