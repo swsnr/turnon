@@ -9,7 +9,7 @@ xgettext_opts := '--package-name=' + trim_end_matches(APPID, '.Devel') + \
     ' --foreign-user --copyright-holder "Sebastian Wiesner <sebastian@swsnr.de>"' + \
     ' --sort-by-file --from-code=UTF-8 --add-comments'
 
-version := `git describe`
+version := `git describe --always`
 
 default:
     just --list
