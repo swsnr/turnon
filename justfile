@@ -87,7 +87,6 @@ lint-rust: configure-app-id
 lint-flatpak:
     flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak/de.swsnr.turnon.Devel.yaml
     flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak/de.swsnr.turnon.yaml
-    flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream de.swsnr.turnon.metainfo.xml
 
 lint-data:
     appstreamcli validate --strict --explain de.swsnr.turnon.metainfo.xml
