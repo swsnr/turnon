@@ -78,7 +78,7 @@ compile: configure-app-id compile-resources compile-desktop-file compile-schemas
 lint-blueprint:
     blueprint-compiler format resources/**/*.blp resources/*.blp
 
-lint-rust:
+lint-rust: configure-app-id
     cargo +stable vet --locked
     cargo +stable deny --all-features --locked check
     cargo +stable fmt -- --check
