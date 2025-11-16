@@ -38,7 +38,7 @@ fn icmp_socket_for_address(address: IpAddr) -> Result<gio::Socket, glib::Error> 
     // set_timeout takes a timeout in seconds; we go through a Duration value
     // to make this explicit.
     socket.set_blocking(false);
-    socket.set_timeout(u32::try_from(Duration::from_secs(10).as_secs()).unwrap());
+    socket.set_timeout(10 /* seconds */);
     Ok(socket)
 }
 
