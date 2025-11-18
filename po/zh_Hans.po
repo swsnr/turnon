@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-09-27 07:09+0000\n"
+"PO-Revision-Date: 2025-11-18 12:10+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.2\n"
+"X-Generator: Weblate 5.14\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
@@ -350,7 +350,7 @@ msgstr "保存设备"
 #: resources/shortcuts-dialog.blp:75
 msgctxt "shortcut item title"
 msgid "Ask to delete device"
-msgstr "经确认后删除设备‌"
+msgstr "经确认后删除设备"
 
 #: resources/shortcuts-dialog.blp:80
 msgctxt "shortcut item title"
