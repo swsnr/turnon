@@ -162,8 +162,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gtk4]]
-version = "0.10.1"
-when = "2025-09-17"
+version = "0.10.2"
+when = "2025-10-30"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"

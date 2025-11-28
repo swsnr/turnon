@@ -400,7 +400,7 @@ dependencies = [
 [[package]]
 name = "gnome-app-utils"
 version = "0.1.0"
-source = "git+https://codeberg.org/swsnr/gnome-app-utils.rs.git?rev=70972c3c250e19c58965671e6e0e531c269d3a47#70972c3c250e19c58965671e6e0e531c269d3a47"
+source = "git+https://codeberg.org/swsnr/gnome-app-utils.rs.git?rev=e16fcec9d1970fe81c6eeea8f5c5ef56e2f1c444#e16fcec9d1970fe81c6eeea8f5c5ef56e2f1c444"
 dependencies = [
  "futures",
  "gdk4-wayland",
@@ -480,9 +480,9 @@ dependencies = [
 
 [[package]]
 name = "gtk4"
-version = "0.10.1"
+version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f7887ee0ceeffedb25a418810a2c61497dacad51767fc13f9d60859b4023b8a"
+checksum = "58ea71795b91a0725b0e926e72e3d209d920ce60166e3a8f9f4dd46f287fee87"
 dependencies = [
  "cairo-rs",
  "field-offset",

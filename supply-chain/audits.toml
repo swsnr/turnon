@@ -463,7 +463,7 @@ notes = "Known Gnome developer"
 criteria = "safe-to-run"
 user-id = 3623 # Sebastian Dröge (sdroege)
 start = "2022-01-15"
-end = "2025-10-26"
+end = "2026-11-28"
 notes = "Known Gnome developer"
 
 [[trusted.gtk4]]
