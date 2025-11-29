@@ -9,4 +9,8 @@ jobs:
     runs-on: swsnr-rust-gnome
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
       - run: just test-all
