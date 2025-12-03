@@ -1,0 +1,700 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Sebastian Wiesner <sebastian@swsnr.de>
+# This file is distributed under the same license as the de.swsnr.turnon package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: de.swsnr.turnon\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. Translators: Do feel free to translate the application name, as in "Turning on a device".
+#: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
+#: resources/ui/turnon-application-window.blp:10
+msgid "Turn On"
+msgstr ""
+
+#: de.swsnr.turnon.desktop:4 de.swsnr.turnon.metainfo.xml:6
+msgid "Turn on devices in your network"
+msgstr ""
+
+#. Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+#: de.swsnr.turnon.desktop:10
+msgid "GNOME;GTK;WakeOnLan;"
+msgstr ""
+
+#: de.swsnr.turnon.desktop:17
+msgid "Add new device"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:8
+msgid ""
+"Conveniently turn on devices in your network, such as a NAS or a gaming "
+"console, using Wake On LAN (WoL)."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:10
+msgid "Features:"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:12
+msgid "Add devices to turn on."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:13
+msgid "Discover devices in the local network."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:14
+msgid "Discover web interfaces on devices."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:15
+msgid "Monitor device status."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:16
+msgid "Turn on devices with magic Wake On LAN (WoL) packets."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:17
+msgid "Turn on devices from GNOME Shell search."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:18
+msgid "Turn on devices from the command line."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:42
+msgid "Update to GNOME 49."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:51
+msgid "Configure target address for magic packets per device."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:52
+msgid "Support IPv6 target addresses for magic packets."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:62
+msgid "Change license to European Union Public License 1.2."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:68
+msgid "Correct icons in application."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:74
+msgid "Probe reachable devices for web interfaces."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:83
+msgid "Update to GNOME 48"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:89
+msgid "Reorder devices with Alt+Up and Alt+Down"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:98
+msgid ""
+"Refine application icon to make it sharper at smaller sizes, and redesign "
+"symbolic icon."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:107
+msgid "Save and restore main window state."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:108
+msgid "Define additional shortcuts."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:117
+msgid ""
+"Add new toolbar and start page buttons to enable network scanning. When "
+"network scanning is on show devices discovered in the local network in the "
+"list of devices."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:121
+msgid ""
+"Refine the application icon to improve its contrast on dark backgrounds."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:135
+msgid ""
+"The dialog to add a new device now uses success and error styles for the "
+"validity indicators."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:136
+msgid ""
+"Refuse to add a new device if the host name contains a port which is not "
+"permitted at this place."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:137 de.swsnr.turnon.metainfo.xml:146
+#: de.swsnr.turnon.metainfo.xml:154
+msgid "Update translations."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:152
+msgid "Searching for devices via GNOME Shell now ignores case."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:153
+msgid ""
+"Add \"--list-devices\" command line argument to list all devices and their "
+"status."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:164
+msgid ""
+"The link to translations in application metadata and on Flathub is more "
+"helpful now."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:170
+msgid "Add Dutch translation, and update existing translations."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:171
+msgid "Turn On now correctly persists devices when a device was edited."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:172
+msgid ""
+"The \"About Turn On\" dialog now provides a debug report for troubleshooting."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:181
+msgid "Add Hebrew translation."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:187
+msgid "Add Italian translation, and update German translation."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:193
+msgid ""
+"Turn On now integrates into GNOME search and offers to turn on devices "
+"directly from the search."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:194
+msgid ""
+"The Turn On launcher now offers to add a new device in the context menu."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:195
+msgid ""
+"Turn On itself now provides a basic command line interface; in particular "
+"the --turn-on-device option now turns on a device by its label."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:205
+msgid "Turn On no longer crashes when removing the last device."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:206
+msgid "Add German translation, and update application metadata."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:212
+msgid "Shorten summary in metadata."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:218
+msgid ""
+"Delete devices from the list of devices, edit existing devices, show early "
+"feedback when turning on a device, and make the dialog to edit devices "
+"easier to use with the keyboard (pressing Enter now navigates to the next "
+"entry and eventually adds the device)."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:230
+msgid "Refined app icon."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:236
+msgid ""
+"This is the initial release. The application supports the following features "
+"in this release:"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:238
+msgid "Add new devices"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:239
+msgid "Monitor whether devices are turned on"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:240
+msgid "Turn on devices with Wake On LAN"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:242
+msgid "This release is missing the following features:"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:244
+msgid "Devices can not be edited or removed."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:245
+msgid "The order of devices cannot be changed."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:246
+msgid "Languages other than English are not supported."
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:259
+msgid ""
+"Two devices, one of them on, and the other off, and two devices discovered "
+"in the network"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:263
+msgid ""
+"Two devices, one of them on, and the other off, with network discovery not "
+"enabled"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:267
+msgid ""
+"Edit a device with a name, the MAC address, and an IP address to check the "
+"status with"
+msgstr ""
+
+#: de.swsnr.turnon.metainfo.xml:271
+msgid ""
+"The empty greeting page with the application icon and a button to add a new "
+"device"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:18
+msgctxt "shortcuts section"
+msgid "General"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:21
+msgctxt "shortcut item title"
+msgid "Show shortcuts"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:26
+msgctxt "shortcut item title"
+msgid "Quit"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:33
+msgctxt "shortcut item title"
+msgid "Add a new device"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:39
+msgctxt "shortcuts section"
+msgid "Device discovery"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:42
+msgctxt "shortcut item title"
+msgid "Toggle network scanning"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:47
+msgctxt "shortcut item title"
+msgid "Add as a new device"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:53
+msgctxt "shortcuts section"
+msgid "Single device"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:56
+msgctxt "shortcut item title"
+msgid "Turn on device"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:63
+msgctxt "shortcut item title"
+msgid "Edit device"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:68
+msgctxt "shortcut item title"
+msgid "Save device"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:75
+msgctxt "shortcut item title"
+msgid "Ask to delete device"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:80
+msgctxt "shortcut item title"
+msgid "Delete device without confirmation"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:87
+msgctxt "shortcut item title"
+msgid "Move device upwards"
+msgstr ""
+
+#: resources/shortcuts-dialog.blp:92
+msgctxt "shortcut item title"
+msgid "Move device downwards"
+msgstr ""
+
+#: resources/ui/device-row.blp:71
+msgctxt "device-row.action.row.add.tooltip"
+msgid "Add this device"
+msgstr ""
+
+#: resources/ui/device-row.blp:83
+msgctxt "device-row.action.row.edit.tooltip"
+msgid "Edit this device"
+msgstr ""
+
+#: resources/ui/device-row.blp:95
+msgctxt "device-row.action.row.ask-delete.tooltip"
+msgid "Delete this device?"
+msgstr ""
+
+#: resources/ui/device-row.blp:113
+msgctxt "device-row.action.row.delete"
+msgid "Delete"
+msgstr ""
+
+#: resources/ui/device-row.blp:123
+msgctxt "canceldevice-row.action.row.cancel-delete"
+msgid "Cancel"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:11
+msgid "Edit device"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:21
+msgctxt "edit-device-dialog.group.title"
+msgid "Device"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:24
+msgctxt "edit-device-dialog.entry.label.title"
+msgid "Device _label"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:25
+msgctxt "edit-device-dialog.entry.label.tooltip"
+msgid "A label to recognize the device by"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:33
+msgctxt "edit-device-dialog.entry.label.feedback"
+msgid "Please provide a label for the device."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:38
+msgctxt "edit-device-dialog.entry.mac_address.title"
+msgid "_MAC address"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:39
+msgctxt "edit-device-dialog.entry.mac_address.tooltip"
+msgid "The hardware address for this device"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:48
+msgctxt "edit-device-dialog.entry.mac_address.feedback"
+msgid "This is no valid 48-bit MAC address."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:53
+msgctxt "edit-device-dialog.entry.host.title"
+msgid "_Host name or IP address"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:54
+msgctxt "edit-device-dialog.entry.host.tooltip"
+msgid ""
+"The hostname or IP address of the device to check whether it has woken up"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:69
+msgctxt "edit-device-dialog.entry.host.feedback"
+msgid "Please specify a target host to check availability"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:82
+msgctxt "edit-device-dialog.entry.socket-address.feedback"
+msgid ""
+"This looks like a socket address with host and port, but a port is not "
+"permitted here!"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:95
+msgctxt "edit-device-dialog.entry.host.feedback"
+msgid "This looks like a generic name resolved via DNS."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:109
+msgctxt "edit-device-dialog.entry.host.feedback"
+msgid "This is a valid IPv4 address."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:123
+msgctxt "edit-device-dialog.entry.host.feedback"
+msgid "This is a valid IPv6 address."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:135
+msgctxt "edit-device-dialog.group.title"
+msgid "Magic packet destination"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:136
+msgctxt "edit-device-dialog.group.description"
+msgid "The destination address the magic packet for this device is sent to."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:139
+msgctxt "edit-device-dialog.entry.target-address.title"
+msgid "_Target address"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:140
+msgctxt "edit-device-dialog.entry.target-address.tooltip"
+msgid ""
+"The target address as IPv4 or IPv6 socket address, i.e. IP address and port"
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:155
+msgctxt "edit-device-dialog.entry.target_address.feedback"
+msgid "Please provide a valid target socket address for the device."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:169
+msgctxt "edit-device-dialog.entry.target_address.feedback"
+msgid "This is a valid IPv4 socket address."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:183
+msgctxt "edit-device-dialog.entry.target_address.feedback"
+msgid "This is a valid IPv6 socket address."
+msgstr ""
+
+#: resources/ui/edit-device-dialog.blp:196
+msgid "_Save"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:21
+msgctxt "application-window.action.app.add-device.tooltip"
+msgid "Add a new device"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:28
+msgctxt "application-window.action.app.scan-network.tooltip"
+msgid "Scan the network for devices"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:36
+msgctxt "application-window.menu.label"
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:41
+msgctxt "application-window.menu.label"
+msgid "_About Turn On"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:69
+msgctxt "application-window.status-page.title"
+msgid "No devices"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:70
+msgctxt "application-window.status-page.description"
+msgid "Add a new device to turn it on."
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:85
+msgctxt "application-window.status-page.button.label"
+msgid "Add new device"
+msgstr ""
+
+#: resources/ui/turnon-application-window.blp:95
+msgctxt "application-window.status-page.button.label"
+msgid "Scan network"
+msgstr ""
+
+#: src/app.rs:41
+msgctxt "about-dialog.link.label"
+msgid "Translations"
+msgstr ""
+
+#. Credits for the translator to the current language.
+#. Translators: Add your name here, as "Jane Doe <jdoe@example.com>" or "Jane Doe https://jdoe.example.com"
+#. Mail address or URL are optional.  Separate multiple translators with a newline, i.e. \n
+#: src/app.rs:50
+msgid "translator-credits"
+msgstr ""
+
+#: src/app.rs:55
+msgctxt "about-dialog.acknowledgment-section"
+msgid "Help and inspiration"
+msgstr ""
+
+#: src/app.rs:68
+msgctxt "about-dialog.acknowledgment-section"
+msgid "Helpful services"
+msgstr ""
+
+#. Translators: Use translated app name from https://flathub.org/de/apps/de.swsnr.pictureoftheday
+#: src/app.rs:80
+msgctxt "about-dialog.other-app.name"
+msgid "Picture Of The Day"
+msgstr ""
+
+#. Translators: Use translated app summary from https://flathub.org/de/apps/de.swsnr.pictureoftheday
+#: src/app.rs:85
+msgctxt "about-dialog.other-app.summary"
+msgid "Your daily wallpaper"
+msgstr ""
+
+#: src/app.rs:293
+msgctxt "option.add-device.description"
+msgid "Add a new device"
+msgstr ""
+
+#: src/app.rs:304
+msgctxt "option.turn-on-device.description"
+msgid "Turn on a device by its label"
+msgstr ""
+
+#: src/app.rs:309
+msgctxt "option.turn-on-device.arg.description"
+msgid "LABEL"
+msgstr ""
+
+#: src/app.rs:320
+msgctxt "option.list-devices.description"
+msgid "List all devices and their status"
+msgstr ""
+
+#: src/app.rs:332
+msgctxt "option.devices-file.description"
+msgid "Use the given file as storage for devices (for development only)"
+msgstr ""
+
+#: src/app.rs:344
+msgctxt "option.arp-cache-file.description"
+msgid "Use the given file as ARP cache source (for development only)"
+msgstr ""
+
+#: src/app.rs:356
+msgctxt "option.main-window-height.description"
+msgid "Set the height of the main window (for development only)"
+msgstr ""
+
+#: src/app.rs:361
+msgctxt "option.main-window-height.arg.description"
+msgid "HEIGHT"
+msgstr ""
+
+#: src/app/commandline.rs:33
+#, rust-format
+msgctxt "option.turn-on-device.message"
+msgid ""
+"Sent magic packet to mac address {device_mac_address} of device "
+"{device_label}\n"
+msgstr ""
+
+#: src/app/commandline.rs:49
+#, rust-format
+msgctxt "option.turn-on-device.error"
+msgid "Failed to turn on device {device_label}: {error}\n"
+msgstr ""
+
+#: src/app/commandline.rs:92
+#, rust-format
+msgctxt "option.turn-on-device.error"
+msgid "No device found for label {label}\n"
+msgstr ""
+
+#: src/app/model/device_discovery.rs:197
+msgctxt "discovered-device.label"
+msgid "Discovered device"
+msgstr ""
+
+#: src/app/searchprovider.rs:79
+msgctxt "search-provider.notification.title"
+msgid "Sent magic packet"
+msgstr ""
+
+#: src/app/searchprovider.rs:86
+#, rust-format
+msgctxt "search-provider.notification.body"
+msgid ""
+"Sent magic packet to mac address {device_mac_address} of device "
+"{device_label}."
+msgstr ""
+
+#: src/app/searchprovider.rs:102
+msgctxt "search-provider.notification.title"
+msgid "Failed to send magic packet"
+msgstr ""
+
+#: src/app/searchprovider.rs:109
+#, rust-format
+msgctxt "search-provider.notification.body"
+msgid ""
+"Failed to send magic packet to mac address {device_mac_address} of device "
+"{device_label}."
+msgstr ""
+
+#: src/app/widgets/application_window.rs:90
+#, rust-format
+msgctxt "application-window.feedback.toast"
+msgid "Sending magic packet to device {device_label}"
+msgstr ""
+
+#: src/app/widgets/application_window.rs:108
+#, rust-format
+msgctxt "application-window.feedback.toast"
+msgid "Sent magic packet to device {device_label}"
+msgstr ""
+
+#: src/app/widgets/application_window.rs:119
+#, rust-format
+msgctxt "application-window.feedback.toast"
+msgid "Failed to send magic packet to device {device_label}"
+msgstr ""
+
+#. Translators: This is Pango markup, be sure to escape appropriately
+#: src/config.rs:58
+#, rust-format
+msgctxt "about-dialog.license-text"
+msgid ""
+"Copyright {copyright_name} &lt;{copyright_email}&gt;\n"
+"\n"
+"Licensed under the terms of the EUPL 1.2. You can find official translations "
+"of the license text at <a href=\"{translations}\">{translations}</a>.\n"
+"\n"
+"The full English text follows.\n"
+"\n"
+"{license_text}"
+msgstr ""
