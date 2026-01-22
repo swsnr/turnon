@@ -146,13 +146,11 @@ flatpak-update-manifest:
     @git commit -m 'Update flatpak manifest for {{version}}'
     @echo "Run git push and trigger sync workflow at https://github.com/flathub/de.swsnr.turnon/actions/workflows/sync.yaml"
 
-_post-release:
+release *ARGS:
+    cargo release {{ARGS}}
     @echo "Create new release at https://codeberg.org/swsnr/turnon/tags"
     @echo "Run 'just print-release-notes' to get Markdown release notes for the release"
     @echo "Run 'just flatpak-update-manifest' to update the flatpak manifest."
-
-release *ARGS: test-all && _post-release
-    cargo release {{ARGS}}
 
 # Patch `version` into `Cargo.toml`
 patch-version:
