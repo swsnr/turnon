@@ -64,36 +64,36 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-wayland]]
-version = "0.10.1"
-when = "2025-09-17"
+version = "0.10.3"
+when = "2025-12-02"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-wayland-sys]]
-version = "0.10.1"
-when = "2025-09-17"
+version = "0.10.3"
+when = "2025-12-02"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-x11]]
-version = "0.10.1"
-when = "2025-09-17"
+version = "0.10.3"
+when = "2025-12-02"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gdk4-x11-sys]]
-version = "0.10.1"
-when = "2025-09-17"
+version = "0.10.3"
+when = "2025-12-02"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio]]
-version = "0.21.4"
-when = "2025-10-30"
+version = "0.21.5"
+when = "2025-12-02"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -106,15 +106,15 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib]]
-version = "0.21.4"
-when = "2025-10-30"
+version = "0.21.5"
+when = "2025-12-02"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-macros]]
-version = "0.21.4"
-when = "2025-10-30"
+version = "0.21.5"
+when = "2025-12-02"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -162,8 +162,8 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gtk4]]
-version = "0.10.2"
-when = "2025-10-30"
+version = "0.10.3"
+when = "2025-12-02"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -182,37 +182,23 @@ user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
-[[publisher.hashbrown]]
-version = "0.15.2"
-when = "2024-11-25"
-user-id = 2915
-user-login = "Amanieu"
-user-name = "Amanieu d'Antras"
-
-[[publisher.indexmap]]
-version = "2.12.0"
-when = "2025-10-17"
-user-id = 539
-user-login = "cuviper"
-user-name = "Josh Stone"
-
 [[publisher.libadwaita]]
-version = "0.8.0"
-when = "2025-07-15"
+version = "0.8.1"
+when = "2025-11-26"
 user-id = 111887
 user-login = "A6GibKm"
 user-name = "Maximiliano"
 
 [[publisher.libadwaita-sys]]
-version = "0.8.0"
-when = "2025-07-15"
+version = "0.8.1"
+when = "2025-11-26"
 user-id = 111887
 user-login = "A6GibKm"
 user-name = "Maximiliano"
 
 [[publisher.libc]]
-version = "0.2.177"
-when = "2025-10-09"
+version = "0.2.180"
+when = "2026-01-08"
 user-id = 55123
 user-login = "rust-lang-owner"
 
@@ -258,13 +244,6 @@ user-id = 6825
 user-login = "sunfishcode"
 user-name = "Dan Gohman"
 
-[[publisher.ryu]]
-version = "1.0.20"
-when = "2025-03-04"
-user-id = 3618
-user-login = "dtolnay"
-user-name = "David Tolnay"
-
 [[publisher.serde]]
 version = "1.0.228"
 when = "2025-09-27"
@@ -278,13 +257,6 @@ when = "2025-09-27"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
-
-[[publisher.serde_spanned]]
-version = "1.0.3"
-when = "2025-10-09"
-user-id = 6743
-user-login = "epage"
-user-name = "Ed Page"
 
 [[publisher.slab]]
 version = "0.4.11"
@@ -300,23 +272,16 @@ user-id = 2017
 user-login = "mbrubeck"
 user-name = "Matt Brubeck"
 
-[[publisher.syn]]
-version = "2.0.108"
-when = "2025-10-22"
-user-id = 3618
-user-login = "dtolnay"
-user-name = "David Tolnay"
-
 [[publisher.target-lexicon]]
-version = "0.13.2"
-when = "2025-02-07"
+version = "0.13.3"
+when = "2025-09-09"
 user-id = 6825
 user-login = "sunfishcode"
 user-name = "Dan Gohman"
 
 [[publisher.toml]]
-version = "0.9.8"
-when = "2025-10-09"
+version = "0.9.11+spec-1.1.0"
+when = "2026-01-09"
 user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
@@ -335,18 +300,12 @@ user-id = 64539
 user-login = "kennykerr"
 user-name = "Kenny Kerr"
 
-[[publisher.winnow]]
-version = "0.7.13"
-when = "2025-08-22"
-user-id = 6743
-user-login = "epage"
-user-name = "Ed Page"
-
 [[publisher.wol]]
 version = "0.4.0"
 when = "2025-08-29"
 user-id = 4372
 user-login = "swsnr"
+user-name = "Sebastian Wiesner"
 
 [[audits.bytecode-alliance.audits.bitflags]]
 who = "Alex Crichton <alex@alexcrichton.com>"
@@ -869,12 +828,6 @@ Previously reviewed during security review and the audit is grandparented in.
 """
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
-[[audits.google.audits.toml_datetime]]
-who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
-criteria = "safe-to-run"
-version = "0.6.8"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
 [[audits.google.audits.unicode-ident]]
 who = "Lukasz Anforowicz <lukasza@chromium.org>"
 criteria = "safe-to-deploy"
@@ -966,18 +919,6 @@ delta = "0.8.19 -> 0.8.20"
 notes = "Minor changes."
 aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
 
-[[audits.mozilla.audits.hashbrown]]
-who = "Erich Gubler <erichdongubler@gmail.com>"
-criteria = "safe-to-deploy"
-delta = "0.15.2 -> 0.15.5"
-aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
-
-[[audits.mozilla.audits.hashbrown]]
-who = "Erich Gubler <erichdongubler@gmail.com>"
-criteria = "safe-to-deploy"
-delta = "0.15.5 -> 0.16.0"
-aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
-
 [[audits.mozilla.audits.semver]]
 who = "Jan-Erik Rediger <jrediger@mozilla.com>"
 criteria = "safe-to-deploy"
@@ -989,6 +930,20 @@ who = "Erich Gubler <erichdongubler@gmail.com>"
 criteria = "safe-to-deploy"
 delta = "1.0.226 -> 1.0.227"
 aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
+
+[[audits.mozilla.audits.serde_spanned]]
+who = "Ben Dean-Kawamura <bdk@mozilla.com>"
+criteria = "safe-to-deploy"
+version = "1.0.3"
+notes = "Relatively simple Serde trait implementations.  No IO or unsafe code."
+aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
+
+[[audits.mozilla.audits.serde_spanned]]
+who = "Jan-Erik Rediger <jrediger@mozilla.com>"
+criteria = "safe-to-deploy"
+delta = "1.0.3 -> 1.0.4"
+notes = "Unchanged"
+aggregated-from = "https://raw.githubusercontent.com/mozilla/glean/main/supply-chain/audits.toml"
 
 [[audits.mozilla.audits.strum]]
 who = "Teodor Tanasoaia <ttanasoaia@mozilla.com>"
@@ -1013,6 +968,19 @@ who = "Erich Gubler <erichdongubler@gmail.com>"
 criteria = "safe-to-deploy"
 delta = "0.26.4 -> 0.27.1"
 aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
+
+[[audits.mozilla.audits.toml_datetime]]
+who = "Jan-Erik Rediger <jrediger@mozilla.com>"
+criteria = "safe-to-deploy"
+version = "0.7.5+spec-1.1.0"
+notes = "Pure data type crate with some datetime parsing. No unsafe."
+aggregated-from = "https://raw.githubusercontent.com/mozilla/glean/main/supply-chain/audits.toml"
+
+[[audits.mozilla.audits.toml_writer]]
+who = "Jan-Erik Rediger <jrediger@mozilla.com>"
+criteria = "safe-to-deploy"
+version = "1.0.6+spec-1.1.0"
+aggregated-from = "https://raw.githubusercontent.com/mozilla/glean/main/supply-chain/audits.toml"
 
 [[audits.mozilla.audits.windows-link]]
 who = "Mark Hammond <mhammond@skippinet.com.au>"
@@ -1061,6 +1029,12 @@ aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.20.2 -> 0.20.3"
+aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.cfg-expr]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.20.3 -> 0.20.4"
 aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
 
 [[audits.swsnr.audits.event-listener]]
@@ -1129,11 +1103,23 @@ criteria = "safe-to-deploy"
 delta = "1.0.101 -> 1.0.102"
 aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
 
+[[audits.swsnr.audits.proc-macro2]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.102 -> 1.0.103"
+aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
+
 [[audits.swsnr.audits.quote]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "1.0.40 -> 1.0.41"
 aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.quote]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.41 -> 1.0.42"
+aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
 
 [[audits.swsnr.audits.serde_core]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -1148,29 +1134,29 @@ delta = "7.0.5 -> 7.0.6"
 notes = "No real code changes"
 aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
 
-[[audits.swsnr.audits.toml_datetime]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "0.6.8 -> 0.6.9"
-aggregated-from = "https://codeberg.org/swsnr/darklightd/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.toml_datetime]]
+[[audits.swsnr.audits.system-deps]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-deploy"
-delta = "0.6.11 -> 0.7.3"
-aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.toml_writer]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-version = "1.0.4"
-aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
+delta = "7.0.6 -> 7.0.7"
+aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
 
 [[audits.swsnr.audits.unicode-ident]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "1.0.18 -> 1.0.20"
 aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.unicode-ident]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-deploy"
+delta = "1.0.20 -> 1.0.22"
+aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.version-compare]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-deploy"
+delta = "0.2.0 -> 0.2.1"
+aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
 
 [[audits.swsnr.audits.windows-link]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"

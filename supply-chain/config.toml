@@ -37,6 +37,26 @@ criteria = "safe-to-run"
 version = "0.5.2"
 criteria = "safe-to-run"
 
+[[exemptions.hashbrown]]
+version = "0.16.1"
+criteria = "safe-to-run"
+
+[[exemptions.indexmap]]
+version = "2.13.0"
+criteria = "safe-to-run"
+
+[[exemptions.syn]]
+version = "2.0.114"
+criteria = "safe-to-run"
+
 [[exemptions.toml_parser]]
 version = "1.0.4"
+criteria = "safe-to-run"
+
+[[exemptions.winnow]]
+version = "0.7.14"
+criteria = "safe-to-run"
+
+[[exemptions.zmij]]
+version = "1.0.16"
 criteria = "safe-to-run"

@@ -11,6 +11,16 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "2.9.0 -> 2.9.1"
 
+[[audits.cairo-rs]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
+
+[[audits.cairo-sys-rs]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
+
 [[audits.cfg-expr]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -25,6 +35,11 @@ delta = "0.16.0 -> 0.17.0"
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.17.2 -> 0.20.0"
+
+[[audits.cfg-expr]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.20.4 -> 0.20.5"
 
 [[audits.crossbeam-utils]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -71,16 +86,86 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.3.28 -> 0.3.31"
 
+[[audits.gdk-pixbuf]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
+
+[[audits.gdk-pixbuf-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
+
+[[audits.gdk4]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.10.1 -> 0.10.3"
+
+[[audits.gdk4-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.10.1 -> 0.10.3"
+
+[[audits.gio-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
+
+[[audits.glib-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
+
 [[audits.glob]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.3.1 -> 0.3.2"
 notes = "A few slightly non-trivial changes around symlinks, but still safe-to-run"
 
+[[audits.gobject-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
+
+[[audits.graphene-rs]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
+
+[[audits.graphene-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
+
+[[audits.gsk4]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.10.1 -> 0.10.3"
+
+[[audits.gsk4-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.10.1 -> 0.10.3"
+
+[[audits.gtk4-macros]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.10.1 -> 0.10.3"
+
+[[audits.gtk4-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.10.1 -> 0.10.3"
+
 [[audits.hashbrown]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.15.3 -> 0.15.4"
+
+[[audits.itoa]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.15 -> 1.0.17"
 
 [[audits.libadwaita]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -97,6 +182,11 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.4.26 -> 0.4.27"
 
+[[audits.log]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.4.28 -> 0.4.29"
+
 [[audits.macaddr]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -106,6 +196,16 @@ version = "1.0.1"
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.9.0 -> 0.9.1"
+
+[[audits.pango]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.3 -> 0.21.5"
+
+[[audits.pango-sys]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.21.2 -> 0.21.5"
 
 [[audits.parking]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -122,10 +222,25 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.2.14 -> 0.2.15"
 
+[[audits.proc-macro2]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.103 -> 1.0.105"
+
 [[audits.quote]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "1.0.37 -> 1.0.38"
+
+[[audits.quote]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.42 -> 1.0.43"
+
+[[audits.rustix]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.1.2 -> 1.1.3"
 
 [[audits.semver]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -157,6 +272,11 @@ delta = "1.0.138 -> 1.0.139"
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "1.0.140 -> 1.0.142"
+
+[[audits.serde_json]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.145 -> 1.0.149"
 
 [[audits.socket2]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -199,6 +319,16 @@ delta = "0.8.19 -> 0.8.20"
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
 delta = "0.6.9 -> 0.6.11"
+
+[[audits.toml_edit]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "0.23.7 -> 0.23.10+spec-1.0.0"
+
+[[audits.toml_parser]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "1.0.4 -> 1.0.6+spec-1.1.0"
 
 [[audits.unicode-ident]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
@@ -245,7 +375,7 @@ notes = "Known Gnome developer"
 
 [[trusted.cc]]
 criteria = "safe-to-run"
-user-id = 2915 # Amanieu d'Antras (Amanieu)
+user-id = 2915
 start = "2024-02-20"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
@@ -503,7 +633,7 @@ notes = "Known Gnome developer"
 
 [[trusted.hashbrown]]
 criteria = "safe-to-run"
-user-id = 2915 # Amanieu d'Antras (Amanieu)
+user-id = 2915
 start = "2019-04-02"
 end = "2025-10-26"
 notes = "Trusted by mozilla"
@@ -777,6 +907,6 @@ notes = "Trusted by mozilla and bytecode-alliance"
 
 [[trusted.wol]]
 criteria = "safe-to-run"
-user-id = 4372 # swsnr
+user-id = 4372 # Sebastian Wiesner (swsnr)
 start = "2025-03-25"
 end = "2026-03-26"
