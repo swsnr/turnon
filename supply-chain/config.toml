@@ -113,10 +113,6 @@ criteria = "safe-to-run"
 version = "2.13.0"
 criteria = "safe-to-run"
 
-[[exemptions.memchr]]
-version = "2.8.0"
-criteria = "safe-to-run"
-
 [[exemptions.pango]]
 version = "0.22.0"
 criteria = "safe-to-run"

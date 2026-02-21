@@ -104,6 +104,13 @@ user-id = 6825
 user-login = "sunfishcode"
 user-name = "Dan Gohman"
 
+[[publisher.memchr]]
+version = "2.7.6"
+when = "2025-09-25"
+user-id = 189
+user-login = "BurntSushi"
+user-name = "Andrew Gallant"
+
 [[publisher.pkg-config]]
 version = "0.3.32"
 when = "2025-03-03"
@@ -928,6 +935,12 @@ who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-deploy"
 delta = "0.4.27 -> 0.4.28"
 aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
+
+[[audits.swsnr.audits.memchr]]
+who = "Sebastian Wiesner <sebastian@swsnr.de>"
+criteria = "safe-to-run"
+delta = "2.7.6 -> 2.8.0"
+aggregated-from = "https://codeberg.org/swsnr/keep-me-awake/raw/branch/main/supply-chain/audits.toml"
 
 [[audits.swsnr.audits.pin-project-lite]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
