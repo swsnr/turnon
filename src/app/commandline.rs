@@ -78,7 +78,7 @@ pub fn turn_on_device_by_label(
         let command_line = command_line.clone();
         glib::spawn_future_local(async move {
             let exit_code = turn_on_device(&command_line, &device).await;
-            command_line.set_exit_status(exit_code.into());
+            command_line.set_exit_code(exit_code);
             command_line.done();
             drop(guard);
         });
@@ -154,7 +154,7 @@ pub fn list_devices(
                 device.host()
             ));
         }
-        command_line.set_exit_status(glib::ExitCode::SUCCESS.into());
+        command_line.set_exit_code(glib::ExitCode::SUCCESS);
         command_line.done();
         drop(guard);
     });
