@@ -16,10 +16,10 @@ use gnome_app_utils::futures::future;
 use gnome_app_utils::futures::stream::{FuturesOrdered, FuturesUnordered};
 use gtk::gio;
 use gtk::prelude::*;
-use macaddr::MacAddr6;
 
 use crate::config;
 use crate::futures::future_with_timeout;
+use crate::net::MacAddressBoxed;
 use crate::net::SocketAddrBoxed;
 use crate::net::arpcache::{ArpCacheEntry, default_arp_cache_path, read_arp_cache_from_path};
 use crate::net::{PingDestination, ping_address};
@@ -88,7 +88,7 @@ impl DebugInfo {
             glib::timeout_future(Duration::from_millis(500)).map(|()| monitor.connectivity()),
             std::iter::once(Device::new(
                 "localhost",
-                MacAddr6::nil().into(),
+                MacAddressBoxed::default(),
                 "localhost",
                 SocketAddrBoxed::default(),
             ))

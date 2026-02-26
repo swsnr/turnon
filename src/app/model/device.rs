@@ -10,7 +10,7 @@ use gtk::glib;
 
 use crate::config::G_LOG_DOMAIN;
 use crate::futures::future_with_timeout;
-use crate::net::{MacAddr6Boxed, SocketAddrBoxed, wol};
+use crate::net::{MacAddressBoxed, SocketAddrBoxed, wol};
 
 glib::wrapper! {
     pub struct Device(ObjectSubclass<imp::Device>);
@@ -19,7 +19,7 @@ glib::wrapper! {
 impl Device {
     pub fn new(
         label: &str,
-        mac_address: MacAddr6Boxed,
+        mac_address: MacAddressBoxed,
         host: &str,
         target_address: SocketAddrBoxed,
     ) -> Self {
@@ -70,7 +70,7 @@ mod imp {
     use glib::subclass::prelude::*;
     use gtk::glib;
 
-    use crate::net::{MacAddr6Boxed, SocketAddrBoxed};
+    use crate::net::{MacAddressBoxed, SocketAddrBoxed};
 
     #[derive(Debug, Default, glib::Properties)]
     #[properties(wrapper_type = super::Device)]
@@ -80,7 +80,7 @@ mod imp {
         pub label: RefCell<String>,
         /// The MAC address of the device to wake.
         #[property(get, set)]
-        pub mac_address: RefCell<MacAddr6Boxed>,
+        pub mac_address: RefCell<MacAddressBoxed>,
         /// The host name or IP 4/6 address of the device, to check whether it is reachable.
         #[property(get, set)]
         pub host: RefCell<String>,

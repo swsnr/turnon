@@ -182,8 +182,8 @@ user-login = "kennykerr"
 user-name = "Kenny Kerr"
 
 [[publisher.wol]]
-version = "0.4.0"
-when = "2025-08-29"
+version = "0.5.0"
+when = "2026-02-26"
 user-id = 4372
 user-login = "swsnr"
 user-name = "Sebastian Wiesner"

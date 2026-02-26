@@ -13,11 +13,11 @@ use std::path::{Path, PathBuf};
 use async_channel::{Receiver, Sender};
 use glib::object::Cast;
 use gtk::gio::ListStore;
-use macaddr::MacAddr6;
 use serde::{Deserialize, Serialize};
+use wol::MacAddress;
 
 use crate::config::G_LOG_DOMAIN;
-use crate::net::{MacAddr6Boxed, SocketAddrBoxed, WOL_DEFAULT_TARGET_ADDRESS};
+use crate::net::{MacAddressBoxed, SocketAddrBoxed, WOL_DEFAULT_TARGET_ADDRESS};
 
 use super::model::Device;
 
@@ -27,8 +27,8 @@ use super::model::Device;
 #[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct StoredDevice {
     pub label: String,
-    #[serde(with = "mac_addr6_as_string")]
-    pub mac_address: MacAddr6,
+    #[serde(with = "mac_address_as_string")]
+    pub mac_address: MacAddress,
     pub host: String,
     /// The target address.
     ///
@@ -40,7 +40,7 @@ impl From<&StoredDevice> for Device {
     fn from(device: &StoredDevice) -> Self {
         Device::new(
             &device.label,
-            MacAddr6Boxed::from(device.mac_address),
+            MacAddressBoxed::from(device.mac_address),
             &device.host,
             SocketAddrBoxed::from(
                 device
@@ -74,28 +74,28 @@ impl From<Device> for StoredDevice {
     }
 }
 
-mod mac_addr6_as_string {
+mod mac_address_as_string {
     use std::str::FromStr;
 
-    use macaddr::MacAddr6;
     use serde::{Deserialize, Deserializer, Serializer};
+    use wol::MacAddress;
 
     #[allow(
         clippy::trivially_copy_pass_by_ref,
         reason = "serde's with requires a &T type here"
     )]
-    pub fn serialize<S>(addr: &MacAddr6, serializer: S) -> Result<S::Ok, S::Error>
+    pub fn serialize<S>(addr: &MacAddress, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: Serializer,
     {
         serializer.serialize_str(&addr.to_string())
     }
 
-    pub fn deserialize<'de, D>(deserializer: D) -> Result<MacAddr6, D::Error>
+    pub fn deserialize<'de, D>(deserializer: D) -> Result<MacAddress, D::Error>
     where
         D: Deserializer<'de>,
     {
-        MacAddr6::from_str(&String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
+        MacAddress::from_str(&String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
     }
 }
 
@@ -319,20 +319,20 @@ mod tests {
     fn device_from_stored_device() {
         check_device(&StoredDevice {
             label: "foo-server".into(),
-            mac_address: MacAddr6::new(0x0E, 0x11, 0x12, 0x13, 0x14, 0x15),
+            mac_address: [0x0E, 0x11, 0x12, 0x13, 0x14, 0x15].into(),
             // 192.0.2.0/24 is for documentation
             host: "192.0.2.100".into(),
             target_address: None,
         });
         check_device(&StoredDevice {
             label: "foo".into(),
-            mac_address: MacAddr6::new(0x0E, 0x21, 0x22, 0x23, 0x24, 0x25),
+            mac_address: [0x0E, 0x21, 0x22, 0x23, 0x24, 0x25].into(),
             host: "foo.example.com".into(),
             target_address: Some(SocketAddr::new(Ipv4Addr::new(192, 0, 2, 60).into(), 42)),
         });
         check_device(&StoredDevice {
             label: "foo".into(),
-            mac_address: MacAddr6::new(0x0E, 0x21, 0x22, 0x23, 0x24, 0x25),
+            mac_address: [0x0E, 0x21, 0x22, 0x23, 0x24, 0x25].into(),
             host: "foo.example.com".into(),
             target_address: Some(SocketAddr::new(
                 Ipv6Addr::from_str("2001:db8::16:42").unwrap().into(),
@@ -358,14 +358,14 @@ mod tests {
     fn stored_device_from_device() {
         check_stored_device(&Device::new(
             "foo",
-            MacAddr6::new(0x0a, 0x0b, 0x0c, 0x0a, 0x0b, 0x0c).into(),
+            [0x0a, 0x0b, 0x0c, 0x0a, 0x0b, 0x0c].into(),
             "spam.example.com",
             // 192.0.2.0/24 is for documentation
             SocketAddr::new(Ipv4Addr::new(192, 0, 2, 24).into(), 42).into(),
         ));
         check_stored_device(&Device::new(
             "hello",
-            MacAddr6::new(0x0c, 0x0b, 0x0a, 0x0a, 0x0b, 0x0c).into(),
+            [0x0c, 0x0b, 0x0a, 0x0a, 0x0b, 0x0c].into(),
             "test.example.com",
             // 2001:db8::/32 is reserved for documentation and examples
             SocketAddr::new(Ipv6Addr::from_str("2001:db8::1").unwrap().into(), 42).into(),

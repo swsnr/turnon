@@ -16,7 +16,7 @@ use std::path::Path;
 use std::str::FromStr;
 
 use bitflags::bitflags;
-use macaddr::MacAddr6;
+use wol::MacAddress;
 
 /// A ARP hardware type.
 ///
@@ -95,7 +95,7 @@ pub struct ArpCacheEntry {
     /// Internal flags for this cache entry.
     pub flags: ArpCacheEntryFlags,
     /// The hardware address for this entry.
-    pub hardware_address: MacAddr6,
+    pub hardware_address: MacAddress,
 }
 
 #[derive(Debug)]
@@ -104,7 +104,7 @@ pub enum ArpCacheParseError {
     InvalidIpAddress(AddrParseError),
     InvalidHardwareType(ParseIntError),
     InvalidFlags(ParseIntError),
-    InvalidHardwareAddess(macaddr::ParseError),
+    InvalidHardwareAddess(wol::ParseError),
 }
 
 impl Display for ArpCacheParseError {
@@ -146,8 +146,8 @@ impl From<AddrParseError> for ArpCacheParseError {
     }
 }
 
-impl From<macaddr::ParseError> for ArpCacheParseError {
-    fn from(value: macaddr::ParseError) -> Self {
+impl From<wol::ParseError> for ArpCacheParseError {
+    fn from(value: wol::ParseError) -> Self {
         ArpCacheParseError::InvalidHardwareAddess(value)
     }
 }
@@ -177,7 +177,7 @@ impl FromStr for ArpCacheEntry {
         )
         .map_err(InvalidFlags)?;
         let hardware_address =
-            MacAddr6::from_str(parts.next().ok_or(MissingCell("HW address", 3))?)?;
+            MacAddress::from_str(parts.next().ok_or(MissingCell("HW address", 3))?)?;
         // The cache table also has mask and device columns, but we don't care for these
         Ok(ArpCacheEntry {
             ip_address,
@@ -228,8 +228,6 @@ pub fn default_arp_cache_path() -> &'static Path {
 mod tests {
     use std::{net::Ipv4Addr, str::FromStr};
 
-    use macaddr::MacAddr6;
-
     use super::*;
 
     #[test]
@@ -247,7 +245,7 @@ mod tests {
         assert_eq!(entry.flags, ArpCacheEntryFlags::ATF_COM);
         assert_eq!(
             entry.hardware_address,
-            MacAddr6::new(0xb6, 0xa3, 0xb0, 0x48, 0x80, 0xf1)
+            MacAddress::new([0xb6, 0xa3, 0xb0, 0x48, 0x80, 0xf1])
         );
     }
 

@@ -208,9 +208,10 @@ pub fn register_app_search_provider(
 
 #[cfg(test)]
 mod tests {
-    use macaddr::MacAddr6;
-
-    use crate::{app::model::Device, net::WOL_DEFAULT_TARGET_ADDRESS};
+    use crate::{
+        app::model::Device,
+        net::{MacAddressBoxed, WOL_DEFAULT_TARGET_ADDRESS},
+    };
 
     use super::*;
 
@@ -218,7 +219,7 @@ mod tests {
     fn device_matches_terms_case_insensitive() {
         let device = Device::new(
             "Server",
-            MacAddr6::nil().into(),
+            MacAddressBoxed::default(),
             "foo.example.com",
             WOL_DEFAULT_TARGET_ADDRESS.into(),
         );
@@ -233,7 +234,7 @@ mod tests {
     fn device_matches_terms_in_label_and_host() {
         let device = Device::new(
             "Server",
-            MacAddr6::nil().into(),
+            MacAddressBoxed::default(),
             "foo.example.com",
             WOL_DEFAULT_TARGET_ADDRESS.into(),
         );

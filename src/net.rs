@@ -17,7 +17,7 @@ mod monitor;
 mod ping;
 mod wol;
 
-pub use boxed::{MacAddr6Boxed, SocketAddrBoxed};
+pub use boxed::{MacAddressBoxed, SocketAddrBoxed};
 pub use http::probe_http;
 pub use monitor::monitor;
 pub use ping::{PingDestination, ping_address};

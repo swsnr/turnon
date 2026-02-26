@@ -11,38 +11,50 @@ use std::net::{AddrParseError, Ipv4Addr, SocketAddr, SocketAddrV4};
 use std::ops::Deref;
 use std::str::FromStr;
 
-use macaddr::MacAddr6;
+use wol::MacAddress;
 
 /// Boxed [`MacAddr6`].
 ///
 /// Define a MAC address type for GLib, by boxing a [`MacAdd6`].
-#[derive(Default, Debug, Copy, Clone, Eq, PartialEq, PartialOrd, Ord, glib::Boxed)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq, glib::Boxed)]
 #[boxed_type(name = "TurnOnMacAdd6")]
-pub struct MacAddr6Boxed(MacAddr6);
+pub struct MacAddressBoxed(MacAddress);
 
-impl From<MacAddr6> for MacAddr6Boxed {
-    fn from(value: MacAddr6) -> Self {
+impl Default for MacAddressBoxed {
+    fn default() -> Self {
+        [0, 0, 0, 0, 0, 0].into()
+    }
+}
+
+impl From<[u8; 6]> for MacAddressBoxed {
+    fn from(value: [u8; 6]) -> Self {
+        Self(value.into())
+    }
+}
+
+impl From<MacAddress> for MacAddressBoxed {
+    fn from(value: MacAddress) -> Self {
         Self(value)
     }
 }
 
-impl FromStr for MacAddr6Boxed {
-    type Err = macaddr::ParseError;
+impl FromStr for MacAddressBoxed {
+    type Err = wol::ParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        MacAddr6::from_str(s).map(Into::into)
+        MacAddress::from_str(s).map(Into::into)
     }
 }
 
-impl Deref for MacAddr6Boxed {
-    type Target = MacAddr6;
+impl Deref for MacAddressBoxed {
+    type Target = MacAddress;
 
     fn deref(&self) -> &Self::Target {
         &self.0
     }
 }
 
-impl Display for MacAddr6Boxed {
+impl Display for MacAddressBoxed {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         self.0.fmt(f)
     }

@@ -27,12 +27,11 @@ async-channel = "2.3.1"
 glib = { version = "0.22.0", features = ["log_macros"] }
 gnome-app-utils = { git = "https://codeberg.org/swsnr/gnome-app-utils.rs.git", rev = "f7079b38eef53f0d15ff352f21e0888563e1f3bf" }
 gtk = { package = "gtk4", version = "0.11.0" }
-macaddr = "1.0.1"
 serde = { version = "1.0.210", features = ["derive"] }
 serde_json = "1.0.128"
 bitflags = "2.6.0"
 semver = "1.0.24"
-wol = "0.4.0"
+wol = "0.5.0"
 formatx = "0.2.4"
 rustix = { version = "1.1.2", features = ["net"] }
 

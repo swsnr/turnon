@@ -76,7 +76,7 @@ mod imp {
     use gtk::{glib, template_callbacks};
 
     use crate::app::model::Device;
-    use crate::net::{MacAddr6Boxed, SocketAddrBoxed, WOL_DEFAULT_TARGET_ADDRESS};
+    use crate::net::{MacAddressBoxed, SocketAddrBoxed, WOL_DEFAULT_TARGET_ADDRESS};
 
     use super::super::ValidationIndicator;
 
@@ -129,7 +129,7 @@ mod imp {
 
         fn is_mac_address_valid(&self) -> bool {
             let text = self.mac_address.borrow();
-            !text.is_empty() && macaddr::MacAddr::from_str(&text).is_ok()
+            !text.is_empty() && wol::MacAddress::from_str(&text).is_ok()
         }
 
         fn validate_mac_address(&self) {
@@ -228,7 +228,7 @@ mod imp {
             klass.install_action("device.save", None, |dialog, _, _| {
                 if dialog.is_valid() {
                     // At this point we know that the addresses are valid, hence we can unwrap
-                    let mac_address = MacAddr6Boxed::from_str(&dialog.mac_address()).unwrap();
+                    let mac_address = MacAddressBoxed::from_str(&dialog.mac_address()).unwrap();
                     let target_address =
                         SocketAddrBoxed::from_str(&dialog.target_address()).unwrap();
                     let device = match dialog.device() {

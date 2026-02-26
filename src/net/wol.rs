@@ -12,7 +12,7 @@ use glib::IOCondition;
 use gtk::gio::Cancellable;
 use gtk::gio::prelude::{SocketExt, SocketExtManual};
 use gtk::gio::{self, IOErrorEnum};
-use macaddr::MacAddr6;
+use wol::MacAddress;
 
 /// The default target address for magic packets.
 ///
@@ -22,7 +22,7 @@ pub const WOL_DEFAULT_TARGET_ADDRESS: SocketAddrV4 = SocketAddrV4::new(Ipv4Addr:
 /// Send a magic Wake On LAN packet to the given `mac_address`.
 ///
 /// Sends the magic package as UDP package to `target_address`.
-pub async fn wol(mac_address: MacAddr6, target_address: SocketAddr) -> Result<(), glib::Error> {
+pub async fn wol(mac_address: MacAddress, target_address: SocketAddr) -> Result<(), glib::Error> {
     let socket = gio::Socket::new(
         match target_address {
             SocketAddr::V4(_) => gio::SocketFamily::Ipv4,
@@ -62,7 +62,6 @@ mod tests {
     };
 
     use glib::async_test;
-    use wol::MacAddr6;
 
     async fn assert_wol_packet(address: IpAddr) {
         let server = UdpSocket::bind((address, 0)).unwrap();
@@ -75,12 +74,12 @@ mod tests {
         assert!(0 < target_address.port());
 
         // 0x0E is a local MAC address, so it's unlikely to match any actual MAC address of any device on the current system.
-        let macaddr = MacAddr6::new(0x0E, 0x12, 0x13, 0x14, 0x15, 0x16);
-        let result = super::wol(macaddr, target_address).await;
+        let mac_address = [0x0E, 0x12, 0x13, 0x14, 0x15, 0x16].into();
+        let result = super::wol(mac_address, target_address).await;
         assert!(result.is_ok(), "Result: {result:?}");
 
         let mut expected_package = [0; 102];
-        wol::fill_magic_packet(&mut expected_package, macaddr);
+        wol::fill_magic_packet(&mut expected_package, mac_address);
 
         let mut buffer = [0; 1024];
         let size = server.recv(&mut buffer).unwrap();
