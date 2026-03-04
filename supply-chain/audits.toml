@@ -775,7 +775,7 @@ notes = "Trusted by mozilla and bytecode-alliance"
 
 [[trusted.slab]]
 criteria = "safe-to-run"
-user-id = 6741 # Alice Ryhl (Darksonn)
+user-id = 6741
 start = "2021-10-13"
 end = "2025-10-26"
 notes = "Trusted by mozilla"

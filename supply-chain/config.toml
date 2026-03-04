@@ -25,12 +25,20 @@ url = "https://codeberg.org/swsnr/rust-supply-chain/raw/branch/main/audits.toml"
 [policy.turnon]
 criteria = "safe-to-run"
 
+[[exemptions.bitflags]]
+version = "2.11.0"
+criteria = "safe-to-run"
+
 [[exemptions.cairo-rs]]
 version = "0.22.0"
 criteria = "safe-to-run"
 
 [[exemptions.cairo-sys-rs]]
 version = "0.22.0"
+criteria = "safe-to-run"
+
+[[exemptions.cfg-expr]]
+version = "0.20.6"
 criteria = "safe-to-run"
 
 [[exemptions.concurrent-queue]]
@@ -43,6 +51,42 @@ criteria = "safe-to-run"
 
 [[exemptions.event-listener-strategy]]
 version = "0.5.2"
+criteria = "safe-to-run"
+
+[[exemptions.futures]]
+version = "0.3.32"
+criteria = "safe-to-run"
+
+[[exemptions.futures-channel]]
+version = "0.3.32"
+criteria = "safe-to-run"
+
+[[exemptions.futures-core]]
+version = "0.3.32"
+criteria = "safe-to-run"
+
+[[exemptions.futures-executor]]
+version = "0.3.32"
+criteria = "safe-to-run"
+
+[[exemptions.futures-io]]
+version = "0.3.32"
+criteria = "safe-to-run"
+
+[[exemptions.futures-macro]]
+version = "0.3.32"
+criteria = "safe-to-run"
+
+[[exemptions.futures-sink]]
+version = "0.3.32"
+criteria = "safe-to-run"
+
+[[exemptions.futures-task]]
+version = "0.3.32"
+criteria = "safe-to-run"
+
+[[exemptions.futures-util]]
+version = "0.3.32"
 criteria = "safe-to-run"
 
 [[exemptions.gdk-pixbuf]]
@@ -113,6 +157,10 @@ criteria = "safe-to-run"
 version = "2.13.0"
 criteria = "safe-to-run"
 
+[[exemptions.linux-raw-sys]]
+version = "0.12.1"
+criteria = "safe-to-run"
+
 [[exemptions.pango]]
 version = "0.22.0"
 criteria = "safe-to-run"
@@ -121,12 +169,48 @@ criteria = "safe-to-run"
 version = "0.22.0"
 criteria = "safe-to-run"
 
+[[exemptions.pin-project-lite]]
+version = "0.2.17"
+criteria = "safe-to-run"
+
+[[exemptions.proc-macro-crate]]
+version = "3.5.0"
+criteria = "safe-to-run"
+
+[[exemptions.proc-macro2]]
+version = "1.0.106"
+criteria = "safe-to-run"
+
+[[exemptions.quote]]
+version = "1.0.45"
+criteria = "safe-to-run"
+
+[[exemptions.rustix]]
+version = "1.1.4"
+criteria = "safe-to-run"
+
+[[exemptions.slab]]
+version = "0.4.12"
+criteria = "safe-to-run"
+
 [[exemptions.syn]]
-version = "2.0.114"
+version = "2.0.117"
+criteria = "safe-to-run"
+
+[[exemptions.toml_datetime]]
+version = "1.0.0+spec-1.1.0"
+criteria = "safe-to-run"
+
+[[exemptions.toml_edit]]
+version = "0.25.3+spec-1.1.0"
 criteria = "safe-to-run"
 
 [[exemptions.toml_parser]]
-version = "1.0.4"
+version = "1.0.9+spec-1.1.0"
+criteria = "safe-to-run"
+
+[[exemptions.unicode-ident]]
+version = "1.0.24"
 criteria = "safe-to-run"
 
 [[exemptions.winnow]]
@@ -134,5 +218,5 @@ version = "0.7.14"
 criteria = "safe-to-run"
 
 [[exemptions.zmij]]
-version = "1.0.16"
+version = "1.0.21"
 criteria = "safe-to-run"

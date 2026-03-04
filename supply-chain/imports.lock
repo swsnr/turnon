@@ -8,12 +8,6 @@ user-id = 539
 user-login = "cuviper"
 user-name = "Josh Stone"
 
-[[publisher.cfg-expr]]
-version = "0.15.8"
-when = "2024-04-10"
-user-id = 52553
-user-login = "embark-studios"
-
 [[publisher.errno]]
 version = "0.3.14"
 when = "2025-09-09"
@@ -50,22 +44,22 @@ user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.gio]]
-version = "0.22.1"
-when = "2026-02-21"
+version = "0.22.2"
+when = "2026-02-28"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib]]
-version = "0.22.0"
-when = "2026-02-20"
+version = "0.22.2"
+when = "2026-02-28"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
 [[publisher.glib-macros]]
-version = "0.22.0"
-when = "2026-02-20"
+version = "0.22.2"
+when = "2026-02-28"
 user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
@@ -92,17 +86,10 @@ user-login = "A6GibKm"
 user-name = "Maximiliano"
 
 [[publisher.libc]]
-version = "0.2.180"
-when = "2026-01-08"
+version = "0.2.182"
+when = "2026-02-13"
 user-id = 55123
 user-login = "rust-lang-owner"
-
-[[publisher.linux-raw-sys]]
-version = "0.11.0"
-when = "2025-09-09"
-user-id = 6825
-user-login = "sunfishcode"
-user-name = "Dan Gohman"
 
 [[publisher.memchr]]
 version = "2.7.6"
@@ -118,13 +105,6 @@ user-id = 3623
 user-login = "sdroege"
 user-name = "Sebastian Dröge"
 
-[[publisher.rustix]]
-version = "1.1.2"
-when = "2025-09-09"
-user-id = 6825
-user-login = "sunfishcode"
-user-name = "Dan Gohman"
-
 [[publisher.serde]]
 version = "1.0.228"
 when = "2025-09-27"
@@ -138,13 +118,6 @@ when = "2025-09-27"
 user-id = 3618
 user-login = "dtolnay"
 user-name = "David Tolnay"
-
-[[publisher.slab]]
-version = "0.4.11"
-when = "2025-08-08"
-user-id = 6741
-user-login = "Darksonn"
-user-name = "Alice Ryhl"
 
 [[publisher.smallvec]]
 version = "1.15.1"
@@ -161,15 +134,8 @@ user-login = "sunfishcode"
 user-name = "Dan Gohman"
 
 [[publisher.toml]]
-version = "0.9.11+spec-1.1.0"
-when = "2026-01-09"
-user-id = 6743
-user-login = "epage"
-user-name = "Ed Page"
-
-[[publisher.toml_edit]]
-version = "0.23.7"
-when = "2025-10-09"
+version = "0.9.12+spec-1.1.0"
+when = "2026-02-10"
 user-id = 6743
 user-login = "epage"
 user-name = "Ed Page"
@@ -187,22 +153,6 @@ when = "2026-02-26"
 user-id = 4372
 user-login = "swsnr"
 user-name = "Sebastian Wiesner"
-
-[[audits.bytecode-alliance.audits.bitflags]]
-who = "Alex Crichton <alex@alexcrichton.com>"
-criteria = "safe-to-deploy"
-delta = "2.7.0 -> 2.9.4"
-notes = "Tweaks to the macro, nothing out of order."
-
-[[audits.bytecode-alliance.audits.futures]]
-who = "Joel Dice <joel.dice@gmail.com>"
-criteria = "safe-to-deploy"
-version = "0.3.31"
-
-[[audits.bytecode-alliance.audits.futures-sink]]
-who = "Pat Hickey <pat@moreproductive.org>"
-criteria = "safe-to-deploy"
-delta = "0.3.28 -> 0.3.31"
 
 [[audits.bytecode-alliance.audits.itoa]]
 who = "Dan Gohman <dev@sunfishcode.online>"
@@ -227,25 +177,11 @@ criteria = "safe-to-deploy"
 delta = "0.8.0 -> 0.9.0"
 notes = "No major changes in the crate, mostly updates to use new nightly Rust features."
 
-[[audits.bytecode-alliance.audits.pin-project-lite]]
-who = "Alex Crichton <alex@alexcrichton.com>"
-criteria = "safe-to-deploy"
-delta = "0.2.13 -> 0.2.14"
-notes = "No substantive changes in this update"
-
 [[audits.bytecode-alliance.audits.semver]]
 who = "Pat Hickey <phickey@fastly.com>"
 criteria = "safe-to-deploy"
 version = "1.0.17"
 notes = "plenty of unsafe pointer and vec tricks, but in well-structured and commented code that appears to be correct"
-
-[[audits.embark-studios.wildcard-audits.cfg-expr]]
-who = "Jake Shadle <opensource@embark-studios.com>"
-criteria = "safe-to-deploy"
-user-id = 52553 # embark-studios
-start = "2020-01-01"
-end = "2024-05-23"
-notes = "Maintained by Embark. No unsafe usage or ambient capabilities"
 
 [[audits.embark-studios.audits.async-channel]]
 who = "Johan Andersson <opensource@embark-studios.com>"
@@ -259,12 +195,6 @@ criteria = "safe-to-deploy"
 version = "0.1.1"
 notes = "No unsafe usage or ambient capabilities"
 
-[[audits.google.audits.bitflags]]
-who = "Justin Green <greenjustin@google.com>"
-criteria = "safe-to-run"
-version = "2.6.0"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
 [[audits.google.audits.crossbeam-utils]]
 who = "George Burgess IV <gbiv@google.com>"
 criteria = "safe-to-run"
@@ -275,97 +205,6 @@ aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust
 who = "George Burgess IV <gbiv@google.com>"
 criteria = "safe-to-deploy"
 version = "1.0.1"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-channel]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "0.3.28"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-channel]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-delta = "0.3.28 -> 0.3.31"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-core]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "0.3.28"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-core]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-delta = "0.3.28 -> 0.3.31"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-executor]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "0.3.28"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-io]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "0.3.28"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-io]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-delta = "0.3.28 -> 0.3.31"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-macro]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "0.3.28"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-macro]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-delta = "0.3.28 -> 0.3.31"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-sink]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "0.3.28"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-task]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "0.3.28"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-task]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-delta = "0.3.28 -> 0.3.31"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-util]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "0.3.28"
-notes = """
-There's a custom xorshift-based `random::shuffle` implementation in
-src/async_await/random.rs. This is `doc(hidden)` and seems to exist just so
-that `futures-macro::select` can be unbiased. Sicne xorshift is explicitly not
-intended to be a cryptographically secure algorithm, it is not considered
-crypto.
-"""
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.futures-util]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-delta = "0.3.28 -> 0.3.31"
 aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
 
 [[audits.google.audits.heck]]
@@ -433,119 +272,6 @@ who = "Dennis Kempin <denniskempin@google.com>"
 criteria = "safe-to-run"
 delta = "0.6.5 -> 0.7.1"
 aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.pin-project-lite]]
-who = "ChromeOS"
-criteria = "safe-to-run"
-version = "0.2.9"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.pin-project-lite]]
-who = "David Koloski <dkoloski@google.com>"
-criteria = "safe-to-deploy"
-delta = "0.2.9 -> 0.2.13"
-notes = "Audited at https://fxrev.dev/946396"
-aggregated-from = "https://fuchsia.googlesource.com/fuchsia/+/refs/heads/main/third_party/rust_crates/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.pin-utils]]
-who = "Android Legacy"
-criteria = "safe-to-run"
-version = "0.1.0"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro-crate]]
-who = "George Burgess IV <gbiv@google.com>"
-criteria = "safe-to-run"
-version = "1.2.1"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Ying Hsu <yinghsu@chromium.org>"
-criteria = "safe-to-run"
-version = "1.0.79"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Hung-Hsien Chen <hunghsienchen@chromium.org>"
-criteria = "safe-to-run"
-delta = "1.0.79 -> 1.0.86"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "danakj <danakj@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.86 -> 1.0.87"
-notes = "No new unsafe interactions."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Liza Burakova <liza@chromium.org"
-criteria = "safe-to-deploy"
-delta = "1.0.87 -> 1.0.89"
-notes = """
-Biggest change is adding error handling in build.rs.
-Some config related changes in wrapper.rs.
-"""
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.89 -> 1.0.92"
-notes = """
-I looked at the delta and the previous discussion at
-https://chromium-review.googlesource.com/c/chromium/src/+/5385745/3#message-a8e2813129fa3779dab15acede408ee26d67b7f3
-and the changes look okay to me (including the `unsafe fn from_str_unchecked`
-changes in `wrapper.rs`).
-"""
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.92 -> 1.0.93"
-notes = "No `unsafe`-related changes."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.proc-macro2]]
-who = "Daniel Cheng <dcheng@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.93 -> 1.0.94"
-notes = "Minor doc changes and clippy lint adjustments+fixes."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.quote]]
-who = "Ying Hsu <yinghsu@chromium.org>"
-criteria = "safe-to-run"
-version = "1.0.36"
-aggregated-from = "https://chromium.googlesource.com/chromiumos/third_party/rust_crates/+/refs/heads/main/cargo-vet/audits.toml?format=TEXT"
-
-[[audits.google.audits.quote]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.36 -> 1.0.37"
-notes = """
-The delta just 1) inlines/expands `impl ToTokens` that used to be handled via
-`primitive!` macro and 2) adds `impl ToTokens` for `CStr` and `CString`.
-"""
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.quote]]
-who = "Daniel Cheng <dcheng@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.38 -> 1.0.39"
-notes = "Only minor changes for clippy lints and documentation."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.quote]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.39 -> 1.0.40"
-notes = """
-The delta is just a simplification of how `tokens.extend(...)` call is made.
-Still no `unsafe` anywhere.
-"""
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
 [[audits.google.audits.rustc_version]]
 who = "danakj@chromium.org"
@@ -709,50 +435,6 @@ Previously reviewed during security review and the audit is grandparented in.
 """
 aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
 
-[[audits.google.audits.unicode-ident]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-version = "1.0.12"
-notes = '''
-I grepped for \"crypt\", \"cipher\", \"fs\", \"net\" - there were no hits.
-
-All two functions from the public API of this crate use `unsafe` to avoid bound
-checks for an array access.  Cross-module analysis shows that the offsets can
-be statically proven to be within array bounds.  More details can be found in
-the unsafe review CL at https://crrev.com/c/5350386.
-
-This crate has been added to Chromium in https://crrev.com/c/3891618.
-'''
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.unicode-ident]]
-who = "Dustin J. Mitchell <djmitche@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.12 -> 1.0.13"
-notes = "Lots of table updates, and tables are assumed correct with unsafe `.get_unchecked()`, so ub-risk-2 is appropriate"
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.unicode-ident]]
-who = "Lukasz Anforowicz <lukasza@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.13 -> 1.0.14"
-notes = "Minimal delta in `.rs` files: new test assertions + doc changes."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.unicode-ident]]
-who = "Adrian Taylor <adetaylor@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.14 -> 1.0.15"
-notes = "No changes relevant to any of these criteria."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
-[[audits.google.audits.unicode-ident]]
-who = "Daniel Cheng <dcheng@chromium.org>"
-criteria = "safe-to-deploy"
-delta = "1.0.16 -> 1.0.18"
-notes = "Only minor comment and documentation updates."
-aggregated-from = "https://chromium.googlesource.com/chromium/src/+/main/third_party/rust/chromium_crates_io/supply-chain/audits.toml?format=TEXT"
-
 [[audits.isrg.audits.serde_core]]
 who = "J.C. Jones <jc@divviup.org>"
 criteria = "safe-to-deploy"
@@ -777,15 +459,6 @@ delta = "1.0.142 -> 1.0.143"
 who = "J.C. Jones <jc@divviup.org>"
 criteria = "safe-to-deploy"
 delta = "1.0.143 -> 1.0.145"
-
-[[audits.mozilla.audits.bitflags]]
-who = [
-    "Teodor Tanasoaia <ttanasoaia@mozilla.com>",
-    "Erich Gubler <erichdongubler@gmail.com>",
-]
-criteria = "safe-to-deploy"
-delta = "2.6.0 -> 2.7.0"
-aggregated-from = "https://hg.mozilla.org/mozilla-central/raw-file/tip/supply-chain/audits.toml"
 
 [[audits.mozilla.audits.crossbeam-utils]]
 who = "Jan-Erik Rediger <jrediger@mozilla.com>"
@@ -882,42 +555,6 @@ criteria = "safe-to-run"
 delta = "2.3.1 -> 2.5.0"
 aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
 
-[[audits.swsnr.audits.bitflags]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-deploy"
-delta = "2.9.4 -> 2.10.0"
-aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.cfg-expr]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "0.17.0 -> 0.17.2"
-aggregated-from = "https://codeberg.org/swsnr/gnome-search-providers-vscode/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.cfg-expr]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "0.20.0 -> 0.20.1"
-aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.cfg-expr]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "0.20.1 -> 0.20.2"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.cfg-expr]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "0.20.2 -> 0.20.3"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.cfg-expr]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "0.20.3 -> 0.20.4"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
 [[audits.swsnr.audits.event-listener]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-run"
@@ -942,72 +579,6 @@ criteria = "safe-to-run"
 delta = "2.7.6 -> 2.8.0"
 aggregated-from = "https://codeberg.org/swsnr/keep-me-awake/raw/branch/main/supply-chain/audits.toml"
 
-[[audits.swsnr.audits.pin-project-lite]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "0.2.15 -> 0.2.16"
-aggregated-from = "https://codeberg.org/swsnr/gnome-search-providers-vscode/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.proc-macro-crate]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "1.2.1 -> 3.2.0"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.proc-macro-crate]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-deploy"
-delta = "3.2.0 -> 3.3.0"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.proc-macro-crate]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "3.3.0 -> 3.4.0"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.proc-macro2]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-deploy"
-delta = "1.0.94 -> 1.0.95"
-aggregated-from = "https://codeberg.org/swsnr/wol.rs/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.proc-macro2]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "1.0.95 -> 1.0.97"
-aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.proc-macro2]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "1.0.97 -> 1.0.101"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.proc-macro2]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-deploy"
-delta = "1.0.101 -> 1.0.102"
-aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.proc-macro2]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "1.0.102 -> 1.0.103"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.quote]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "1.0.40 -> 1.0.41"
-aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.quote]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "1.0.41 -> 1.0.42"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
 [[audits.swsnr.audits.serde_core]]
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-deploy"
@@ -1025,18 +596,6 @@ aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main
 who = "Sebastian Wiesner <sebastian@swsnr.de>"
 criteria = "safe-to-deploy"
 delta = "7.0.6 -> 7.0.7"
-aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.unicode-ident]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-run"
-delta = "1.0.18 -> 1.0.20"
-aggregated-from = "https://codeberg.org/swsnr/gnome-app-utils.rs/raw/branch/main/supply-chain/audits.toml"
-
-[[audits.swsnr.audits.unicode-ident]]
-who = "Sebastian Wiesner <sebastian@swsnr.de>"
-criteria = "safe-to-deploy"
-delta = "1.0.20 -> 1.0.22"
 aggregated-from = "https://codeberg.org/swsnr/picture-of-the-day/raw/branch/main/supply-chain/audits.toml"
 
 [[audits.swsnr.audits.version-compare]]
