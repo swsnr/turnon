@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2026-03-07 19:29+0000\n"
-"Last-Translator: p-bo <p-bo@noreply.codeberg.org>\n"
+"Last-Translator: Fjuro <fjuro@noreply.codeberg.org>\n"
 "Language-Team: Czech <https://translate.codeberg.org/projects/de-swsnr-"
 "turnon/de-swsnr-turnon/cs/>\n"
 "Language: cs\n"
@@ -194,7 +194,7 @@ msgstr "Turn On nyní správně zachovává zařízení po jejich úpravě."
 msgid ""
 "The \"About Turn On\" dialog now provides a debug report for troubleshooting."
 msgstr ""
-"Dialogové okno „O aplikaci Turn On“ nyní obsahuje ladicí zprávu pro řešení "
+"Dialogové okno „O aplikaci Zapnout“ nyní obsahuje ladicí zprávu pro řešení "
 "problémů."
 
 #: de.swsnr.turnon.metainfo.xml:181
@@ -558,7 +558,7 @@ msgstr "_Klávesové zkratky"
 #: resources/ui/turnon-application-window.blp:41
 msgctxt "application-window.menu.label"
 msgid "_About Turn On"
-msgstr "_O aplikaci Turn On"
+msgstr "_O aplikaci Zapnout"
 
 #: resources/ui/turnon-application-window.blp:69
 msgctxt "application-window.status-page.title"
