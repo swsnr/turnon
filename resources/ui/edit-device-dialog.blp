@@ -1,0 +1,210 @@
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+//
+// Licensed under the EUPL
+//
+// See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+using Gtk 4.0;
+using Adw 1;
+
+template $TurnOnEditDeviceDialog: Adw.Dialog {
+  can-close: true;
+  title: _("Edit device");
+  content-width: 450;
+  default-widget: save;
+
+  Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {}
+
+    Adw.PreferencesPage {
+      Adw.PreferencesGroup {
+        title: C_("edit-device-dialog.group.title", "Device");
+
+        Adw.EntryRow {
+          title: C_("edit-device-dialog.entry.label.title", "Device _label");
+          tooltip-text: C_("edit-device-dialog.entry.label.tooltip", "A label to recognize the device by");
+          use-underline: true;
+          text: bind template.label bidirectional;
+          entry-activated => $move_to_next_entry();
+
+          [suffix]
+          $TurnOnValidationIndicator {
+            is_valid: bind template.label_valid;
+            feedback: C_("edit-device-dialog.entry.label.feedback", "Please provide a label for the device.");
+          }
+        }
+
+        Adw.EntryRow mac_entry {
+          title: C_("edit-device-dialog.entry.mac_address.title", "_MAC address");
+          tooltip-text: C_("edit-device-dialog.entry.mac_address.tooltip", "The hardware address for this device");
+          input-hints: no_emoji | no_spellcheck | uppercase_chars | private;
+          use-underline: true;
+          text: bind template.mac_address bidirectional;
+          entry-activated => $move_to_next_entry();
+
+          [suffix]
+          $TurnOnValidationIndicator {
+            is_valid: bind template.mac_address_valid;
+            feedback: C_("edit-device-dialog.entry.mac_address.feedback", "This is no valid 48-bit MAC address.");
+          }
+        }
+
+        Adw.EntryRow {
+          title: C_("edit-device-dialog.entry.host.title", "_Host name or IP address");
+          tooltip-text: C_("edit-device-dialog.entry.host.tooltip", "The hostname or IP address of the device to check whether it has woken up");
+          input-hints: no_emoji | no_spellcheck;
+          use-underline: true;
+          text: bind template.host bidirectional;
+          entry-activated => $move_to_next_entry();
+
+          [suffix]
+          Gtk.Stack {
+            visible-child-name: bind template.host_indicator;
+
+            Gtk.StackPage {
+              name: "invalid-empty";
+
+              child: Gtk.Image {
+                icon-name: "warning-outline-symbolic";
+                tooltip-text: C_("edit-device-dialog.entry.host.feedback", "Please specify a target host to check availability");
+
+                styles [
+                  "error",
+                ]
+              };
+            }
+
+            Gtk.StackPage {
+              name: "invalid-socket-address";
+
+              child: Gtk.Image {
+                icon-name: "warning-outline-symbolic";
+                tooltip-text: C_("edit-device-dialog.entry.socket-address.feedback", "This looks like a socket address with host and port, but a port is not permitted here!");
+
+                styles [
+                  "error",
+                ]
+              };
+            }
+
+            Gtk.StackPage {
+              name: "host";
+
+              child: Gtk.Image {
+                icon-name: "computer-symbolic";
+                tooltip-text: C_("edit-device-dialog.entry.host.feedback", "This looks like a generic name resolved via DNS.");
+
+                styles [
+                  "success",
+                ]
+              };
+            }
+
+            Gtk.StackPage {
+              name: "ipv4";
+
+              child: Gtk.Label {
+                label: "<b>v4</b>";
+                use-markup: true;
+                tooltip-text: C_("edit-device-dialog.entry.host.feedback", "This is a valid IPv4 address.");
+
+                styles [
+                  "success",
+                ]
+              };
+            }
+
+            Gtk.StackPage {
+              name: "ipv6";
+
+              child: Gtk.Label {
+                label: "<b>v6</b>";
+                use-markup: true;
+                tooltip-text: C_("edit-device-dialog.entry.host.feedback", "This is a valid IPv6 address.");
+
+                styles [
+                  "success",
+                ]
+              };
+            }
+          }
+        }
+      }
+
+      Adw.PreferencesGroup {
+        title: C_("edit-device-dialog.group.title", "Magic packet destination");
+        description: C_("edit-device-dialog.group.description", "The destination address the magic packet for this device is sent to.");
+
+        Adw.EntryRow {
+          title: C_("edit-device-dialog.entry.target-address.title", "_Target address");
+          tooltip-text: C_("edit-device-dialog.entry.target-address.tooltip", "The target address as IPv4 or IPv6 socket address, i.e. IP address and port");
+          input-hints: no_emoji | no_spellcheck;
+          use-underline: true;
+          text: bind template.target_address bidirectional;
+          activates-default: true;
+
+          [suffix]
+          Gtk.Stack {
+            visible-child-name: bind template.target_address_indicator;
+
+            Gtk.StackPage {
+              name: "invalid";
+
+              child: Gtk.Image {
+                icon-name: "warning-outline-symbolic";
+                tooltip-text: C_("edit-device-dialog.entry.target_address.feedback", "Please provide a valid target socket address for the device.");
+
+                styles [
+                  "error",
+                ]
+              };
+            }
+
+            Gtk.StackPage {
+              name: "ipv4";
+
+              child: Gtk.Label {
+                label: "<b>v4</b>";
+                use-markup: true;
+                tooltip-text: C_("edit-device-dialog.entry.target_address.feedback", "This is a valid IPv4 socket address.");
+
+                styles [
+                  "success",
+                ]
+              };
+            }
+
+            Gtk.StackPage {
+              name: "ipv6";
+
+              child: Gtk.Label {
+                label: "<b>v6</b>";
+                use-markup: true;
+                tooltip-text: C_("edit-device-dialog.entry.target_address.feedback", "This is a valid IPv6 socket address.");
+
+                styles [
+                  "success",
+                ]
+              };
+            }
+          }
+        }
+      }
+
+      Adw.PreferencesGroup {
+        Gtk.Button save {
+          label: _("_Save");
+          use-underline: true;
+          action-name: "device.save";
+          halign: center;
+          margin-top: 12;
+
+          styles [
+            "pill",
+            "suggested-action",
+          ]
+        }
+      }
+    }
+  }
+}

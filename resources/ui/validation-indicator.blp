@@ -1,0 +1,30 @@
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+//
+// Licensed under the EUPL
+//
+// See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+using Gtk 4.0;
+using Adw 1;
+
+template $TurnOnValidationIndicator: Adw.Bin {
+  Gtk.Stack indicator {
+    visible-child: invalid;
+
+    Gtk.Image invalid {
+      icon-name: "warning-outline-symbolic";
+      tooltip-text: bind template.feedback;
+
+      styles [
+        "error",
+      ]
+    }
+
+    Gtk.Image valid {
+      icon-name: "checkmark-symbolic";
+
+      styles [
+        "success",
+      ]
+    }
+  }
+}

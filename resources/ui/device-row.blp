@@ -1,0 +1,136 @@
+// Copyright Sebastian Wiesner <sebastian@swsnr.de>
+//
+// Licensed under the EUPL
+//
+// See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+using Gtk 4.0;
+using Adw 1;
+
+template $TurnOnDeviceRow: Adw.ActionRow {
+  title: bind (template.device as <$TurnOnDevice>).label;
+  subtitle: bind $device_mac_address(template.device) as <string>;
+  activatable: true;
+
+  [prefix]
+  Gtk.Stack {
+    visible-child-name: bind $device_state_name(template.is-device-online) as <string>;
+
+    Gtk.StackPage {
+      name: "offline";
+
+      child: Gtk.Image {
+        icon-name: "sonar-symbolic";
+
+        styles [
+          "error",
+        ]
+      };
+    }
+
+    Gtk.StackPage {
+      name: "online";
+
+      child: Gtk.Image {
+        icon-name: "sonar-symbolic";
+
+        styles [
+          "success",
+        ]
+      };
+    }
+  }
+
+  [suffix]
+  Gtk.Box {
+    orientation: horizontal;
+    spacing: 3;
+
+    Label {
+      label: bind $device_host((template.device as <$TurnOnDevice>).host, template.device-url) as <string>;
+      use-markup: true;
+
+      styles [
+        "title",
+      ]
+    }
+
+    Gtk.Stack {
+      visible-child-name: bind template.suffix-mode;
+      margin-start: 12;
+      hhomogeneous: false;
+      transition-type: slide_left_right;
+
+      Gtk.StackPage {
+        name: "buttons";
+
+        child: Gtk.Box {
+          orientation: horizontal;
+
+          Gtk.Button add {
+            icon-name: "plus-large-symbolic";
+            tooltip-text: C_("device-row.action.row.add.tooltip", "Add this device");
+            action-name: "row.add";
+            valign: center;
+            visible: bind add.sensitive;
+
+            styles [
+              "flat",
+            ]
+          }
+
+          Gtk.Button edit {
+            icon-name: "edit-symbolic";
+            tooltip-text: C_("device-row.action.row.edit.tooltip", "Edit this device");
+            action-name: "row.edit";
+            valign: center;
+            visible: bind edit.sensitive;
+
+            styles [
+              "flat",
+            ]
+          }
+
+          Gtk.Button delete {
+            icon-name: "user-trash-symbolic";
+            tooltip-text: C_("device-row.action.row.ask-delete.tooltip", "Delete this device?");
+            action-name: "row.ask-delete";
+            margin-start: 6;
+            valign: center;
+            visible: bind delete.sensitive;
+
+            styles [
+              "flat",
+            ]
+          }
+        };
+      }
+
+      Gtk.StackPage {
+        name: "confirm-delete";
+
+        child: Gtk.Box {
+          Gtk.Button {
+            label: C_("device-row.action.row.delete", "Delete");
+            valign: center;
+            action-name: "row.delete";
+
+            styles [
+              "destructive-action",
+            ]
+          }
+
+          Gtk.Button {
+            label: C_("canceldevice-row.action.row.cancel-delete", "Cancel");
+            valign: center;
+            margin-start: 6;
+            action-name: "row.cancel-delete";
+
+            styles [
+              "flat",
+            ]
+          }
+        };
+      }
+    }
+  }
+}
