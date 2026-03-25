@@ -26,7 +26,7 @@
         <!-- Other app icons for about dialog -->
         <file preprocess="xml-stripblanks">icons/scalable/apps/de.swsnr.pictureoftheday.svg</file>
         <!-- Metainfo file, with translations -->
-        <file compressed="true" preprocess="xml-stripblanks">de.swsnr.turnon.metainfo.xml</file>
+        <file compressed="true" preprocess="xml-stripblanks">metainfo.xml</file>
         <!-- Other data files -->
         <file compressed="true">style.css</file>
     </gresource>

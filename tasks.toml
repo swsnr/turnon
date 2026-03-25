@@ -1,0 +1,122 @@
+[tool.poe.tasks.xgettext]
+cmd = "./po/xgettext.py"
+help = "Update gettext message template from all source code"
+
+[tool.poe.tasks.format]
+parallel = ["format:python", "format:blueprint"]
+help = "Format all sources"
+
+[tool.poe.tasks."format:python"]
+cmd = "ruff format ."
+help = "Format all Python sources"
+
+[tool.poe.tasks."format:blueprint"]
+cmd = "blueprint-compiler format src/**/*.blp"
+help = "Format all blueprint files"
+empty_glob = "fail"
+executor = "simple"
+
+[tool.poe.tasks.lint]
+sequence = [
+    "lint:python",
+    "lint:blueprint",
+    "lint:data",
+    "lint:flatpak",
+    "lint:flatpak-devel",
+]
+help = "Lint everything"
+
+[tool.poe.tasks."lint:python"]
+cmd = "ruff check ."
+help = "Lint all Python files"
+
+[tool.poe.tasks."lint:blueprint"]
+cmd = "blueprint-compiler lint src/**/*.blp"
+help = "Lint all blueprint files"
+empty_glob = "fail"
+executor = "simple"
+
+[tool.poe.tasks."lint:data"]
+cmd = "appstreamcli validate --strict --pedantic --explain de.swsnr.turnon.metainfo.xml"
+help = "Lint appstream metainfo file"
+executor = "simple"
+
+[tool.poe.tasks."lint:flatpak"]
+cmd = "flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak/de.swsnr.turnon.yaml"
+help = "Lint flatpak release manifest"
+executor = "simple"
+
+[tool.poe.tasks."lint:flatpak-devel"]
+cmd = "flatpak run --command=flatpak-builder-lint org.flatpak.Builder manifest flatpak/de.swsnr.turnon.Devel.yaml"
+help = "Lint flatpak development manifest"
+executor = "simple"
+
+[tool.poe.tasks."optimize-pngs"]
+cmd = "oxipng media/**/*.png"
+help = "Run all PNG files through oxipng"
+empty_glob = "fail"
+executor = "simple"
+
+[tool.poe.tasks."build-social-image"]
+cmd = """
+montage -geometry 602x602+19+19 \
+    media/screenshots/inhibit-nothing.png media/screenshots/inhibit-suspend-and-idle.png \
+    media/social-image.png
+"""
+help = "Assemble the social image in README from screenshots"
+executor = "simple"
+
+[tool.poe.tasks."flatpak:devel-install"]
+cmd = """
+flatpak run org.flatpak.Builder --force-clean --user --install
+    --install-deps-from=flathub --repo=.flatpak-repo
+    .flatpak-builddir flatpak/de.swsnr.turnon.Devel.yaml
+"""
+help = "Build and install the development flatpak"
+executor = "simple"
+
+[tool.poe.tasks."flatpak:build"]
+cmd = """
+flatpak run org.flatpak.Builder --force-clean --user
+    --install-deps-from=flathub --repo=.flatpak-repo
+    .flatpak-builddir flatpak/de.swsnr.turnon.yaml
+"""
+help = "Build but don't install the release flatpak"
+executor = "simple"
+
+[tool.poe.tasks."flatpak:update-pip"]
+shell = """
+set -euo pipefail
+uv export --quiet --only-group flatpak-build --output-file flatpak/requirements.flatpak-build.txt
+flatpak run --command=flatpak-pip-generator org.flatpak.Builder \
+    -r flatpak/requirements.flatpak-build.txt --build-only --output flatpak/pip-build.json
+rm flatpak/requirements.*.txt
+"""
+help = "Update the flatpak JSON manifests for pip dependencies"
+executor = "simple"
+
+[tool.poe.tasks.release]
+shell = """
+set -euo pipefail
+uv version --no-sync --bump stable
+version="$(uv version --no-sync --short)"
+tag="v${version}"
+sed -i \
+    -e "s/version=\\"next\\"/version=\\"${version}\\"/" \
+    -e "s/date=\\"9999-01-01\\"/date=\\"$(date -Idate -u)\\"/" \
+    -e "s_tag/next</url>_tag/${tag}</url>_" \
+    de.swsnr.turnon.metainfo.xml
+git add .
+git commit -m "Release ${version}"
+git tag -m "Turn On ${version}" "${tag}"
+commit="$(git rev-parse "${tag}")"
+sed -i -e "/name: *turnon/,\\${ s/tag: .*/tag: ${tag}/;s/commit: .*/commit: ${commit}/ }" \
+    flatpak/de.swsnr.turnon.yaml
+git add flatpak/de.swsnr.turnon.yaml
+git commit -m "Update flatpak manifest for version ${version}"
+env SKIP_BLUEPRINT=1 SKIP_MSGFMT=1 uv version --bump minor --bump dev
+git add .
+git commit -m "Bump to next development version"
+"""
+help = "Do a release: Update version, tag, update flatpak manifest, and bump post-release"
+executor = "simple"

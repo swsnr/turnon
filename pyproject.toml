@@ -1,0 +1,61 @@
+[project]
+name = "turnon"
+description = "Turn on devices in your network"
+version = "2.1.0"
+# 3.13 is baseline of Freedesktop 25.08
+requires-python = "~=3.13.0"
+authors = [{ name = "Sebastian Wiesner", email = "sebastian@swsnr.de" }]
+readme = "README.md"
+license = "EUPL-1.2"
+classifiers = ["Private :: Do Not Upload"]
+dependencies = ["pygobject~=3.56.1", "packaging~=26.0"]
+
+[project.urls]
+homepage = "https://codeberg.org/swsnr/turnon"
+repository = "https://codeberg.org/swsnr/turnon.git"
+issues = "https://codeberg.org/swsnr/turnon/issues"
+
+[project.gui-scripts]
+"de.swsnr.turnon" = "turnon.main:main"
+
+[dependency-groups]
+dev = ["pygobject-stubs>=2.17.0", "hatchling", "poethepoet>=0.42.1", "ruff"]
+flatpak-build = ["hatchling"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.hooks.custom]
+
+[tool.poe]
+include = "tasks.toml"
+
+[tool.pyright]
+include = ["src/", "po/*.py", "hatch_build.py"]
+typeCheckingMode = "strict"
+reportMissingModuleSource = false
+reportUninitializedInstanceVariable = true
+reportMissingSuperCall = true
+
+[tool.ruff.lint]
+select = [
+    "ANN",
+    "ASYNC",
+    "D",
+    "E",
+    "F",
+    "UP",
+    "B",
+    "SIM",
+    "I",
+    "RUF",
+    "TC",
+    "INT",
+]
+ignore = [
+    "TC006",
+    # These rules are incompatible with other D rules
+    "D203",
+    "D213",
+]
