@@ -9,7 +9,6 @@
 
 import os
 from collections.abc import Mapping
-from functools import cached_property
 from pathlib import Path
 from shutil import copy
 from subprocess import run
@@ -50,18 +49,9 @@ class CustomBuildHook(BuildHookInterface[BuilderConfig]):
     Handles translations and builds various files required for Gnome apps.
     """
 
-    @cached_property
-    def app_id(self) -> str:
-        """Derive the application ID from the package version."""
-        version = Version(self.metadata.version)  # pyright: ignore[reportUnknownMemberType]
-        if version.is_devrelease:
-            return "de.swsnr.turnon.Devel"
-        else:
-            return "de.swsnr.turnon"
-
-    def _patch_app_id(self, source: Path) -> None:
+    def _patch_app_id(self, source: Path, app_id: str) -> None:
         contents = source.read_text()
-        _ = source.write_text(contents.replace("de.swsnr.turnon", self.app_id))
+        _ = source.write_text(contents.replace("de.swsnr.turnon", app_id))
 
     @override
     def initialize(self, version: str, build_data: dict[str, Any]) -> None:  # pyright: ignore[reportExplicitAny]
@@ -69,6 +59,10 @@ class CustomBuildHook(BuildHookInterface[BuilderConfig]):
 
         if self.target_name != "wheel":
             return
+
+        app_id = "de.swsnr.turnon.Devel"
+        if version != "editable" and not Version(self.metadata.version).is_devrelease:  # pyright: ignore[reportUnknownMemberType]
+            app_id = "de.swsnr.turnon"
 
         root = Path(self.root)
         resources_directory = root / "resources"
@@ -114,23 +108,43 @@ class CustomBuildHook(BuildHookInterface[BuilderConfig]):
             )
         else:
             copy(root / "de.swsnr.turnon.metainfo.xml", metainfo_file)
-        self._patch_app_id(metainfo_file)
+        self._patch_app_id(metainfo_file, app_id)
 
         if os.environ.get("SKIP_MSGFMT") != "1":
             self.app.display_info("Compiling message catalogs to share/locale")
             locale_dir = Path(self.build_config.directory) / "locale"
             for po_file in (Path(self.root) / "po").glob("*.po"):
                 lang = po_file.stem
-                mo_file = locale_dir / lang / "LC_MESSAGES" / f"{self.app_id}.mo"
+                mo_file = locale_dir / lang / "LC_MESSAGES" / f"{app_id}.mo"
                 mo_file.parent.mkdir(parents=True, exist_ok=True)
                 _ = run(["msgfmt", "-o", str(mo_file), str(po_file)], check=True)
                 shared_data[str(mo_file)] = (
-                    f"share/locale/{lang}/LC_MESSAGES/{self.app_id}.mo"
+                    f"share/locale/{lang}/LC_MESSAGES/{app_id}.mo"
                 )
 
-        # When installing an editable version do not compile gresources and
-        # skip most of the shared data, as we don't need it in editable installs.
+        self.app.display_info("Copying settings schema")
+        schema = root / "de.swsnr.turnon.gschema.xml"
+        schemas_dir = output_directory / "schemas"
+        schemas_dir.mkdir(parents=True, exist_ok=True)
+        # TODO: Python 3.14: Use Path.copy instead
+        schema_dest = copy(schema, schemas_dir / f"{app_id}.gschema.xml")
+        self._patch_app_id(Path(schema_dest), app_id)
+        shared_data[str(schema_dest)] = f"share/glib-2.0/schemas/{app_id}.gschema.xml"
+
         if version == "editable":
+            if os.environ.get("SKIP_SCHEMAS") != "1":
+                self.app.display_info("Compiling settings schemas")
+                _ = run(
+                    [
+                        "glib-compile-schemas",
+                        "--strict",
+                        f"--targetdir={schemas_dir}",
+                        str(schemas_dir),
+                    ]
+                )
+
+            # When installing an editable version do not compile gresources and
+            # skip most of the shared data, as we don't need it in editable installs.
             return
 
         if os.environ.get("SKIP_MSGFMT") != "1":
@@ -151,8 +165,8 @@ class CustomBuildHook(BuildHookInterface[BuilderConfig]):
                 ],
                 check=True,
             )
-            self._patch_app_id(desktop_file)
-            shared_data[str(desktop_file)] = f"share/applications/{self.app_id}.desktop"
+            self._patch_app_id(desktop_file, app_id)
+            shared_data[str(desktop_file)] = f"share/applications/{app_id}.desktop"
 
         if os.environ.get("SKIP_BLUEPRINT") != "1":
             # No blueprints, no resources
@@ -175,15 +189,12 @@ class CustomBuildHook(BuildHookInterface[BuilderConfig]):
 
         self.app.display_info("Copying metainfo to share/metainfo")
         shared_data[str(resources_out_directory / "metainfo.xml")] = (
-            f"share/metainfo/{self.app_id}.metainfo.xml"
+            f"share/metainfo/{app_id}.metainfo.xml"
         )
+
         self.app.display_info("Copying icons to share/icons")
-        app_icon = (
-            resources_directory / "icons" / "scalable" / "apps" / f"{self.app_id}.svg"
-        )
-        shared_data[str(app_icon)] = (
-            f"share/icons/hicolor/scalable/apps/{self.app_id}.svg"
-        )
+        app_icon = resources_directory / "icons" / "scalable" / "apps" / f"{app_id}.svg"
+        shared_data[str(app_icon)] = f"share/icons/hicolor/scalable/apps/{app_id}.svg"
         symbolic_icon = (
             resources_directory
             / "icons"
@@ -192,11 +203,12 @@ class CustomBuildHook(BuildHookInterface[BuilderConfig]):
             / "de.swsnr.turnon-symbolic.svg"
         )
         shared_data[str(symbolic_icon)] = (
-            f"share/icons/hicolor/symbolic/apps/{self.app_id}-symbolic.svg"
+            f"share/icons/hicolor/symbolic/apps/{app_id}-symbolic.svg"
         )
+
         self.app.display_info("Copying D-Bus service to share/dbus-1/services")
         service = root / "dbus-1" / "de.swsnr.turnon.service"
         # TODO: Python 3.14: Use Path.copy instead
-        dest = copy(service, Path(self.build_config.directory) / service.name)
-        self._patch_app_id(Path(dest))
-        shared_data[str(dest)] = f"share/dbus-1/services/{self.app_id}.service"
+        dbus_dest = copy(service, output_directory / service.name)
+        self._patch_app_id(Path(dbus_dest), app_id)
+        shared_data[str(dbus_dest)] = f"share/dbus-1/services/{app_id}.service"

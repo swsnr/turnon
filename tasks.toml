@@ -21,6 +21,7 @@ sequence = [
     "lint:python",
     "lint:blueprint",
     "lint:data",
+    "lint:schema",
     "lint:flatpak",
     "lint:flatpak-devel",
 ]
@@ -39,6 +40,11 @@ executor = "simple"
 [tool.poe.tasks."lint:data"]
 cmd = "appstreamcli validate --strict --pedantic --explain de.swsnr.turnon.metainfo.xml"
 help = "Lint appstream metainfo file"
+executor = "simple"
+
+[tool.poe.tasks."lint:schema"]
+cmd = "glib-compile-schemas --strict --dry-run ."
+help = "Lint GLib settings schema"
 executor = "simple"
 
 [tool.poe.tasks."lint:flatpak"]
