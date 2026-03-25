@@ -20,5 +20,6 @@ jobs:
           verbose: true
           level: warning
           project: pyproject.toml
+      - run: env UV_NO_SYNC=1 uv run pytest tests/pure/
       - run: env UV_NO_SYNC=1 uv run poe format:python --check
       - run: env UV_NO_SYNC=1 uv run poe lint:python

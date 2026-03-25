@@ -6,14 +6,20 @@
 
 """The main application of Turn On."""
 
+import os
+import sys
 from gettext import gettext as _
 from gettext import pgettext as C_
+from pathlib import Path
 from typing import override
 
 from gi.repository import Adw, Gio, GLib, Gtk
 
 import turnon
 
+from . import log
+from .model import Device, Devices
+from .model.storage import load_devices
 from .widgets import TurnOnApplicationWindow
 
 
@@ -28,6 +34,38 @@ class TurnOnApplication(Adw.Application):
             application_id=application_id, resource_base_path="/de/swsnr/turnon"
         )
         self._settings: Gio.Settings = Gio.Settings.new(application_id)
+        self._devices = Devices()
+        self._devices_file: Path = (
+            Path(GLib.get_user_data_dir()) / application_id / "devices.json"
+        )
+        self._add_options()
+        self._setup_actions()
+
+    def _add_options(self) -> None:
+        self.add_main_option(
+            "devices-file",
+            0,
+            GLib.OptionFlags.HIDDEN,
+            GLib.OptionArg.FILENAME,
+            C_(
+                "option.devices-file.description",
+                "Use the given file as storage for devices (for development only)",
+            ),
+        )
+        self.add_main_option(
+            "main-window-height",
+            0,
+            GLib.OptionFlags.HIDDEN,
+            GLib.OptionArg.INT,
+            C_(
+                "option.main-window-height.description",
+                "Set the height of the main window (for development only)",
+            ),
+            C_(
+                "option.main-window-height.arg.description",
+                "HEIGHT",
+            ),
+        )
 
     def _activate_about(
         self, _act: Gio.SimpleAction, _parameter: GLib.Variant | None = None
@@ -117,6 +155,38 @@ The full English text follows.
         self.set_accels_for_action("app.quit", ["<Control>q"])
 
     @override
+    def do_handle_local_options(self, options: GLib.VariantDict) -> int:
+        _ = Adw.Application.do_handle_local_options(self, options)
+
+        path = options.lookup_value("devices-file")
+        if path:
+            self._devices_file = Path(
+                path.get_bytestring().decode(sys.getfilesystemencoding())
+            )
+            log.warn(
+                f"Overriding storage file to {self._devices_file}; "
+                + "only use for development purposes!",
+            )
+
+        # Apparently, -1 makes command line handling continue
+        return -1
+
+    @override
+    def do_command_line(self, command_line: Gio.ApplicationCommandLine) -> int:
+        _ = Adw.Application.do_command_line(self, command_line)
+        options = command_line.get_options_dict()
+        self.activate()
+
+        height = options.lookup_value("main-window-height")
+        if height:
+            height = height.get_int32()
+            log.warn(f"Overriding main window height {height} from command line")
+            window = self.get_active_window()
+            if window:
+                window.props.height_request = height
+        return os.EX_OK
+
+    @override
     def do_startup(self) -> None:
         Adw.Application.do_startup(self)
 
@@ -124,9 +194,10 @@ The full English text follows.
         assert app_id is not None
         Gtk.Window.set_default_icon_name(app_id)
 
-        self._setup_actions()
-
         # TODO: load devices
+        self._devices.registered_devices.remove_all()
+        for device in load_devices(self._devices_file):
+            self._devices.registered_devices.append(Device(device))
 
     @override
     def do_activate(self) -> None:
@@ -137,7 +208,7 @@ The full English text follows.
 
         window = self.get_active_window()
         if not window:
-            window = TurnOnApplicationWindow(self)
+            window = TurnOnApplicationWindow(self, self._devices)
             if app_id.endswith(".Devel"):
                 window.add_css_class("devel")
 

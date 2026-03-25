@@ -19,7 +19,13 @@ issues = "https://codeberg.org/swsnr/turnon/issues"
 "de.swsnr.turnon" = "turnon.main:main"
 
 [dependency-groups]
-dev = ["pygobject-stubs>=2.17.0", "hatchling", "poethepoet>=0.42.1", "ruff"]
+dev = [
+    "pygobject-stubs>=2.17.0",
+    "hatchling",
+    "poethepoet>=0.42.1",
+    "ruff",
+    "pytest",
+]
 flatpak-build = ["hatchling"]
 
 [build-system]
