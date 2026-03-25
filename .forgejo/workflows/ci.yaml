@@ -1,0 +1,24 @@
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  python:
+    runs-on: codeberg-tiny-lazy
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
+      # Skip blueprint and msgfmt on CI, and don't install pygobject, because
+      # we're lacking all their system dependencies.
+      - run: env SKIP_BLUEPRINT=1 SKIP_MSGFMT=1 uv sync --locked --no-install-package pygobject
+      - uses: https://github.com/jakebailey/pyright-action@v3
+        with:
+          python-path: .venv/bin/python
+          warnings: true
+          verbose: true
+          level: warning
+          project: pyproject.toml
+      - run: env UV_NO_SYNC=1 uv run poe format:python --check
+      - run: env UV_NO_SYNC=1 uv run poe lint:python
