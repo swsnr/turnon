@@ -2,6 +2,13 @@
 <gresources>
     <!-- Resource definitions for static resources. -->
     <gresource prefix="/de/swsnr/turnon/">
+        <!-- User interface templates -->
+        <file compressed="true" preprocess="xml-stripblanks">edit-device-dialog.ui</file>
+        <file compressed="true" preprocess="xml-stripblanks">device-row.ui</file>
+        <file compressed="true" preprocess="xml-stripblanks">validation-indicator.ui</file>
+        <file compressed="true" preprocess="xml-stripblanks">turnon-application-window.ui</file>
+        <!-- Auto-loaded shortcuts dialog, see https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1.8/class.Application.html#shortcuts-dialog -->
+        <file compressed="true" preprocess="xml-stripblanks">shortcuts-dialog.ui</file>
         <!-- Icons -->
         <file preprocess="xml-stripblanks">icons/scalable/actions/checkmark-symbolic.svg</file>
         <file preprocess="xml-stripblanks">icons/scalable/actions/computer-symbolic.svg</file>
@@ -18,6 +25,8 @@
         <file preprocess="xml-stripblanks">icons/symbolic/apps/de.swsnr.turnon-symbolic.svg</file>
         <!-- Other app icons for about dialog -->
         <file preprocess="xml-stripblanks">icons/scalable/apps/de.swsnr.pictureoftheday.svg</file>
+        <!-- Metainfo file, with translations -->
+        <file compressed="true" preprocess="xml-stripblanks">de.swsnr.turnon.metainfo.xml</file>
         <!-- Other data files -->
         <file compressed="true">style.css</file>
     </gresource>
