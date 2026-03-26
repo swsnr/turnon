@@ -8,7 +8,7 @@ using Adw 1;
 
 template $TurnOnDeviceRow: Adw.ActionRow {
   title: bind (template.device as <$TurnOnDevice>).label;
-  subtitle: bind $device_mac_address(template.device) as <string>;
+  subtitle: bind $device_mac_address(template.device as <$TurnOnDevice>) as <string>;
   activatable: true;
 
   [prefix]

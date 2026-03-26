@@ -21,6 +21,8 @@ from .pure import MacAddress, SocketAddress
 class Device(GObject.Object):
     """A GObject-based device which wraps a pure-python device model."""
 
+    __gtype_name__ = "TurnOnDevice"
+
     def __init__(self, device: PureDevice) -> None:
         """Initialize a new device."""
         super().__init__()
