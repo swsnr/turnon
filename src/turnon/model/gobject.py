@@ -9,7 +9,7 @@
 import asyncio
 import dataclasses
 
-from gi.repository import Gio, GObject
+from gi.repository import GObject
 
 from turnon.net import wol
 
@@ -97,88 +97,3 @@ class Device(GObject.Object):
                 + f"of device {self._device.label} to {target_address}: {error}",
             )
             raise
-
-
-class DeviceDiscovery(GObject.Object, Gio.ListModel[Device]):
-    """Discover devices."""
-
-    # TODO
-
-    def do_get_item_type(self) -> type[Device]:
-        """Get the type of items in this list model."""
-        return Device
-
-    def do_get_n_items(self) -> int:
-        """Return number of items in this list model."""
-        return 0
-
-    def do_get_item(self, position: int) -> Device | None:
-        """Get the device at the given `position`."""
-        return None
-
-
-class Devices(GObject.Object, Gio.ListModel[Device]):
-    """A list model for devices."""
-
-    __gtype_name__ = "TurnOnDevices"
-
-    def __init__(self) -> None:
-        """Create a new list of devices."""
-        super().__init__()
-
-        # The list of devices the user has registered
-        self._registered_devices = Gio.ListStore[Device](item_type=Device)
-
-        # The list of devices discovered from network scanning.
-        self._discovered_devices = DeviceDiscovery()
-
-        self._registered_devices.connect(
-            "items-changed", self._registered_devices_changed
-        )
-        self._discovered_devices.connect(
-            "items-changed", self._discovered_devices_changed
-        )
-
-    @GObject.Property(type=Gio.ListStore)
-    def registered_devices(self) -> Gio.ListStore[Device]:
-        """Get devices added by the user."""
-        return self._registered_devices
-
-    @GObject.Property(type=DeviceDiscovery)
-    def discovered_devices(self) -> DeviceDiscovery:
-        """Get devices discovered in the network."""
-        return self._discovered_devices
-
-    def _registered_devices_changed(
-        self, _store: Gio.ListStore[Device], position: int, removed: int, added: int
-    ) -> None:
-        self.emit("items-changed", position, removed, added)
-
-    def _discovered_devices_changed(
-        self, _devices: DeviceDiscovery, position: int, removed: int, added: int
-    ) -> None:
-        self.emit(
-            "items-changed",
-            position + self._registered_devices.get_n_items(),
-            removed,
-            added,
-        )
-
-    def do_get_item_type(self) -> type[Device]:
-        """Get the type of items in this list model."""
-        return Device
-
-    def do_get_n_items(self) -> int:
-        """Return number of items in this list model."""
-        return (
-            self._registered_devices.get_n_items()
-            + self._discovered_devices.get_n_items()
-        )
-
-    def do_get_item(self, position: int) -> Device | None:
-        """Get the device at the given `position`."""
-        n_registered = self._registered_devices.get_n_items()
-        if position < n_registered:
-            return self._registered_devices.get_item(position)
-        else:
-            return self._discovered_devices.get_item(position - n_registered)

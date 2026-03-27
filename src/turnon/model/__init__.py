@@ -10,6 +10,6 @@ The `pure` sub-package contains the pure-Python data model backing the GObject
 types.
 """
 
-from .gobject import Device, Devices
+from .gobject import Device
 
-__all__ = ["Device", "Devices"]
+__all__ = ["Device"]

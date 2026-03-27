@@ -18,7 +18,7 @@ from gi.repository import Adw, Gio, GLib, Gtk
 import turnon
 
 from . import log
-from .model import Device, Devices
+from .model import Device
 from .model.storage import load_devices
 from .widgets import TurnOnApplicationWindow
 
@@ -34,7 +34,7 @@ class TurnOnApplication(Adw.Application):
             application_id=application_id, resource_base_path="/de/swsnr/turnon"
         )
         self._settings: Gio.Settings = Gio.Settings.new(application_id)
-        self._devices = Devices()
+        self._registered_devices = Gio.ListStore[Device].new(Device)
         self._devices_file: Path = (
             Path(GLib.get_user_data_dir()) / application_id / "devices.json"
         )
@@ -195,9 +195,9 @@ The full English text follows.
         Gtk.Window.set_default_icon_name(app_id)
 
         # TODO: load devices
-        self._devices.registered_devices.remove_all()
+        self._registered_devices.remove_all()
         for device in load_devices(self._devices_file):
-            self._devices.registered_devices.append(Device(device))
+            self._registered_devices.append(Device(device))
 
     @override
     def do_activate(self) -> None:
@@ -208,7 +208,7 @@ The full English text follows.
 
         window = self.get_active_window()
         if not window:
-            window = TurnOnApplicationWindow(self, self._devices)
+            window = TurnOnApplicationWindow(self, self._registered_devices)
             if app_id.endswith(".Devel"):
                 window.add_css_class("devel")
 
