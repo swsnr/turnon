@@ -11,7 +11,7 @@ cmd = "ruff format ."
 help = "Format all Python sources"
 
 [tool.poe.tasks."format:blueprint"]
-cmd = "blueprint-compiler format src/**/*.blp"
+cmd = "blueprint-compiler format resources/**/*.blp"
 help = "Format all blueprint files"
 empty_glob = "fail"
 executor = "simple"
