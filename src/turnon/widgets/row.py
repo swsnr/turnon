@@ -8,9 +8,10 @@
 
 from functools import partial
 
-from gi.repository import Adw, Gdk, GLib, GObject, Gtk
+from gi.repository import Adw, GLib, GObject, Gtk
 
 from ..model import Device
+from .util import add_shortcuts
 
 
 class MoveDirection(GObject.GEnum):
@@ -161,21 +162,15 @@ DeviceRow.install_action("row.delete", None, _activate_delete)
 DeviceRow.install_action("row.edit", None, _activate_edit)
 DeviceRow.install_action("row.add", None, _activate_add)
 
-for action, key, modifier in [
-    (
-        "row.move-up",
-        Gdk.KEY_Up,
-        Gdk.ModifierType.ALT_MASK,
-    ),
-    ("row.move-down", Gdk.KEY_Down, Gdk.ModifierType.ALT_MASK),
-    ("row.edit", Gdk.KEY_Return, Gdk.ModifierType.ALT_MASK),
-    ("row.add", Gdk.KEY_n, Gdk.ModifierType.CONTROL_MASK),
-    ("row.ask-delete", Gdk.KEY_Delete, Gdk.ModifierType.NO_MODIFIER_MASK),
-    ("row.delete", Gdk.KEY_Delete, Gdk.ModifierType.CONTROL_MASK),
-]:
-    DeviceRow.add_shortcut(
-        Gtk.Shortcut(
-            action=Gtk.NamedAction.new(action),
-            trigger=Gtk.KeyvalTrigger(keyval=key, modifiers=modifier),
-        )
-    )
+
+add_shortcuts(
+    DeviceRow,
+    [
+        ("<Alt>Up", "action(row.move-up)"),
+        ("<Alt>Down", "action(row.move-down)"),
+        ("<Alt>Return", "action(row.edit)"),
+        ("<Ctrl>n", "action(row.add)"),
+        ("Delete", "action(row.ask-delete)"),
+        ("<Ctrl>Delete", "action(row.delete)"),
+    ],
+)

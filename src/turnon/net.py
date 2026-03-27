@@ -67,6 +67,11 @@ class MacAddress:
         """Format MAC address as human-readable hex string."""
         return self.address.hex(":", 1).upper()
 
+    @staticmethod
+    def is_mac_address(s: str) -> bool:
+        """Whether the given string is a valid MAC address."""
+        return bool(MAC_ADDRESS_RE.match(s))
+
     @classmethod
     def parse(cls, s: str) -> Self:
         """Parse a MAC address from string.

@@ -20,7 +20,7 @@ import turnon
 from . import log
 from .model import Device
 from .model.storage import load_devices
-from .widgets import TurnOnApplicationWindow
+from .widgets import EditDeviceDialog, TurnOnApplicationWindow
 
 
 class TurnOnApplication(Adw.Application):
@@ -132,12 +132,24 @@ The full English text follows.
         )
         dialog.present(self.get_active_window())
 
+    def _new_device_saved(self, _dialog: EditDeviceDialog, device: Device) -> None:
+        self._registered_devices.append(device)
+
+    def _activate_add(
+        self, _act: Gio.SimpleAction, _parameter: GLib.Variant | None = None
+    ) -> None:
+        dialog = EditDeviceDialog()
+        dialog.connect("saved", self._new_device_saved)
+        dialog.present(self.get_active_window())
+
     def _setup_actions(self) -> None:
         quit = Gio.SimpleAction(name="quit")
         _ = quit.connect("activate", lambda *args: self.quit())
         about = Gio.SimpleAction(name="about")
         _ = about.connect("activate", self._activate_about)
-        for action in [about, quit]:
+        add = Gio.SimpleAction(name="add-device")
+        add.connect("activate", self._activate_add)
+        for action in [about, quit, add]:
             self.add_action(action)
 
         # We do _not_ add a global shortcut for app.add-device because we handle adding

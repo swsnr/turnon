@@ -6,7 +6,8 @@
 
 """Widgets for Turn On."""
 
+from .edit import EditDeviceDialog
 from .row import DeviceRow
 from .window import TurnOnApplicationWindow
 
-__all__ = ["DeviceRow", "TurnOnApplicationWindow"]
+__all__ = ["DeviceRow", "EditDeviceDialog", "TurnOnApplicationWindow"]

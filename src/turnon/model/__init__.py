@@ -11,5 +11,6 @@ types.
 """
 
 from .gobject import Device
+from .pure import Device as PureDevice
 
-__all__ = ["Device"]
+__all__ = ["Device", "PureDevice"]
