@@ -174,5 +174,6 @@ add_shortcuts(
         ("<Ctrl>n", "action(row.add)"),
         ("Delete", "action(row.ask-delete)"),
         ("<Ctrl>Delete", "action(row.delete)"),
+        ("Escape", "action(row.cancel-delete)"),
     ],
 )
