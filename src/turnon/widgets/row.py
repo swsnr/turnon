@@ -11,6 +11,7 @@ from functools import partial
 from gi.repository import Adw, GLib, GObject, Gtk
 
 from ..model import Device
+from .edit import EditDeviceDialog
 from .util import add_shortcuts
 
 
@@ -138,7 +139,8 @@ def _activate_delete(
 
 def _activate_edit(row: Gtk.Widget, action: str, argument: GLib.Variant | None) -> None:
     assert isinstance(row, DeviceRow)
-    raise NotImplementedError()
+    dialog = EditDeviceDialog(row.device)
+    dialog.present(row)
 
 
 def _activate_add(row: Gtk.Widget, action: str, argument: GLib.Variant | None) -> None:
