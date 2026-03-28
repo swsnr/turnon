@@ -64,7 +64,7 @@ class Device(GObject.Object):
     @mac_address.setter
     def set_mac_address(self, value: MacAddress) -> None:
         """Set the MAC address of this device."""
-        self._device = dataclasses.replace(self.device, address=value)
+        self._device = dataclasses.replace(self.device, mac_address=value)
 
     @GObject.Property()
     def target_address(self) -> SocketAddress:
