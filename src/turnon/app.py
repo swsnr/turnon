@@ -18,7 +18,7 @@ from gi.repository import Adw, Gio, GLib, Gtk
 import turnon
 
 from . import log
-from .model import Device
+from .model import Device, DeviceStorage
 from .model.storage import load_devices
 from .widgets import EditDeviceDialog, TurnOnApplicationWindow
 
@@ -40,6 +40,7 @@ class TurnOnApplication(Adw.Application):
         )
         self._add_options()
         self._setup_actions()
+        self._device_storage: DeviceStorage | None = None
 
     def _add_options(self) -> None:
         self.add_main_option(
@@ -206,10 +207,14 @@ The full English text follows.
         assert app_id is not None
         Gtk.Window.set_default_icon_name(app_id)
 
-        # TODO: load devices
         self._registered_devices.remove_all()
         for device in load_devices(self._devices_file):
             self._registered_devices.append(Device(device))
+
+        # Automatically save devices
+        self._device_storage = DeviceStorage(self._devices_file)
+        self._device_storage.start()
+        self._device_storage.save_automatically(self._registered_devices)
 
     @override
     def do_activate(self) -> None:
@@ -224,8 +229,6 @@ The full English text follows.
             if app_id.endswith(".Devel"):
                 window.add_css_class("devel")
 
-            # TODO: Bind devices model
-
             flags = Gio.SettingsBindFlags.DEFAULT
             self._settings.bind("main-window-width", window, "default-width", flags)
             self._settings.bind("main-window-height", window, "default-height", flags)
@@ -233,3 +236,11 @@ The full English text follows.
             self._settings.bind("main-window-fullscreen", window, "fullscreened", flags)
 
         window.present()
+
+    @override
+    def do_shutdown(self) -> None:
+        Adw.Application.do_shutdown(self)
+        if self._device_storage:
+            self._device_storage.request_stop()
+            self._device_storage.join()
+            self._device_storage = None

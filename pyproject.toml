@@ -64,4 +64,5 @@ ignore = [
     # These rules are incompatible with other D rules
     "D203",
     "D213",
+    "SIM300",
 ]

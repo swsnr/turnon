@@ -66,3 +66,21 @@ def load_devices(path: PathLike[str] | PathLike[bytes]) -> list[Device]:
         raise ValueError(f"Expected list, got type {type(data).__name__}")
 
     return [_get_device(n, item) for n, item in enumerate(data)]
+
+
+def dump_devices(path: PathLike[str] | PathLike[bytes], devices: list[Device]) -> None:
+    """Dump `devices` to `path`, as JSON."""
+    with open(path, "w", encoding="utf-8") as sink:
+        json.dump(
+            [
+                {
+                    "label": d.label,
+                    "host": d.host,
+                    "mac_address": str(d.mac_address),
+                    "target_address": str(d.target_address),
+                }
+                for d in devices
+            ],
+            sink,
+            indent=2,
+        )
