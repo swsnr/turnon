@@ -28,9 +28,9 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         self._registered_devices = registered_devices
         self.devices_list.bind_model(registered_devices, self._create_device_row)
 
-    def _device_deleted(self, _row: DeviceRow, device: Device) -> None:
+    def _device_deleted(self, row: DeviceRow) -> None:
         # TODO: Delete monitor
-        (is_registered, index) = self._registered_devices.find(device)
+        (is_registered, index) = self._registered_devices.find(row.device)
         if is_registered:
             self._registered_devices.remove(index)
 

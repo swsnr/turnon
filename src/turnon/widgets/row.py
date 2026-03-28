@@ -72,13 +72,13 @@ class DeviceRow(Adw.ActionRow):
         """Set the suffix mode."""
         self._suffix_mode = mode
 
-    @GObject.Signal(arg_types=[Device, MoveDirection])  # pyright: ignore[reportUntypedFunctionDecorator]
-    def moved(self, device: Device, direction: MoveDirection) -> None:
+    @GObject.Signal(arg_types=[MoveDirection])  # pyright: ignore[reportUntypedFunctionDecorator]
+    def moved(self, direction: MoveDirection) -> None:
         """Signal emitted when a device is moved in a given direction."""
         pass
 
-    @GObject.Signal(arg_types=[Device])  # pyright: ignore[reportUntypedFunctionDecorator]
-    def deleted(self, device: Device) -> None:
+    @GObject.Signal()  # pyright: ignore[reportUntypedFunctionDecorator]
+    def deleted(self) -> None:
         """Signal emitted when a device is deleted."""
         pass
 
@@ -117,7 +117,7 @@ def _activate_move(
     argument: GLib.Variant | None,
 ) -> None:
     assert isinstance(row, DeviceRow)
-    row.emit("moved", row.device, direction)
+    row.emit("moved", direction)
 
 
 def _activate_suffix_mode(
@@ -134,7 +134,7 @@ def _activate_delete(
     row: Gtk.Widget, action: str, argument: GLib.Variant | None
 ) -> None:
     assert isinstance(row, DeviceRow)
-    row.emit("deleted", row.device)
+    row.emit("deleted")
 
 
 def _activate_edit(row: Gtk.Widget, action: str, argument: GLib.Variant | None) -> None:
