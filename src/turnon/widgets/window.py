@@ -9,7 +9,7 @@
 from gi.repository import Adw, Gio, Gtk
 
 from ..model import Device
-from .row import DeviceRow
+from .row import DeviceRow, MoveDirection
 
 
 @Gtk.Template.from_resource("/de/swsnr/turnon/turnon-application-window.ui")
@@ -34,10 +34,31 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         if is_registered:
             self._registered_devices.remove(index)
 
+    def _device_moved(self, row: DeviceRow, direction: MoveDirection) -> None:
+        (found, device_index) = self._registered_devices.find(row.device)
+        if not found:
+            return
+        match direction:
+            case MoveDirection.Upwards:
+                offset = -1
+            case MoveDirection.Downwards:
+                offset = 1
+        swap_index = device_index + offset
+        swap_device = self._registered_devices.get_item(swap_index)
+        if not swap_device:
+            return
+        # We remove the other device, not the device being moved; this
+        # retains the widget for the device being moved in views consuming
+        # the model, meaning it remains focused, and we can repeatedly
+        # move the same device to rearrange it.
+        self._registered_devices.remove(swap_index)
+        self._registered_devices.insert(device_index, swap_device)
+
     def _create_device_row(self, device: Device) -> Gtk.Widget:
         row = DeviceRow(device)
 
         row.connect("deleted", self._device_deleted)
+        row.connect("moved", self._device_moved)
 
         (is_registered, _) = self._registered_devices.find(device)
         row.action_set_enabled("row.ask-delete", is_registered)
