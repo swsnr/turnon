@@ -25,6 +25,7 @@ dev = [
     "poethepoet>=0.42.1",
     "ruff",
     "pytest",
+    "pytest-asyncio",
 ]
 flatpak-build = ["hatchling"]
 

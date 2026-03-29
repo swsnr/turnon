@@ -6,11 +6,13 @@
 
 """Pure Python model tests."""
 
-from ipaddress import ip_address
+import asyncio
+import time
+from ipaddress import IPv4Address, IPv6Address, ip_address
 
 import pytest
 
-from turnon.net import MacAddress, SocketAddress
+from turnon.net import MacAddress, SocketAddress, ping_ip_address
 
 
 @pytest.mark.parametrize(
@@ -61,3 +63,34 @@ def test_macaddress_from_invalid_bytes(address: bytes) -> None:
 def test_macdress_str(address: bytes, expected: str) -> None:
     """Test str formatting for MAC addresses."""
     assert str(MacAddress(address)) == expected
+
+
+@pytest.mark.asyncio
+async def test_ping_loopback_v4() -> None:
+    """Test pinging an IPv4 loopback address."""
+    rtt = await ping_ip_address(IPv4Address("127.0.0.1"), sequence_number=3)
+    rtt_s = rtt / 1_000_000_000
+    assert rtt_s < 1
+
+
+@pytest.mark.asyncio
+async def test_ping_loopback_v6() -> None:
+    """Test pinging an IPv6 loopback address."""
+    rtt = await ping_ip_address(IPv6Address("::1"), sequence_number=26)
+    rtt_s = rtt / 1_000_000_000
+    assert rtt_s < 1
+
+
+@pytest.mark.asyncio
+async def test_ping_unroutable_with_fast_timeout() -> None:
+    """Test a timeout with an unroutable address.
+
+    Test that pinging an unroutable address wrapped in a short `wait_for` timeout
+    times out fast, instead of waiting for standard I/O timeouts; this tests that
+    we don't accidentally use blocking sockets.
+    """
+    now = time.monotonic()
+    try:
+        await asyncio.wait_for(ping_ip_address(IPv4Address("192.0.2.42"), 3), timeout=1)
+    except TimeoutError:
+        assert (time.monotonic() - now) <= 1.25

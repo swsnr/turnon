@@ -6,9 +6,15 @@
 
 """Networking for Turn On."""
 
+import asyncio
+import errno
 import re
+import socket
+import struct
+import time
 from dataclasses import dataclass
 from ipaddress import IPv4Address, IPv6Address
+from itertools import chain, repeat
 from typing import Self
 
 MAC_ADDRESS_RE = re.compile(
@@ -85,6 +91,109 @@ class MacAddress:
         assert isinstance(sep, str)
 
         return cls(bytes.fromhex(s.replace(sep, "")))
+
+
+async def _ping_sockaddr(
+    sockaddr: tuple[str, int] | tuple[str, int, int, int] | tuple[int, bytes],
+    family: int,
+    sequence_number: int,
+) -> int:
+    # Assemble an ICMP packet.  Luckily, ICMPv4 and ICMPv6 have the same layout
+    # for echo requests, so we can use the same packet for both.
+    #
+    # Documentation around unprivileged ICMP is somewhat sparse in Linux land, but
+    # it seems that the kernel handles the checksum and the identifier for us,
+    # so we can statically assemble the packet.
+    payload_line = b"turnon-ping\n"
+    received_header = struct.pack(
+        "!BBHHH",
+        128 if family == socket.AF_INET6 else 8,
+        0,  # Type (0 for ICMP echo request)
+        0,  # Checksum (the kernel handles this for us)
+        0,  # Identifier (kernel does this too)
+        sequence_number,
+    )
+    payload = bytes(chain.from_iterable(repeat(payload_line, 4)))
+    packet = received_header + payload
+
+    with socket.socket(
+        family=family,
+        type=socket.SOCK_DGRAM,
+        proto=socket.IPPROTO_ICMPV6
+        if family == socket.AF_INET6
+        else socket.IPPROTO_ICMP,
+    ) as icmp_socket:
+        icmp_socket.setblocking(False)
+        loop = asyncio.get_event_loop()
+        time_sent = time.monotonic_ns()
+        bytes_sent = await loop.sock_sendto(icmp_socket, packet, sockaddr)
+        if bytes_sent != len(packet):
+            raise OSError(errno.EPIPE, f"ICMP packet to {sockaddr} not sent completely")
+        # We receive the same number of bytes as we sent: The ICMP header has the same
+        # size and we get our payload mirrored
+        (response, _) = await loop.sock_recvfrom(icmp_socket, len(packet))
+    rtt = time.monotonic_ns() - time_sent
+    (received_header, received_payload) = (response[:8], response[8:])
+    (response_type, _, _, _, received_seq_number) = struct.unpack(
+        "!BBHHH", received_header
+    )
+    if response_type != (129 if family == socket.AF_INET6 else 0):
+        raise OSError(errno.EBADMSG, f"Unexpected response type {response_type}")
+    if received_seq_number != sequence_number:
+        raise OSError(
+            errno.EBADMSG,
+            "Mismatched sequence number: "
+            + f"expected {sequence_number}, got {received_seq_number}",
+        )
+    if received_payload != payload:
+        raise OSError(errno.EBADMSG, "Unexpected payload received")
+    return rtt
+
+
+async def ping_ip_address(
+    target: IPv4Address | IPv6Address, sequence_number: int
+) -> int:
+    """Ping a `target` address.
+
+    Use `sequence_number` as the sequence number for the ICMP packet.
+
+    Return the  and return
+    the number of nanoseconds between sending the ping and receiving the reply.
+
+    If the target does not reply this method will not return.  Make sure to wrap
+    it in a timeout.
+    """
+    family = socket.AF_INET6 if isinstance(target, IPv6Address) else socket.AF_INET
+    addrs = socket.getaddrinfo(
+        host=str(target),
+        port=0,
+        family=family,
+        type=socket.SOCK_DGRAM,
+        flags=socket.AI_NUMERICHOST,  # Don't do DNS resolution, just resolve IP address
+    )
+    if not addrs:
+        raise OSError(f"Failed to resolve {target}")
+    elif len(addrs) == 1:
+        (_, _, _, _, sockaddr) = addrs[0]
+        return await _ping_sockaddr(
+            sockaddr=sockaddr,
+            family=family,
+            sequence_number=sequence_number,
+        )
+    else:
+        async with asyncio.TaskGroup() as pings:
+            (done, _) = await asyncio.wait(
+                (
+                    pings.create_task(
+                        _ping_sockaddr(
+                            sockaddr, family=family, sequence_number=sequence_number
+                        )
+                    )
+                    for (_, _, _, _, sockaddr) in addrs
+                ),
+                return_when=asyncio.FIRST_COMPLETED,
+            )
+            return await next(iter(done))
 
 
 async def wol(mac_address: MacAddress, target_address: SocketAddress) -> None:
