@@ -29,7 +29,6 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         self.devices_list.bind_model(registered_devices, self._create_device_row)
 
     def _device_deleted(self, row: DeviceRow) -> None:
-        # TODO: Delete monitor
         (is_registered, index) = self._registered_devices.find(row.device)
         if is_registered:
             self._registered_devices.remove(index)
@@ -69,6 +68,8 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         row.action_set_enabled("row.move-down", is_registered)
         if not is_registered:
             row.add_css_class("discovered")
+
+        row.start_monitoring()
         return row
 
 

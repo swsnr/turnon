@@ -12,9 +12,10 @@ import re
 import socket
 import struct
 import time
+from collections.abc import AsyncGenerator
 from dataclasses import dataclass
 from ipaddress import IPv4Address, IPv6Address
-from itertools import chain, repeat
+from itertools import chain, count, repeat
 from typing import Self
 
 MAC_ADDRESS_RE = re.compile(
@@ -157,8 +158,8 @@ async def ping_ip_address(
 
     Use `sequence_number` as the sequence number for the ICMP packet.
 
-    Return the  and return
-    the number of nanoseconds between sending the ping and receiving the reply.
+    Return the target address and return the number of nanoseconds between
+    sending the ping and receiving the reply.
 
     If the target does not reply this method will not return.  Make sure to wrap
     it in a timeout.
@@ -194,6 +195,27 @@ async def ping_ip_address(
                 return_when=asyncio.FIRST_COMPLETED,
             )
             return await next(iter(done))
+
+
+async def monitor(
+    target: IPv4Address | IPv6Address, interval: int
+) -> AsyncGenerator[tuple[IPv4Address | IPv6Address, float] | None]:
+    """Monitor a target address.
+
+    Periodically ping `target` at the given `interval`, and yield either `None`
+    if `target` does not reply, or the target address and the roundtrip time if
+    target replied.
+    """
+    timeout = interval / 2
+    for seqnr in count(1):
+        try:
+            rtt = await asyncio.wait_for(
+                ping_ip_address(target, seqnr), timeout=timeout
+            )
+            yield (target, rtt / 1_000_000_000)
+            await asyncio.sleep(interval)
+        except TimeoutError:
+            yield None
 
 
 async def wol(mac_address: MacAddress, target_address: SocketAddress) -> None:

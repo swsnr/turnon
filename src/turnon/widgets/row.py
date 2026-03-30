@@ -6,11 +6,16 @@
 
 """A device row."""
 
+import asyncio
 from functools import partial
+from ipaddress import ip_address
+from typing import override
 
 from gi.repository import Adw, GLib, GObject, Gtk
 
+from .. import log
 from ..model import Device
+from ..net import monitor
 from .edit import EditDeviceDialog
 from .util import add_shortcuts
 
@@ -36,16 +41,13 @@ class DeviceRow(Adw.ActionRow):
         self._device_url: str | None = None
         self._suffix_mode = "buttons"
         self.notify("device")
+        self._monitor_task: asyncio.Task[None] | None = None
+        self._device.connect("notify::host", self._device_host_changed)
 
-    @GObject.Property(type=Device)
+    @GObject.Property(type=Device, flags=GObject.PARAM_READABLE)
     def device(self) -> Device:
         """Get the current the device."""
         return self._device
-
-    @device.setter
-    def set_device(self, device: Device) -> None:
-        """Set the device."""
-        self._device = device
 
     @GObject.Property(type=bool, default=False)
     def is_device_online(self) -> bool:
@@ -72,6 +74,40 @@ class DeviceRow(Adw.ActionRow):
         """Set the suffix mode."""
         self._suffix_mode = mode
 
+    def _device_host_changed(self, _device: Device, _prop: str) -> None:
+        if self._monitor_task and not self._monitor_task.cancelled():
+            log.message("Restarting monitor")
+            self.stop_monitoring()
+            self.start_monitoring()
+
+    async def _monitor_host(self) -> None:
+        host = self._device.host
+        try:
+            address = ip_address(host)
+        except ValueError:
+            log.warn("Monitoring hosts is not yet supported")
+            return
+        async for result in monitor(address, interval=5):
+            if result is None:
+                log.message(f"{address} not reachable")
+                self.is_device_online = False
+            else:
+                (_, rtt) = result
+                log.message(f"{address} replied after {rtt}s")
+                self.is_device_online = True
+
+    def start_monitoring(self) -> None:
+        """Start monitoring the device."""
+        if self._monitor_task and not self._monitor_task.cancelled():
+            return
+        self._monitor_task = asyncio.create_task(self._monitor_host())
+
+    def stop_monitoring(self) -> None:
+        """Stop monitoring this device."""
+        if self._monitor_task:
+            self._monitor_task.cancel()
+            self._monitor_task = None
+
     @GObject.Signal(arg_types=[MoveDirection])  # pyright: ignore[reportUntypedFunctionDecorator]
     def moved(self, direction: MoveDirection) -> None:
         """Signal emitted when a device is moved in a given direction."""
@@ -81,6 +117,11 @@ class DeviceRow(Adw.ActionRow):
     def deleted(self) -> None:
         """Signal emitted when a device is deleted."""
         pass
+
+    @override
+    def do_unroot(self) -> None:
+        Adw.ActionRow.do_unroot(self)
+        self.stop_monitoring()
 
     @Gtk.Template.Callback()
     @staticmethod
