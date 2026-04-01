@@ -32,7 +32,7 @@ cmd = "ruff check ."
 help = "Lint all Python files"
 
 [tool.poe.tasks."lint:blueprint"]
-cmd = "blueprint-compiler lint src/**/*.blp"
+cmd = "blueprint-compiler lint resources/**/*.blp"
 help = "Lint all blueprint files"
 empty_glob = "fail"
 executor = "simple"
