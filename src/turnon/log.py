@@ -31,3 +31,8 @@ def message(message: str) -> None:
 def info(message: str) -> None:
     """Log an info message."""
     log(GLib.LogLevelFlags.LEVEL_INFO, message)
+
+
+def debug(message: str) -> None:
+    """Log an debug message."""
+    log(GLib.LogLevelFlags.LEVEL_DEBUG, message)

@@ -12,10 +12,9 @@ import re
 import socket
 import struct
 import time
-from collections.abc import AsyncGenerator
 from dataclasses import dataclass
 from ipaddress import IPv4Address, IPv6Address
-from itertools import chain, count, repeat
+from itertools import chain, repeat
 from typing import Self
 
 MAC_ADDRESS_RE = re.compile(
@@ -151,9 +150,9 @@ async def _ping_sockaddr(
     return rtt
 
 
-async def ping_ip_address(
-    target: IPv4Address | IPv6Address, sequence_number: int
-) -> int:
+async def ping_ip_address[IPAddress: (IPv4Address | IPv6Address)](
+    target: IPAddress, sequence_number: int
+) -> tuple[IPAddress, int]:
     """Ping a `target` address.
 
     Use `sequence_number` as the sequence number for the ICMP packet.
@@ -176,7 +175,7 @@ async def ping_ip_address(
         raise OSError(f"Failed to resolve {target}")
     elif len(addrs) == 1:
         (_, _, _, _, sockaddr) = addrs[0]
-        return await _ping_sockaddr(
+        rtt = await _ping_sockaddr(
             sockaddr=sockaddr,
             family=family,
             sequence_number=sequence_number,
@@ -194,28 +193,8 @@ async def ping_ip_address(
                 ),
                 return_when=asyncio.FIRST_COMPLETED,
             )
-            return await next(iter(done))
-
-
-async def monitor(
-    target: IPv4Address | IPv6Address, interval: int
-) -> AsyncGenerator[tuple[IPv4Address | IPv6Address, float] | None]:
-    """Monitor a target address.
-
-    Periodically ping `target` at the given `interval`, and yield either `None`
-    if `target` does not reply, or the target address and the roundtrip time if
-    target replied.
-    """
-    timeout = interval / 2
-    for seqnr in count(1):
-        try:
-            rtt = await asyncio.wait_for(
-                ping_ip_address(target, seqnr), timeout=timeout
-            )
-            yield (target, rtt / 1_000_000_000)
-            await asyncio.sleep(interval)
-        except TimeoutError:
-            yield None
+            rtt = await next(iter(done))
+    return (target, rtt)
 
 
 async def wol(mac_address: MacAddress, target_address: SocketAddress) -> None:

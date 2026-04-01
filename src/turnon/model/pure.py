@@ -8,7 +8,7 @@
 
 from dataclasses import dataclass
 
-from turnon.net import MacAddress, SocketAddress
+from ..net import MacAddress, SocketAddress
 
 
 @dataclass(frozen=True, kw_only=True)

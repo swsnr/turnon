@@ -1,0 +1,207 @@
+# Copyright Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the EUPL
+#
+# See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+"""Device monitoring."""
+
+import asyncio
+import contextlib
+import traceback
+from collections.abc import Awaitable
+from ipaddress import IPv4Address, IPv6Address, ip_address
+from itertools import count
+from typing import cast
+
+from gi.repository import Gio, GLib, GObject
+
+from turnon.net import ping_ip_address
+
+from . import log
+from .model import Device
+
+
+def _log_exception[T](task: asyncio.Task[T]) -> None:
+    if task.cancelled():
+        return
+    exception = task.exception()
+    if exception is not None:
+        log.warn("".join(traceback.format_exception(exception)))
+
+
+def _to_ip_address(address: Gio.InetAddress) -> IPv4Address | IPv6Address:
+    """Convert a Gio internet address to an IP address."""
+    match address.get_family():
+        case Gio.SocketFamily.IPV4 | Gio.SocketFamily.IPV6:
+            return ip_address(address.to_string())
+        case Gio.SocketFamily.INVALID:
+            raise ValueError(f"{address} has invalid socket family")
+        case Gio.SocketFamily.UNIX:
+            raise ValueError(f"{address} is a unix address")
+
+
+async def lookup_host(hostname: str) -> list[IPv4Address | IPv6Address]:
+    """Asynchronously lookup the given `hostname` through Gio."""
+    ip_addresses = await cast(
+        # Need to cast manually, see https://github.com/pygobject/pygobject-stubs/issues/220
+        Awaitable[list[Gio.InetAddress]],
+        Gio.Resolver.get_default().lookup_by_name_async(hostname),
+    )
+    # Smoke test for the cast before
+    assert isinstance(ip_addresses, list)
+    return [_to_ip_address(a) for a in ip_addresses]
+
+
+class DeviceMonitor(GObject.Object):
+    """Monitor a device."""
+
+    __gtype_name__: str = "TurnOnDeviceMonitor"
+
+    def __init__(self, device: Device, interval: float) -> None:
+        """Initialize a monitor for `device`."""
+        super().__init__()
+        self._device = device
+        self._device.connect("notify::host", self._device_host_changed)
+        self._device_online = False
+        self._device_url: str | None = None
+        self._interval = interval
+        self._timeout = interval / 2
+        self._tasks: set[asyncio.Task[None]] = set()
+
+    @GObject.Property(type=bool, default=False, flags=GObject.ParamFlags.READABLE)
+    def device_online(self) -> bool:
+        """Whether the device is online."""
+        return self._device_online
+
+    def _set_device_online(self, is_online: bool) -> None:
+        if self._device_online != is_online:
+            self._device_online = is_online
+            self.notify("device-online")
+
+    @GObject.Property(type=str, flags=GObject.ParamFlags.READABLE)
+    def device_url(self) -> str | None:
+        """Get the URL for the device if any."""
+        return self._device_url
+
+    def stop(self) -> None:
+        """Stop monitoring."""
+        for task in self._tasks:
+            task.cancel()
+        self._tasks.clear()
+
+    def start(self) -> None:
+        """Start monitoring."""
+        self._start(delay=None)
+
+    def _device_host_changed(self, _obj: Device, _prop: str) -> None:
+        if self._tasks:
+            self.stop()
+            self.start()
+
+    def _restart_on_exception(self, task: asyncio.Task[None]) -> None:
+        if task.cancelled():
+            return
+        if task.exception():
+            self._start(self._interval)
+
+    def _start(self, delay: float | None) -> None:
+        host = self._device.device.host
+        with contextlib.suppress(ValueError):
+            host = ip_address(host)
+        task = asyncio.create_task(
+            self._monitor_host(host, delay=delay), name=f"Monitor {host}"
+        )
+        task.add_done_callback(self._tasks.discard)
+        task.add_done_callback(_log_exception)
+        task.add_done_callback(self._restart_on_exception)
+        self._tasks.add(task)
+
+    async def _monitor_address(
+        self,
+        address: IPv4Address | IPv6Address,
+        *,
+        initial_seqnr: int,
+        abort_if_unreachable: bool,
+    ) -> None:
+        for seqnr in count(initial_seqnr):
+            try:
+                async with asyncio.timeout(self._timeout):
+                    (_, rtt) = await ping_ip_address(address, seqnr)
+                rtt_ms = rtt / 1_000_000
+                log.info(
+                    f"Address {address} replied after {rtt_ms}ms (seq. nr {seqnr})"
+                )
+                self._set_device_online(True)
+            except TimeoutError:
+                self._set_device_online(False)
+
+            await asyncio.sleep(self._interval)
+
+            if not self._device_online and abort_if_unreachable:
+                return
+
+    async def _monitor_host(
+        self, host: IPv4Address | IPv6Address | str, delay: float | None
+    ) -> None:
+        if delay is not None:
+            await asyncio.sleep(delay)
+        while True:
+            try:
+                seqnr = 1
+                if isinstance(host, str):
+                    async with asyncio.timeout(self._timeout):
+                        try:
+                            addresses = await lookup_host(host)
+                            log.info(f"Resolved {host} to {addresses}")
+                        except GLib.Error as error:
+                            if (
+                                GLib.quark_from_string(error.domain)
+                                == Gio.ResolverError.quark()
+                            ):
+                                log.info(f"Failed to resolve host: {error.message}")
+                                self._set_device_online(False)
+                                await asyncio.sleep(self._interval)
+                                continue
+                            else:
+                                raise
+                else:
+                    addresses = [host]
+                assert addresses
+                if len(addresses) == 1:
+                    address = addresses[0]
+                else:
+                    # Ping all addresses once and take the one which responds first, and
+                    # start monitoring that. If no address responds, wait and try to
+                    # resolve again.
+                    async with asyncio.timeout(self._timeout):
+                        async with asyncio.TaskGroup() as pings:
+                            (done, _) = await asyncio.wait(
+                                (
+                                    pings.create_task(
+                                        ping_ip_address(a, sequence_number=seqnr)
+                                    )
+                                    for a in addresses
+                                ),
+                                return_when=asyncio.FIRST_COMPLETED,
+                            )
+                        (address, rtt) = await next(iter(done))
+                    rtt_ms = rtt / 1_000_000
+                    log.info(
+                        f"Address {address} of host {host} replied first after "
+                        + f"{rtt_ms}ms (seq. nr {seqnr}), monitoring {address}"
+                    )
+                    seqnr += 1
+            except TimeoutError:
+                self._set_device_online(False)
+                await asyncio.sleep(self._interval)
+                continue
+
+            # Bail out if we're pinging a DNS name and it doesn't respond;
+            # this makes us try to resolve the name again, which is required
+            # to pick up changes in the address (e.g. for mDNS names)
+            await self._monitor_address(
+                address,
+                initial_seqnr=seqnr,
+                abort_if_unreachable=isinstance(host, str),
+            )

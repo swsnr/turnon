@@ -68,17 +68,19 @@ def test_macdress_str(address: bytes, expected: str) -> None:
 @pytest.mark.asyncio
 async def test_ping_loopback_v4() -> None:
     """Test pinging an IPv4 loopback address."""
-    rtt = await ping_ip_address(IPv4Address("127.0.0.1"), sequence_number=3)
+    (address, rtt) = await ping_ip_address(IPv4Address("127.0.0.1"), sequence_number=3)
     rtt_s = rtt / 1_000_000_000
     assert rtt_s < 1
+    assert address == IPv4Address("127.0.0.1")
 
 
 @pytest.mark.asyncio
 async def test_ping_loopback_v6() -> None:
     """Test pinging an IPv6 loopback address."""
-    rtt = await ping_ip_address(IPv6Address("::1"), sequence_number=26)
+    (address, rtt) = await ping_ip_address(IPv6Address("::1"), sequence_number=26)
     rtt_s = rtt / 1_000_000_000
     assert rtt_s < 1
+    assert address == IPv6Address("::1")
 
 
 @pytest.mark.asyncio

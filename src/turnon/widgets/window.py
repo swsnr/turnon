@@ -54,7 +54,8 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         self._registered_devices.insert(device_index, swap_device)
 
     def _create_device_row(self, device: Device) -> Gtk.Widget:
-        row = DeviceRow(device)
+        # Ping device every 5 seconds to check whether it's online
+        row = DeviceRow(device, monitor_interval_s=5)
 
         row.connect("deleted", self._device_deleted)
         row.connect("moved", self._device_moved)
@@ -69,7 +70,8 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         if not is_registered:
             row.add_css_class("discovered")
 
-        row.start_monitoring()
+        row.device_monitor.start()
+
         return row
 
 
