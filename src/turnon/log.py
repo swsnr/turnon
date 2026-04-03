@@ -6,6 +6,9 @@
 
 """Logging utilities."""
 
+import asyncio
+import traceback
+
 from gi.repository import GLib
 
 LOG_DOMAIN = "TurnOn"
@@ -36,3 +39,16 @@ def info(message: str) -> None:
 def debug(message: str) -> None:
     """Log an debug message."""
     log(GLib.LogLevelFlags.LEVEL_DEBUG, message)
+
+
+def log_task_exception[T](task: asyncio.Task[T]) -> None:
+    """Log exception of a failed task.
+
+    For use as done callback for tasks.
+    """
+    if task.cancelled():
+        return
+    exception = task.exception()
+    if exception is not None:
+        message = "".join(traceback.format_exception(exception))
+        warn(f"Task {task.get_name()} failed: {message}")

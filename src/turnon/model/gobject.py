@@ -6,7 +6,6 @@
 
 """GObject based model classes."""
 
-import asyncio
 import dataclasses
 from pathlib import Path
 from threading import Condition, Thread
@@ -15,7 +14,6 @@ from typing import override
 from gi.repository import Gio, GObject
 
 from .. import log
-from ..net import wol
 from .pure import Device as PureDevice
 from .pure import MacAddress, SocketAddress
 from .storage import dump_devices
@@ -78,28 +76,6 @@ class Device(GObject.Object):
     def set_target_address(self, value: SocketAddress) -> None:
         """Set the target address for this device."""
         self._device = dataclasses.replace(self.device, target_address=value)
-
-    async def wol(self) -> None:
-        """Wake up this device."""
-        mac_address = self._device.mac_address
-        target_address = self._device.target_address
-        log.info(
-            f"Sending magic packet for mac address {mac_address} of device "
-            + f"{self._device.label} to {target_address}"
-        )
-        timeout_s = 5
-        try:
-            await asyncio.wait_for(wol(mac_address, target_address), timeout_s)
-            log.info(
-                f"Sent magic packet to {mac_address} "
-                + f"of device {self._device.label} to {target_address}"
-            )
-        except Exception as error:
-            log.warn(
-                "Failed to send magic packet to {mac_address} "
-                + f"of device {self._device.label} to {target_address}: {error}",
-            )
-            raise
 
 
 class DeviceStorage(Thread):

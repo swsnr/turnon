@@ -80,6 +80,10 @@ class MacAddress:
         """Format MAC address as human-readable hex string."""
         return self.address.hex(":", 1).upper()
 
+    def __bytes__(self) -> bytes:
+        """Return the raw MAC address bytes."""
+        return self.address
+
     @staticmethod
     def is_mac_address(s: str) -> bool:
         """Whether the given string is a valid MAC address."""
@@ -231,4 +235,17 @@ async def wol(mac_address: MacAddress, target_address: SocketAddress) -> None:
     Send a magic packet to wake the device with the given `mac_address` to
     `target_address`.
     """
-    raise NotImplementedError()
+    packet = (b"\xff" * 6) + (bytes(mac_address) * 16)
+    (family, type, proto, _, sockaddr) = socket.getaddrinfo(
+        host=str(target_address.address),
+        port=target_address.port,
+        family=target_address.family,
+        proto=socket.IPPROTO_UDP,
+        type=socket.SOCK_DGRAM,
+        # Don't do DNS resolution, just resolve IP address
+        flags=socket.AI_NUMERICHOST,
+    )[0]
+    with socket.socket(family=family, type=type, proto=proto) as udp_socket:
+        udp_socket.setblocking(False)
+        loop = asyncio.get_event_loop()
+        await loop.sock_sendto(udp_socket, packet, sockaddr)

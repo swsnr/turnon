@@ -8,7 +8,6 @@
 
 import asyncio
 import contextlib
-import traceback
 from collections.abc import Awaitable
 from ipaddress import IPv4Address, IPv6Address, ip_address
 from itertools import count
@@ -19,15 +18,6 @@ from gi.repository import Gio, GLib, GObject
 from . import log
 from .model import Device
 from .net import SocketAddress, ping_ip_address, probe_tcp_port
-
-
-def _log_exception[T](task: asyncio.Task[T]) -> None:
-    if task.cancelled():
-        return
-    exception = task.exception()
-    if exception is not None:
-        message = "".join(traceback.format_exception(exception))
-        log.warn(f"Task {task.get_name()} failed: {message}")
 
 
 def _to_ip_address(address: Gio.InetAddress) -> IPv4Address | IPv6Address:
@@ -143,7 +133,7 @@ class DeviceMonitor(GObject.Object):
             self._monitor_host(host, delay=delay), name=f"monitor/{host}"
         )
         task.add_done_callback(self._tasks.discard)
-        task.add_done_callback(_log_exception)
+        task.add_done_callback(log.log_task_exception)
         task.add_done_callback(self._restart_on_exception)
         self._tasks.add(task)
 
@@ -171,7 +161,7 @@ class DeviceMonitor(GObject.Object):
                         self._probe_http(address), name=f"probe-http/{address}"
                     )
                     probe.add_done_callback(self._tasks.discard)
-                    probe.add_done_callback(_log_exception)
+                    probe.add_done_callback(log.log_task_exception)
                     self._tasks.add(probe)
             except TimeoutError:
                 self._set_device_online(False)
