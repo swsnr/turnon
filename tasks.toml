@@ -18,6 +18,7 @@ executor = "simple"
 
 [tool.poe.tasks.lint]
 sequence = [
+    "lint:types",
     "lint:python",
     "lint:blueprint",
     "lint:data",
@@ -26,6 +27,10 @@ sequence = [
     "lint:flatpak-devel",
 ]
 help = "Lint everything"
+
+[tool.poe.tasks."lint:types"]
+cmd = "npx pyright"
+help = "Check types in Python files"
 
 [tool.poe.tasks."lint:python"]
 cmd = "ruff check ."
