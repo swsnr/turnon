@@ -16,6 +16,7 @@ from typing import override
 from gi.repository import Adw, Gio, GLib, Gtk
 
 import turnon
+from turnon.cli import AppCLI
 
 from . import log
 from .model import Device, DeviceStorage
@@ -31,7 +32,9 @@ class TurnOnApplication(Adw.Application):
     def __init__(self, application_id: str) -> None:
         """Create a new application with the given ID."""
         super().__init__(
-            application_id=application_id, resource_base_path="/de/swsnr/turnon"
+            application_id=application_id,
+            resource_base_path="/de/swsnr/turnon",
+            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
         )
         self._settings: Gio.Settings = Gio.Settings.new(application_id)
         self._registered_devices = Gio.ListStore[Device].new(Device)
@@ -43,6 +46,20 @@ class TurnOnApplication(Adw.Application):
         self._device_storage: DeviceStorage | None = None
 
     def _add_options(self) -> None:
+        self.add_main_option(
+            "list-devices",
+            0,
+            GLib.OptionFlags.NONE,
+            GLib.OptionArg.NONE,
+            C_("option.list-devices.description", "List all devices and their status"),
+        )
+        self.add_main_option(
+            "add-device",
+            0,
+            GLib.OptionFlags.NONE,
+            GLib.OptionArg.NONE,
+            C_("option.add-device.description", "Add a new device"),
+        )
         self.add_main_option(
             "devices-file",
             0,
@@ -188,8 +205,12 @@ The full English text follows.
     def do_command_line(self, command_line: Gio.ApplicationCommandLine) -> int:
         _ = Adw.Application.do_command_line(self, command_line)
         options = command_line.get_options_dict()
-        self.activate()
 
+        list_devices = options.lookup_value("list-devices")
+        if list_devices and list_devices.unpack():
+            return AppCLI(self, self._registered_devices, command_line).list_devices()
+
+        self.activate()
         height = options.lookup_value("main-window-height")
         if height:
             height = height.get_int32()
@@ -197,6 +218,9 @@ The full English text follows.
             window = self.get_active_window()
             if window:
                 window.props.height_request = height
+        add_device = options.lookup_value("add-device")
+        if add_device and add_device.unpack():
+            self.activate_action("add-device")
         return os.EX_OK
 
     @override

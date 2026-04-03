@@ -8,37 +8,15 @@
 
 import asyncio
 import contextlib
-from collections.abc import Awaitable
 from ipaddress import IPv4Address, IPv6Address, ip_address
 from itertools import count
-from typing import cast
 
 from gi.repository import Gio, GLib, GObject
 
 from . import log
 from .model import Device
-from .net import SocketAddress, ping_ip_address, probe_tcp_port
-
-
-def _to_ip_address(address: Gio.InetAddress) -> IPv4Address | IPv6Address:
-    """Convert a Gio internet address to an IP address."""
-    match address.get_family():
-        case Gio.SocketFamily.IPV4 | Gio.SocketFamily.IPV6:
-            return ip_address(address.to_string())
-        case family:
-            raise ValueError(f"{address} has unsupported family: {family.value_name}")
-
-
-async def lookup_host(hostname: str) -> list[IPv4Address | IPv6Address]:
-    """Asynchronously lookup the given `hostname` through Gio."""
-    ip_addresses = await cast(
-        # Need to cast manually, see https://github.com/pygobject/pygobject-stubs/issues/220
-        Awaitable[list[Gio.InetAddress]],
-        Gio.Resolver.get_default().lookup_by_name_async(hostname),
-    )
-    # Smoke test for the cast before
-    assert isinstance(ip_addresses, list)
-    return [_to_ip_address(a) for a in ip_addresses]
+from .net import SocketAddress, ping_first_reachable, ping_ip_address, probe_tcp_port
+from .net.gio import lookup_host
 
 
 class DeviceMonitor(GObject.Object):
@@ -148,7 +126,7 @@ class DeviceMonitor(GObject.Object):
                 # it comes online now.
                 should_probe_http = not self._device_online
                 async with asyncio.timeout(self._timeout):
-                    (_, rtt) = await ping_ip_address(address, seqnr)
+                    (_, rtt) = await ping_ip_address(address, sequence_number=seqnr)
                 rtt_ms = rtt / 1_000_000
                 log.info(
                     f"Address {address} replied after {rtt_ms}ms (seq. nr {seqnr})"
@@ -203,17 +181,9 @@ class DeviceMonitor(GObject.Object):
                     # start monitoring that. If no address responds, wait and try to
                     # resolve again.
                     async with asyncio.timeout(self._timeout):
-                        async with asyncio.TaskGroup() as pings:
-                            (done, _) = await asyncio.wait(
-                                (
-                                    pings.create_task(
-                                        ping_ip_address(a, sequence_number=seqnr)
-                                    )
-                                    for a in addresses
-                                ),
-                                return_when=asyncio.FIRST_COMPLETED,
-                            )
-                        (address, rtt) = await next(iter(done))
+                        (address, rtt) = await ping_first_reachable(
+                            addresses, sequence_number=seqnr
+                        )
                     rtt_ms = rtt / 1_000_000
                     log.info(
                         f"Address {address} of host {host} replied first after "

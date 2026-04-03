@@ -164,7 +164,7 @@ async def _ping_sockaddr(
 
 
 async def ping_ip_address[IPAddress: (IPv4Address | IPv6Address)](
-    target: IPAddress, sequence_number: int
+    target: IPAddress, *, sequence_number: int
 ) -> tuple[IPAddress, int]:
     """Ping a `target` address.
 
@@ -208,6 +208,30 @@ async def ping_ip_address[IPAddress: (IPv4Address | IPv6Address)](
             )
             rtt = await next(iter(done))
     return (target, rtt)
+
+
+async def ping_first_reachable(
+    addresses: list[IPv4Address | IPv6Address], *, sequence_number: int
+) -> tuple[IPv4Address | IPv6Address, int]:
+    """Ping all `addresses` concurrently and return the first that responds.
+
+    Return the first address which responds, and the roundtrip time in nanoseconds.
+    """
+    if not addresses:
+        raise ValueError("No addresses given")
+
+    if len(addresses) == 1:
+        return await ping_ip_address(addresses[0], sequence_number=sequence_number)
+
+    async with asyncio.TaskGroup() as pings:
+        (done, _) = await asyncio.wait(
+            (
+                pings.create_task(ping_ip_address(a, sequence_number=sequence_number))
+                for a in addresses
+            ),
+            return_when=asyncio.FIRST_COMPLETED,
+        )
+    return await next(iter(done))
 
 
 async def probe_tcp_port(address: SocketAddress) -> bool:

@@ -1,0 +1,104 @@
+# Copyright Sebastian Wiesner <sebastian@swsnr.de>
+#
+# Licensed under the EUPL
+#
+# See https://interoperable-europe.ec.europa.eu/collection/eupl/eupl-text-eupl-12
+
+"""TurnOn command line interface."""
+
+import asyncio
+import os
+from collections.abc import Coroutine, Generator
+from contextlib import contextmanager, suppress
+from ipaddress import IPv4Address, IPv6Address, ip_address
+from typing import Any
+
+from gi.repository import Adw, Gio
+
+from . import log
+from .model import Device
+from .net import ping_first_reachable
+from .net.gio import lookup_host
+
+
+async def _resolve_host(host: str) -> list[IPv4Address | IPv6Address]:
+    with suppress(ValueError):
+        return [ip_address(host)]
+    return await lookup_host(host)
+
+
+@contextmanager
+def hold_app(app: Gio.Application) -> Generator[None]:
+    """Hold on to an application while running a block."""
+    app.hold()
+    yield
+    app.release()
+
+
+class AppCLI:
+    """CLI for the TurnOn application."""
+
+    def __init__(
+        self,
+        app: Adw.Application,
+        devices: Gio.ListModel[Device],
+        command_line: Gio.ApplicationCommandLine,
+    ) -> None:
+        """Create a new app CLI."""
+        self._app = app
+        self._tasks: set[asyncio.Task[None]] = set()
+        self._devices = devices
+        self._command_line = command_line
+
+    def _cli_task_done(self, task: asyncio.Task[None]) -> None:
+        if task.cancelled() or task.exception():
+            self._command_line.set_exit_status(os.EX_OSERR)
+        else:
+            self._command_line.set_exit_status(os.EX_OK)
+        self._command_line.done()
+        self._app.release()
+
+    def _create_cli_task(
+        self, f: Coroutine[Any, Any, None], *, name: str
+    ) -> asyncio.Task[None]:
+        task = asyncio.create_task(f, name=name)
+        self._tasks.add(task)
+        task.add_done_callback(self._tasks.discard)
+        task.add_done_callback(self._cli_task_done)
+        task.add_done_callback(log.log_task_exception)
+        return task
+
+    async def _ping_and_list(self) -> None:
+        pings = await asyncio.gather(
+            *[
+                asyncio.wait_for(
+                    ping_first_reachable(
+                        await _resolve_host(device.host), sequence_number=1
+                    ),
+                    timeout=0.5,
+                )
+                for device in self._devices
+            ],
+            return_exceptions=True,
+        )
+        label_width = max(len(d.label) for d in self._devices)
+        for device, result in zip(self._devices, pings, strict=True):
+            if isinstance(result, BaseException):
+                color = "\x1b[1;31m"
+                indicator = "    ●"
+            else:
+                (_, rtt) = result
+                color = "\x1b[1;32m"
+                rtt_ms = round(rtt / 1_000_000)
+                indicator = f"{rtt_ms:>3}ms"
+            self._command_line.print_literal(
+                f"{color}{indicator}\x1b[0m {device.label:<{label_width}}"
+                + f"\t{device.mac_address}\t{device.host}\n"
+            )
+
+    def list_devices(self) -> int:
+        """List devices."""
+        if 0 < self._devices.get_n_items():
+            self._app.hold()
+            self._create_cli_task(self._ping_and_list(), name="cli/list-devices")
+        return os.EX_OK
