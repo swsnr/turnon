@@ -54,7 +54,7 @@ class CustomBuildHook(BuildHookInterface[BuilderConfig]):
         _ = source.write_text(contents.replace("de.swsnr.turnon", app_id))
 
     @override
-    def initialize(self, version: str, build_data: dict[str, Any]) -> None:  # pyright: ignore[reportExplicitAny]
+    def initialize(self, version: str, build_data: dict[str, Any]) -> None:
         super().initialize(version, build_data)
 
         if self.target_name != "wheel":
