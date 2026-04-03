@@ -93,6 +93,8 @@ async def test_ping_unroutable_with_fast_timeout() -> None:
     """
     now = time.monotonic()
     try:
-        await asyncio.wait_for(ping_ip_address(IPv4Address("192.0.2.42"), 3), timeout=1)
+        await asyncio.wait_for(
+            ping_ip_address(IPv4Address("192.0.2.42"), sequence_number=3), timeout=1
+        )
     except TimeoutError:
         assert (time.monotonic() - now) <= 1.25

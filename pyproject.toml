@@ -40,7 +40,7 @@ build-backend = "hatchling.build"
 include = "tasks.toml"
 
 [tool.pyrefly]
-project-includes = ["src/", "po/*.py", "hatch_build.py"]
+project-includes = ["src/", "tests/", "po/*.py", "hatch_build.py"]
 
 [tool.pyrefly.errors]
 missing-override-decorator = "error"
