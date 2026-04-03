@@ -15,7 +15,7 @@ import time
 from dataclasses import dataclass
 from ipaddress import IPv4Address, IPv6Address
 from itertools import chain, repeat
-from typing import Self
+from typing import Self, override
 
 MAC_ADDRESS_RE = re.compile(
     r"\A[0-9a-fA-F]{2}(?P<sep>:|-)(?:(?:[0-9a-fA-F]{2})(?P=sep)){4}[0-9a-fA-F]{2}\Z"
@@ -29,6 +29,7 @@ class SocketAddress:
     address: IPv4Address | IPv6Address
     port: int
 
+    @override
     def __str__(self) -> str:
         """Format a socket address as string."""
         if isinstance(self.address, IPv6Address):
@@ -76,6 +77,7 @@ class MacAddress:
             raise ValueError(f"Invalid length {len(address)}")
         object.__setattr__(self, "address", address)
 
+    @override
     def __str__(self) -> str:
         """Format MAC address as human-readable hex string."""
         return self.address.hex(":", 1).upper()

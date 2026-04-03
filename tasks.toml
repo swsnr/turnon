@@ -29,7 +29,7 @@ sequence = [
 help = "Lint everything"
 
 [tool.poe.tasks."lint:types"]
-cmd = "pyright --warnings"
+cmd = "pyrefly check --min-severity warn"
 help = "Check types in Python files"
 
 [tool.poe.tasks."lint:python"]

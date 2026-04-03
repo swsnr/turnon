@@ -25,10 +25,8 @@ def _to_ip_address(address: Gio.InetAddress) -> IPv4Address | IPv6Address:
     match address.get_family():
         case Gio.SocketFamily.IPV4 | Gio.SocketFamily.IPV6:
             return ip_address(address.to_string())
-        case Gio.SocketFamily.INVALID:
-            raise ValueError(f"{address} has invalid socket family")
-        case Gio.SocketFamily.UNIX:
-            raise ValueError(f"{address} is a unix address")
+        case family:
+            raise ValueError(f"{address} has unsupported family: {family.value_name}")
 
 
 async def lookup_host(hostname: str) -> list[IPv4Address | IPv6Address]:

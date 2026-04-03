@@ -26,6 +26,7 @@ dev = [
     "ruff",
     "pytest",
     "pytest-asyncio",
+    "pyrefly>=0.59.1",
 ]
 flatpak-build = ["hatchling"]
 
@@ -38,12 +39,22 @@ build-backend = "hatchling.build"
 [tool.poe]
 include = "tasks.toml"
 
-[tool.pyright]
-include = ["src/", "po/*.py", "hatch_build.py"]
-typeCheckingMode = "strict"
-reportMissingModuleSource = false
-reportUninitializedInstanceVariable = true
-reportMissingSuperCall = true
+[tool.pyrefly]
+project-includes = ["src/", "po/*.py", "hatch_build.py"]
+
+[tool.pyrefly.errors]
+missing-override-decorator = "error"
+implicitly-defined-attribute = "error"
+implicit-any = "error"
+unannotated-attribute = "error"
+unannotated-parameter = "error"
+unannotated-return = "error"
+non-exhaustive-match = "error"
+redundant-condition = "error"
+unreachable = "error"
+unresolvable-dunder-all = "error"
+untyped-import = "error"
+unused-ignore = "error"
 
 [tool.ruff.lint]
 select = [

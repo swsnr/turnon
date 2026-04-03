@@ -13,8 +13,6 @@ jobs:
       # Skip blueprint, msgfmt, and GLib schemas on CI, and don't install
       # pygobject, because we're lacking all their system dependencies.
       - run: env SKIP_BLUEPRINT=1 SKIP_MSGFMT=1 SKIP_SCHEMAS=1 uv sync --locked --no-install-package pygobject
-      - uses: actions/setup-node@v6
-      - run: npm install -g pyright
       - run: env UV_NO_SYNC=1 uv run poe lint:types
       - run: env UV_NO_SYNC=1 uv run pytest tests/pure/
       - run: env UV_NO_SYNC=1 uv run poe lint:python
