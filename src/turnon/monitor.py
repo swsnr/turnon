@@ -16,10 +16,9 @@ from typing import cast
 
 from gi.repository import Gio, GLib, GObject
 
-from turnon.net import ping_ip_address
-
 from . import log
 from .model import Device
+from .net import SocketAddress, ping_ip_address, probe_tcp_port
 
 
 def _log_exception[T](task: asyncio.Task[T]) -> None:
@@ -27,7 +26,8 @@ def _log_exception[T](task: asyncio.Task[T]) -> None:
         return
     exception = task.exception()
     if exception is not None:
-        log.warn("".join(traceback.format_exception(exception)))
+        message = "".join(traceback.format_exception(exception))
+        log.warn(f"Task {task.get_name()} failed: {message}")
 
 
 def _to_ip_address(address: Gio.InetAddress) -> IPv4Address | IPv6Address:
@@ -78,11 +78,19 @@ class DeviceMonitor(GObject.Object):
         if self._device_online != is_online:
             self._device_online = is_online
             self.notify("device-online")
+            # Clear device URL if the online state changed.
+            # If the device is offline there's no URL anymore, and otherwise we
+            # need to probe again.
+            self._set_device_url(None)
 
     @GObject.Property(type=str, flags=GObject.ParamFlags.READABLE)
     def device_url(self) -> str | None:
         """Get the URL for the device if any."""
         return self._device_url
+
+    def _set_device_url(self, url: str | None) -> None:
+        self._device_url = url
+        self.notify("device-url")
 
     def stop(self) -> None:
         """Stop monitoring."""
@@ -105,12 +113,34 @@ class DeviceMonitor(GObject.Object):
         if task.exception():
             self._start(self._interval)
 
+    async def _probe_http(self, address: IPv4Address | IPv6Address) -> None:
+        """Probe whether `address` serves a HTTP or HTTPS.
+
+        `address` is the IP address to test, and `host` is the host name to use for the
+        HTTP URL.
+        """
+        for scheme, port in [("https", 443), ("http", 80)]:
+            with contextlib.suppress(TimeoutError):
+                async with asyncio.timeout(self._timeout):
+                    log.info(f"Probing port {port} on {address}")
+                    if await probe_tcp_port(SocketAddress(address, port)):
+                        url = f"{scheme}://{self._device.host}:{port}"
+                        log.info(f"Discovered device URL {url}")
+                        self._set_device_url(url)
+                        break
+        else:
+            self._set_device_url(None)
+
     def _start(self, delay: float | None) -> None:
+        """Start monitoring after an optional initial `delay`.
+
+        Create a task to periodically ping the the current device host.
+        """
         host = self._device.device.host
         with contextlib.suppress(ValueError):
             host = ip_address(host)
         task = asyncio.create_task(
-            self._monitor_host(host, delay=delay), name=f"Monitor {host}"
+            self._monitor_host(host, delay=delay), name=f"monitor/{host}"
         )
         task.add_done_callback(self._tasks.discard)
         task.add_done_callback(_log_exception)
@@ -126,6 +156,9 @@ class DeviceMonitor(GObject.Object):
     ) -> None:
         for seqnr in count(initial_seqnr):
             try:
+                # If the device is not online yet, we should probe for HTTP if
+                # it comes online now.
+                should_probe_http = not self._device_online
                 async with asyncio.timeout(self._timeout):
                     (_, rtt) = await ping_ip_address(address, seqnr)
                 rtt_ms = rtt / 1_000_000
@@ -133,6 +166,13 @@ class DeviceMonitor(GObject.Object):
                     f"Address {address} replied after {rtt_ms}ms (seq. nr {seqnr})"
                 )
                 self._set_device_online(True)
+                if should_probe_http:
+                    probe = asyncio.create_task(
+                        self._probe_http(address), name=f"probe-http/{address}"
+                    )
+                    probe.add_done_callback(self._tasks.discard)
+                    probe.add_done_callback(_log_exception)
+                    self._tasks.add(probe)
             except TimeoutError:
                 self._set_device_online(False)
 

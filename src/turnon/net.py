@@ -36,6 +36,13 @@ class SocketAddress:
         else:
             return f"{self.address}:{self.port}"
 
+    @property
+    def family(self) -> int:
+        """Get the address family to use for this socket address."""
+        return (
+            socket.AF_INET6 if isinstance(self.address, IPv6Address) else socket.AF_INET
+        )
+
     @classmethod
     def parse(cls, s: str) -> Self:
         """Parse a socket address from the string `s`."""
@@ -195,6 +202,27 @@ async def ping_ip_address[IPAddress: (IPv4Address | IPv6Address)](
             )
             rtt = await next(iter(done))
     return (target, rtt)
+
+
+async def probe_tcp_port(address: SocketAddress) -> bool:
+    """Attempt to open a connection to the given TCP port."""
+    (family, type, proto, _, sockaddr) = socket.getaddrinfo(
+        host=str(address.address),
+        port=address.port,
+        family=address.family,
+        proto=socket.IPPROTO_TCP,
+        type=socket.SOCK_STREAM,
+        # Don't do DNS resolution, just resolve IP address
+        flags=socket.AI_NUMERICHOST,
+    )[0]
+    with socket.socket(family=family, type=type, proto=proto) as tcp_socket:
+        tcp_socket.setblocking(False)
+        loop = asyncio.get_event_loop()
+        try:
+            await loop.sock_connect(tcp_socket, sockaddr)
+            return True
+        except ConnectionRefusedError:
+            return False
 
 
 async def wol(mac_address: MacAddress, target_address: SocketAddress) -> None:
