@@ -29,7 +29,7 @@ sequence = [
 help = "Lint everything"
 
 [tool.poe.tasks."lint:types"]
-cmd = "npx pyright"
+cmd = "pyright --warnings"
 help = "Check types in Python files"
 
 [tool.poe.tasks."lint:python"]
