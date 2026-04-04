@@ -9,13 +9,14 @@
 import asyncio
 import os
 import sys
+from collections.abc import Awaitable
 from functools import partial
 from gettext import gettext as _
 from gettext import pgettext as C_
-from ipaddress import IPv4Interface
+from ipaddress import IPv4Address, IPv4Interface
 from itertools import islice
 from pathlib import Path
-from typing import override
+from typing import cast, override
 
 from gi.repository import Adw, Gio, GLib, GObject, Gtk
 
@@ -39,6 +40,15 @@ def _read_arp_cache(path: Path) -> list[ArpCacheEntry]:
             except ValueError as error:
                 log.warn(f"Ignoring ARP cache entry '{line}': {error}")
     return entries
+
+
+async def _reverse_lookup_device_label(device: Device, address: IPv4Address) -> None:
+    inetaddress = Gio.InetAddress.new_from_string(str(address))
+    if inetaddress is None:
+        raise ValueError(f"Failed to create inet address from {address}")
+    resolver = Gio.Resolver.get_default()
+    name = await cast(Awaitable[str], resolver.lookup_by_address_async(inetaddress))
+    device.label = name
 
 
 class TurnOnApplication(Adw.Application):
@@ -251,13 +261,13 @@ The full English text follows.
         entries = await asyncio.to_thread(
             partial(_read_arp_cache, self._arp_cache_file)
         )
-        for entry in entries:
-            if entry.hardware_type != ArpHardwareType.ETHER:
-                continue
-            if ArpFlag.ATF_COM not in entry.flags:
-                continue
-            self._discovered_devices.append(
-                Device(
+        async with asyncio.TaskGroup() as reverse_lookups:
+            for entry in entries:
+                if entry.hardware_type != ArpHardwareType.ETHER:
+                    continue
+                if ArpFlag.ATF_COM not in entry.flags:
+                    continue
+                device = Device(
                     PureDevice(
                         label=C_("discovered-device.label", "Discovered device"),
                         host=str(entry.ip_address),
@@ -270,7 +280,13 @@ The full English text follows.
                         ),
                     )
                 )
-            )
+                log.info(f"Looking up name for {entry.ip_address}")
+                task = reverse_lookups.create_task(
+                    _reverse_lookup_device_label(device, entry.ip_address),
+                    name=f"reverse-lookup/{entry.ip_address}",
+                )
+                task.add_done_callback(log.log_task_exception)
+                self._discovered_devices.append(device)
 
     @override
     def do_handle_local_options(self, options: GLib.VariantDict) -> int:
