@@ -6,11 +6,11 @@
 
 """Gio-based networking."""
 
-from collections.abc import Awaitable
 from ipaddress import IPv4Address, IPv6Address, ip_address
-from typing import cast
 
 from gi.repository import Gio
+
+from ..util import gio_async_result
 
 
 def _to_ip_address(address: Gio.InetAddress) -> IPv4Address | IPv6Address:
@@ -24,11 +24,9 @@ def _to_ip_address(address: Gio.InetAddress) -> IPv4Address | IPv6Address:
 
 async def lookup_host(hostname: str) -> list[IPv4Address | IPv6Address]:
     """Asynchronously lookup the given `hostname` through Gio."""
-    ip_addresses = await cast(
-        # Need to cast manually, see https://github.com/pygobject/pygobject-stubs/issues/220
-        Awaitable[list[Gio.InetAddress]],
-        Gio.Resolver.get_default().lookup_by_name_async(hostname),
+    resolver = Gio.Resolver.get_default()
+    ip_addresses = await gio_async_result(
+        lambda c, cb: resolver.lookup_by_name_async(hostname, c, cb),
+        resolver.lookup_by_name_finish,
     )
-    # Smoke test for the cast before
-    assert isinstance(ip_addresses, list)
     return [_to_ip_address(a) for a in ip_addresses]

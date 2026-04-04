@@ -9,14 +9,13 @@
 import asyncio
 import os
 import sys
-from collections.abc import Awaitable
 from functools import partial
 from gettext import gettext as _
 from gettext import pgettext as C_
 from ipaddress import IPv4Address, IPv4Interface
 from itertools import islice
 from pathlib import Path
-from typing import cast, override
+from typing import override
 
 from gi.repository import Adw, Gio, GLib, GObject, Gtk
 
@@ -28,6 +27,7 @@ from .model import Device, DeviceStorage, PureDevice
 from .model.storage import load_devices
 from .net import SocketAddress
 from .net.arp import ArpCacheEntry, ArpFlag, ArpHardwareType
+from .util import gio_async_result
 from .widgets import EditDeviceDialog, TurnOnApplicationWindow
 
 
@@ -46,8 +46,13 @@ async def _reverse_lookup_device_label(device: Device, address: IPv4Address) -> 
     inetaddress = Gio.InetAddress.new_from_string(str(address))
     if inetaddress is None:
         raise ValueError(f"Failed to create inet address from {address}")
+    log.info(f"Looking up name for {address}")
     resolver = Gio.Resolver.get_default()
-    name = await cast(Awaitable[str], resolver.lookup_by_address_async(inetaddress))
+    name = await gio_async_result(
+        lambda c, cb: resolver.lookup_by_address_async(inetaddress, c, cb),
+        resolver.lookup_by_address_finish,
+    )
+    log.info(f"Address {address} resolved to {name}")
     device.label = name
 
 
@@ -280,7 +285,6 @@ The full English text follows.
                         ),
                     )
                 )
-                log.info(f"Looking up name for {entry.ip_address}")
                 task = reverse_lookups.create_task(
                     _reverse_lookup_device_label(device, entry.ip_address),
                     name=f"reverse-lookup/{entry.ip_address}",
