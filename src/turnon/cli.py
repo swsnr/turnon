@@ -10,14 +10,16 @@ import asyncio
 import os
 from collections.abc import Coroutine, Generator
 from contextlib import contextmanager, suppress
+from functools import partial
+from gettext import pgettext as C_
 from ipaddress import IPv4Address, IPv6Address, ip_address
 from typing import Any
 
-from gi.repository import Adw, Gio
+from gi.repository import Adw, Gio, GLib
 
 from . import log
-from .model import Device
-from .net import ping_first_reachable
+from .model import Device, PureDevice
+from .net import ping_first_reachable, wol
 from .net.gio import lookup_host
 
 
@@ -62,6 +64,7 @@ class AppCLI:
         self, f: Coroutine[Any, Any, None], *, name: str
     ) -> asyncio.Task[None]:
         task = asyncio.create_task(f, name=name)
+        self._app.hold()
         self._tasks.add(task)
         task.add_done_callback(self._tasks.discard)
         task.add_done_callback(self._cli_task_done)
@@ -96,9 +99,58 @@ class AppCLI:
                 + f"\t{device.mac_address}\t{device.host}\n"
             )
 
+    def _wakeup_error_message(
+        self, device: PureDevice, task: asyncio.Task[None]
+    ) -> None:
+        if task.cancelled():
+            return
+        exception = task.exception()
+        if exception is not None:
+            if isinstance(exception, TimeoutError):
+                error = str(exception) or "Time out"
+            elif isinstance(exception, GLib.Error):
+                error = exception.message
+            else:
+                error = str(exception)
+            self._command_line.printerr_literal(
+                C_(
+                    "option.turn-on-device.error",
+                    "Failed to turn on device {device_label}: {error}\n",
+                ).format(device_label=device.label, error=error)
+            )
+
+    async def _wakeup(self, device: PureDevice) -> None:
+        async with asyncio.timeout(5):
+            await wol(device.mac_address, device.target_address)
+            self._command_line.print_literal(
+                C_(
+                    "option.turn-on-device.message",
+                    "Sent magic packet to mac address {device_mac_address} "
+                    + "of device {device_label}\n",
+                ).format(
+                    device_mac_address=device.mac_address,
+                    device_label=device.label,
+                )
+            )
+
     def list_devices(self) -> int:
         """List devices."""
         if 0 < self._devices.get_n_items():
-            self._app.hold()
             self._create_cli_task(self._ping_and_list(), name="cli/list-devices")
+        return os.EX_OK
+
+    def turn_on_device_by_label(self, label: str) -> int:
+        """Turn on a device by its label."""
+        device = next((d.device for d in self._devices if d.label == label), None)
+        if device is None:
+            self._command_line.printerr_literal(
+                C_(
+                    "option.turn-on-device.error",
+                    "No device found for label {label}\n",
+                )
+            )
+            return os.EX_DATAERR
+        else:
+            task = self._create_cli_task(self._wakeup(device), name="cli/add-device")
+            task.add_done_callback(partial(self._wakeup_error_message, device))
         return os.EX_OK

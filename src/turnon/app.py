@@ -61,6 +61,20 @@ class TurnOnApplication(Adw.Application):
             C_("option.add-device.description", "Add a new device"),
         )
         self.add_main_option(
+            "turn-on-device",
+            0,
+            GLib.OptionFlags.NONE,
+            GLib.OptionArg.STRING,
+            C_(
+                "option.turn-on-device.description",
+                "Turn on a device by its label",
+            ),
+            C_(
+                "option.turn-on-device.arg.description",
+                "LABEL",
+            ),
+        )
+        self.add_main_option(
             "devices-file",
             0,
             GLib.OptionFlags.HIDDEN,
@@ -209,6 +223,13 @@ The full English text follows.
         list_devices = options.lookup_value("list-devices")
         if list_devices and list_devices.unpack():
             return AppCLI(self, self._registered_devices, command_line).list_devices()
+
+        turn_on_device = options.lookup_value("turn-on-device")
+        if turn_on_device is not None:
+            turn_on_device = turn_on_device.get_string()
+            return AppCLI(
+                self, self._registered_devices, command_line
+            ).turn_on_device_by_label(turn_on_device)
 
         self.activate()
         height = options.lookup_value("main-window-height")
