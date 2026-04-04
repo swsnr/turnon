@@ -12,6 +12,8 @@ from gettext import pgettext as C_
 
 from gi.repository import Adw, Gio, Gtk
 
+from turnon.model.gobject import CombinedListModel
+
 from .. import log, net
 from ..model import Device
 from .row import DeviceRow, MoveDirection
@@ -27,12 +29,21 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
     feedback: Adw.ToastOverlay = Gtk.Template.Child()
 
     def __init__(
-        self, application: Adw.Application, registered_devices: Gio.ListStore[Device]
+        self,
+        application: Adw.Application,
+        registered_devices: Gio.ListStore[Device],
+        discovered_devices: Gio.ListModel[Device],
     ) -> None:
         """Create an application window for the given application."""
         super().__init__(application=application)
         self._registered_devices = registered_devices
-        self.devices_list.bind_model(registered_devices, self._create_device_row)
+        self._discovered_devices = discovered_devices
+        self.devices_list.bind_model(
+            CombinedListModel(
+                Device, self._registered_devices, self._discovered_devices
+            ),
+            self._create_device_row,
+        )
         self._tasks: set[asyncio.Task[None]] = set()
 
     def _device_deleted(self, row: DeviceRow) -> None:

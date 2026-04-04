@@ -147,3 +147,46 @@ class DeviceStorage(Thread):
                 "notify",
                 lambda *args: self.request_save_devices([d.device for d in devices]),
             )
+
+
+class CombinedListModel[T: GObject.Object](GObject.Object, Gio.ListModel[T]):
+    """A list model which combines two list models."""
+
+    def __init__(
+        self, item_type: type[T], model1: Gio.ListModel[T], model2: Gio.ListModel[T]
+    ) -> None:
+        """Create a new model combining `model1` and `model2`."""
+        super().__init__()
+        self._item_type = item_type
+        self._model1 = model1
+        self._model2 = model2
+        model1.connect("items-changed", self._model1_items_changed)
+        model2.connect("items-changed", self._model2_items_changed)
+
+    def _model1_items_changed(
+        self, _model: Gio.ListModel[T], position: int, removed: int, added: int
+    ) -> None:
+        self.emit("items-changed", position, removed, added)
+
+    def _model2_items_changed(
+        self, _model: Gio.ListModel[T], position: int, removed: int, added: int
+    ) -> None:
+        self.emit(
+            "items-changed", position + self._model1.get_n_items(), removed, added
+        )
+
+    def do_get_item(self, position: int) -> T | None:
+        """Get the item at `position`."""
+        model1_n = self._model1.get_n_items()
+        if 0 <= position < model1_n:
+            return self._model1.get_item(position)
+        elif model1_n <= position:
+            return self._model2.get_item(position - model1_n)
+
+    def do_get_item_type(self) -> type[T]:
+        """Get item type."""
+        return self._item_type
+
+    def do_get_n_items(self) -> int:
+        """Get number of items."""
+        return self._model1.get_n_items() + self._model2.get_n_items()

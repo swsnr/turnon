@@ -6,22 +6,39 @@
 
 """The main application of Turn On."""
 
+import asyncio
 import os
 import sys
+from functools import partial
 from gettext import gettext as _
 from gettext import pgettext as C_
+from ipaddress import IPv4Interface
+from itertools import islice
 from pathlib import Path
 from typing import override
 
-from gi.repository import Adw, Gio, GLib, Gtk
+from gi.repository import Adw, Gio, GLib, GObject, Gtk
 
 import turnon
-from turnon.cli import AppCLI
 
 from . import log
-from .model import Device, DeviceStorage
+from .cli import AppCLI
+from .model import Device, DeviceStorage, PureDevice
 from .model.storage import load_devices
+from .net import SocketAddress
+from .net.arp import ArpCacheEntry, ArpFlag, ArpHardwareType
 from .widgets import EditDeviceDialog, TurnOnApplicationWindow
+
+
+def _read_arp_cache(path: Path) -> list[ArpCacheEntry]:
+    entries = []
+    with path.open() as source:
+        for line in islice(source, 1, None):
+            try:
+                entries.append(ArpCacheEntry.parse(line))
+            except ValueError as error:
+                log.warn(f"Ignoring ARP cache entry '{line}': {error}")
+    return entries
 
 
 class TurnOnApplication(Adw.Application):
@@ -37,13 +54,33 @@ class TurnOnApplication(Adw.Application):
             flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
         )
         self._settings: Gio.Settings = Gio.Settings.new(application_id)
+        self._arp_cache_file = Path("/proc/net/arp")
         self._registered_devices = Gio.ListStore[Device].new(Device)
+        self._discovered_devices = Gio.ListStore[Device].new(Device)
         self._devices_file: Path = (
             Path(GLib.get_user_data_dir()) / application_id / "devices.json"
         )
         self._add_options()
         self._setup_actions()
         self._device_storage: DeviceStorage | None = None
+        self._scan_network_task: asyncio.Task[None] | None = None
+
+    @GObject.Property(type=bool, default=False)
+    def scan_network(self) -> bool:
+        """Whether to scan the network for devices."""
+        return self._scan_network_task is not None
+
+    @scan_network.setter
+    def set_scan_network(self, scan: bool) -> None:
+        """Enable or disable network scanning."""
+        if scan:
+            task = asyncio.create_task(self._scan_network(), name="scan-network")
+            task.add_done_callback(log.log_task_exception)
+            self._scan_network_task = task
+        elif self._scan_network_task is not None:
+            self._scan_network_task.cancel()
+            self._scan_network_task = None
+            self._discovered_devices.remove_all()
 
     def _add_options(self) -> None:
         self.add_main_option(
@@ -96,6 +133,16 @@ class TurnOnApplication(Adw.Application):
             C_(
                 "option.main-window-height.arg.description",
                 "HEIGHT",
+            ),
+        )
+        self.add_main_option(
+            "arp-cache-file",
+            0,
+            GLib.OptionFlags.HIDDEN,
+            GLib.OptionArg.FILENAME,
+            C_(
+                "option.arp-cache-file.description",
+                "Use the given file as ARP cache source (for development only)",
             ),
         )
 
@@ -181,7 +228,8 @@ The full English text follows.
         _ = about.connect("activate", self._activate_about)
         add = Gio.SimpleAction(name="add-device")
         add.connect("activate", self._activate_add)
-        for action in [about, quit, add]:
+        scan_network = Gio.PropertyAction.new("scan-network", self, "scan-network")
+        for action in [about, quit, add, scan_network]:
             self.add_action(action)
 
         # We do _not_ add a global shortcut for app.add-device because we handle adding
@@ -197,21 +245,56 @@ The full English text follows.
         # device rows, and users would always just get the empty dialog.
         self.set_accels_for_action("window.close", ["<Control>w"])
         self.set_accels_for_action("app.quit", ["<Control>q"])
+        self.set_accels_for_action("app.scan-network", ["F5"])
+
+    async def _scan_network(self) -> None:
+        entries = await asyncio.to_thread(
+            partial(_read_arp_cache, self._arp_cache_file)
+        )
+        for entry in entries:
+            if entry.hardware_type != ArpHardwareType.ETHER:
+                continue
+            if ArpFlag.ATF_COM not in entry.flags:
+                continue
+            self._discovered_devices.append(
+                Device(
+                    PureDevice(
+                        label=C_("discovered-device.label", "Discovered device"),
+                        host=str(entry.ip_address),
+                        mac_address=entry.hardware_address,
+                        target_address=SocketAddress(
+                            IPv4Interface(
+                                (entry.ip_address, 24)
+                            ).network.broadcast_address,
+                            9,
+                        ),
+                    )
+                )
+            )
 
     @override
     def do_handle_local_options(self, options: GLib.VariantDict) -> int:
         _ = Adw.Application.do_handle_local_options(self, options)
 
-        path = options.lookup_value("devices-file")
-        if path:
+        devices_file = options.lookup_value("devices-file")
+        if devices_file:
             self._devices_file = Path(
-                path.get_bytestring().decode(sys.getfilesystemencoding())
+                devices_file.get_bytestring().decode(sys.getfilesystemencoding())
             )
             log.warn(
                 f"Overriding storage file to {self._devices_file}; "
                 + "only use for development purposes!",
             )
 
+        arp_cache_file = options.lookup_value("arp-cache-file")
+        if arp_cache_file:
+            self._arp_cache_file = Path(
+                arp_cache_file.get_bytestring().decode(sys.getfilesystemencoding())
+            )
+            log.warn(
+                f"Overriding ARP cache file to {self._devices_file}; "
+                + "only use for development purposes!",
+            )
         # Apparently, -1 makes command line handling continue
         return -1
 
@@ -270,7 +353,9 @@ The full English text follows.
 
         window = self.get_active_window()
         if not window:
-            window = TurnOnApplicationWindow(self, self._registered_devices)
+            window = TurnOnApplicationWindow(
+                self, self._registered_devices, self._discovered_devices
+            )
             if app_id.endswith(".Devel"):
                 window.add_css_class("devel")
 
