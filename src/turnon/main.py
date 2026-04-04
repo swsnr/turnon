@@ -63,7 +63,7 @@ def main() -> Never:
     else:
         # Read compiled resources
         with resources.as_file(
-            path=turnon.resource_files() / "resources.gresource"
+            turnon.resource_files() / "resources.gresource"
         ) as resource:
             log.info(f"Loading compiled resources from {resource}")
             Gio.resources_register(Gio.Resource.load(str(resource)))
