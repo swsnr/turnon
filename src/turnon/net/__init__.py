@@ -195,7 +195,7 @@ async def ping_ip_address[IPAddress: (IPv4Address | IPv6Address)](
         )
     else:
         async with asyncio.TaskGroup() as pings:
-            (done, _) = await asyncio.wait(
+            (done, pending) = await asyncio.wait(
                 (
                     pings.create_task(
                         _ping_sockaddr(
@@ -206,6 +206,8 @@ async def ping_ip_address[IPAddress: (IPv4Address | IPv6Address)](
                 ),
                 return_when=asyncio.FIRST_COMPLETED,
             )
+            for task in pending:
+                task.cancel()
             rtt = await next(iter(done))
     return (target, rtt)
 
@@ -224,14 +226,16 @@ async def ping_first_reachable(
         return await ping_ip_address(addresses[0], sequence_number=sequence_number)
 
     async with asyncio.TaskGroup() as pings:
-        (done, _) = await asyncio.wait(
+        (done, pending) = await asyncio.wait(
             (
                 pings.create_task(ping_ip_address(a, sequence_number=sequence_number))
                 for a in addresses
             ),
             return_when=asyncio.FIRST_COMPLETED,
         )
-    return await next(iter(done))
+        for task in pending:
+            task.cancel()
+        return await next(iter(done))
 
 
 async def probe_tcp_port(address: SocketAddress) -> bool:
