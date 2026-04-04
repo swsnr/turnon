@@ -51,6 +51,9 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         if is_registered:
             self._registered_devices.remove(index)
 
+    def _device_added(self, _row: DeviceRow, device: Device) -> None:
+        self._registered_devices.append(device)
+
     def _device_moved(self, row: DeviceRow, direction: MoveDirection) -> None:
         (found, device_index) = self._registered_devices.find(row.device)
         if not found:
@@ -127,6 +130,7 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         row = DeviceRow(device, monitor_interval_s=5)
 
         row.connect("deleted", self._device_deleted)
+        row.connect("added", self._device_added)
         row.connect("moved", self._device_moved)
         row.connect("activated", self._device_activated)
 

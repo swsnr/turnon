@@ -7,7 +7,7 @@
 """A device row."""
 
 from functools import partial
-from typing import override
+from typing import cast, override
 
 from gi.repository import Adw, GLib, GObject, Gtk
 
@@ -71,6 +71,11 @@ class DeviceRow(Adw.ActionRow):
     @GObject.Signal()  # pyright: ignore[reportUntypedFunctionDecorator]
     def deleted(self) -> None:
         """Signal emitted when a device is deleted."""
+        pass
+
+    @GObject.Signal()
+    def added(self, device: Device) -> None:
+        """Signal emitted when a device is added as a new device."""
         pass
 
     @override
@@ -143,7 +148,10 @@ def _activate_edit(row: Gtk.Widget, action: str, argument: GLib.Variant | None) 
 
 def _activate_add(row: Gtk.Widget, action: str, argument: GLib.Variant | None) -> None:
     assert isinstance(row, DeviceRow)
-    raise NotImplementedError()
+    new_device = Device(cast(Device, row.device).device)
+    dialog = EditDeviceDialog(new_device)
+    dialog.connect("saved", lambda _, d: row.emit("added", d))
+    dialog.present(row)
 
 
 DeviceRow.install_action(
