@@ -7,12 +7,16 @@
 """Pure Python model tests."""
 
 import asyncio
+import socket
 import time
+from asyncio import DatagramProtocol
+from contextlib import closing
 from ipaddress import IPv4Address, IPv6Address, ip_address
+from typing import Any, cast, override
 
 import pytest
 
-from turnon.net import MacAddress, SocketAddress, ping_ip_address
+from turnon.net import MacAddress, SocketAddress, ping_ip_address, wol
 
 
 @pytest.mark.parametrize(
@@ -98,3 +102,51 @@ async def test_ping_unroutable_with_fast_timeout() -> None:
         )
     except TimeoutError:
         assert (time.monotonic() - now) <= 1.25
+
+
+class _TrackDatagramsProtocol(DatagramProtocol):
+    def __init__(self) -> None:
+        self.datagrams = asyncio.Queue[bytes]()
+
+    @override
+    def datagram_received(self, data: bytes, addr: Any) -> None:
+        self.datagrams.put_nowait(data)
+
+
+@pytest.mark.asyncio
+async def test_wol_send_packet() -> None:
+    """Test sending a magic packet to a local socket server."""
+    (transport, protocol) = await asyncio.get_event_loop().create_datagram_endpoint(
+        _TrackDatagramsProtocol,
+        ("127.0.0.1", 0),
+        family=socket.AF_INET,
+        proto=socket.IPPROTO_UDP,
+    )
+    (_, port) = cast(tuple[str, int], transport.get_extra_info("sockname"))
+    with closing(transport):
+        await wol(
+            MacAddress.parse("0E-12-13-14-15-16"),
+            SocketAddress(IPv4Address("127.0.0.1"), port),
+        )
+        data = await protocol.datagrams.get()
+        assert data == b"".join(
+            [
+                b"\xff\xff\xff\xff\xff\xff",  # Six fill bytes
+                b"\x0e\x12\x13\x14\x15\x16",  # Sixteen repetitions of the MAC address
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",  #  5
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",  # 10
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",
+                b"\x0e\x12\x13\x14\x15\x16",  # 15
+                b"\x0e\x12\x13\x14\x15\x16",
+            ]
+        )
