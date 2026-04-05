@@ -15,7 +15,7 @@ from gi.repository import Adw, Gio, Gtk
 from turnon.model.gobject import CombinedListModel
 
 from .. import log, net
-from ..model import Device
+from ..model import DeviceObject
 from .row import DeviceRow, MoveDirection
 
 
@@ -31,8 +31,8 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
     def __init__(
         self,
         application: Adw.Application,
-        registered_devices: Gio.ListStore[Device],
-        discovered_devices: Gio.ListModel[Device],
+        registered_devices: Gio.ListStore[DeviceObject],
+        discovered_devices: Gio.ListModel[DeviceObject],
     ) -> None:
         """Create an application window for the given application."""
         super().__init__(application=application)
@@ -40,7 +40,7 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         self._discovered_devices = discovered_devices
         self.devices_list.bind_model(
             CombinedListModel(
-                Device, self._registered_devices, self._discovered_devices
+                DeviceObject, self._registered_devices, self._discovered_devices
             ),
             self._create_device_row,
         )
@@ -51,7 +51,7 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         if is_registered:
             self._registered_devices.remove(index)
 
-    def _device_added(self, _row: DeviceRow, device: Device) -> None:
+    def _device_added(self, _row: DeviceRow, device: DeviceObject) -> None:
         self._registered_devices.append(device)
 
     def _device_moved(self, row: DeviceRow, direction: MoveDirection) -> None:
@@ -80,12 +80,12 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         self.feedback.add_toast(toast)
         return toast
 
-    async def _wakeup_device(self, device: Device) -> None:
+    async def _wakeup_device(self, device: DeviceObject) -> None:
         async with asyncio.timeout(5):
             await net.wol(device.mac_address, device.target_address)
 
     def _notify_wol_finished(
-        self, device: Device, sent_toast: Adw.Toast, task: asyncio.Task[None]
+        self, device: DeviceObject, sent_toast: Adw.Toast, task: asyncio.Task[None]
     ) -> None:
         sent_toast.dismiss()
         if task.cancelled():
@@ -108,7 +108,7 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
             )
 
     def _device_activated(self, row: DeviceRow) -> None:
-        device: Device = row.device
+        device: DeviceObject = row.device
         sent_toast = self._send_toast(
             C_(
                 "application-window.feedback.toast",
@@ -125,7 +125,7 @@ class TurnOnApplicationWindow(Adw.ApplicationWindow):
         task.add_done_callback(log.log_task_exception)
         task.add_done_callback(partial(self._notify_wol_finished, device, sent_toast))
 
-    def _create_device_row(self, device: Device) -> Gtk.Widget:
+    def _create_device_row(self, device: DeviceObject) -> Gtk.Widget:
         # Ping device every 5 seconds to check whether it's online
         row = DeviceRow(device, monitor_interval_s=5)
 

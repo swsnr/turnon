@@ -10,7 +10,7 @@ import ipaddress
 
 from gi.repository import Adw, GLib, GObject, Gtk
 
-from ..model import Device, PureDevice
+from ..model import Device, DeviceObject
 from ..net import MacAddress, SocketAddress
 from .util import add_shortcuts
 
@@ -66,7 +66,7 @@ class EditDeviceDialog(Adw.Dialog):
     _host = ""
     _target_address = ""
 
-    def __init__(self, device: Device | None = None) -> None:
+    def __init__(self, device: DeviceObject | None = None) -> None:
         """Create a dialog.
 
         If a device is given, initialize fields from the device, and update the
@@ -99,13 +99,13 @@ class EditDeviceDialog(Adw.Dialog):
         )
         self.action_set_enabled("save", is_valid)
 
-    @GObject.Signal(arg_types=[Device])  # pyright: ignore[reportUntypedFunctionDecorator]
-    def saved(self, device: Device) -> None:
+    @GObject.Signal(arg_types=[DeviceObject])  # pyright: ignore[reportUntypedFunctionDecorator]
+    def saved(self, device: DeviceObject) -> None:
         """Signal emitted when the given device was saved."""
         pass
 
     @property
-    def device(self) -> Device | None:
+    def device(self) -> DeviceObject | None:
         """Get the device being edited.
 
         Not a GObject property.
@@ -226,8 +226,8 @@ def _activate_device_save(
         device.host = dialog.host
         device.target_address = target_address
     else:
-        device = Device(
-            PureDevice(
+        device = DeviceObject(
+            Device(
                 label=dialog.label,
                 mac_address=mac_address,
                 host=dialog.host,

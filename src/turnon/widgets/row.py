@@ -13,7 +13,7 @@ from gi.repository import Adw, GLib, GObject, Gtk
 
 from turnon.monitor import DeviceMonitor
 
-from ..model import Device
+from ..model import DeviceObject
 from .edit import EditDeviceDialog
 from .util import add_shortcuts
 
@@ -31,7 +31,7 @@ class DeviceRow(Adw.ActionRow):
 
     __gtype_name__ = "TurnOnDeviceRow"
 
-    def __init__(self, device: Device, monitor_interval_s: int) -> None:
+    def __init__(self, device: DeviceObject, monitor_interval_s: int) -> None:
         """Initialize a device row with a `device`.
 
         Periodically ping the device at the given `monitor_interval_s` (seconds).
@@ -43,8 +43,8 @@ class DeviceRow(Adw.ActionRow):
         self.notify("device")
         self.notify("device-monitor")
 
-    @GObject.Property(type=Device, flags=GObject.ParamFlags.READABLE)
-    def device(self) -> Device:
+    @GObject.Property(type=DeviceObject, flags=GObject.ParamFlags.READABLE)
+    def device(self) -> DeviceObject:
         """Get the current the device."""
         return self._device
 
@@ -74,7 +74,7 @@ class DeviceRow(Adw.ActionRow):
         pass
 
     @GObject.Signal()
-    def added(self, device: Device) -> None:
+    def added(self, device: DeviceObject) -> None:
         """Signal emitted when a device is added as a new device."""
         pass
 
@@ -87,7 +87,7 @@ class DeviceRow(Adw.ActionRow):
 
     @Gtk.Template.Callback()
     @staticmethod
-    def device_mac_address(_row: "DeviceRow", device: Device | None) -> str:
+    def device_mac_address(_row: "DeviceRow", device: DeviceObject | None) -> str:
         """Return the formatted MAC address of a device."""
         if device:
             return str(device.mac_address)
@@ -148,7 +148,7 @@ def _activate_edit(row: Gtk.Widget, action: str, argument: GLib.Variant | None) 
 
 def _activate_add(row: Gtk.Widget, action: str, argument: GLib.Variant | None) -> None:
     assert isinstance(row, DeviceRow)
-    new_device = Device(cast(Device, row.device).device)
+    new_device = DeviceObject(cast(DeviceObject, row.device).device)
     dialog = EditDeviceDialog(new_device)
     dialog.connect("saved", lambda _, d: row.emit("added", d))
     dialog.present(row)

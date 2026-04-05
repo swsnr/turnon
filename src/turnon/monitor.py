@@ -14,7 +14,7 @@ from itertools import count
 from gi.repository import Gio, GLib, GObject
 
 from . import log
-from .model import Device
+from .model import DeviceObject
 from .net import SocketAddress, ping_first_reachable, ping_ip_address, probe_tcp_port
 from .net.gio import lookup_host
 
@@ -24,7 +24,7 @@ class DeviceMonitor(GObject.Object):
 
     __gtype_name__: str = "TurnOnDeviceMonitor"
 
-    def __init__(self, device: Device, interval: float) -> None:
+    def __init__(self, device: DeviceObject, interval: float) -> None:
         """Initialize a monitor for `device`."""
         super().__init__()
         self._device = device
@@ -68,7 +68,7 @@ class DeviceMonitor(GObject.Object):
         """Start monitoring."""
         self._start(delay=None)
 
-    def _device_host_changed(self, _obj: Device, _prop: str) -> None:
+    def _device_host_changed(self, _obj: DeviceObject, _prop: str) -> None:
         if self._tasks:
             self.stop()
             self.start()

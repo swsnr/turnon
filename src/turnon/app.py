@@ -23,7 +23,7 @@ import turnon
 
 from . import log
 from .cli import AppCLI
-from .model import Device, DeviceStorage, PureDevice
+from .model import Device, DeviceObject, DeviceStorage
 from .model.storage import load_devices
 from .net import SocketAddress
 from .net.arp import ArpCacheEntry, ArpFlag, ArpHardwareType
@@ -42,7 +42,9 @@ def _read_arp_cache(path: Path) -> list[ArpCacheEntry]:
     return entries
 
 
-async def _reverse_lookup_device_label(device: Device, address: IPv4Address) -> None:
+async def _reverse_lookup_device_label(
+    device: DeviceObject, address: IPv4Address
+) -> None:
     inetaddress = Gio.InetAddress.new_from_string(str(address))
     if inetaddress is None:
         raise ValueError(f"Failed to create inet address from {address}")
@@ -70,8 +72,8 @@ class TurnOnApplication(Adw.Application):
         )
         self._settings: Gio.Settings = Gio.Settings.new(application_id)
         self._arp_cache_file = Path("/proc/net/arp")
-        self._registered_devices = Gio.ListStore[Device].new(Device)
-        self._discovered_devices = Gio.ListStore[Device].new(Device)
+        self._registered_devices = Gio.ListStore[DeviceObject].new(DeviceObject)
+        self._discovered_devices = Gio.ListStore[DeviceObject].new(DeviceObject)
         self._devices_file: Path = (
             Path(GLib.get_user_data_dir()) / application_id / "devices.json"
         )
@@ -226,7 +228,9 @@ The full English text follows.
         )
         dialog.present(self.get_active_window())
 
-    def _new_device_saved(self, _dialog: EditDeviceDialog, device: Device) -> None:
+    def _new_device_saved(
+        self, _dialog: EditDeviceDialog, device: DeviceObject
+    ) -> None:
         self._registered_devices.append(device)
 
     def _activate_add(
@@ -272,8 +276,8 @@ The full English text follows.
                     continue
                 if ArpFlag.ATF_COM not in entry.flags:
                     continue
-                device = Device(
-                    PureDevice(
+                device = DeviceObject(
+                    Device(
                         label=C_("discovered-device.label", "Discovered device"),
                         host=str(entry.ip_address),
                         mac_address=entry.hardware_address,
@@ -357,7 +361,7 @@ The full English text follows.
 
         self._registered_devices.remove_all()
         for device in load_devices(self._devices_file):
-            self._registered_devices.append(Device(device))
+            self._registered_devices.append(DeviceObject(device))
 
         # Automatically save devices
         self._device_storage = DeviceStorage(self._devices_file)

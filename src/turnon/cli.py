@@ -18,7 +18,7 @@ from typing import Any
 from gi.repository import Adw, Gio, GLib
 
 from . import log
-from .model import Device, PureDevice
+from .model import Device, DeviceObject
 from .net import ping_first_reachable, wol
 from .net.gio import lookup_host
 
@@ -43,7 +43,7 @@ class AppCLI:
     def __init__(
         self,
         app: Adw.Application,
-        devices: Gio.ListModel[Device],
+        devices: Gio.ListModel[DeviceObject],
         command_line: Gio.ApplicationCommandLine,
     ) -> None:
         """Create a new app CLI."""
@@ -99,9 +99,7 @@ class AppCLI:
                 + f"\t{device.mac_address}\t{device.host}\n"
             )
 
-    def _wakeup_error_message(
-        self, device: PureDevice, task: asyncio.Task[None]
-    ) -> None:
+    def _wakeup_error_message(self, device: Device, task: asyncio.Task[None]) -> None:
         if task.cancelled():
             return
         exception = task.exception()
@@ -119,7 +117,7 @@ class AppCLI:
                 ).format(device_label=device.label, error=error)
             )
 
-    async def _wakeup(self, device: PureDevice) -> None:
+    async def _wakeup(self, device: Device) -> None:
         async with asyncio.timeout(5):
             await wol(device.mac_address, device.target_address)
             self._command_line.print_literal(
