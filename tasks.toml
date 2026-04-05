@@ -16,16 +16,12 @@ help = "Format all blueprint files"
 empty_glob = "fail"
 
 [tool.poe.tasks.lint]
-sequence = [
-    "lint:types",
-    "lint:python",
-    "lint:blueprint",
-    "lint:data",
-    "lint:schema",
-    "lint:flatpak",
-    "lint:flatpak-devel",
-]
+sequence = ["lint:types", "lint:python", "lint:data", "lint:schema"]
 help = "Lint everything"
+
+[tool.poe.tasks."lint:extra"]
+sequence = ["lint:blueprint", "lint:flatpak", "lint:flatpak-devel"]
+help = "Lint extra things"
 
 [tool.poe.tasks."lint:types"]
 cmd = "pyrefly check --min-severity warn"
