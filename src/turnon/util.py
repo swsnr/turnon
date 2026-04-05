@@ -21,7 +21,7 @@ def _propagate_cancel[T](cancellable: Gio.Cancellable, f: asyncio.Future[T]) -> 
 def cancellable_future[T]() -> tuple[Gio.Cancellable, asyncio.Future[T]]:
     """Create a future with propagates cancellation to a Gio cancellable."""
     cancellable = Gio.Cancellable()
-    f = asyncio.Future[T]()
+    f: asyncio.Future[T] = asyncio.get_event_loop().create_future()
     f.add_done_callback(partial(_propagate_cancel, cancellable))
     return (cancellable, f)
 
