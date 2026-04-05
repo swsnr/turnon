@@ -22,6 +22,7 @@ template $TurnOnDeviceRow: Adw.ActionRow {
 
       child: Gtk.Image {
         icon-name: "sonar-symbolic";
+        tooltip-text: _("Device is offline");
 
         styles [
           "error",
@@ -34,6 +35,7 @@ template $TurnOnDeviceRow: Adw.ActionRow {
 
       child: Gtk.Image {
         icon-name: "sonar-symbolic";
+        tooltip-text: _("Device is online");
 
         styles [
           "success",
