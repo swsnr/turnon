@@ -8,7 +8,7 @@ authors = [{ name = "Sebastian Wiesner", email = "sebastian@swsnr.de" }]
 readme = "README.md"
 license = "EUPL-1.2"
 classifiers = ["Private :: Do Not Upload"]
-dependencies = ["pygobject~=3.56.1", "packaging~=26.0"]
+dependencies = ["pygobject~=3.56.2", "packaging~=26.0"]
 
 [project.urls]
 homepage = "https://codeberg.org/swsnr/turnon"
@@ -22,11 +22,11 @@ issues = "https://codeberg.org/swsnr/turnon/issues"
 dev = [
     "pygobject-stubs>=2.17.0",
     "hatchling",
-    "poethepoet>=0.42.1",
+    "poethepoet",
     "ruff",
     "pytest",
     "pytest-asyncio",
-    "pyrefly>=0.59.1",
+    "pyrefly",
 ]
 flatpak-build = ["hatchling"]
 
