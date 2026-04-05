@@ -3,6 +3,18 @@ revision = 3
 requires-python = "==3.13.*"
 
 [[package]]
+name = "blueprint-compiler"
+version = "0.20.4.post3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pygobject" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d8/7a/2f05f39826a31a0af0c73170fc195b886d903cb062255a33787bc3e2ddb7/blueprint_compiler-0.20.4.post3.tar.gz", hash = "sha256:10c2fb94bfb953564e11e0138dbabe9259cb64a542c0ce4c99c9f7c2c0f88bf5", size = 168298, upload-time = "2026-04-04T20:07:28.972Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/49/63/91547c05bb8542847b2dae9c1c5d5a43dd82288de08350474499afed3737/blueprint_compiler-0.20.4.post3-py3-none-any.whl", hash = "sha256:b25c9c0a3b5ee68aad5893ed03453a4183e22a0989635701c4eadf32ba0e4e85", size = 157303, upload-time = "2026-04-04T20:07:27.687Z" },
+]
+
+[[package]]
 name = "colorama"
 version = "0.4.6"
 source = { registry = "https://pypi.org/simple" }
@@ -231,6 +243,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "blueprint-compiler" },
     { name = "hatchling" },
     { name = "poethepoet" },
     { name = "pygobject-stubs" },
@@ -251,6 +264,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "blueprint-compiler" },
     { name = "hatchling" },
     { name = "poethepoet" },
     { name = "pygobject-stubs", specifier = ">=2.17.0" },

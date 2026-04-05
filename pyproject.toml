@@ -27,11 +27,12 @@ dev = [
     "pytest",
     "pytest-asyncio",
     "pyrefly",
+    "blueprint-compiler",
 ]
 flatpak-build = ["hatchling"]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "blueprint-compiler"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.hooks.custom]

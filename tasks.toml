@@ -14,7 +14,6 @@ help = "Format all Python sources"
 cmd = "blueprint-compiler format resources/**/*.blp"
 help = "Format all blueprint files"
 empty_glob = "fail"
-executor = "simple"
 
 [tool.poe.tasks.lint]
 sequence = [
@@ -40,7 +39,6 @@ help = "Lint all Python files"
 cmd = "blueprint-compiler lint resources/**/*.blp"
 help = "Lint all blueprint files"
 empty_glob = "fail"
-executor = "simple"
 
 [tool.poe.tasks."lint:data"]
 cmd = "appstreamcli validate --strict --pedantic --explain de.swsnr.turnon.metainfo.xml"

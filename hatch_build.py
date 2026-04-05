@@ -8,7 +8,6 @@
 """Custom build plugins for hatch."""
 
 import os
-from collections.abc import Mapping
 from pathlib import Path
 from shutil import copy
 from subprocess import run
@@ -17,30 +16,6 @@ from typing import Any, cast, override
 from hatchling.builders.config import BuilderConfig
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 from packaging.version import Version
-
-
-def drop_virtualenv(env: Mapping[str, str]) -> Mapping[str, str]:
-    """Drop current virtualenv from environment.
-
-    If the given environment contains `$VIRTUAL_ENV`, return a new mapping
-    without `$VIRTUAL_ENV` and with an updated `$PATH` where any entries
-    pointing to that virtualenv have been removed.
-
-    Otherwise return `env` itself.
-    """
-    venv = env.get("VIRTUAL_ENV")
-    if venv:
-        env = dict(env)
-        del env["VIRTUAL_ENV"]
-        paths = env["PATH"].split(os.pathsep)
-        env["PATH"] = os.pathsep.join(
-            p
-            for p in paths
-            if not Path(p).exists() or not Path(p).samefile(Path(venv) / "bin")
-        )
-        return env
-    else:
-        return env
 
 
 class CustomBuildHook(BuildHookInterface[BuilderConfig]):
@@ -85,9 +60,6 @@ class CustomBuildHook(BuildHookInterface[BuilderConfig]):
                 ]
                 + [str(p) for p in blueprints],
                 check=True,
-                # Blueprint needs to run against whatever Python it was installed to,
-                # so drop the virtualenv from its environment
-                env=drop_virtualenv(os.environ),
             )
 
         metainfo_file = resources_out_directory / "metainfo.xml"
