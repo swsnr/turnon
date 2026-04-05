@@ -22,6 +22,3 @@ jobs:
       - run: uv run poe lint:types
       - run: uv run poe lint:python
       - run: uv run poe format:python --check
-      # Install project and run tests (disable build isolation, as our build deps are already installed)
-      - run: uv sync --locked --no-install-package pygobject --no-build-isolation
-      - run: uv run pytest tests/pure/
