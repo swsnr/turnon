@@ -8,23 +8,8 @@
 
 import asyncio
 from collections.abc import Callable
-from functools import partial
 
 from gi.repository import Gio, GObject
-
-
-def _propagate_cancel[T](cancellable: Gio.Cancellable, f: asyncio.Future[T]) -> None:
-    if f.cancelled():
-        cancellable.cancel()
-
-
-def cancellable_future[T]() -> tuple[Gio.Cancellable, asyncio.Future[T]]:
-    """Create a future with propagates cancellation to a Gio cancellable."""
-    cancellable = Gio.Cancellable()
-    f: asyncio.Future[T] = asyncio.get_event_loop().create_future()
-    f.add_done_callback(partial(_propagate_cancel, cancellable))
-    return (cancellable, f)
-
 
 type AsyncFinish[T] = Callable[[Gio.AsyncResult], T]
 type AsyncCallback = Callable[[GObject.Object, Gio.AsyncResult], None]
@@ -68,6 +53,13 @@ async def gio_async_result[T](
     `async_finish` is invoked to obtain the actual return value from the Gio
     async result.
     """
-    (cancellable, t_f) = cancellable_future()
-    async_begin(cancellable, lambda _, result: _async_finish(t_f, async_finish, result))
-    return await t_f
+    cancellable = Gio.Cancellable()
+    f: asyncio.Future[T] = asyncio.get_event_loop().create_future()
+
+    def _propagate_cancel(f: asyncio.Future[T]) -> None:
+        if f.cancelled():
+            cancellable.cancel()
+
+    f.add_done_callback(_propagate_cancel)
+    async_begin(cancellable, lambda _, result: _async_finish(f, async_finish, result))
+    return await f

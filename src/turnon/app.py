@@ -32,7 +32,7 @@ from .widgets import EditDeviceDialog, TurnOnApplicationWindow
 
 
 def _read_arp_cache(path: Path) -> list[ArpCacheEntry]:
-    entries = []
+    entries: list[ArpCacheEntry] = []
     with path.open() as source:
         for line in islice(source, 1, None):
             try:

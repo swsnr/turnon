@@ -106,6 +106,7 @@ async def test_ping_unroutable_with_fast_timeout() -> None:
 
 class _TrackDatagramsProtocol(DatagramProtocol):
     def __init__(self) -> None:
+        super().__init__()
         self.datagrams = asyncio.Queue[bytes]()
 
     @override

@@ -46,6 +46,8 @@ class AppCLI:
         devices: Gio.ListModel[DeviceObject],
         command_line: Gio.ApplicationCommandLine,
     ) -> None:
+        """Initialize CLI."""
+        super().__init__()
         """Create a new app CLI."""
         self._app = app
         self._tasks: set[asyncio.Task[None]] = set()

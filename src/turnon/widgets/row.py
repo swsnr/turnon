@@ -73,7 +73,7 @@ class DeviceRow(Adw.ActionRow):
         """Signal emitted when a device is deleted."""
         pass
 
-    @GObject.Signal()
+    @GObject.Signal()  # pyright: ignore[reportUntypedFunctionDecorator]
     def added(self, device: DeviceObject) -> None:
         """Signal emitted when a device is added as a new device."""
         pass
@@ -150,7 +150,11 @@ def _activate_add(row: Gtk.Widget, action: str, argument: GLib.Variant | None) -
     assert isinstance(row, DeviceRow)
     new_device = DeviceObject(cast(DeviceObject, row.device).device)
     dialog = EditDeviceDialog(new_device)
-    dialog.connect("saved", lambda _, d: row.emit("added", d))
+
+    def _on_saved(dialog: EditDeviceDialog, device: DeviceObject) -> None:
+        row.emit("added", device)
+
+    dialog.connect("saved", _on_saved)
     dialog.present(row)
 
 

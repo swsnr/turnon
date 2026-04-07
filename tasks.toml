@@ -24,7 +24,7 @@ sequence = ["lint:blueprint", "lint:flatpak", "lint:flatpak-devel"]
 help = "Lint extra things"
 
 [tool.poe.tasks."lint:types"]
-cmd = "pyrefly check --min-severity warn"
+cmd = "basedpyright --warnings"
 help = "Check types in Python files"
 
 [tool.poe.tasks."lint:python"]
