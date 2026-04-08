@@ -10,18 +10,26 @@ finish-args:
   - --socket=wayland
   - --device=dri
 modules:
+  - name: turnon-build-deps
+    cleanup: ["*"]
+    buildsystem: simple
+    sources:
+      - type: file
+        path: "../pyproject.toml"
+    build-options:
+      build-args:
+        - --share=network
+    build-commands:
+      - pip3 install --prefix=/app --group=flatpak-build
   - name: turnon
     buildsystem: simple
     sources:
       - type: dir
         path: ".."
-    build-options:
-      build-args:
-        - --share=network
     build-commands:
       - python --version
       # Crudely assert that we're on a -dev version
       - grep version pyproject.toml | grep -q -- '[.-]dev'
-      - pip3 install --prefix=/app .
+      - pip3 install --prefix=/app . --no-build-isolation --no-deps
       - mv /app/bin/de.swsnr.turnon /app/bin/de.swsnr.turnon.Devel
       - glib-compile-schemas /app/share/glib-2.0/schemas
