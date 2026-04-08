@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  python:
+  test:
     runs-on: codeberg-tiny-lazy
     env:
       # Skip blueprint, msgfmt, and GLib schemas on CI
