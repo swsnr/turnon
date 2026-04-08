@@ -184,3 +184,16 @@ class CustomBuildHook(BuildHookInterface[BuilderConfig]):
         dbus_dest = copy(service, output_directory / service.name)
         self._patch_app_id(Path(dbus_dest), app_id)
         shared_data[str(dbus_dest)] = f"share/dbus-1/services/{app_id}.service"
+
+        self.app.display_info(
+            "Copying search provider to share/gnome-shell/search-providers"
+        )
+        search_provider = root / "de.swsnr.turnon.search-provider.ini"
+        # TODO: Python 3.14: Use Path.copy instead
+        search_provider_dest = copy(
+            search_provider, output_directory / search_provider.name
+        )
+        self._patch_app_id(Path(search_provider_dest), app_id)
+        shared_data[str(search_provider_dest)] = (
+            f"share/gnome-shell/search-providers/{app_id}.search-provider.ini"
+        )

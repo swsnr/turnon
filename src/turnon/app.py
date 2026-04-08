@@ -23,10 +23,12 @@ import turnon
 
 from . import log
 from .cli import AppCLI
+from .dbus import DBusObject
 from .model import Device, DeviceObject, DeviceStorage
 from .model.storage import load_devices
 from .net import SocketAddress
 from .net.arp import ArpCacheEntry, ArpFlag, ArpHardwareType
+from .searchprovider import SearchProvider, search_provider_interface
 from .util import gio_async_result
 from .widgets import EditDeviceDialog, TurnOnApplicationWindow
 
@@ -81,6 +83,7 @@ class TurnOnApplication(Adw.Application):
         self._setup_actions()
         self._device_storage: DeviceStorage | None = None
         self._scan_network_task: asyncio.Task[None] | None = None
+        self._dbus_registrations: set[int] = set()
 
     @GObject.Property(type=bool, default=False)
     def scan_network(self) -> bool:
@@ -295,6 +298,55 @@ The full English text follows.
                 )
                 task.add_done_callback(log.log_task_exception)
                 self._discovered_devices.append(device)
+
+    def _search_provider_search_launched(
+        self, _sp: SearchProvider, _terms: list[str]
+    ) -> None:
+        # We don't have any in app search (yet?) so just activate the app
+        # to show the main window
+        self.activate()
+
+    def _search_provider_notification(
+        self, _sp: SearchProvider, notification: Gio.Notification, timeout: int
+    ) -> None:
+        id = GLib.uuid_string_random()
+        self.send_notification(id, notification)
+        if 0 < timeout:
+
+            def _withdraw() -> bool:
+                self.withdraw_notification(id)
+                return False
+
+            GLib.timeout_add_seconds(timeout, _withdraw)
+
+    @override
+    def do_dbus_register(
+        self, connection: Gio.DBusConnection, object_path: str
+    ) -> bool:
+        app_id = self.get_application_id()
+        assert app_id is not None
+        search_provider = SearchProvider(app_id, self._registered_devices)
+        search_provider.connect(
+            "search-launched", self._search_provider_search_launched
+        )
+        search_provider.connect("send-notification", self._search_provider_notification)
+        self._dbus_registrations.add(
+            DBusObject(
+                "/de/swsnr/turnon/search",
+                search_provider_interface(),
+                search_provider.call_method,
+            ).register_on(connection)
+        )
+        return Adw.Application.do_dbus_register(self, connection, object_path)
+
+    @override
+    def do_dbus_unregister(
+        self, connection: Gio.DBusConnection, object_path: str
+    ) -> None:
+        Adw.Application.do_dbus_unregister(self, connection, object_path)
+        for registration in self._dbus_registrations:
+            connection.unregister_object(registration)
+        self._dbus_registrations.clear()
 
     @override
     def do_handle_local_options(self, options: GLib.VariantDict) -> int:
