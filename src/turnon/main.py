@@ -73,6 +73,13 @@ def main() -> Never:
         prefix = Path("/app") if Path("/.flatpak-info").exists() else Path(sys.prefix)
         locale_dir = prefix / "share" / "locale"
 
+    if app_id.endswith(".Devel"):
+        # In devel builds, enable all deprecation warnings, see
+        # https://docs.python.org/3/library/warnings.html#overriding-the-default-filter
+        import warnings
+
+        warnings.simplefilter("default")
+
     log.info(f"Loading translations from {locale_dir}")
 
     locale.setlocale(locale.LC_ALL, "")
