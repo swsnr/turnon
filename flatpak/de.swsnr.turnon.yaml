@@ -1,0 +1,25 @@
+id: de.swsnr.turnon
+runtime: org.gnome.Platform
+runtime-version: "50"
+sdk: org.gnome.Sdk
+command: de.swsnr.turnon
+finish-args:
+  - --share=ipc
+  - --share=network
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+modules:
+  - pip-build.json
+  - name: turnon
+    buildsystem: simple
+    sources:
+      - type: git
+        url: https://codeberg.org/swsnr/turnon.git
+        tag: "v2.9.6"
+        commit: e96807b6551ebe8a46165496ddd81919b24d1dbe
+    build-commands:
+      # Crudely assert that we're not on a -dev version
+      - grep version pyproject.toml | grep -qv -- '[.-]dev'
+      - pip3 install --verbose --exists-action=i --no-index --no-deps --prefix=${FLATPAK_DEST} --no-build-isolation .
+      - glib-compile-schemas /app/share/glib-2.0/schemas
