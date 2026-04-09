@@ -37,7 +37,7 @@
 
         Upon release, cargo release will replace it accordingly.
         -->
-        <release version="next" date="9999-01-01">
+        <release version="3.0.0" date="2026-04-09">
             <description>
                 <p>Update to GNOME 50.</p>
                 <p>Rewrite in Python.</p>
@@ -45,7 +45,7 @@
             <issues>
                 <issue url="https://codeberg.org/swsnr/turnon/pulls/152">CB-152</issue>
             </issues>
-            <url>https://codeberg.org/swsnr/turnon/releases/tag/next</url>
+            <url>https://codeberg.org/swsnr/turnon/releases/tag/v3.0.0</url>
         </release>
         <release version="2.9.0" date="2025-09-23">
             <description>

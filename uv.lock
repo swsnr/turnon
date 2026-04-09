@@ -262,7 +262,7 @@ wheels = [
 
 [[package]]
 name = "turnon"
-version = "3.0.0.dev0"
+version = "3.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "packaging" },
