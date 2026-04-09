@@ -11,7 +11,6 @@ import locale
 import os
 import sys
 from gettext import pgettext as C_
-from importlib import resources
 from pathlib import Path
 from typing import Never
 
@@ -61,8 +60,10 @@ def main() -> Never:
         app_id = "de.swsnr.turnon.Devel"
         locale_dir = dist_dir / "locale"
     else:
+        import importlib.resources
+
         # Read compiled resources
-        with resources.as_file(
+        with importlib.resources.as_file(
             turnon.resource_files() / "resources.gresource"
         ) as resource:
             log.info(f"Loading compiled resources from {resource}")

@@ -9,11 +9,8 @@
 import asyncio
 import os
 import sys
-from functools import partial
 from gettext import gettext as _
 from gettext import pgettext as C_
-from ipaddress import IPv4Address, IPv4Interface
-from itertools import islice
 from pathlib import Path
 from typing import override
 
@@ -22,42 +19,8 @@ from gi.repository import Adw, Gio, GLib, GObject, Gtk
 import turnon
 
 from . import log
-from .cli import AppCLI
-from .dbus import DBusObject
-from .model import Device, DeviceObject, DeviceStorage
+from .model import DeviceObject, DeviceStorage
 from .model.storage import load_devices
-from .net import SocketAddress
-from .net.arp import ArpCacheEntry, ArpFlag, ArpHardwareType
-from .searchprovider import SearchProvider, search_provider_interface
-from .util import gio_async_result
-from .widgets import EditDeviceDialog, TurnOnApplicationWindow
-
-
-def _read_arp_cache(path: Path) -> list[ArpCacheEntry]:
-    entries: list[ArpCacheEntry] = []
-    with path.open() as source:
-        for line in islice(source, 1, None):
-            try:
-                entries.append(ArpCacheEntry.parse(line))
-            except ValueError as error:
-                log.warn(f"Ignoring ARP cache entry '{line}': {error}")
-    return entries
-
-
-async def _reverse_lookup_device_label(
-    device: DeviceObject, address: IPv4Address
-) -> None:
-    inetaddress = Gio.InetAddress.new_from_string(str(address))
-    if inetaddress is None:
-        raise ValueError(f"Failed to create inet address from {address}")
-    log.info(f"Looking up name for {address}")
-    resolver = Gio.Resolver.get_default()
-    name = await gio_async_result(
-        lambda c, cb: resolver.lookup_by_address_async(inetaddress, c, cb),
-        resolver.lookup_by_address_finish,
-    )
-    log.info(f"Address {address} resolved to {name}")
-    device.label = name
 
 
 class TurnOnApplication(Adw.Application):
@@ -231,14 +194,14 @@ The full English text follows.
         )
         dialog.present(self.get_active_window())
 
-    def _new_device_saved(
-        self, _dialog: EditDeviceDialog, device: DeviceObject
-    ) -> None:
+    def _new_device_saved(self, _dialog: Adw.Dialog, device: DeviceObject) -> None:
         self._registered_devices.append(device)
 
     def _activate_add(
         self, _act: Gio.SimpleAction, _parameter: GLib.Variant | None = None
     ) -> None:
+        from .widgets import EditDeviceDialog
+
         dialog = EditDeviceDialog()
         dialog.connect("saved", self._new_device_saved)
         dialog.present(self.get_active_window())
@@ -270,44 +233,20 @@ The full English text follows.
         self.set_accels_for_action("app.scan-network", ["F5"])
 
     async def _scan_network(self) -> None:
-        entries = await asyncio.to_thread(
-            partial(_read_arp_cache, self._arp_cache_file)
-        )
-        async with asyncio.TaskGroup() as reverse_lookups:
-            for entry in entries:
-                if entry.hardware_type != ArpHardwareType.ETHER:
-                    continue
-                if ArpFlag.ATF_COM not in entry.flags:
-                    continue
-                device = DeviceObject(
-                    Device(
-                        label=C_("discovered-device.label", "Discovered device"),
-                        host=str(entry.ip_address),
-                        mac_address=entry.hardware_address,
-                        target_address=SocketAddress(
-                            IPv4Interface(
-                                (entry.ip_address, 24)
-                            ).network.broadcast_address,
-                            9,
-                        ),
-                    )
-                )
-                task = reverse_lookups.create_task(
-                    _reverse_lookup_device_label(device, entry.ip_address),
-                    name=f"reverse-lookup/{entry.ip_address}",
-                )
-                task.add_done_callback(log.log_task_exception)
-                self._discovered_devices.append(device)
+        from .net.discovery import scan_network
+
+        async for device in scan_network(self._arp_cache_file):
+            self._discovered_devices.append(device)
 
     def _search_provider_search_launched(
-        self, _sp: SearchProvider, _terms: list[str]
+        self, _sp: GObject.Object, _terms: list[str]
     ) -> None:
         # We don't have any in app search (yet?) so just activate the app
         # to show the main window
         self.activate()
 
     def _search_provider_notification(
-        self, _sp: SearchProvider, notification: Gio.Notification, timeout: int
+        self, _sp: GObject.Object, notification: Gio.Notification, timeout: int
     ) -> None:
         id = GLib.uuid_string_random()
         self.send_notification(id, notification)
@@ -323,6 +262,9 @@ The full English text follows.
     def do_dbus_register(
         self, connection: Gio.DBusConnection, object_path: str
     ) -> bool:
+        from .dbus import DBusObject
+        from .searchprovider import SearchProvider, search_provider_interface
+
         app_id = self.get_application_id()
         assert app_id is not None
         search_provider = SearchProvider(app_id, self._registered_devices)
@@ -376,6 +318,8 @@ The full English text follows.
 
     @override
     def do_command_line(self, command_line: Gio.ApplicationCommandLine) -> int:
+        from .cli import AppCLI
+
         _ = Adw.Application.do_command_line(self, command_line)
         options = command_line.get_options_dict()
 
@@ -423,6 +367,7 @@ The full English text follows.
     @override
     def do_activate(self) -> None:
         Adw.Application.do_activate(self)
+        from .widgets import TurnOnApplicationWindow
 
         app_id = self.get_application_id()
         assert app_id is not None
