@@ -356,8 +356,11 @@ The full English text follows.
         Gtk.Window.set_default_icon_name(app_id)
 
         self._registered_devices.remove_all()
-        for device in load_devices(self._devices_file):
-            self._registered_devices.append(DeviceObject(device))
+        try:
+            for device in load_devices(self._devices_file):
+                self._registered_devices.append(DeviceObject(device))
+        except FileNotFoundError:
+            log.message("No device file exists, starting empty")
 
         # Automatically save devices
         self._device_storage = DeviceStorage(self._devices_file)
