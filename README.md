@@ -18,14 +18,13 @@ Please submit translations to <https://translate.codeberg.org/engage/de-swsnr-tu
 
 ## Troubleshooting
 
-Turn On provides a troubleshooting report under "Menu" -> "About Turn On" -> "Troubleshooting" -> "Debugging information".
-Additionally, you can obtain a debugging log by running Turn On as follows from a terminal:
+You can obtain a debugging log by running Turn On as follows from a terminal:
 
 ```console
 $ flatpak run --env=G_MESSAGES_DEBUG=all de.swsnr.turnon
 ```
 
-You may want to add both to your bug reports, but note that both may contain **sensitive information**.
+You may want to add this to your bug reports, but note that it may contain **sensitive information**.
 Read them carefully before sharing them publicly; in doubt, ask to share them privately in your bug report.
 
 ## License
