@@ -26,7 +26,6 @@ dev = [
     "ruff",
     "pytest",
     "pytest-asyncio",
-    "pyrefly",
     "blueprint-compiler",
     "basedpyright>=1.39.0",
 ]
