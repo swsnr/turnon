@@ -1,7 +1,7 @@
 [project]
 name = "turnon"
 description = "Turn on devices in your network"
-version = "3.0.1"
+version = "3.1.0.dev1"
 # 3.13 is baseline of Freedesktop 25.08
 requires-python = "~=3.13.0"
 authors = [{ name = "Sebastian Wiesner", email = "sebastian@swsnr.de" }]
