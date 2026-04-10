@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 08:12+0200\n"
-"PO-Revision-Date: 2025-11-18 12:10+0000\n"
+"PO-Revision-Date: 2026-04-10 08:57+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translate.codeberg.org/projects/de-swsnr-turnon/de-swsnr-turnon/zh_Hans/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
@@ -77,14 +77,12 @@ msgid "Turn on devices from the command line."
 msgstr "从命令行打开设备。"
 
 #: de.swsnr.turnon.metainfo.xml:42
-#, fuzzy
-#| msgid "Update to GNOME 49."
 msgid "Update to GNOME 50."
-msgstr "更新到 GNOME 49。"
+msgstr "更新到 GNOME 50。"
 
 #: de.swsnr.turnon.metainfo.xml:43
 msgid "Rewrite in Python."
-msgstr ""
+msgstr "用 Python 重写。"
 
 #: de.swsnr.turnon.metainfo.xml:52
 msgid "Update to GNOME 49."
@@ -304,18 +302,12 @@ msgid ""
 msgstr "空白的问候页面，其中包含应用程序图标和添加新设备的按钮"
 
 #: resources/device-row.blp:25
-#, fuzzy
-#| msgctxt "shortcuts section"
-#| msgid "Device discovery"
 msgid "Device is offline"
-msgstr "设备发现"
+msgstr "设备已离线"
 
 #: resources/device-row.blp:38
-#, fuzzy
-#| msgctxt "shortcuts section"
-#| msgid "Device discovery"
 msgid "Device is online"
-msgstr "设备发现"
+msgstr "设备已在线"
 
 #: resources/device-row.blp:78
 msgctxt "device-row.action.row.add.tooltip"
@@ -411,7 +403,7 @@ msgstr "这似乎是通过 DNS 解析的通用名称。"
 
 #: resources/edit-device-dialog.blp:119 resources/edit-device-dialog.blp:188
 msgid "<b>v4</b>"
-msgstr ""
+msgstr "<b>v4</b>"
 
 #: resources/edit-device-dialog.blp:121
 msgctxt "edit-device-dialog.entry.host.feedback"
@@ -420,7 +412,7 @@ msgstr "这是一个有效的 IPv4 地址。"
 
 #: resources/edit-device-dialog.blp:133 resources/edit-device-dialog.blp:205
 msgid "<b>v6</b>"
-msgstr ""
+msgstr "<b>v6</b>"
 
 #: resources/edit-device-dialog.blp:135
 msgctxt "edit-device-dialog.entry.host.feedback"
@@ -584,7 +576,7 @@ msgstr "扫描网络"
 
 #: resources/validation-indicator.blp:24
 msgid "Valid input"
-msgstr ""
+msgstr "有效输入"
 
 #: src/turnon/app.py:74
 msgctxt "option.list-devices.description"
@@ -628,18 +620,7 @@ msgstr "使用给定的文件作为 ARP 缓存源（仅用于开发）"
 
 #. Translators: This is Pango markup, be sure to escape appropriately
 #: src/turnon/app.py:147
-#, fuzzy, python-brace-format
-#| msgctxt "about-dialog.license-text"
-#| msgid ""
-#| "Copyright {copyright_name} &lt;{copyright_email}&gt;\n"
-#| "\n"
-#| "Licensed under the terms of the EUPL 1.2. You can find official "
-#| "translations of the license text at <a href=\"{translations}"
-#| "\">{translations}</a>.\n"
-#| "\n"
-#| "The full English text follows.\n"
-#| "\n"
-#| "{license_text}"
+#, python-brace-format
 msgctxt "about-dialog.license-text"
 msgid ""
 "Copyright {copyright_name} &lt;{copyright_email}&gt;\n"
@@ -655,7 +636,8 @@ msgstr ""
 "版权所有 {copyright_name} &lt;{copyright_email}&gt;\n"
 "\n"
 "根据 EUPL 1.2 条款授权。您可以在 <a href=\"{translations}\">{translations}</"
-"a> 找到许可证文本的官方译本。\n"
+"a>\n"
+"找到许可文本的官方译本。\n"
 "\n"
 "完整的英文文本如下。\n"
 "\n"
@@ -713,8 +695,6 @@ msgid "No device found for label {label}\n"
 msgstr "未找到标签 {label} 的设备\n"
 
 #: src/turnon/main.py:96
-#, fuzzy
-#| msgid "Turn On"
 msgctxt "application-name"
 msgid "Turn On"
 msgstr "Turn On"
