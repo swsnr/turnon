@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de.swsnr.turnon\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 08:12+0200\n"
-"PO-Revision-Date: 2025-09-28 08:09+0000\n"
+"PO-Revision-Date: 2026-04-10 08:57+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/de-swsnr-"
 "turnon/de-swsnr-turnon/nl/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #. Translators: Do feel free to translate the application name, as in "Turning on a device".
 #: de.swsnr.turnon.desktop:3 de.swsnr.turnon.metainfo.xml:5
@@ -81,14 +81,12 @@ msgid "Turn on devices from the command line."
 msgstr "Schakel apparaten in met behulp van de opdrachtregel."
 
 #: de.swsnr.turnon.metainfo.xml:42
-#, fuzzy
-#| msgid "Update to GNOME 49."
 msgid "Update to GNOME 50."
-msgstr "Bijgewerkt naar GNOME 49."
+msgstr "Bijgewerkt naar GNOME 50."
 
 #: de.swsnr.turnon.metainfo.xml:43
 msgid "Rewrite in Python."
-msgstr ""
+msgstr "Herschreven in Python."
 
 #: de.swsnr.turnon.metainfo.xml:52
 msgid "Update to GNOME 49."
@@ -335,18 +333,12 @@ msgstr ""
 "voegen"
 
 #: resources/device-row.blp:25
-#, fuzzy
-#| msgctxt "shortcuts section"
-#| msgid "Device discovery"
 msgid "Device is offline"
-msgstr "Zoeken naar apparaten"
+msgstr "Het apparaat is offline"
 
 #: resources/device-row.blp:38
-#, fuzzy
-#| msgctxt "shortcuts section"
-#| msgid "Device discovery"
 msgid "Device is online"
-msgstr "Zoeken naar apparaten"
+msgstr "Het apparaat is online"
 
 #: resources/device-row.blp:78
 msgctxt "device-row.action.row.add.tooltip"
@@ -446,7 +438,7 @@ msgstr "Dit lijkt op een algemene via dns verkregen naam."
 
 #: resources/edit-device-dialog.blp:119 resources/edit-device-dialog.blp:188
 msgid "<b>v4</b>"
-msgstr ""
+msgstr "<b>v4</b>"
 
 #: resources/edit-device-dialog.blp:121
 msgctxt "edit-device-dialog.entry.host.feedback"
@@ -455,7 +447,7 @@ msgstr "Dit is een geldig ipv4-adres."
 
 #: resources/edit-device-dialog.blp:133 resources/edit-device-dialog.blp:205
 msgid "<b>v6</b>"
-msgstr ""
+msgstr "<b>v6</b>"
 
 #: resources/edit-device-dialog.blp:135
 msgctxt "edit-device-dialog.entry.host.feedback"
@@ -620,7 +612,7 @@ msgstr "Netwerk doorzoeken"
 
 #: resources/validation-indicator.blp:24
 msgid "Valid input"
-msgstr ""
+msgstr "Geldige invoer"
 
 #: src/turnon/app.py:74
 msgctxt "option.list-devices.description"
@@ -665,18 +657,7 @@ msgstr "Gebruik het gekozen bestand als ARP-cache (alleen voor ontwikkelaars)"
 
 #. Translators: This is Pango markup, be sure to escape appropriately
 #: src/turnon/app.py:147
-#, fuzzy, python-brace-format
-#| msgctxt "about-dialog.license-text"
-#| msgid ""
-#| "Copyright {copyright_name} &lt;{copyright_email}&gt;\n"
-#| "\n"
-#| "Licensed under the terms of the EUPL 1.2. You can find official "
-#| "translations of the license text at <a href=\"{translations}"
-#| "\">{translations}</a>.\n"
-#| "\n"
-#| "The full English text follows.\n"
-#| "\n"
-#| "{license_text}"
+#, python-brace-format
 msgctxt "about-dialog.license-text"
 msgid ""
 "Copyright {copyright_name} &lt;{copyright_email}&gt;\n"
@@ -692,8 +673,8 @@ msgstr ""
 "Auteursrecht {copyright_name} &lt;{copyright_email}&gt;\n"
 "\n"
 "Uitgebracht onder de voorwaarden van de EUPL 1.2-licentie. Officiële "
-"vertalingen van de licentievoorwaarden zijn te vinden op <a "
-"href=\"{translations}\">{translations}</a>.\n"
+"vertalingen van de licentievoorwaarden zijn te vinden op <a href=\""
+"{translations}\">{translations}</a>.\n"
 "\n"
 "Hieronder vindt u de Engelstalige tekst.\n"
 "\n"
@@ -752,8 +733,6 @@ msgid "No device found for label {label}\n"
 msgstr "Er is geen apparaat genaamd “{label}”\n"
 
 #: src/turnon/main.py:96
-#, fuzzy
-#| msgid "Turn On"
 msgctxt "application-name"
 msgid "Turn On"
 msgstr "Aanzetten"
