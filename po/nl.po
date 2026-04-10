@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-09 08:12+0200\n"
 "PO-Revision-Date: 2026-04-10 08:57+0000\n"
-"Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
+"Last-Translator: Iwert <iwert@noreply.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/de-swsnr-"
 "turnon/de-swsnr-turnon/nl/>\n"
 "Language: nl\n"
@@ -57,7 +57,7 @@ msgstr "Voeg aan te zetten apparaten toe."
 
 #: de.swsnr.turnon.metainfo.xml:13
 msgid "Discover devices in the local network."
-msgstr "Ontdek apparaten op uw lokale netwerk."
+msgstr "Vind apparaten op uw lokale netwerk."
 
 #: de.swsnr.turnon.metainfo.xml:14
 msgid "Discover web interfaces on devices."
