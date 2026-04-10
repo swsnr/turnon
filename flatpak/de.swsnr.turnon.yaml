@@ -16,8 +16,8 @@ modules:
     sources:
       - type: git
         url: https://codeberg.org/swsnr/turnon.git
-        tag: v3.0.0
-        commit: 0875032e7fc8105cbf7a78016a7267ebe954ff86
+        tag: v3.0.1
+        commit: 77eecdeac6f8fc32e1ec87214bacaa6ab03c6d98
     build-commands:
       # Crudely assert that we're not on a -dev version
       - grep version pyproject.toml | grep -qv -- '[.-]dev'
